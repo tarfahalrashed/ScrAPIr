@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="SemiColonWeb" />
+
+	<!-- Stylesheets
+	============================================= -->
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Raleway:300,400,500,600,700|Crete+Round:400i" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	<link rel="stylesheet" href="css/dark.css" type="text/css" />
+	<link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+	<link rel="stylesheet" href="css/animate.css" type="text/css" />
+	<link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+
+	<link rel="stylesheet" href="css/responsive.css" type="text/css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="stylesheet" href="css/treeview.min.css"/>
+
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
+
+	<!-- load the minimalist version of JSONEditor, which doesn't have Ace embedded -->
+	<!-- <link href="dist/jsoneditor.css" rel="stylesheet" type="text/css">
+	<link href="dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
+ -->
+
+ 	 <link href="dist/jsoneditor.css" rel="stylesheet" type="text/css">
+   <script src="dist/jsoneditor.js"></script>
+
+
+	<!-- Document Title
+	============================================= -->
+	<title>API Integration Steps</title>
+
+<style>.process-steps li { pointer-events: none; }</style>
+
+</head>
+
+<body class="stretched" onload="callFirebase()">
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		<!-- Header
+		============================================= -->
+		<header id="header" class="full-header">
+
+			<div id="header-wrap">
+
+				<div class="container clearfix">
+
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+					<!-- Logo
+					============================================= -->
+					<!--<div id="logo">
+						<a href="index.html" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="images/logo.png" alt="Canvas Logo"></a>
+						<a href="index.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a>
+					</div>--><!-- #logo end -->
+
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu">
+
+						<ul>
+							<li class="mega-menu"><a href="index.html">Home</a>
+							</li>
+							<li class="mega-menu"><a href="index.html#about">About</a>
+							</li>
+							<li class="mega-menu"><a href="index.html#demos" >Demos</a>
+							</li>
+							<li class="mega-menu"><a href="index.html#APIs">Websites</a>
+							</li>
+							<li class="mega-menu"><a href="dataset.html" data-offset="100" >Dataset</a>
+							</i>
+							<li class="mega-menu"><a href="api-integration.html">Integrate</a>
+							</li>
+							<li class="mega-menu"><a href="index.html#contact">Contact</a>
+							</li>
+							<li class="current"><a id="SignupLogin" href="login-register.html">Sign in</a>
+								<ul id="acc_signout" style="width:100px">
+									<li><a href="account.html" id="acc" style="display:none"><div>Account</div></a></li>
+									<li><a href="" id="signout" style="display:none"><div>Sign out</div></a>
+								</ul>
+							</li>
+							<li class="mega-menu"><a href="account.html" id=profile></a>
+							</li>
+						</ul>
+
+						<!-- Top Search
+						============================================= -->
+						<div id="top-search">
+							<a id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+							<form action="search.html" method="get">
+								<input type="text" name="q" class="form-control" value="" placeholder="search for">
+							</form>
+						</div><!-- #top-search end -->
+
+					</nav><!-- #primary-menu end -->
+
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap">
+
+				<div class="container clearfix">
+					<!--<h4>Integrate your API</h4>-->
+
+					<div id="processTabs" style="">
+
+						<ul class="process-steps process-5 clearfix" style="position:relative; top:-60px; ">
+							<li>
+								<a href="#ptab1" class="i-circled i-bordered divcenter">1</a>
+								<h5>API Basics</h5>
+							</li>
+							<li>
+								<a href="#ptab2" class="i-circled i-bordered divcenter">2</a>
+								<h5>Pagination</h5>
+							</li>
+							<li>
+								<a href="#ptab3" class="i-circled i-bordered divcenter">2</a>
+								<h5>Request Parameters</h5>
+							</li>
+							<li>
+								<a href="#ptab4" class="i-circled i-bordered divcenter">3</a>
+								<h5>Response Parameters</h5>
+							</li>
+							<!--<li>
+								<a href="#ptab4" class="i-circled i-bordered divcenter">4</a>
+								<h5>Response Parameters</h5>
+							</li>-->
+							<li>
+								<a href="#ptab5" class="i-circled i-bordered divcenter">4</a>
+								<h5>Confirm Integration</h5>
+							</li>
+						</ul>
+
+						<div style="position:relative; top:-80px">
+							<div id="ptab1">
+								<div class="tabs divcenter nobottommargin clearfix" style="max-width: 500px;">
+
+								<form style=""><!-- max-width: 60rem; position:relative; left:270px; -->
+									<div class="form-group">
+										<label>API Name*</label>
+										<input type="text" class="form-control" id="title" placeholder="e.g. 'YouTube API'" required>
+									</div>
+									<div class="form-group">
+										<label>API Version*</label>
+										<input type="text" class="form-control" id="version" placeholder="e.g. '3.0'" required>
+									</div>
+									<div class="form-group">
+										<label>API Description</label>
+										<textarea class="form-control" id="description" rows="2" placeholder=""></textarea>
+									</div>
+									<div class="form-group">
+										<label>API Type*</label>
+										<select class="form-control" id="type">
+											<option>Articles</option>
+											<option>Videos</option>
+											<option>Images</option>
+											<option>Products</option>
+											<option>Books</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label>API URL*</label>
+										<input type="text" class="form-control" id="url" placeholder="e.g. 'https://www.googleapis.com/youtube/v3/search'" required>
+									</div>
+								</form><!-- callGitHub(document.getElementById('url').value) -->
+								<a class="button button-3d nomargin fright tab-linker" style="position:relative; top:-10px" rel="2" onclick=""><i class="glyphicon glyphicon-chevron-right"></i></a>
+							</div>
+						</div>
+
+
+							<div id="ptab2">
+								<!-- <h3>Pagination Information</h3> -->
+
+								<h6 style=" position:relative; left:270px;">Please choose the pagination style of this API <a class="" type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></h6>
+								<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-lg">
+										<div class="modal-body">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												</div>
+												<div class="modal-body">
+													<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+													<p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+													<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+													<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+													<p class="nobottommargin">Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 500px;">
+
+
+
+								<form id="form-group" name="register-form" class="nobottommargin" action="#" method="post">
+									<div class="col_full">
+										<label>Max Number of results per page*</label>
+										<input type="text" class="form-control"  id="result_max" placeholder="" required>
+									</div>
+									<div class="col_full">
+										<label>Results per page [parameter name if exisit]</label>
+										<input type="text" class="form-control" id="result_param" placeholder="">
+									</div>
+								</form>
+
+							</div>
+
+								<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="background-color:#E8E8E8; max-width: 500px;">
+
+									<h5 style=" margin-left: 10px; margin-top: 10px;">Please fill in either Next or Index based on your API specification</h5>
+
+									<ul class="tab-nav tab-nav2 center clearfix">
+												<li class="inline-block"><a href="#tab-login">Next</a></li>
+												<li class="inline-block"><a href="#tab-register">Index</a></li>
+									</ul>
+
+										<div class="tab-container">
+
+															<div class="tab-content clearfix" id="tab-login">
+
+																<!-- <form style="">
+																	<div class="form-group">
+																		<label>API Name*</label>
+																		<input type="text" class="form-control" id="title" placeholder="e.g. 'YouTube API'" required>
+																	</div> -->
+
+																		<form style="width:400px; margin-left: 50px;">
+																			<!-- <h3>Login to your Account</h3> -->
+																			<div class="form-group">
+																				<label>Current Page [parameter name]*</label>
+																				<input type="text" class="form-control"  id="cur_page_param" placeholder="" required>
+
+																			</div>
+																			<div class="form-group">
+																				<label>Next Page [parameter name]*</label>
+																				<input type="text" class="form-control"  id="next_page_param" placeholder="" required>
+																			</div>
+																		</form>
+															</div>
+
+															<div class="tab-content clearfix" id="tab-register">
+																<div class="">
+																	<div class="" style="">
+																		<!-- <h3>Register for an Account</h3> -->
+																		<form style="width:400px; margin-left: 50px;">
+																			<div class="form-group">
+																				<label>Index [parameter name]*</label>
+																				<input type="text" class="form-control"  id="index_param" placeholder="" required>
+																			</div>
+																		</form>
+																	</div>
+																</div>
+															</div>
+
+														</div>
+
+						</div>
+						<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 500px;">
+						</br>
+							<div><!-- callGitHub(document.getElementById('url').value)-->
+								<a class="button button-3d nomargin tab-linker" rel="1"><i class="glyphicon glyphicon-chevron-left"></i></a>
+								<a class="button button-3d nomargin fright tab-linker" rel="3" onclick="callGitHub(document.getElementById('url').value)"><i class="glyphicon glyphicon-chevron-right"></i></a>
+							</div>
+								<!-- Parameters HERE -->
+							</div>
+						</div>
+
+							<div id="ptab3">
+								<h3>Request Parameters</h3>
+								<table id="requestTabel" class="table table-bordered table-striped">
+								  <thead>
+										<tr>
+										  <th style="background-color: #fff7e5;">Name*</th>
+											<th style="background-color: #fff7e5;">Default Value*</th>
+											<!-- <th>Multivalue?</th> -->
+											<th style="background-color: #fff7e5;">List of Values</th>
+											<!-- <th>Display?</th> -->
+											<th style="background-color:#ecf6ef">Displayed Name</th>
+										  <!-- <th>HTML Element</th> -->
+											<th style="background-color:#ecf6ef">Description</th>
+											<th style="background-color:#ecf6ef">Type</th>
+											<!--<th>Required?</th>-->
+										</tr>
+								  </thead>
+								  <tbody>
+									<tr>
+										<td>
+											<input class="form-control" type="text" id="name" placeholder="">
+										</td>
+										<td>
+											<input class="form-control" type="text" id="value" placeholder="">
+										</td>
+
+										<td>
+											<input class="form-control" type="text" id="listOfValues" placeholder="If Multivalue">
+										</td>
+
+										<td>
+											<div>
+												<input id="displayedName" class="form-control" type="text" placeholder="Name Displayed to Users">
+											</div>
+										</td>
+
+
+										<td>
+											<input class="form-control" type="text" id="desc" placeholder="Parameter Description"> <!-- chaneg it to condition -->
+										</td>
+										<td>
+											<select class="form-control" id="type" style="height:30px">
+												<option value="string">String</option>
+												<option value="int">Integer</option>
+												<option value="date">Date</option>
+												<option value="date-time">DateTime</option>
+											</select>
+										</td>
+
+										<td>
+											<input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/>
+										</td>
+									</tr>
+								  </tbody>
+								</table>
+
+								<a class="button button-3d button-mini button-circle button-yellow"onclick="addRow()"><i class="glyphicon glyphicon-plus"></i>Add a Parameter</a>
+
+								<div>
+									<a class="button button-3d nomargin tab-linker" rel="2"><i class="glyphicon glyphicon-chevron-left"></i></a>
+									<a class="button button-3d nomargin fright tab-linker" rel="4" onclick="showResponseSchema()"><i class="glyphicon glyphicon-chevron-right"></i></a>
+								</div>
+							</div>
+
+							<div id="ptab4">
+								<!--<h3>Response Schema</h3>-->
+							<!--<div class="row" >  max-width: 60rem; position:relative; -->
+							<div class="row">
+								<div class="col" >
+									<h4>Response Schema</h4>
+									<div id="jsoneditor"></div>
+										<!--</br>
+										<button id="expandAll" class="button button-3d button-mini button-rounded button-teal">Expand All</button>
+										<button id="collapseAll" class="button button-3d button-mini button-rounded button-teal">Collapse All</button>
+										<button id="submit" class="button button-3d button-mini button-rounded button-teal">Review</button>-->
+								</div>
+
+								<div class="col">
+									<h4>Selected Fields</h4>
+									<!-- <pre id="fields" style="height:380px; border: 1px solid lightgray; background-color:#eeeeee"></pre> -->
+									<!-- <div id="fields" style="height:370px; width: 200px; overflow-y:scroll; overflow-y:auto; overflow-x:auto; border: 1px solid lightgray;">
+
+									</div> -->
+
+									<table id="fields" class="">
+									  <tbody>
+
+									  </tbody>
+									</table>
+
+								</div>
+
+								<div class="col">
+									<h4>Sample Data</h4>
+									<!-- <div id="jsonSample" style="height:370px; width: 500px; overflow-y:scroll; overflow-y:auto; overflow-x:auto;"></div> -->
+									<div id="tree" style="height:370px; overflow-y:scroll; overflow-y:auto; overflow-x:auto; "></div>
+
+									<form>
+									<div id="jsoneditor"></div>
+									  <div id="textModeSelection" style="display:none;">
+									    <b>Selection:</b><div id="textRange"></div>
+									    <b>Text:</b><div id="selectedText"></div>
+									  </div>
+									  <div id="treeModeSelection">
+									    <b>Selection:</b>
+									    <div id="selectedNodes"></div>
+									  </div>
+									</form>
+
+									<!-- <script>
+									  // create the editor
+
+									</script>
+-->
+								</div>
+
+							</div>
+								<!--<div class="col">
+									<textarea id="result" rows="6" placeholder="Result" style=" width:60%;margin-top: 20px;"></textarea>
+								</div>
+							</div>-->
+
+							 <div >
+									<a class="button button-3d nomargin tab-linker" rel="3"><i class="glyphicon glyphicon-chevron-left"></i></a>
+									<a class="button button-3d nomargin fright tab-linker" rel="5" onclick="reviewAPIIntegration()"><i class="glyphicon glyphicon-chevron-right"></i></a>
+							</div>
+
+						</div>
+
+							<!--<div id="ptab4">
+								<h3>Response Parameters</h3>
+								<table class="table">
+									<thead>
+										<th>Response Parameters</th>
+										<th>Displayed Names</th>
+									</thead>
+									<tbody id="res">
+
+									</tbody>
+								</table>
+
+								<div>
+									<a class="button button-3d nomargin tab-linker" rel="3"><i class="glyphicon glyphicon-chevron-left"></i></a>
+									<a class="button button-3d nomargin fright tab-linker" rel="5"><i class="glyphicon glyphicon-chevron-right" onclick="showRequestSchema2()"></i></a>
+								</div>
+							</div>-->
+
+						  <div id="ptab5">
+								<!-- <div class="row">
+									<div class="col"> -->
+										<!-- <h4>Preview of your API Integration:</h4> -->
+									<!-- <p>Click on section to edit:</p>
+									<a class="button button-3d button-mini button-rounded button-teal tab-linker" rel="1">1</a>
+									<a class="button button-3d button-mini button-rounded button-teal tab-linker" rel="2">2</a>
+									<a class="button button-3d button-mini button-rounded button-teal tab-linker" rel="3">3</a> -->
+									<h5 style="display: inline-block;">Review\Edit your API Integration:</h5>
+									<a class="button button-3d button-mini button-rounded button-yellow tab-linker" rel="1" style="width:100px; ">1.Basic</a>
+									<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="2" style="width:100px; ">2.Pagination</a>
+									<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="3" style="width:100px; ">3.Request</a>
+									<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="4" style="width:100px; ">4.Response</a>
+
+									<div style="float:right;">
+										<button id="saveAPI" class="button button-3d button-mini button-rounded" onclick="saveAPI()" style="width:90px"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save</button>
+										<button id="cancelAPI" class="button button-3d button-mini button-rounded button-red" onclick="cancelAPI()" style="width:90px"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Cancel</button>
+									</div>
+
+									<div id="previewAPIIntegration" ></div>
+
+									<!-- </div>
+									<div class="col" style="top:70px"> -->
+									<!-- <h5>Save or cancel your API integration:</h5> -->
+
+									<!-- </div> -->
+								</div>
+
+								<!--<a class="button button-3d nomargin tab-linker" rel="3"><i class="glyphicon glyphicon-chevron-left"></i></a>-->
+								<!-- <a class="button button-3d nomargin fright tab-linker" onclick="saveAPI()" >Integrate</a> -->
+
+
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</section><!-- #content end -->
+
+		<!-- Footer
+		============================================= -->
+		<footer id="footer" class="dark">
+
+			<div class="container-fullwidth">
+
+				<!-- Footer Widgets
+				============================================= -->
+				<div class="footer-widgets-wrap clearfix">
+
+				</div><!-- .footer-widgets-wrap end -->
+
+			</div>
+
+			<!-- Copyrights
+			============================================= -->
+			<div id="copyrights">
+
+				<div class="container-fullwidth clearfix">
+
+				</div>
+
+			</div><!-- #copyrights end -->
+
+		</footer><!-- #footer end -->
+
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<!--<div id="gotoTop" class="icon-angle-up"></div>-->
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- External JavaScripts
+	============================================= -->
+	<script src="js/jquery.js"></script>
+
+	<script src="js/plugins.js"></script>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script src="js/functions.js"></script>
+
+	<!-- My
+	 JavaScripts
+	============================================= -->
+	<script src="js/search.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/renderjson.js"></script>
+
+	<script src="js/treeview.min.js" type="text/javascript"></script>
+
+
+	<!-- Date & Time Picker JS -->
+	<script src="js/components/moment.js"></script>
+	<script src="demos/travel/js/datepicker.js"></script>
+	<script src="js/components/timepicker.js"></script>
+
+	<!-- Include Date Range Picker -->
+	<script src="js/components/daterangepicker.js"></script>
+
+
+	<!-- <script src="dist/jsoneditor-minimalist.js"></script>
+	<script src="dist/jsoneditor-minimalist.min.js"></script>
+	<script src="dist/jsoneditor.js"></script>
+	<script src="dist/jsoneditor.min.js"></script> -->
+
+	<script src="js/underscore.js"></script>
+	<script src="js/underscore-min.js"></script>
+
+
+	<script>
+		$(function() {
+			$( "#processTabs" ).tabs({ show: { effect: "fade", duration: 400 } });
+			$( ".tab-linker" ).click(function() {
+				$( "#processTabs" ).tabs("option", "active", $(this).attr('rel') - 1);
+				return false;
+			});
+		});
+
+	</script>
+
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-database.js"></script>
+
+	<style>
+
+		.modal-body{
+			font-size:1.5em;
+		}
+		.nav-link{
+			font-size:1.5em;
+		}
+
+		.tab-content{
+			font-size:1em;
+		}
+		.form-control{
+			font-size:1.5em;
+		}
+
+		.table thead th{
+			/*font-size:1.5em;*/
+		}
+
+		.table thead tr input{
+			/*font-size:1.5em;*/
+		}
+
+			.req{
+				bgcolor: red;
+			}
+
+			.dis{
+				background-color: blue;
+			}
+
+			.checkbox-style-3-label{
+				font-size: 0.9em;
+			}
+
+			.renderjson a              { text-decoration: none; }
+			.renderjson .disclosure    { color: #ae5a41; font-size:1.5em; font-weight:bold; font-family: Arial, Helvetica, sans-serif;}
+			.renderjson .syntax        { color: #474446; font-size:1.5em ; font-family: Arial, Helvetica, sans-serif;}
+			.renderjson .string        { color: #474446; font-size:1.5em; }
+			.renderjson .number        { color: #474446; font-size:1.5em; font-family: Arial, Helvetica, sans-serif;}
+			.renderjson .boolean       { color: #c3cb71; font-size:1.5em; font-family: Arial, Helvetica, sans-serif;}
+			.renderjson .key           { color: #116e9b; font-size:1.5em; font-weight:bold; font-family: Arial, Helvetica, sans-serif;}
+			.renderjson .keyword       { color: #c3cb71; font-size:1.5em; font-family: Arial, Helvetica, sans-serif;}
+			.renderjson .object.syntax { color: #559e83; font-size:1.5em; font-family: Arial, Helvetica, sans-serif;}
+			.renderjson .array.syntax  { color: orange; font-family: Arial, Helvetica, sans-serif;}
+
+			.cell-title {
+				font-weight: bold;
+			}
+			.cell-effort-driven {
+				text-align: center;
+			}
+			.slick-group-title[level='0'] {
+				font-weight: bold;
+			}
+			.slick-group-title[level='1'] {
+				text-decoration: underline;
+			}
+			.slick-group-title[level='2'] {
+				font-style: italic;
+			}
+
+			.cell-selection {
+				border-right-color: silver;
+				border-right-style: solid;
+				background: #f5f5f5;
+				color: gray;
+				text-align: right;
+				font-size: 10px;
+			}
+
+			.slick-row.selected .cell-selection {
+				background-color: transparent;
+			}
+
+			.item-details-form {
+				z-index: 10000;
+				display: inline-block;
+				border: 1px solid black;
+				margin: 8px;
+				padding: 10px;
+				background: #efefef;
+				-moz-box-shadow: 0px 0px 15px black;
+				-webkit-box-shadow: 0px 0px 15px black;
+				box-shadow: 0px 0px 15px black;
+				position: absolute;
+				top: 10px;
+				left: 150px;
+			}
+			.item-details-form-buttons {
+				float: right;
+			}
+			.item-details-label {
+				margin-left: 10px;
+				margin-top: 20px;
+				display: block;
+				font-weight: bold;
+			}
+			.item-details-editor-container {
+				width: 200px;
+				height: 20px;
+				border: 1px solid silver;
+				background: white;
+				display: block;
+				margin: 10px;
+				margin-top: 4px;
+				padding: 0;
+				padding-left: 4px;
+				padding-right: 4px;
+			}
+
+			.cell-reorder {
+				cursor: move;
+				background: url("../images/drag-handle.png") no-repeat center center;
+				background-color: #f5f5f5;
+			}
+
+			.recycle-bin {
+				width: 120px;
+				border: 1px solid gray;
+				background: beige;
+				padding: 4px;
+				font-size: 12pt;
+				font-weight: bold;
+				color: black;
+				text-align: center;
+				-moz-border-radius: 10px;
+			}
+			.red {
+				background: red;
+			}
+			.bold {
+				font-weight: bold;
+			}
+
+
+			html, body {
+			height: 100%;
+
+		}
+
+						code {
+      background-color: #f5f5f5;
+    }
+
+    code.multiline {
+      display: block;
+      white-space: pre-wrap
+    }
+
+		#jsoneditor {
+      width: 100%;
+      height: 400px;
+    }
+
+		/*#jsoneditor td{
+			max-height: 24px;
+			height: 0px;
+			padding: 0 0 0 0;
+
+		}
+
+		#jsoneditor tr{
+			max-height: 24px;
+			margin: 0; border: 0; padding: 0;
+			border-collapse: collapse;
+
+			/*display: block;*/
+		/*}
+
+		#jsoneditor table{
+			border-spacing: 0;
+			border-collapse: collapse;
+		}
+
+		div.jsoneditor table {
+		  border-collapse: collapse;
+		  width: auto;
+		}
+
+
+		div.jsoneditor-tree table.jsoneditor-tree {
+		  border-collapse: collapse;
+		  border-spacing: 0;
+		  width: 100%;
+		}*/
+
+	</style>
+
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="SemiColonWeb" />
+
+	<!-- Stylesheets
+	============================================= -->
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Raleway:300,400,500,600,700|Crete+Round:400i" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	<link rel="stylesheet" href="css/dark.css" type="text/css" />
+	<link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+	<link rel="stylesheet" href="css/animate.css" type="text/css" />
+	<link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+
+	<link rel="stylesheet" href="css/responsive.css" type="text/css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- Document Title
+	============================================= -->
+	<title>Account</title>
+
+</head>
+
+<body class="stretched" onload="populateAccountTables()">
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		<!-- Header
+		============================================= -->
+		<header id="header" class="full-header">
+
+			<div id="header-wrap">
+
+				<div class="container clearfix">
+
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+					<!-- Logo
+					============================================= -->
+					<!-- <div id="logo">
+						<a href="index.html" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="images/logo.png" alt="Canvas Logo"></a>
+						<a href="index.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a>
+					</div>--><!-- #logo end -->
+
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu">
+
+							<ul>
+								<li class="mega-menu"><a href="index.html">Home</a>
+								</li>
+								<li class="mega-menu"><a href="index.html#about">About</a>
+								</li>
+								<li class="mega-menu"><a href="index.html#demos" >Demos</a>
+								</li>
+								<li class="mega-menu"><a href="index.html#APIs">Websites</a>
+								</li>
+								<li class="mega-menu"><a href="dataset.html" data-offset="100" >Dataset</a>
+								</i>
+								<li class="mega-menu"><a href="api-integration.html">Integrate</a>
+								</li>
+								<li class="mega-menu"><a href="index.html#contact">Contact</a>
+								</li>
+								<li class="mega-menu"><a id="SignupLogin" href="login-register.html">Sign in</a>
+									<ul id="acc_signout" style="width:100px">
+										<li class="current"><a href="account.html" id="acc" style="display:none"><div>Account</div></a></li>
+										<li><a href="" id="signout" style="display:none"><div>Sign out</div></a>
+									</ul>
+								</li>
+								<li class="current"><a href="account.html" id=profile></a>
+								</li>
+							</ul>
+
+						<!-- Top Search
+						============================================= -->
+						<div id="top-search">
+							<a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+							<form action="search.html" method="get">
+								<input type="text" name="q" class="form-control" value="" placeholder="Search for an API and hit enter..">
+							</form>
+						</div>
+
+					</nav><!-- #primary-menu end -->
+
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+
+		<!-- Page Title
+		============================================= -->
+		<!-- <section id="page-title">
+
+			<div class="container clearfix">
+				<h1>Tables</h1>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="#">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Shortcodes</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Tables</li>
+				</ol>
+			</div>
+
+		</section> -->
+		<!-- #page-title end -->
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap">
+
+				<div class="container clearfix">
+
+					<!-- Post Content
+					============================================= -->
+					<div class="nobottommargin clearfix">
+
+						<h4 id="dataTable" style="display:none">Saved Files</h4>
+
+						<table id="data_table_content" class="table table-hover" style="display:none; width:auto">
+						  <thead>
+							<tr>
+							  <th>Name</th>
+							  <th>Source</th>
+							  <th>Description</th>
+								<th></th>
+							</tr>
+						  </thead>
+						  <tbody>
+							<!-- <tr>
+							  <td>Mark</td>
+							  <td>Otto</td>
+							  <td>@mdo</td>
+								<td>@mdo</td>
+								<td>@mdo</td>
+
+							</tr>
+							<tr>
+							  <td>Jacob</td>
+							  <td>Thornton</td>
+							  <td>@fat</td>
+								<td>@mdo</td>
+								<td>@mdo</td>
+
+							</tr>
+							<tr>
+							  <td>Larry</td>
+							  <td>the Bird</td>
+							  <td>@twitter</td>
+								<td>@mdo</td>
+								<td>@mdo</td>
+
+							</tr> -->
+						  </tbody>
+						</table>
+
+
+						<h4 id="queryTable" style="display:none">Saved Queries</h4>
+
+						<table id="query_table_content" class="table table-hover" style="display:none">
+						  <thead>
+							<tr>
+							  <th>Query Name</th>
+							  <th>API Name</th>
+								<th>Manage</th>
+							</tr>
+						  </thead>
+						  <tbody>
+							<!-- <tr>
+							  <td>Mark</td>
+							  <td>Otto</td>
+							  <td>@mdo</td>
+							</tr>
+							<tr>
+							  <td>Jacob</td>
+							  <td>Thornton</td>
+							  <td>@fat</td>
+							</tr>
+							<tr>
+							  <td>Larry</td>
+							  <td>the Bird</td>
+							  <td>@twitter</td>
+							</tr> -->
+						  </tbody>
+						</table>
+
+					</div><!-- .postcontent end -->
+
+				</div>
+
+			</div>
+
+		</section><!-- #content end -->
+
+		<!-- Footer
+		============================================= -->
+		<!-- Footer
+		============================================= -->
+		<footer id="footer" class="dark">
+
+			<div class="container-fullwidth">
+
+				<!-- Footer Widgets
+				============================================= -->
+				<div class="footer-widgets-wrap clearfix">
+
+				</div><!-- .footer-widgets-wrap end -->
+
+			</div>
+
+			<!-- Copyrights
+			============================================= -->
+			<div id="copyrights">
+
+				<div class="container-fullwidth clearfix">
+
+				</div>
+
+			</div><!-- #copyrights end -->
+
+		</footer><!-- #footer end -->
+
+	</div><!-- #wrapper end -->
+
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-angle-up"></div>
+
+	<!-- External JavaScripts
+	============================================= -->
+	<script src="js/jquery.js"></script>
+	<script src="js/plugins.js"></script>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script src="js/functions.js"></script>
+
+	<script type="text/javascript" src="js/search.js"></script>
+
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-database.js"></script>
+
+</body>
+</html>

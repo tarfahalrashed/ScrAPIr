@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="SemiColonWeb" />
+
+	<!-- Stylesheets
+	============================================= -->
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Raleway:300,400,500,600,700|Crete+Round:400i" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	<link rel="stylesheet" href="css/dark.css" type="text/css" />
+	<link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+	<link rel="stylesheet" href="css/animate.css" type="text/css" />
+	<link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+
+	<link rel="stylesheet" href="css/responsive.css" type="text/css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="stylesheet" href="css/treeview.min.css"/>
+
+	<!-- Document Title
+	============================================= -->
+	<title>API Integration Steps</title>
+
+<style>.process-steps li { pointer-events: none; }</style>
+
+</head>
+
+<body class="stretched" onload="callFirebaseForRegistration()">
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		<!-- Header
+		============================================= -->
+		<header id="header" class="full-header">
+
+			<div id="header-wrap">
+
+				<div class="container clearfix">
+
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+					<!-- Logo
+					============================================= -->
+					<div id="">
+					</div><!-- #logo end -->
+
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu">
+
+						<ul>
+							<li class="mega-menu"><a href="index.html">Home</a>
+							</li>
+							<li class="mega-menu"><a href="index.html#about">About</a>
+							</li>
+							<li class="mega-menu"><a href="index.html#demos" >Demos</a>
+							</li>
+							<li class="mega-menu"><a href="index.html#APIs">Websites</a>
+							</li>
+							<li class="mega-menu"><a href="dataset.html" data-offset="100" >Dataset</a>
+							</i>
+							<li class="mega-menu"><a href="api-integration.html">Integrate</a>
+							</li>
+							<li class="mega-menu"><a href="index.html#contact">Contact</a>
+							</li>
+							<li class="current"><a id="SignupLogin" href="login-register.html">Sign in</a>
+								<ul id="acc_signout" style="width:100px">
+									<li><a href="account.html" id="acc" style="display:none"><div>Account</div></a></li>
+									<li><a href="" id="signout" style="display:none"><div>Sign out</div></a>
+								</ul>
+							</li>
+							<li class="mega-menu"><a href="account.html" id=profile></a>
+							</li>
+						</ul>
+
+						<!-- Top Search
+						============================================= -->
+						<div id="top-search">
+							<a id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+							<form action="search.html" method="get">
+								<input type="text" name="q" class="form-control" value="" placeholder="search for">
+							</form>
+						</div><!-- #top-search end -->
+
+					</nav><!-- #primary-menu end -->
+
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+
+
+
+
+		<!--old -->
+
+		<section id="content center">
+
+			<div class="content-wrap">
+
+				<div class="container clearfix">
+
+					<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 600px;">
+
+						<ul class="tab-nav tab-nav2 center clearfix">
+							<li class="inline-block"><a href="#tab-login">Login</a></li>
+							<li class="inline-block"><a href="#tab-register">Register</a></li>
+						</ul>
+
+						<div class="tab-container">
+
+							<div class="tab-content clearfix" id="tab-login">
+								<div class="card nobottommargin">
+									<div class="card-body" style="padding: 40px;">
+
+								<form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
+									<div class="col_full">
+										<label for="login-form-username">Username:</label>
+										<input type="text" id="displayName" name="displayName" value="" class="form-control" />
+				          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/> -->
+									</div>
+
+									<div class="col_full">
+										<label for="login-form-username">Email:</label>
+										<input type="text" id="email" name="email" value="" class="form-control" />
+				          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/> -->
+									</div>
+
+									<div class="col_full">
+										<label for="login-form-password">Password:</label>
+										<input ttype="password" id="password" name="password" value="" class="form-control" />
+				          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/> -->
+									</div>
+							</form>
+
+								<!-- <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button> -->
+
+			          <button disabled class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-in" name="signin">Sign In</button>
+			          &nbsp;&nbsp;&nbsp;
+			          <button class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-up" name="signup">Sign Up</button>
+			          &nbsp;&nbsp;&nbsp;
+			          <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>
+			          &nbsp;&nbsp;&nbsp;
+			          <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button>
+				</div>
+				</div>
+			          <!-- Container where we'll display the user details -->
+			          <div class="quickstart-user-details-container">
+			            Firebase sign-in status: <span id="quickstart-sign-in-status">Unknown</span>
+			            <div>Firebase auth <code>currentUser</code> object value:</div>
+			            <pre><code id="quickstart-account-details">null</code></pre>
+			          </div>
+			        </div>
+			      </div>
+
+			    </div>
+
+				</div>
+				</div>
+
+
+		</section><!-- #content end -->
+
+
+
+
+		<!-- Footer
+		============================================= -->
+		<footer id="footer" class="dark">
+
+			<div class="container-fullwidth">
+
+				<!-- Footer Widgets
+				============================================= -->
+				<div class="footer-widgets-wrap clearfix">
+
+				</div><!-- .footer-widgets-wrap end -->
+
+			</div>
+
+			<!-- Copyrights
+			============================================= -->
+			<div id="copyrights">
+
+				<div class="container-fullwidth clearfix">
+
+				</div>
+
+			</div><!-- #copyrights end -->
+
+		</footer><!-- #footer end -->
+
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<!--<div id="gotoTop" class="icon-angle-up"></div>-->
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- External JavaScripts
+	============================================= -->
+	<script src="js/jquery.js"></script>
+
+	<script src="js/plugins.js"></script>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script src="js/functions.js"></script>
+
+	<!-- My
+	 JavaScripts
+	============================================= -->
+
+	<script src="js/treeview.min.js" type="text/javascript"></script>
+
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-database.js"></script>
+	<script src="js/search.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+
+  // Initialize Firebase
+    //var firebase = require(‘firebase’);
+
+    // var config = {
+    //   apiKey: "AIzaSyBaJakjjAHw0wvBtELAtDLPmhq1piGWwqQ",
+    //   authDomain: "superapi-52bc2.firebaseapp.com",
+    //   databaseURL: "https://superapi-52bc2.firebaseio.com",
+    //   projectId: "superapi-52bc2",
+    //   storageBucket: "superapi-52bc2.appspot.com",
+    //   messagingSenderId: "859121565515"
+    // };
+		//
+    // firebase.initializeApp(config);
+		//
+		//
+    // window.onload = function() {
+    //   initApp();
+    // };
+  </script>
+
+</body>
+</html>

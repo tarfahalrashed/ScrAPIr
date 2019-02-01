@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="SemiColonWeb" />
+
+	<!-- Stylesheets
+	============================================= -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Raleway:300,400,500,600,700|Crete+Round:400i|Play+Fair:700" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	<link rel="stylesheet" href="css/dark.css" type="text/css" />
+	<link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+	<link rel="stylesheet" href="css/animate.css" type="text/css" />
+	<link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+
+	<!-- Bootstrap Select CSS -->
+	<link rel="stylesheet" href="css/components/bs-select.css" type="text/css" />
+
+	<link rel="stylesheet" href="css/responsive.css" type="text/css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+	<!-- Bootstrap Switch CSS -->
+	<link rel="stylesheet" href="css/components/bs-switches.css" type="text/css" />
+
+	<!-- Select-Boxes CSS -->
+	<link rel="stylesheet" href="css/components/select-boxes.css" type="text/css" />
+
+	<!-- Radio Checkbox Plugin -->
+	<link rel="stylesheet" href="css/components/radio-checkbox.css" type="text/css" />
+
+	<!-- Date Select Plugin -->
+	<link rel="stylesheet" href="css/components/daterangepicker.css" type="text/css" />
+
+  <!-- Slik Grid ---------------------------->
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link rel="shortcut icon" type="images/ico" href="favicon.ico" />
+  <link rel="stylesheet" href="css/slick.grid.css" type="text/css"/>
+  <link rel="stylesheet" href="css/jquery-ui-1.11.3.custom.css" type="text/css"/>
+	<link rel="stylesheet" href="controls/slick.pager.css" type="text/css"/>
+  <link rel="stylesheet" href="css/examples.css" type="text/css"/>
+	<link rel="stylesheet" href="controls/slick.columnpicker.css" type="text/css"/>
+
+	<!-- Document Title
+	============================================= -->
+	<title>Data Management</title>
+
+</head>
+
+<body class="stretched" onload="checkButtonClicked()" style="background-color:white">
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		<!-- Top Bar
+		============================================= -->
+		<!--<div id="top-bar">
+
+			<div class="container-fullwidth clearfix">
+
+				<div class="col_half nobottommargin">
+
+
+					<div class="top-links">
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="faqs.html">FAQs</a></li>
+							<li><a href="contact.html">Contact</a></li>
+							<li><a href="login-register.html">Login</a>
+								<div class="top-link-section">
+									<form id="top-login" role="form">
+										<div class="input-group" id="top-login-username">
+											<div class="input-group-prepend">
+												<div class="input-group-text"><i class="icon-user"></i></div>
+											</div>
+											<input type="email" class="form-control" placeholder="Email address" required="">
+										</div>
+										<div class="input-group" id="top-login-password">
+											<div class="input-group-prepend">
+												<div class="input-group-text"><i class="icon-key"></i></div>
+											</div>
+											<input type="password" class="form-control" placeholder="Password" required="">
+										</div>
+										<label class="checkbox">
+										  <input type="checkbox" value="remember-me"> Remember me
+										</label>
+										<button class="btn btn-danger btn-block" type="submit">Sign in</button>
+									</form>
+								</div>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+
+				<div class="col_half fright col_last nobottommargin">
+
+
+					<div id="top-social">
+						<ul>
+							<li><a href="#" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span><span class="ts-text">Facebook</span></a></li>
+							<li><a href="#" class="si-twitter"><span class="ts-icon"><i class="icon-twitter"></i></span><span class="ts-text">Twitter</span></a></li>
+							<li><a href="#" class="si-dribbble"><span class="ts-icon"><i class="icon-dribbble"></i></span><span class="ts-text">Dribbble</span></a></li>
+							<li><a href="#" class="si-github"><span class="ts-icon"><i class="icon-github-circled"></i></span><span class="ts-text">Github</span></a></li>
+							<li><a href="#" class="si-pinterest"><span class="ts-icon"><i class="icon-pinterest"></i></span><span class="ts-text">Pinterest</span></a></li>
+							<li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span><span class="ts-text">Instagram</span></a></li>
+							<li><a href="tel:+91.11.85412542" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+91.11.85412542</span></a></li>
+							<li><a href="mailto:info@canvas.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span><span class="ts-text">info@canvas.com</span></a></li>
+						</ul>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div> -->
+
+		<!-- Header
+		============================================= -->
+		<header id="header"> <!-- style="background-image: url('images/youtube_logo.png'); background-size: 250px 80px; background-repeat: no-repeat;  background-position: center" -->
+
+			<div id="header-wrap">
+
+				<div class="container-fullwidth clearfix">
+
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+					<!-- Logo
+					============================================= -->
+					<div id="logo">
+						<!--<a href="index.html" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="images/logo.png" alt="Canvas Logo"></a>
+						<a href="index.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a>-->
+					</div><!-- #logo end -->
+
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu">
+						<ul>
+							<li class="mega-menu"><a href="index.html">Home</a>
+							</li>
+							<li class="mega-menu"><a href="index.html#about">About</a>
+							</li>
+							<li class="mega-menu"><a href="index.html#demos" >Demos</a>
+							</li>
+							<li class="current"><a href="index.html#APIs">Websites</a>
+							</li>
+							<li class="mega-menu"><a href="dataset.html" data-offset="100" >Dataset</a>
+							</i>
+							<li class="mega-menu"><a href="api-integration.html">Integrate</a>
+							</li>
+							<li class="mega-menu"><a href="index.html#contact">Contact</a>
+							</li>
+							<li class="mega-menu"><a id="SignupLogin" href="login-register.html">Sign in</a>
+								<ul id="acc_signout" style="width:100px">
+									<li><a href="account.html" id="acc" style="display:none"><div>Account</div></a></li>
+									<li><a href="" id="signout" style="display:none"><div>Sign out</div></a>
+								</ul>
+							</li>
+							<li class="mega-menu"><a href="account.html" id=profile></a>
+							</li>
+						</ul>
+
+						<!-- Top Search
+						============================================= -->
+						<div id="top-search">
+							<a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+							<form action="search.html" method="get">
+								<input type="text" name="q" class="form-control" value="" placeholder="search for">
+							</form>
+						</div><!-- #top-search end -->
+
+					</nav><!-- #primary-menu end -->
+
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+
+		<!-- Page Title
+		============================================= -->
+		<!--<section id="page-title">
+
+			<div class="container clearfix">
+				<h1>100% Full Width Layout</h1>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="#">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Pages</a></li>
+					<li class="breadcrumb-item active" aria-current="page">100% Full Width Layout</li>
+				</ol>
+			</div>
+
+		</section> -->
+
+		<!-- Content
+		============================================= -->
+		<section id="content" style="">
+			<!--<ul class="process-steps bottommargin clearfix">
+				<li>
+					<a href="#ptab1" class="i-circled i-bordered i-alt divcenter">1</a>
+					<h5>Search and Filter</h5>
+				</li>
+				<li>
+					<a href="#ptab3" class="i-circled i-bordered i-alt divcenter">3</a>
+					<h5>Review Result</h5>
+				</li>
+				<li>
+					<a href="#ptab2" class="i-circled i-bordered i-alt divcenter">2</a>
+					<h5>Refine Result</h5>
+				</li>
+			</ul>-->
+			<!--<div class="content-wrap"> -->
+
+				<div class="container-fullwidth flex-cols"  id="allSections" style="width:100%; height:100%;">
+
+
+						<!-- Sidebar
+						============================================= -->
+
+						<div id="reqSection" class="sidebar" style="width:200px;">
+							<!--<div class="sidebar-widgets-wrap" style="float:bottom; height:700px; overflow: scroll;">--><!--overflow: scroll;">-->
+									<div class="form-group">
+										<h4>1. Search and Filter</h4>
+									</div>
+								</br>
+
+									<div id="reqParametersContainer" style="height:550px;">
+										<div id="reqParameters" style="max-height:450px; overflow-y:scroll; overflow-y:auto; overflow-x:auto;"></div>
+
+										</br>
+										<a id="submitQuery" class="button button-mini" onclick="retrieveData()"></i>Submit </a>
+										<a class="button button-mini button-teal button-roundedl" type="reset" value="Reset" onClick="window.location.reload()"></i>Reset</a>
+									</div>
+
+					</div><!-- Request -->
+
+						<!-- Post Content
+						============================================= -->
+						<div id="resultSection" class="sidebar coll1">
+							<h4>2. View Result</h4>
+							<!-- Choose the view type-->
+							<div id="viewButtons" style="display:none">
+								<button onclick="viewTable()" class="button button-mini button button-circle" data-toggle="tooltip" data-placement="bottom" title="Table View"> <i class="glyphicon glyphicon-th" style="left:2px"></i></button>
+								<!--<button onclick="viewList()" class="button button-mini button button-circle" data-toggle="tooltip" data-placement="bottom" title="List View"> <i class="glyphicon glyphicon-list-alt" style="left:2px"></i></button>-->
+								<button onclick="viewTree()" class="button button-mini button button-circle" data-toggle="tooltip" data-placement="bottom" title="Tree View"> <i class="glyphicon glyphicon-align-left" style="left:2px"></i></button>
+
+								<div id="viewButtons2" style="float:right;">
+									<!-- <a id="CSV" class="button button-mini button-border button-rounded button-red" style="display:none" onclick="DownloadJSON2CSV()"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>
+									<button type="button" class="button button-mini button-border button-rounded button-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>
+									<button type="button" class="button button-mini button-border button-rounded button-green"  aria-haspopup="true" aria-expanded="false"> <img src="images/java.png" width="15px" height="15px" bottom="5px"> &nbsp;Script </button> -->
+
+									<!--	<a id="Save-Data" class="button button-mini button-border button-rounded button-yellow" style="display:none" onclick="addQueryToDB()"><i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE</a> -->
+									<!--<a id="Save-Data" class="button button-mini button-border button-rounded button-yellow dropdown-toggle" style="display:none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="addQueryToDB()"><i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE</a>-->
+
+									<div class="dropdown-menu">
+										<form class="px-4 py-3">
+											<div class="form-group">
+												<label for="exampleDropdownFormEmail1">Title</label>
+												<input type="name" class="form-control" id="savedName" placeholder="">
+											</div>
+											<div class="form-group">
+												<label for="exampleDropdownFormEmail1">Descreption</label>
+												<input type="name" class="form-control" id="savedDescription" placeholder="Describe your data">
+											</div>
+											<div class="form-group">
+												<!-- <input type="name" class="form-control" id="savedDescription" placeholder="Describe your data">Make your dataset discoverable by others -->
+												<label class="checkbox">
+												  <input id="publicData" type="checkbox" value="remember-me">Make your dataset discoverable
+												</label>
+											</div>
+											<button type="button" class="button button-3d button-small button-rounded button-teal" onclick="addDataToDB()">Save</button>
+											<!-- <button type="button" class="btn btn-info" onclick="addQueryToDB()">Save Query</button>-->
+										</form>
+										<!-- <div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#">New around here? Sign up</a>
+										<a class="dropdown-item" href="#">Forgot password?</a> -->
+									</div>
+
+									<!-- <a id="JSON" class="button button-mini button-border button-rounded button-blue" style="display:none" onclick="copyHTML()"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>-->
+									<!--<a id="HTML" class="button button-mini button-border button-rounded button-green" style="display:none" onclick="copyHTML()"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>HTML</a>-->
+								</div>
+							</div>
+
+								<div id="myGrid" style="width:110vh; height:500px;"></div>
+								<div id="pager" style="width:110vh;"></div>
+								<!-- edit modal -->
+								<script id="itemDetailsTemplate" type="text/x-jquery-tmpl">
+									<div class='item-details-form'>
+										{{each columns}}
+										<div class='item-details-label'>
+											${name}
+										</div>
+										<div class='item-details-editor-container' data-editorid='${id}'></div>
+										{{/each}}
+										<hr/>
+										<div class='item-details-form-buttons'>
+											<button data-action='save'>Save</button>
+											<button data-action='cancel'>Cancel</button>
+										</div>
+									</div>
+								</script>
+
+							<!--******* Tree View *******-->
+							<div id="myTree" style="width:110vh;height:500px; display:none; overflow: scroll; "></div>
+
+							<!--******* List View *******-->
+							<div id="myList" style="width:110vh;height:500px; display:none; overflow: scroll; "></div>
+
+						</div><!-- .postcontent end -->
+
+						<!-- Sidebar
+						============================================= -->
+						<div id="resSection" class="sidebar col_last" style="width:200px;">
+							<div class="sidebar-widgets-wrap">
+								<h4>3. Refine Result</h4>
+							</br>
+
+								<div id="accordion" role="tablist">
+									<div class="card">
+										<div class="card-header" role="tab" id="headingOne">
+											<h5 class="mb-0">
+												<a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+													Fields
+												</a>
+											</h5>
+										</div>
+										<div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+											<div class="card-body" id="resParameters"> <!--id="resParameters"> -->
+												<!-- <div>
+													<input id="Title" value="response.search[j].title" class="checkbox-style" name="checkbox-w" type="checkbox"  autocomplete='off' checked>
+													<label for="Title" class="checkbox-style-3-label">Title</label>
+												</div>
+												<div>
+													<input id="PageID" value="response.search[j].pageid" class="checkbox-style" name="checkbox-w" type="checkbox" autocomplete='off' checked>
+													<label for="PageID" class="checkbox-style-3-label">PageID</label>
+												</div>
+												<div>
+													<input id="Size" value="response.search[j].size" class="checkbox-style" name="checkbox-w" type="checkbox" autocomplete='off' checked>
+													<label for="Size" class="checkbox-style-3-label">Size</label>
+												</div>  -->
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+
+							<!-- automatically ftech fields from firebase -->
+
+									<!--<div class="card">
+										<div class="card-header" role="tab" id="headingThree">
+											<h5 class="mb-0">
+												<a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+													Group By
+												</a>
+											</h5>
+										</div>
+										<div id="collapseThree" class="collapse show" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+											<div class="card-body">
+												<select id="groupByFilterSelect" class="select-tags form-control" multiple="" tabindex="-1" aria-hidden="true" style="width:160px;" autocomplete='off' ondrop="drop(event)" ondragover="allowDrop(event)">
+													<option id="channelTitle" value="channelTitle">Channel Title</option>
+													<option id="publishedAt" value="publishedAt">Published At</option>
+												</select>
+
+												</br>
+												<a href="#" class="button button-mini button-teal button-roundedl" type="reset" value="Reset" onclick="dataView.setGrouping([])" ></i>Clear grouping</a>
+											</div>
+										</div>
+									</div>-->
+
+									<!--<div id="drop1" ondrop="drop(event)" ondragover="allowDrop(event)">-->
+
+
+
+									<!-- <script>
+									function allowDrop(ev) {
+									    ev.preventDefault();
+									}
+
+									function drag(ev) {
+									    ev.dataTransfer.setData("label", ev.target.id);
+									}
+
+									function drop(ev) {
+									    ev.preventDefault();
+									    var data = ev.dataTransfer.getData("label");
+									    ev.target.appendChild(document.getElementById("channelTitle"));
+											//$("#channelTitle").selected=true;
+											//console.log($("#channelTitle").val());
+											//document.getElementById("groupByFilterSelect").innerHTML = "<option id='channelTitle' value='channelTitle' selected>Channel Title</option>";
+									}
+									</script> -->
+
+						</div><!-- .sidebar end -->
+
+				</div> <!-- All Three Sections -->
+
+			<!--</div> -->
+
+		</section><!-- #content end -->
+
+		<!-- Footer
+		============================================= -->
+		<footer id="footer" class="dark">
+
+			<div class="container-fullwidth">
+
+				<!-- Footer Widgets
+				============================================= -->
+				<div class="footer-widgets-wrap clearfix">
+
+				</div><!-- .footer-widgets-wrap end -->
+
+			</div>
+
+			<!-- Copyrights
+			============================================= -->
+			<div id="copyrights">
+
+				<div class="container-fullwidth clearfix">
+
+				</div>
+
+			</div><!-- #copyrights end -->
+
+		</footer><!-- #footer end -->
+
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-angle-up"></div>
+
+	<!-- External JavaScripts
+	============================================= -->
+	<script src="js/jquery.js"></script>
+	<script src="js/plugins.js"></script>
+
+	<!-- My JavaScripts
+	============================================= -->
+
+	    <!-- jQuery -->
+			<!-- Slik Grid-->
+			<script src="lib/firebugx.js"></script>
+
+			<script src="lib/jquery-1.11.2.min.js"></script>
+			<script src="lib/jquery-ui-1.11.3.js"></script>
+			<script src="lib/jquery.event.drag-2.3.0.js"></script>
+			<script src="lib/jquery.tmpl.min.js"></script>
+			<script src="lib/jquery.jsonp-2.4.min.js"></script>
+			<script src="lib/jquery.event.drop-2.3.0.js"></script>
+
+			<script src="js/slick.remotemodel.js"></script>
+			<script src="js/slick.formatters.js"></script>
+			<script src="js/slick.editors.js"></script>
+			<script src="js/slick.compositeeditor.js"></script>
+			<script src="js/slick.grid.js"></script>
+			<script src="js/slick.core.js"></script>
+			<script src="js/slick.dataview.js"></script>
+			<script src="js/slick.groupitemmetadataprovider.js"></script>
+
+			<script src="plugins/slick.checkboxselectcolumn.js"></script>
+			<script src="plugins/slick.cellrangedecorator.js"></script>
+			<script src="plugins/slick.cellrangeselector.js"></script>
+			<script src="plugins/slick.cellselectionmodel.js"></script>
+			<script src="plugins/slick.rowselectionmodel.js"></script>
+			<script src="plugins/slick.rowmovemanager.js"></script>
+
+			<script src="controls/slick.pager.js"></script>
+			<script src="controls/slick.columnpicker.js"></script>
+
+
+	    <!-- js files -->
+	    <script src="js/search.js" type="text/javascript"></script>
+			<link href="css/jsontree.css" rel="stylesheet">
+			<script src="js/jsontree.js" type="text/javascript"></script>
+
+	    <!-- Bootstrap -->
+	    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+	    <!-- FastClick -->
+	    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+	    <!-- NProgress -->
+	    <script src="../vendors/nprogress/nprogress.js"></script>
+	    <!-- bootstrap-progressbar -->
+	    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+	    <!-- iCheck -->
+	    <script src="../vendors/iCheck/icheck.min.js"></script>
+	    <!-- bootstrap-daterangepicker -->
+	    <script src="../vendors/moment/min/moment.min.js"></script>
+	    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	    <!-- bootstrap-wysiwyg -->
+	    <script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	    <script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+	    <script src="../vendors/google-code-prettify/src/prettify.js"></script>
+	    <!-- jQuery Tags Input -->
+	    <script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+	    <!-- Switchery -->
+	    <script src="../vendors/switchery/dist/switchery.min.js"></script>
+	    <!-- Select2 -->
+	    <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+	    <!-- Parsley -->
+	    <!--<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>-->
+	    <!-- Autosize -->
+	    <script src="../vendors/autosize/dist/autosize.min.js"></script>
+	    <!-- jQuery autocomplete -->
+	    <script src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	    <!-- starrr -->
+	    <script src="../vendors/starrr/dist/starrr.js"></script>
+	    <!-- Custom Theme Scripts -->
+	    <script src="../build/js/custom.min.js"></script>
+
+	    <!-- Load any supplemental Javascript libraries here -->
+	    <script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
+	    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+	    <!-- Firebase -->
+	    <!--<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>-->
+
+			<!-- <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-database.js"></script> -->
+
+				<!-- <script src="/__/firebase/5.4.1/firebase-app.js"></script>
+				<script src="/__/firebase/5.4.1/firebase-auth.js"></script>
+				<script src="/__/firebase/init.js"></script> -->
+
+
+
+			<!-- Date & Time Picker JS -->
+			<script src="js/components/moment.js"></script>
+			<script src="demos/travel/js/datepicker.js"></script>
+			<script src="js/components/timepicker.js"></script>
+
+			<!-- Include Date Range Picker -->
+			<script src="js/components/daterangepicker.js"></script>
+
+
+	    <!-- TreeJS -->
+			<script type="text/javascript" src="js/renderjson.js"></script>
+
+			<!-- Slik Grid-->
+
+			<!-- Bootstrap Select Plugin -->
+			<script src="js/components/bs-select.js"></script>
+
+			<!-- Bootstrap Switch Plugin-->
+			<script src="js/components/bs-switches.js"></script>
+			<!-- Select-Boxes Plugin -->
+			<script src="js/components/select-boxes.js"></script>
+
+			<!-- Select-Splitter Plugin -->
+			<script src="js/components/selectsplitter.js"></script>
+			<!-- Footer Scripts
+			============================================= -->
+			<script src="js/functions.js"></script>
+
+			<script>
+				// jQuery(".bt-switch").bootstrapSwitch();
+				//
+				// // select Tags
+				// $(".select-tags").select2({
+				// 	tags: true
+				// });
+	    </script>
+
+			<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-database.js"></script>
+
+			<style>
+
+
+			.flex-container {
+			  display: flex;
+			  flex-flow: column wrap;
+			}
+
+					.checkbox-style-3-label{
+						font-size: 0.9em;
+					}
+
+					.renderjson a              { text-decoration: none; }
+					.renderjson .disclosure    { color: #ae5a41; font-size:1.2em; font-weight:bold }
+					.renderjson .syntax        { color: #474446; font-size:1.2em}
+					.renderjson .string        { color: #474446; font-size:1.2em}
+					.renderjson .number        { color: #474446; font-size:1.2em}
+					.renderjson .boolean       { color: #c3cb71; font-size:1.2em}
+					.renderjson .key           { color: #116e9b; font-size:1.2em; font-weight:bold}
+					.renderjson .keyword       { color: #c3cb71; font-size:1.2em}
+					.renderjson .object.syntax { color: #559e83; font-size:1.2em}
+					.renderjson .array.syntax  { color: orange; }
+
+					.cell-title {
+						font-weight: bold;
+					}
+					.cell-effort-driven {
+						text-align: center;
+					}
+					.slick-group-title[level='0'] {
+			      font-weight: bold;
+			    }
+			    .slick-group-title[level='1'] {
+			      text-decoration: underline;
+			    }
+			    .slick-group-title[level='2'] {
+			      font-style: italic;
+			    }
+
+					.cell-selection {
+					  border-right-color: silver;
+			      border-right-style: solid;
+			      background: #f5f5f5;
+			      color: gray;
+			      text-align: right;
+			      font-size: 10px;
+			    }
+
+			    .slick-row.selected .cell-selection {
+			      background-color: transparent;
+			    }
+
+			    .item-details-form {
+			      z-index: 10000;
+			      display: inline-block;
+			      border: 1px solid black;
+			      margin: 8px;
+			      padding: 10px;
+			      background: #efefef;
+			      -moz-box-shadow: 0px 0px 15px black;
+			      -webkit-box-shadow: 0px 0px 15px black;
+			      box-shadow: 0px 0px 15px black;
+			      position: absolute;
+			      top: 10px;
+			      left: 150px;
+			    }
+			    .item-details-form-buttons {
+			      float: right;
+			    }
+			    .item-details-label {
+			      margin-left: 10px;
+			      margin-top: 20px;
+			      display: block;
+			      font-weight: bold;
+			    }
+			    .item-details-editor-container {
+			      width: 200px;
+			      height: 20px;
+			      border: 1px solid silver;
+			      background: white;
+			      display: block;
+			      margin: 10px;
+			      margin-top: 4px;
+			      padding: 0;
+			      padding-left: 4px;
+			      padding-right: 4px;
+			    }
+
+			    .cell-reorder {
+			      cursor: move;
+			      background: url("../images/drag-handle.png") no-repeat center center;
+						background-color: #f5f5f5;
+			    }
+
+			    .recycle-bin {
+			      width: 120px;
+			      border: 1px solid gray;
+			      background: beige;
+			      padding: 4px;
+			      font-size: 12pt;
+			      font-weight: bold;
+			      color: black;
+			      text-align: center;
+			      -moz-border-radius: 10px;
+			    }
+			    .red {
+			      background: red;
+			    }
+			    .bold {
+			      font-weight: bold;
+			    }
+
+
+					html, body {
+				  height: 100%;
+
+				}
+
+				/*#allSections {
+
+						position: relative;
+
+					}
+					#resultSection {
+						position:absolute;
+						left:200px
+						}*/
+						/*#reqSection {
+							position:absolute;
+
+
+							}
+							#resSection {
+								position:absolute;
+
+								}*/
+			</style>
+</body>
+</html>
