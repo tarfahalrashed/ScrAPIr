@@ -531,7 +531,7 @@ function checkButtonClicked(){
   //           //[4] Response parameters
   //           for(var i=0; i<obJSON1.responses.length; ++i){
   //             var par = obJSON1.responses[i]['parameter'];//.split('*').join('[j]');
-  //             $("#resParameters").append("<div><input id="+par+" value="+obJSON1.responses[i]['displayedName']+" class='checkbox-style' name='checkbox-w' type='checkbox'  onchange='fieldHasBeenSelected(this)' autocomplete='off' checked><label for="+par+" class='checkbox-style-3-label'>"+obJSON1.responses[i]['displayedName']+"</label></div>");
+  //             $("#resParameters").append("<div><input id="+par+" value="+obJSON1.responses[i]['displayedName']+" class='checkbox-style' name='checkbox-w' type='checkbox'  onchange='fieldHasBeenSelected(this)' autocomplete='off' checked><label for="+par+" class='checkbox-style-1-label checkbox-small'>"+obJSON1.responses[i]['displayedName']+"</label></div>");
   //           }
   //         }
   //       });
@@ -604,7 +604,8 @@ function checkButtonClicked(){
           for(var i=0; i<obJSON1.responses.length; ++i){ //new response
             var par = obJSON1.responses[i]['parameter'];
             var nameD = obJSON1.responses[i]['displayedName'];
-            $("#resParameters").append("<div><input id="+par+" value="+nameD+" class='checkbox-style' name='checkbox-w' type='checkbox'  onchange='fieldHasBeenSelected(this)' autocomplete='off' checked><label for="+par+" class='checkbox-style-3-label'>"+nameD+"</label></div>");
+            //change to checkbox-style-1-label checkbox-small
+            $("#resParameters").append("<div><input id="+par+" value="+nameD+" class='checkbox-style' name='checkbox-w' type='checkbox'  onchange='fieldHasBeenSelected(this)' autocomplete='off' checked><label for="+par+" class='checkbox-style-1-label checkbox-small'>"+nameD+"</label></div>");
           }
         }
       });
