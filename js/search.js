@@ -605,7 +605,7 @@ function checkButtonClicked(){
             var par = obJSON1.responses[i]['parameter'];
             var nameD = obJSON1.responses[i]['displayedName'];
             //change to checkbox-style-1-label checkbox-small
-            $("#resParameters").append("<div><input id="+par+" value="+nameD+" class='checkbox-style' name='checkbox-w' type='checkbox'  onchange='fieldHasBeenSelected(this)' autocomplete='off' checked><label for="+par+" class='checkbox-style-1-label checkbox-small'>"+nameD+"</label></div>");
+            $("#resParameters").append("<div><input id="+par+" value="+nameD+" class='checkbox-style' name='checkbox-w' type='checkbox'  onchange='fieldHasBeenSelected(this)' autocomplete='off' checked><label for="+par+" class='checkbox-style-3-label'>"+nameD+"</label></div>");
           }
         }
       });
