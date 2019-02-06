@@ -85,6 +85,8 @@
 							</li>
 							<li class="mega-menu"><a href="index.html#about">About</a>
 							</li>
+							<li class="mega-menu"><a href="docs.html">Docs</a>
+							</li>
 							<li class="mega-menu"><a href="index.html#demos" >Demos</a>
 							</li>
 							<li class="mega-menu"><a href="index.html#APIs">Websites</a>
@@ -95,13 +97,11 @@
 							</li>
 							<li class="mega-menu"><a href="index.html#contact">Contact</a>
 							</li>
-							<li class="mega-menu"><a id="SignupLogin" href="login-register.html">Sign in</a>
-								<ul id="acc_signout" style="width:100px">
+							<li><a id="SignupLogin" href="login-register.html"><div>Sign in</div></a>
+								<ul style="width:100px;">
 									<li><a href="account.html" id="acc" style="display:none"><div>Account</div></a></li>
-									<li><a href="" id="signout" style="display:none"><div>Sign out</div></a>
+									<li><a href="" onclick="signOutFunction()" id="signout" style="display:none"><div>Sign out</div></a></li>
 								</ul>
-							</li>
-							<li class="mega-menu"><a href="account.html" id=profile></a>
 							</li>
 						</ul>
 
@@ -179,11 +179,11 @@
 
               <!-- list of datasets -->
 							<div>
-              <table id="public_data_table" class="table table-hover">
+              <table id="public_data_table" class="table table-hover" style="width:1000px">
 							<!-- class="display" style="width:1200px"> -->
 								<thead>
 								<tr>
-								  <th>Name</th>
+								  <th>Title</th>
 								  <th>Source</th>
 									<th></th>
 								</tr>
@@ -202,6 +202,47 @@
 								</tr>
 							</tfoot> -->
               </table>
+							<!-- <a id="trig" href="#myModal1" data-lightbox="inline" class="button">Trigger Modal</a> -->
+
+
+							<!-- Modal -->
+							<!-- <div class="" style="padding: 50px;">
+								<h3>A Simple Example of a Text Modal</h3>
+								<p class="nobottommargin">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum delectus, tenetur obcaecati porro! Expedita nostrum tempora quia provident perspiciatis inventore, autem eaque, quod explicabo, ipsum, facilis aliquid! Sapiente, possimus quo!</p>
+							</div> -->
+							<!-- <div class="modal1 mfp-hide" id="myModal1">
+								<div class="block divcenter" style="background-color: #FFF; max-width: 800px; ">
+									<div style="padding-left: 40px; padding-right: 40px; padding-top:15px">
+										<label>Query Link</label>
+										<input type="text" class="form-control" id="title" value="url...">
+									</div>
+									<div style="padding-left: 40px; padding-right: 40px; padding-top:15px">
+										<label>JavaScript Snippet Code</label>
+										<textarea class="form-control" rows="10" cols="60">
+											var listP = {
+													"maxResults": "3",
+													"part": "snippet",
+														"q": $('#queryw').val(),
+													"key": "AIzaSyBaJakjjAHw0wvBtELAtDLPmhq1piGWwqQ"
+												};
+
+												$.ajax({
+													url: url,//'https://www.googleapis.com/youtube/v3/search',
+													data: JSON.parse(listP),
+													dataType: 'jsonp',
+													success: function (x) {
+														console.log(JSON.stringify(x, '', 7));
+														return x;
+													}
+												});
+
+										</textarea>
+									</div>
+									<div class="section center nomargin" style="padding: 30px;">
+										<a href="#" class="button" onClick="$.magnificPopup.close();return false;">Close this Modal</a>
+									</div>
+								</div>
+							</div> -->
 
 							<script>
 								// $(document).ready(function() {

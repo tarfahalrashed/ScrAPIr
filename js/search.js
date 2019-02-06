@@ -41,10 +41,19 @@ function registration(){
         //console.log("NAME: ", displayName);
         $("#SignupLogin").html(snapshot.val().name);
       });
+
+      $('#acc').show();
+      $('#signout').show();
+
+      // document.getElementById('acc').style.visibility = 'visible';
+      // document.getElementById('signout').style.visibility = 'visible';
     }
     else{
       //window.alert("No USER")
       $("#SignupLogin").html("Sign in");
+
+      document.getElementById('acc').style.visibility = 'hidden';
+      document.getElementById('signout').style.visibility = 'hidden';
     }
   });
 }
@@ -762,25 +771,25 @@ function populateAccountTables(){
         $("#SignupLogin").html(displayName);
 
         //Query Table
-        //firebase.database().ref('users/'+ user.uid+'/savedQueries/' + $("#savedName").val()).set(JSON.parse(JSON.stringify(qObj)));
-        firebase.database().ref('users/'+ user.uid+'/savedQueries/').once('value').then(function(snapshot) {
-          snapshot.forEach(function(childSnapshot) { //for each saved query
-            if(childSnapshot.val() != undefined){
-              $("#queryTable").show();
-              $("#query_table_content").show();
-              console.log(childSnapshot.val().queryLink);
-              var name = childSnapshot.val().name;
-              var api_name = childSnapshot.val().apiName;
-              var link = childSnapshot.val().queryLink;
-              $("#query_table_content tbody").append('<tr><td>'+name+'</td><td>'+api_name+'</td><td><a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a> &nbsp;&nbsp;<a target="_blank" rel="noopener noreferrer" href="data-management.html?query='+link+'"><img src="images/edit.png" style="top:20px; width:18px" ></a> &nbsp; <a target="_blank" rel="noopener noreferrer" id="'+name+'" onclick="deleteRowAccountTable(this,this)"><img src="images/del.png" style="width:18px"></a></td></tr>');
-              //var api_title = str.split(' ').join('_');
-              //$("#apis_list").append("<option id="+api_title+">"+childSnapshot.val().title+"</option>");
-            }else{
-              //window.alert("No USER")
-              $("#SignupLogin").html("Login");
-            }
-          });
-        });
+        // firebase.database().ref('users/'+ user.uid+'/savedQueries/').once('value').then(function(snapshot) {
+        //   snapshot.forEach(function(childSnapshot) { //for each saved query
+        //     if(childSnapshot.val() != undefined){
+        //       $("#queryTable").show();
+        //       $("#query_table_content").show();
+        //       console.log(childSnapshot.val().queryLink);
+        //       var name = childSnapshot.val().name;
+        //       var api_name = childSnapshot.val().apiName;
+        //       var link = childSnapshot.val().queryLink;
+        //       $("#query_table_content tbody").append('<tr><td>'+name+'</td><td>'+api_name+'</td><td><a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a> &nbsp;&nbsp;<a target="_blank" rel="noopener noreferrer" href="data-management.html?query='+link+'"><img src="images/edit.png" style="top:20px; width:18px" ></a> &nbsp; <a target="_blank" rel="noopener noreferrer" id="'+name+'" onclick="deleteRowAccountTable(this,this)"><img src="images/del.png" style="width:18px"></a></td></tr>');
+        //       //var api_title = str.split(' ').join('_');
+        //       //$("#apis_list").append("<option id="+api_title+">"+childSnapshot.val().title+"</option>");
+        //
+        //     }else{
+        //       //window.alert("No USER")
+        //       $("#SignupLogin").html("Sign in");
+        //     }
+        //   });
+        // });
 
         //Files Table
         firebase.database().ref('users/'+ user.uid+'/savedData/').once('value').then(function(snapshot) {
@@ -794,16 +803,21 @@ function populateAccountTables(){
               var file_desc = childSnapshot.val().description;
               //var type = childSnapshot.val().type;
               var url = childSnapshot.val().urlCSV;
+              var urlJ = childSnapshot.val().urlJSON;
               var link = childSnapshot.val().queryLink;
-              $("#data_table_content tbody").append('<tr><td>'+name+'</td><td>'+api_name+'</td><td>'+file_desc+'</td><td><a href='+url+' download="my_data.csv"><img src="images/download.png" width="18px"></a> &nbsp; <a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a> &nbsp;&nbsp;<input id="'+name+'" type="image" src="images/del.png" style="width:18px"onclick="deleteRowAccountTableFiles(this,this)"></td></tr>');
+              $("#data_table_content tbody").append('<tr><td>'+name+'</td><td>'+api_name+'</td><td>'+file_desc+'</td><td><a href='+url+' download="my_data.csv"><img src="images/csv-file.png" width="30px"></a> &nbsp; <a href="data:'+ urlJ +'" download="data.json"><img src="images/json-file.png" width="25px"></a>&nbsp; <a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a> &nbsp;&nbsp;<input id="'+name+'" type="image" src="images/del.png" style="width:18px"onclick="deleteRowAccountTableFiles(this,this)"></td></tr>');
+
             }else{
               //window.alert("No USER")
-              $("#SignupLogin").html("Login");
+              $("#SignupLogin").html("Sign in");
             }
           });
         });
 
       });
+
+      $('#acc').show();
+      $('#signout').show();
     }
     else{
       //window.alert("No USER")
@@ -2115,6 +2129,10 @@ function callFirebase(){
   registration();
 }
 
+function signOutFunction(){
+  firebase.auth().signOut();
+}
+
 function callFirebaseForRegistration(){
 
   registration();
@@ -2128,8 +2146,8 @@ function callFirebaseForRegistration(){
       // [START signout]
       firebase.auth().signOut();
       //show the sign out button
-      $('#acc').show();
-      $('#signout').show();
+      // $('#acc').show();
+      // $('#signout').show();
       // [END signout]
     } else {
       var email = document.getElementById('email').value;
@@ -2213,7 +2231,7 @@ function callFirebaseForRegistration(){
         //document.getElementById('quickstart-account-details').textContent = 'null';
         // [END_EXCLUDE]
 
-        $("#SignupLogin").html('SignupLogin');
+        $("#SignupLogin").html('Sign in');
 
       }
       // [START_EXCLUDE silent]
@@ -2306,7 +2324,7 @@ function callFirebaseForRegistration(){
         //document.getElementById('quickstart-account-details').textContent = 'null';
         // [END_EXCLUDE]
 
-        $("#SignupLogin").html('SignupLogin');
+        $("#SignupLogin").html('Sign in');
 
       }
       // [START_EXCLUDE silent]
@@ -2414,7 +2432,7 @@ function callFirebaseForRegistration(){
         //document.getElementById('quickstart-account-details').textContent = 'null';
         // [END_EXCLUDE]
 
-        $("#SignupLogin").html('SignupLogin');
+        $("#SignupLogin").html('Sign in');
 
       }
       // [START_EXCLUDE silent]
@@ -2753,28 +2771,37 @@ function populateRequestParam(list){
 function populatePublicSavedDataset(){
 
   registration();
-  //firebase.initializeApp(config);
   //Files Table
   firebase.database().ref('publicSavedData/').once('value').then(function(snapshot) {
     snapshot.forEach(function(childSnapshot) { //for each saved data
       if(childSnapshot.val() != undefined){
-        //$("#dataTable").show();
-        //$("#data_table_content").show();
-        console.log("VALUE: ", childSnapshot.val().description);
-        // var name = childSnapshot.val().title;
+        //console.log("VALUE: ", childSnapshot.val().description);
         var api_name = childSnapshot.val().apiName;
         var file_desc = childSnapshot.val().description;
-        //var type = childSnapshot.val().type;
         var url = childSnapshot.val().urlCSV;
         var link = childSnapshot.val().queryLink;
         var urlJ = childSnapshot.val().urlJSON;
-        $("#public_data_table tbody").append('<tr><td>'+file_desc+'</td><td>'+api_name+'</td><td><a href='+url+' download="my_data.csv"><img src="images/csv-file.png" width="28px"></a> &nbsp; <a href="data:'+ urlJ +'" download="data.json"><img src="images/json-file.png" width="25px"></a> &nbsp; <a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a></td></tr>');
-        // var dataTable = $('#public_data_table').DataTable();
-        // dataTable.row.add([file_desc,api_name,'<a href='+url+' download="my_data.csv"><img src="images/csv-file.png" width="28px"></a> &nbsp;<a href="data:'+ urlJ +'" download="data.json"><img src="images/json-file.png" width="25px"></a> &nbsp; <a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a>']).draw();//, <a href='+url+' download="my_data.csv"><img src="images/csv-file.png" width="28px"></a>,'1' ]).draw();
-        //dataTable.row.add('<tr><td>'+file_desc+'</td><td>'+api_name+'</td><td><a href='+url+' download="my_data.csv"><img src="images/csv-file.png" width="28px"></a> &nbsp; <a href="data:'+ urlJ +'" download="data.json"><img src="images/json-file.png" width="25px"></a> &nbsp; <a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a></td></tr>').draw();
-        //dataTable.row.add(['file_desc'+api_name+'</td><td><a href='+url+' download="my_data.csv"><img src="images/csv-file.png" width="28px"></a> &nbsp; <a href="data:'+ urlJ +'" download="data.json"><img src="images/json-file.png" width="25px"></a> &nbsp; <a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a></td></tr>').draw();;
+        //var jsCode = childSnapshot.val().urlJSON;
+        $("#public_data_table tbody").append('<tr><td>'+file_desc+'</td><td>'+api_name+'</td><td><a href='+url+' download="my_data.csv"><img src="images/csv-file.png" width="28px"></a> &nbsp; <a href="data:'+ urlJ +'" download="data.json"><img src="images/json-file.png" width="25px"></a> &nbsp; <a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a> </td></tr>');
 
-//
+        // $("#public_data_table tbody").append('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SAVE</button></td></tr>');
+        //
+        // $("#public_data_table tbody").append('<div class="dropdown-menu"><form class="px-4 py-3"><p>xxxxxxx</p></form></div>');
+
+        // $("#public_data_table tbody").append('<div class="modal1 mfp-hide" id="myModal1"><div class="block divcenter" style="background-color: #FFF; max-width: 800px; ">');
+        // $("#public_data_table tbody").append('<div style="padding-left: 40px; padding-right: 40px; padding-top:15px">');
+        // $("#public_data_table tbody").append('<label>Query Link</label>');
+        // $("#public_data_table tbody").append('<input type="text" class="form-control" id="title" value="url...">');
+        // $("#public_data_table tbody").append('</div>');
+        // $("#public_data_table tbody").append('<div style="padding-left: 40px; padding-right: 40px; padding-top:15px">');
+        // $("#public_data_table tbody").append('<label>JavaScript Snippet Code</label>');
+        // $("#public_data_table tbody").append('<textarea id="code" class="form-control" rows="10" cols="60">At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.jdfgDHSgfksdfgksfaksedgfjkdhsgfhsfksjdhgksdhgljsdfkghkdsfgksdsdksjhd</textarea>');
+        // $("#public_data_table tbody").append('</div>');
+        // $("#public_data_table tbody").append('<div class="section center nomargin" style="padding: 30px;">');
+        // $("#public_data_table tbody").append('<a href="#" class="button" onClick="$.magnificPopup.close();return false;">Close this Modal</a>');
+        // $("#public_data_table tbody").append('</div></div></div>');
+        // $("#public_data_table tbody").append('</td></tr>');
+
 
       }else{
         //////////
@@ -2784,21 +2811,6 @@ function populatePublicSavedDataset(){
 
 }
 
-function searchQuery(t){
-
-  // var qSearch = document.getElementById("search_q");
-  //
-  // qSearch.addEventListener("input", function (event) {
-  //   if (qSearch.validity.typeMismatch) {
-  //     qSearch.setCustomValidity("Query format!");
-  //   } else {
-  //     //qSearch.setCustomValidity("");
-  //     console.log("Query: ",t);
-  //
-  //   }
-  // });
-
-}
 /*
 function requestAPI(url,listP){
 		//YOUTUBE
@@ -2807,8 +2819,8 @@ function requestAPI(url,listP){
    			"part": "snippet",
    		    "q": $('#queryw').val(),
 		   	"key": "AIzaSyBaJakjjAHw0wvBtELAtDLPmhq1piGWwqQ"
-	  	};*/
-/*
+	  	};
+
 	    $.ajax({
 	      url: url,//'https://www.googleapis.com/youtube/v3/search',
 	      data: JSON.parse(listP),
@@ -2818,8 +2830,8 @@ function requestAPI(url,listP){
           return x;
 	      }
 	    });
-
-}*/
+}
+*/
 
 
 

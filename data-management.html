@@ -149,6 +149,8 @@
 							</li>
 							<li class="mega-menu"><a href="index.html#about">About</a>
 							</li>
+							<li class="mega-menu"><a href="docs.html">Docs</a>
+							</li>
 							<li class="mega-menu"><a href="index.html#demos" >Demos</a>
 							</li>
 							<li class="current"><a href="index.html#APIs">Websites</a>
@@ -159,13 +161,11 @@
 							</li>
 							<li class="mega-menu"><a href="index.html#contact">Contact</a>
 							</li>
-							<li class="mega-menu"><a id="SignupLogin" href="login-register.html">Sign in</a>
-								<ul id="acc_signout" style="width:100px">
+							<li><a id="SignupLogin" href="login-register.html"><div>Sign in</div></a>
+								<ul style="width:100px;">
 									<li><a href="account.html" id="acc" style="display:none"><div>Account</div></a></li>
-									<li><a href="" id="signout" style="display:none"><div>Sign out</div></a>
+									<li><a href="" onclick="signOutFunction()" id="signout" style="display:none"><div>Sign out</div></a></li>
 								</ul>
-							</li>
-							<li class="mega-menu"><a href="account.html" id=profile></a>
 							</li>
 						</ul>
 
@@ -254,12 +254,6 @@
 								<button onclick="viewTree()" class="button button-mini button button-circle" data-toggle="tooltip" data-placement="bottom" title="Tree View"> <i class="glyphicon glyphicon-align-left" style="left:2px"></i></button>
 
 								<div id="viewButtons2" style="float:right;">
-									<!-- <a id="CSV" class="button button-mini button-border button-rounded button-red" style="display:none" onclick="DownloadJSON2CSV()"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>
-									<button type="button" class="button button-mini button-border button-rounded button-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>
-									<button type="button" class="button button-mini button-border button-rounded button-green"  aria-haspopup="true" aria-expanded="false"> <img src="images/java.png" width="15px" height="15px" bottom="5px"> &nbsp;Script </button> -->
-
-									<!--	<a id="Save-Data" class="button button-mini button-border button-rounded button-yellow" style="display:none" onclick="addQueryToDB()"><i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE</a> -->
-									<!--<a id="Save-Data" class="button button-mini button-border button-rounded button-yellow dropdown-toggle" style="display:none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="addQueryToDB()"><i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE</a>-->
 
 									<div class="dropdown-menu">
 										<form class="px-4 py-3">
