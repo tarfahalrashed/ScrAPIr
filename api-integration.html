@@ -230,6 +230,7 @@
 
 							</div>
 
+
 								<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="background-color:#E8E8E8; max-width: 500px;">
 
 									<h5 style=" margin-left: 10px; margin-top: 10px;">Please fill in either Next or Index based on your API specification</h5>
@@ -284,7 +285,7 @@
 						</br>
 							<div><!-- callGitHub(document.getElementById('url').value)-->
 								<a class="button button-3d nomargin tab-linker" rel="1"><i class="glyphicon glyphicon-chevron-left"></i></a>
-								<a class="button button-3d nomargin fright tab-linker" rel="3" onclick="callGitHub(document.getElementById('url').value)"><i class="glyphicon glyphicon-chevron-right"></i></a>
+								<a class="button button-3d nomargin fright tab-linker" rel="3" onclick=""><i class="glyphicon glyphicon-chevron-right"></i></a>
 							</div>
 								<!-- Parameters HERE -->
 							</div>
@@ -292,6 +293,7 @@
 
 							<div id="ptab3">
 								<h3>Request Parameters</h3>
+								<h5>You can enter the request parameters one by one, or fetch the mostly used parameters on<a class="button button-mini button-circle button-border button-pink" onclick="callGitHub(document.getElementById('url').value)">GitHub</a></h5>
 								<table id="requestTabel" class="table table-bordered table-striped">
 								  <thead>
 										<tr>
@@ -382,9 +384,8 @@
 
 								</div>
 
-								<div class="col">
+								<!-- <div class="col">
 									<h4>Sample Data</h4>
-									<!-- <div id="jsonSample" style="height:370px; width: 500px; overflow-y:scroll; overflow-y:auto; overflow-x:auto;"></div> -->
 									<div id="tree" style="height:370px; overflow-y:scroll; overflow-y:auto; overflow-x:auto; "></div>
 
 									<form>
@@ -398,13 +399,7 @@
 									    <div id="selectedNodes"></div>
 									  </div>
 									</form>
-
-									<!-- <script>
-									  // create the editor
-
-									</script>
--->
-								</div>
+								</div> -->
 
 							</div>
 								<!--<div class="col">
@@ -446,10 +441,10 @@
 									<a class="button button-3d button-mini button-rounded button-teal tab-linker" rel="2">2</a>
 									<a class="button button-3d button-mini button-rounded button-teal tab-linker" rel="3">3</a> -->
 									<h5 style="display: inline-block;">Review\Edit your API Integration:</h5>
-									<a class="button button-3d button-mini button-rounded button-yellow tab-linker" rel="1" style="width:100px; ">1.Basic</a>
-									<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="2" style="width:100px; ">2.Pagination</a>
-									<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="3" style="width:100px; ">3.Request</a>
-									<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="4" style="width:100px; ">4.Response</a>
+									<a class="button button-3d button-mini button-rounded button-yellow tab-linker" rel="1" style="width:120px; text-align:center">1.Basic</a>
+									<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="2" style="width:120px; text-align:center">2.Pagination</a>
+									<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="3" style="width:120px; text-align:center">3.Request</a>
+									<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="4" style="width:120px; text-align:center">4.Response</a>
 
 									<div style="float:right;">
 										<button id="saveAPI" class="button button-3d button-mini button-rounded" onclick="saveAPI()" style="width:90px"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save</button>

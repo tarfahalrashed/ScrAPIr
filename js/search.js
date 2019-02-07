@@ -408,10 +408,9 @@ var myObj;
 var listP, listP1;
 var obJSON;
 var obJSON1;
-
+var obSavedData;
 var url, url1;
 
-//var firebase = firebase.initializeApp(config);
 
 function copyFbRecord(oldRef, newRef) {
      oldRef.once('value', function(snap)  {
@@ -422,137 +421,121 @@ function copyFbRecord(oldRef, newRef) {
 }
 
 
+// function prettierURL(){
+//   var link = window.location.href;
+//   var url = link.split('.html');
+//   window.history.replaceState( null, null, url[0] );
+// }
 
-function clickDEMO(){
-  //window.location.href='data-management.html?api=YouTube_API_Demo';
-  window.location = 'data-management.html?api=YouTube_API';
-  //document.getElementById('submitQuery').click()
-  $("#submitQuery").click();
-  //retrieveData();
-}
-
-//function chooseAnAPI(api){//click on any API from hojme page //"api" is the clicked api
 function checkButtonClicked(){
 
   var str = window.location.href;
-  // if(str.includes("?query=")){
-  //   var url;
-  //   var urls = window.location.href.split("?query=");
-  //   var url_title = urls[0]//url[1].split('_').join(' ');
-  //   var urlAPI = urls[1].split("?");
-  //   console.log(urlAPI[0])
-  //   console.log(urlAPI[1])
-  //   var urlParam = urlAPI[1].split("&");
-  //
-  //     // retrieve myObj for YouTube from FireBase DB
-  //     firebase.initializeApp(config);
-  //
-  //     //copyFbRecord(firebase.database().ref('/demos/YouTube API Demo'), firebase.database().ref('/apis/YouTube API Demo'));
-  //     firebase.database().ref('/apis/').once('value').then(function(snapshot) {
-  //       //console.log("FIREBASE Parent: ", snapshot.val());
-  //       snapshot.forEach(function(childSnapshot) { //for each API
-  //         if(childSnapshot.val().url == urlAPI[0]){//check if this API exists
-  //           //console.log("FIREBASE: ", childSnapshot.val());
-  //           obJSON1 = childSnapshot.val();
-  //           //[1] Request URL
-  //           url = obJSON1.url;
-  //           //[2] Populate HTML elements from request parameters
-  //             var arr;
-  //             //for(var i=1; i<urls.length; ++i){
-  //             for(var i=0; i<urlParam.length; ++i){
-  //               console.log(urlParam[i])
-  //               if(obJSON1.parameters[i]['name'] == urlParam[i].split("=")[0]){//new if
-  //               if(obJSON1.parameters[i]['displayedName']){//if it should be displayed
-  //                 //label using myObj.parameters[i]['displayedName']
-  //                 $("#reqParameters").append("<label style='font-size:1em'>"+obJSON1.parameters[i]['displayedName']+"</label>")
-  //                 //type using myObj.parameters[i]['element']
-  //                 //if(obJSON1.parameters[i]['element'] == "input"){ //input
-  //                 //}else if(obJSON1.parameters[i]['element'] == "drop-down"){ //dropdown
-  //                   ///if(obJSON1.parameters[i]['multi']){
-  //                   // if(obJSON1.parameters[i]['listOfValues']){
-  //                   //   $("#reqParameters").append("<select class='form-control' id="+obJSON1.parameters[i]['name']+"></select></br>");
-  //                   //   arr = obJSON1.parameters[i]['listOfValues'].split(',');
-  //                   //   for(var j=0; j<arr.length; ++j){
-  //                   //     $("#"+obJSON1.parameters[i]['name']).append("<option>"+arr[j]+"</option>");
-  //                   //   }
-  //                   // }else{
-  //                 $("#reqParameters").append('<input style="height:27px" type="text" class="form-control" id="'+obJSON1.parameters[i]['name']+'" value="'+urlParam[i].split("=")[1]+'"></input></br>');
-  //                   //}
-  //                 // }else if(obJSON1.parameters[i]['element'] == "checkbox"){ //checkbox
-  //                 //   if(obJSON1.parameters[i]['multi']){
-  //                 //     arr = obJSON1.parameters[i]['listOfValues'].split(',');
-  //                 //     for(var j=0; j<arr.length; ++j){
-  //                 //       $("#reqParameters").append("<input style='height:27px' type='checkbox' id="+obJSON1.parameters[i]['name']+" value="+obJSON1.parameters[i]['value']+">");
-  //                 //       $("#reqParameters").append("<label for="+obJSON1.parameters[i]['name']+">&nbsp;"+ arr[j]+"</label>");
-  //                 //       $("#reqParameters").append("</br>");
-  //                 //     }
-  //                 //   }
-  //                 // }else if(obJSON1.parameters[i]['element'] == "datePicker"){ //date picker
-  //                 //   $("#reqParameters").append("<input type='text' name='birthday' id="+obJSON1.parameters[i]['name']+" value='01/01/2018' ></input></br>");
-  //                 // }else{ //radio button
-  //                 //   ///////
-  //                 // }
-  //               }
-  //             }//new if
-  //           }
-  //
-  //             // $(function() {
-  //             //   var currentTime = new Date()
-  //             //   $('input[name="birthday"]').daterangepicker({
-  //             //     singleDatePicker: true,
-  //             //     showDropdowns: true,
-  //             //     minYear: 1900,
-  //             //     maxYear: parseInt(moment().format('YYYY'),10)//currentTime.getFullYear()//parseInt(moment().format('YYYY'),10)
-  //             //   });
-  //             // });
-  //
-  //             //[3] Request parameters
-  //             listP1="{";
-  //
-  //             for(var i=0; i<urlParam.length; ++i){
-  //             //for(var i=0; i<obJSON1.parameters.length; ++i){
-  //               listP1+= JSON.stringify(urlParam[i].split("=")[0]);
-  //               listP1+= ":" //$('#queryw').val()
-  //               listP1+= JSON.stringify(urlParam[i].split("=")[1]);
-  //               // if(obJSON1.parameters[i]['displayedName']){
-  //               //   listP1+= JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
-  //               // }else{
-  //               //   listP1+= JSON.stringify(obJSON1.parameters[i]['value']);
-  //               // }
-  //                if(i+1<urlParam.length){
-  //                  listP1+= ","
-  //                }
-  //             }
-  //             //listP1+= ",";
-  //             if(obJSON1.resPerPageParam){
-  //               listP1+= JSON.stringify(obJSON1.resPerPageParam);
-  //               listP1+= ":";
-  //               listP1+= JSON.stringify(obJSON1.maxResPerPage);
-  //             }
-  //             listP1+= "}";
-  //             console.log("listP1 SETITEM: ",listP1);
-  //
-  //             //edit here
-  //             $("#reqParameters").append("<label style='font-size:1em'>Number of results</label>");
-  //             $("#reqParameters").append("<input style='height:27px' type='text' class='form-control' id='numOfResults' value="+obJSON1.maxResPerPage+"></input>")
-  //
-  //
-  //           //[4] Response parameters
-  //           for(var i=0; i<obJSON1.responses.length; ++i){
-  //             var par = obJSON1.responses[i]['parameter'];//.split('*').join('[j]');
-  //             $("#resParameters").append("<div><input id="+par+" value="+obJSON1.responses[i]['displayedName']+" class='checkbox-style' name='checkbox-w' type='checkbox'  onchange='fieldHasBeenSelected(this)' autocomplete='off' checked><label for="+par+" class='checkbox-style-1-label checkbox-small'>"+obJSON1.responses[i]['displayedName']+"</label></div>");
-  //           }
-  //         }
-  //       });
-  //     });
-  //
-  //     ///////////////////////////// query /////////////////////////////////
-  //
-  // }else{
 
-  var url = window.location.href.split("?api=");
+  if(str.includes("/#")){
+    var url = window.location.href.split("?api=");
+    var url_title1 = url[1].split('_').join(' ');
+    var url_title_only = url_title1.split("/#");
+    var url_title = url_title_only[0];
+    var url_fileName = url_title_only[1];
+
+    // var link = window.location.href;
+    // var url1 = link.replace('.html','');
+    // var url2 = url1.replace('/#','/');
+    // var url3 = url2.replace('?api=','/api=');
+    // window.history.replaceState( null, null, url3 );
+    // retrieve myObj for YouTube from FireBase DB
+    registration();
+
+    //Saved Data
+    firebase.database().ref('/publicSavedData/').once('value').then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot){ //for each API
+        if(childSnapshot.val().title == url_fileName){//check if this API exists
+          console.log("obSavedData: ", childSnapshot.val());
+          obSavedData = childSnapshot.val();
+        }
+      });
+    });
+
+    //copyFbRecord(firebase.database().ref('/demos/YouTube API Demo'), firebase.database().ref('/apis/YouTube API Demo'));
+    firebase.database().ref('/apis/').once('value').then(function(snapshot) {
+      //console.log("FIREBASE Parent: ", snapshot.val());
+      snapshot.forEach(function(childSnapshot){ //for each API
+        if(childSnapshot.val().title == url_title){//check if this API exists
+          //console.log("FIREBASE: ", childSnapshot.val());
+          obJSON1 = childSnapshot.val();
+          //[1] Request URL
+          url = obJSON1.url;
+          //[2] Populate HTML elements from request parameters
+            var arr;
+            for(var i=0; i<obJSON1.parameters.length; ++i){
+              if(obJSON1.parameters[i]['displayedName']){//if it should be displayed
+                $("#reqParameters").append("<label style='font-size:1em'>"+obJSON1.parameters[i]['displayedName']+"</label>")
+                  if(obJSON1.parameters[i]['listOfValues']){
+                    $("#reqParameters").append("<select class='form-control' id="+obJSON1.parameters[i]['name']+"></select></br>");
+                    arr = obJSON1.parameters[i]['listOfValues'].split(',');
+                    valueSelected = obSavedData.parameters[i]['value'];
+                    for(var j=0; j<arr.length; ++j){
+                      if(valueSelected == arr[j]){
+                        $("#"+obJSON1.parameters[i]['name']).append("<option selected>"+arr[j]+"</option>");
+                      }else{
+                        $("#"+obJSON1.parameters[i]['name']).append("<option>"+arr[j]+"</option>");
+                      }
+
+                    }
+                  }else{
+                    $("#reqParameters").append('<input style="height:27px" type="text" class="form-control" id="'+obJSON1.parameters[i]['name']+'" value="'+obSavedData.parameters[i]['value']+'"></input></br>');
+                  }
+              }
+            }
+
+            //[3] Request parameters
+            listP1="{";
+
+            for(var i=0; i<obJSON1.parameters.length; ++i){
+
+              listP1+= JSON.stringify(obJSON1.parameters[i]['name']);
+              listP1+= ":" //$('#queryw').val()
+              if(obJSON1.parameters[i]['displayedName']){
+                listP1+= JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
+              }else{
+                listP1+= JSON.stringify(obJSON1.parameters[i]['value']);
+              }
+              if(i+1<obJSON1.parameters.length){
+                 listP1+= ","
+               }
+            }
+            //listP1+= ",";
+            if(obJSON1.resPerPageParam){
+              listP1+= JSON.stringify(obJSON1.resPerPageParam);
+              listP1+= ":";
+              listP1+= JSON.stringify(obJSON1.maxResPerPage);
+            }
+            listP1+= "}";
+            console.log("listP1 SETITEM: ",listP1);
+
+            $("#reqParameters").append("<label style='font-size:1em'>Number of results</label>");
+            $("#reqParameters").append("<input style='height:27px' type='text' class='form-control' id='numOfResults' value="+obJSON1.maxResPerPage+"></input>")
+
+          //[4] Response parameters
+          for(var i=0; i<obSavedData.responses.length; ++i){
+            var par = obSavedData.responses[i]['parameter'];
+            var nameD = obSavedData.responses[i]['displayedName'];
+            if(obSavedData.responses[i]['isChecked']){
+              $("#resParameters").append("<div><input id="+par+" value="+nameD+" class='checkbox-style' name='checkbox-w' type='checkbox'  onchange='fieldHasBeenSelected(this)' autocomplete='off' checked><label for="+par+" class='checkbox-style-3-label'>"+nameD+"</label></div>");
+            }else{
+              $("#resParameters").append("<div><input id="+par+" value="+nameD+" class='checkbox-style' name='checkbox-w' type='checkbox'  onchange='fieldHasBeenSelected(this)' autocomplete='off'><label for="+par+" class='checkbox-style-3-label'>"+nameD+"</label></div>");
+            }
+          }//for response
+          retrieveData();
+        }
+      });
+    });
+
+}else{
+  var url = window.location.href.split("api=");
   var url_title = url[1].split('_').join(' ');
-  //if(url[1] == "youtube"){
+
+
     // retrieve myObj for YouTube from FireBase DB
     registration();
     //copyFbRecord(firebase.database().ref('/demos/YouTube API Demo'), firebase.database().ref('/apis/YouTube API Demo'));
@@ -619,101 +602,92 @@ function checkButtonClicked(){
         }
       });
     });
-//  } ELSE API
-  //}
+
+  }//else API
+
 }
 
-
-
-function youtubeDemo(){
-  //document.getElementById('query').value = "Adele's Official Music Videos";
-  //document.getElementById('order').value = 'date';
-  retrieveData();
-}
-
-
-function addQueryToDB(){
-
-  var qObj={};
-  var strQuery="";
-  //save API name
-  qObj.apiName = obJSON1.title;
-  //save parameters name and value
-  var parameters = [];
-
-
-  strQuery+=obJSON1.url
-  strQuery+="?"
-
-  for(var i=0; i<obJSON1.parameters.length; ++i){
-    var v;
-    strQuery+=obJSON1.parameters[i]['name']
-    strQuery+="="
-    if(obJSON1.parameters[i]['displayedName']){
-      v = JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
-      strQuery+=$("#"+obJSON1.parameters[i]['name']).val()
-    }else{
-      v = JSON.stringify(obJSON1.parameters[i]['value']);
-      strQuery+=obJSON1.parameters[i]['value']
-    }
-
-    if(i+1<obJSON1.parameters.length)
-      strQuery+="&"
-
-    parameters.push({
-      name: obJSON1.parameters[i]['name'],
-      value: v
-    });
-  }
-  qObj.parameters = parameters;
-
-
-  //save each response displayed name and id AND if it is checked or not
-  var responses = [];
-
-  for(var i=0; i<obJSON1.responses.length; ++i){
-    if($("#"+obJSON1.responses[i]['parameter']).is(":checked")){
-      var checked = true;
-    }
-    responses.push({
-      parameter: obJSON1.responses[i]['parameter'],
-      displayedName: obJSON1.responses[i]['displayedName'],
-      isChecked:checked
-    });
-  }
-
-  qObj.responses = responses;
-
-  qObj.name = $("#savedName").val()
-
-  qObj.queryLink = strQuery;
-
-  firebase.auth().onAuthStateChanged(function (user) {
-    if(user){
-      console.log("CURRENT USER: ",user.uid);
-
-      firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
-        var displayName = snapshot.val().name;
-        console.log("NAME: ", displayName);
-        $("#SignupLogin").html(displayName);
-        //save the saved query in the firebase
-        firebase.database().ref('users/'+ user.uid+'/savedQueries/' + $("#savedName").val()).set(JSON.parse(JSON.stringify(qObj)));
-
-        console.log("addedQuery");
-
-        //If public add the to the public savedQueries and allow users to search for these queries!
-        //firebase.database().ref('savedQueries/' + $("#savedName").val()).set(JSON.parse(JSON.stringify(qObj)));
-
-      });
-    }
-    else{
-      //window.alert("No USER")
-    }
-  });
-
-  //add query to account query table
-  console.log("Save Query: ", strQuery);
-}
+// function addQueryToDB(){
+//
+//   var qObj={};
+//   var strQuery="";
+//   //save API name
+//   qObj.apiName = obJSON1.title;
+//   //save parameters name and value
+//   var parameters = [];
+//
+//   strQuery+=obJSON1.url
+//   strQuery+="?"
+//
+//   for(var i=0; i<obJSON1.parameters.length; ++i){
+//     var v;
+//     strQuery+=obJSON1.parameters[i]['name']
+//     strQuery+="="
+//     if(obJSON1.parameters[i]['displayedName']){
+//       v = JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
+//       strQuery+=$("#"+obJSON1.parameters[i]['name']).val()
+//     }else{
+//       v = JSON.stringify(obJSON1.parameters[i]['value']);
+//       strQuery+=obJSON1.parameters[i]['value']
+//     }
+//
+//     if(i+1<obJSON1.parameters.length)
+//       strQuery+="&"
+//
+//     parameters.push({
+//       name: obJSON1.parameters[i]['name'],
+//       value: v
+//     });
+//   }
+//   qObj.parameters = parameters;
+//
+//
+//   //save each response displayed name and id AND if it is checked or not
+//   var responses = [];
+//
+//   for(var i=0; i<obJSON1.responses.length; ++i){
+//     if($("#"+obJSON1.responses[i]['parameter']).is(":checked")){
+//       var checked = true;
+//     }
+//     responses.push({
+//       parameter: obJSON1.responses[i]['parameter'],
+//       displayedName: obJSON1.responses[i]['displayedName'],
+//       isChecked:checked
+//     });
+//   }
+//
+//   qObj.responses = responses;
+//
+//   qObj.name = $("#savedName").val()
+//
+//   qObj.queryLink = strQuery;
+//
+//   firebase.auth().onAuthStateChanged(function (user) {
+//     if(user){
+//       console.log("CURRENT USER: ",user.uid);
+//
+//       firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
+//         var displayName = snapshot.val().name;
+//         console.log("NAME: ", displayName);
+//         $("#SignupLogin").html(displayName);
+//         //save the saved query in the firebase
+//         firebase.database().ref('users/'+ user.uid+'/savedQueries/' + $("#savedName").val()).set(JSON.parse(JSON.stringify(qObj)));
+//
+//         console.log("addedQuery");
+//
+//         //If public add the to the public savedQueries and allow users to search for these queries!
+//         //firebase.database().ref('savedQueries/' + $("#savedName").val()).set(JSON.parse(JSON.stringify(qObj)));
+//
+//       });
+//     }
+//     else{
+//       //window.alert("No USER")
+//     }
+//   });
+//
+//   //add query to account query table
+//   console.log("Save Query: ", strQuery);
+// }
 
 
 
@@ -758,8 +732,8 @@ $('#downloadCSVFileButton').click(function () {
 
 
 function populateAccountTables(){
-
   //look for the user, then get their save queries and files and add them to the tables
+  prettierURL();
   firebase.initializeApp(config);
 
   firebase.auth().onAuthStateChanged(function (user) {
@@ -797,7 +771,7 @@ function populateAccountTables(){
             if(childSnapshot.val() != undefined){
               $("#dataTable").show();
               $("#data_table_content").show();
-              console.log(childSnapshot.val().title);
+              //console.log(childSnapshot.val().title);
               var name = childSnapshot.val().title;
               var api_name = childSnapshot.val().apiName;
               var file_desc = childSnapshot.val().description;
@@ -805,8 +779,9 @@ function populateAccountTables(){
               var url = childSnapshot.val().urlCSV;
               var urlJ = childSnapshot.val().urlJSON;
               var link = childSnapshot.val().queryLink;
-              $("#data_table_content tbody").append('<tr><td>'+name+'</td><td>'+api_name+'</td><td>'+file_desc+'</td><td><a href='+url+' download="my_data.csv"><img src="images/csv-file.png" width="30px"></a> &nbsp; <a href="data:'+ urlJ +'" download="data.json"><img src="images/json-file.png" width="25px"></a>&nbsp; <a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a> &nbsp;&nbsp;<input id="'+name+'" type="image" src="images/del.png" style="width:18px"onclick="deleteRowAccountTableFiles(this,this)"></td></tr>');
+              $("#data_table_content tbody").append('<tr><td>'+name+'</td><td>'+api_name+'</td><td>'+file_desc+'</td><td><a href='+url+' download="my_data.csv"><img src="images/csv-file.png" width="30px"></a> &nbsp; <a href="data:'+ urlJ +'" download="data.json"><img src="images/json-file.png" width="25px"></a> &nbsp;  <a href="data-management.html?api='+api_name.replace(" ", "_")+'/#'+name+'" target="_blank"><img src="images/edit.png" width="25px"></a> &nbsp; <a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a> &nbsp;   <a id="'+name+'" href="" onclick="deleteRowAccountTableFiles(this,this)"><img src="images/del.png" width="25px"></a>   </td></tr>');
 
+// <input id="'+name+'" type="image" src="images/del.png" width="25px" style="bottom:   -30px;" onclick="deleteRowAccountTableFiles(this,this)">
             }else{
               //window.alert("No USER")
               $("#SignupLogin").html("Sign in");
@@ -827,19 +802,13 @@ function populateAccountTables(){
 }
 
 
-
-function viewQueryResult(link){
-console.log("ROW id: ", link);
-  //window.open(link);
-
-}
-
 var i = 0;
 var x = 0;
 var numResults = 0;
 
-
 function retrieveData(){
+  console.log("retrieveData() has been called");
+
   $('#myTree').empty();
   //$('#myList').empty();
 
@@ -872,8 +841,8 @@ function retrieveData(){
 
     var pages = Math.ceil($("#numOfResults").val()/obJSON1.maxResPerPage); //# of pages = (# of results entered by the user \ # of results returned by the API)
     var totalRes = $("#numOfResults").val();
-    console.log("totalRes: ", totalRes);
-    console.log("number of pages: ", pages);
+    // console.log("totalRes: ", totalRes);
+    // console.log("number of pages: ", pages);
     numResults = obJSON1.maxResPerPage;
 
     var start = 0;
@@ -884,11 +853,12 @@ function retrieveData(){
     getTheNextPage(p, pages, nextPage);
 
     function getTheNextPage(p, pages, nextPage){
+      console.log("getTheNextPage");
 
     listP=  "{";
     for(var i=0; i<obJSON1.parameters.length; ++i){
       if(!obJSON1.parameters[i]['description']){
-         console.log("No DESC: ");
+        //  console.log("No DESC: ");
       //   console.log(obJSON1.parameters[i]['description'])
       // }
       listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
@@ -901,8 +871,7 @@ function retrieveData(){
       listP+= ","
 
     }//if
-    }
-
+  }
 
     if(obJSON1.resPerPageParam){
       listP+= JSON.stringify(obJSON1.resPerPageParam);
@@ -921,7 +890,7 @@ function retrieveData(){
     }
     listP+= "}";
 
-    console.log("listP: ", JSON.parse(listP));
+    //console.log("listP: ", JSON.parse(listP));
     // console.log("Page: ", p);
 
     $.ajax({
@@ -942,35 +911,35 @@ function retrieveData(){
                    objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
                  }else{
                    var str = (this.checked ? "response."+this.id : 0);
-                   console.log("STR: ", str)
+                   //console.log("STR: ", str)
                    //IF ARRAY
                    if(str.includes("[i]")){
-                     console.log("Includes [i]");
+                     //console.log("Includes [i]");
                      var i=0;
                      var splt =  str.split("[i]");
                      // start if undefined
                      if(eval(splt[0]).length==0){
-                       console.log("undefined");
+                       //console.log("undefined");
                        objData[id]="";
                      }else{// start if NOT undefined
                      objData[id] = (this.checked ? eval("response."+this.id) : 0);
-                     console.log("objData[id]: ", objData[id]);
-                     console.log("splt: ", eval(splt[0]).length);
+                     //console.log("objData[id]: ", objData[id]);
+                     //console.log("splt: ", eval(splt[0]).length);
                      for(i=1; i<eval(splt[0]).length; ++i){
                        objData[id] += ", ";
                        objData[id] += eval("response."+this.id);
-                       console.log("objData[id]: ", objData[id]);
+                       //console.log("objData[id]: ", objData[id]);
                      }
                    }///test undefined
                      //IF OBJECT and not ARRAY
                    }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
-                     console.log("IT IS OBJECT");
+                     //console.log("IT IS OBJECT");
                      var objD = (this.checked ? eval("response."+this.id) : 0);
                      var objKV = "";
                      var first = true;
                      for(var i in objD){
-                      console.log("Key: ", i);
-                      console.log("Value: ", objD[i]);
+                      //console.log("Key: ", i);
+                      //console.log("Value: ", objD[i]);
                       if(!first){
                         objKV+=", "
                       }else{
@@ -981,18 +950,18 @@ function retrieveData(){
                     objData[id]=objKV;
 
                     for(var i in objD){
-                     console.log("Key: ", i);
-                     console.log("Value: ", objD[i]);
+                     //console.log("Key: ", i);
+                     //console.log("Value: ", objD[i]);
                      objData[i]=objD[i];
-                     console.log("objData[id]: ", objData[i]);
+                     //console.log("objData[id]: ", objData[i]);
                    }
 
-                   console.log("objData[id]: ", objData[id]);
-                     //IF NEITHER
+                   //console.log("objData[id]: ", objData[id]);
+                   //IF NEITHER
                    }else{
-                     console.log("Does NOT Include [i]");
+                     //console.log("Does NOT Include [i]");
                      objData[id] = (this.checked ? eval("response."+this.id) : 0);
-                     console.log("objData[id]: ", objData[id]);
+                     //console.log("objData[id]: ", objData[id]);
                    }
 
                  }
@@ -1023,7 +992,7 @@ function retrieveData(){
 
 
   function populateTable(data){
-        console.log("DATA: ", data);
+        //console.log("DATA: ", data);
           /***************** Tree View ******************/
           //setTimeout(function(){
           document.getElementById("myTree").appendChild(renderjson(data));
@@ -1476,9 +1445,7 @@ function addDataToDB(){
       str += line + '\r\n';
   }
 
-
   encodedUri = "data:text/csv;charset=utf-8," + escape(str);
-
   dObj.urlCSV = encodedUri;
 
   dObj.urlJSON = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, '', 7));
@@ -1495,10 +1462,10 @@ function addDataToDB(){
     strQuery+=obJSON1.parameters[i]['name']
     strQuery+="="
     if(obJSON1.parameters[i]['displayedName']){
-      v = JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
+      v = $("#"+obJSON1.parameters[i]['name']).val();
       strQuery+=$("#"+obJSON1.parameters[i]['name']).val().replace(" ", "%20");
     }else{
-      v = JSON.stringify(obJSON1.parameters[i]['value']);
+      v = obJSON1.parameters[i]['value'];
       strQuery+=obJSON1.parameters[i]['value'].replace(" ", "%20");
     }
 
@@ -1515,15 +1482,22 @@ function addDataToDB(){
 
   //save each response displayed name and id AND if it is checked or not
   var responses = [];
-
-  for(var i=0; i<obJSON1.responses.length; ++i){
-    if($("#"+obJSON1.responses[i]['parameter']).is(":checked")){
-      var checked = true;
-    }
-    responses.push({
-      parameter: obJSON1.responses[i]['parameter'],
-      displayedName: obJSON1.responses[i]['displayedName'],
-      isChecked:checked
+  //response
+  if($("input[name='checkbox-w']").is(":checked")){
+      $("input[name='checkbox-w']").each(function(){
+        if(this.checked){
+        responses.push({
+          parameter: this.id,
+          displayedName: this.value,
+          isChecked:true
+        });
+      }else{
+        responses.push({
+          parameter: this.id,
+          displayedName: this.value,
+          isChecked:false
+        });
+      }
     });
   }
 
@@ -1554,28 +1528,9 @@ function addDataToDB(){
   });
   //IF public add the to the public savedQueries and allow users to search for these queries!
   if(document.getElementById("publicData").checked==true){
-    console.log("saved publicly")
+    //console.log("saved publicly")
     firebase.database().ref('publicSavedData/' + $("#savedName").val()).set(JSON.parse(JSON.stringify(dObj)));
   }
-
-  //save the saved query in the firebase
-  // firebase.database().ref('savedFiles/' + $("#savedName").val()).set(JSON.parse(JSON.stringify(dObj)));
-
-  //add query to account query table
-  console.log("Save Data: ", dObj);
-
-  //here we need to add 4 information about the saved file to firebase database under the current user
-  // var csv =  "CSV";
-  // var url_data = window.location.href.split("?api=");
-  // //console.log("URL PARAM1111: ", url[1]);
-  // var url_data_title = url_data[1].split('_').join(' ');
-
-  // console.log("File Name: ",url_data_title_1)
-  // console.log("API Name: ",url_data_title)
-  // console.log("File Type: ", csv) //maybe add an icond here?
-  // console.log("Download Link: ")
-
-  //$("#data_table_content tbody").append('<tr><td>ADDED</td><td>Otto</td><td>@mdo</td><td>@mdo</td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td><</tr>');
 }
 
 
@@ -1667,8 +1622,6 @@ function degroupBy(){
 
 //request functions
 function addRow() {
-  //$("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" placeholder=""></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><div><input id="multi" value="" class="checkbox-style" name="" type="checkbox"  autocomplete=“off”></div></td><td><div><input id="display" value="" class="checkbox-style" name="" type="checkbox"  autocomplete=“off” checked></div></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><select class="form-control" id="element" style="height:30px"><option value="input">Input</option><option value="drop-down">Drop-down List</option><option value="checkbox">Checkbox List</option><option value="radio">Radio-button List</option><option value="datePicker">Date Picker</option></select></td><td><input class="form-control" type="text" id="value" placeholder=""></td><td><input class="form-control" type="text" id="listOfValues" placeholder="if multivalue"></td><td><input class="form-control" type="text" id="desc" placeholder=""></td><td><div><input id="required" value="" class="checkbox-style" name="" type="checkbox"  autocomplete=“off” checked></div></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
-
   $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" placeholder=""></td><td><input class="form-control" type="text" id="value" placeholder=""></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><input class="form-control" type="text" id="desc"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
 }
 
@@ -1678,22 +1631,30 @@ function deleteRow(row) {
   document.getElementById('requestTabel').deleteRow(i);
 }
 
-function deleteRowAccountTable(row,name) {
-  console.log("ROW id: ", name.id);
-  var i = row.parentNode.parentNode.rowIndex;
-  document.getElementById('query_table_content').deleteRow(i);
-
-  //remove it from firebase
-  firebase.database().ref('savedQueries/' + name.id).remove();
-}
+// function deleteRowAccountTable(row,name) {
+//   console.log("ROW id: ", name.id);
+//   var i = row.parentNode.parentNode.rowIndex;
+//   document.getElementById('query_table_content').deleteRow(i);
+//
+//   //remove it from firebase
+//   firebase.database().ref('savedQueries/' + name.id).remove();
+// }
 
 function deleteRowAccountTableFiles(row,name) {
   console.log("ROW id: ", name.id);
   var i = row.parentNode.parentNode.rowIndex;
   document.getElementById('data_table_content').deleteRow(i);
 
-  //remove it from firebase
-  firebase.database().ref('savedData/' + name.id).remove();
+  firebase.auth().onAuthStateChanged(function (user) {
+    if(user){
+      //private account data "account"
+      firebase.database().ref('users/'+ user.uid+'/savedData/'+name.id).remove();
+      //public saved data
+      firebase.database().ref('publicSavedData/'+name.id).remove();
+    }//user
+  });
+
+  //window.location.href='account.html';
 }
 
 
@@ -1777,10 +1738,10 @@ function showResponseSchema(){
 
             //console.log("response in showRequest!!: ",JSON.stringify(response));
             var objJSONOBJ = flattenObjectJSON(response);
-            console.log("flattenObjectJSON: ",objJSONOBJ);
+            //console.log("flattenObjectJSON: ",objJSONOBJ);
 
             var objJSONOBJ2 = Object.getOwnPropertyNames(objJSONOBJ);
-            console.log("getOwnPropertyNames: ",objJSONOBJ2);
+            //console.log("getOwnPropertyNames: ",objJSONOBJ2);
 
             //JSON Response Using JSONEDITOR
             var container, options, json, editor;
@@ -1788,14 +1749,14 @@ function showResponseSchema(){
             container = document.getElementById('jsoneditor');
 
             options = {
-              mode: 'code',
+              mode: 'view',
               modes: ['code', 'form', 'text', 'tree','view'],
               ace: ace,
               onError: function (err) {
                 alert(err.toString());
               },
               onChange: function () {
-                console.log('change');
+                //console.log('change');
               },
               onModeChange: function (mode) {
                 var treeMode = document.getElementById('treeModeSelection');
@@ -1819,11 +1780,14 @@ function showResponseSchema(){
               //   textEl.innerHTML = JSON.stringify(text);
               //   console.log(text);
               // },
-              onTextSelectionChange: function(node){
-                //var textEl = document.getElementById('selectedText');
+
+              onTextSelectionChange: function(start, end, text) {
+                var rangeEl = document.getElementById('textRange');
+                rangeEl.innerHTML = 'start: ' + JSON.stringify(start) + ', end: ' + JSON.stringify(end);
+                var textEl = document.getElementById('selectedText');
                 //var t = textEl.split(":");
-                //textEl.innerHTML = JSON.stringify(node.field);
-                console.log(node.field);
+                textEl.innerHTML = text;
+                //console.log("Text: ", text);
               },
               onSelectionChange: function(start, end) {
                 var nodesEl = document.getElementById('selectedNodes');
@@ -1839,25 +1803,25 @@ function showResponseSchema(){
                 if (event.type === 'click') {
                   var textEl = document.getElementById('selectedText');
                   //var t = textEl.split(":");
-                  textEl.innerHTML = JSON.stringify(node.field);
-                  console.log(node.field);
+                  //textEl.innerHTML = JSON.stringify(node.field);
+                  //console.log(node.field);
                   // var message = 'click on <' + node.field +
                   //   '> under path <' + node.path +
                   //   '> with pretty path: <' + prettyPrintPath(node.path) + '>';
                   if (node.value) message += ' with value <' + node.value + '>';
-                  console.log("Field: ", node.field);
-                  console.log("Path: ", prettyPrintPath(node.path));//message);
+                  //console.log("Field: ", node.field);
+                  //console.log("Path: ", prettyPrintPath(node.path));//message);
                   var paramValue = eval("response."+prettyPrintPath(node.path));
-                  console.log("Value: ",paramValue);//response.items[0].volumeInfo.authors); //eval("response."+node.path));
+                  //console.log("Value: ",paramValue);//response.items[0].volumeInfo.authors); //eval("response."+node.path));
 
                   if(paramValue instanceof Array){
-                    console.log("Array");
+                    //console.log("Array");
                     for(var i=0; i< paramValue.length; ++i){
-                      console.log(paramValue[i]);
+                      //console.log(paramValue[i]);
                     }
 
                   }else{
-                    console.log("NOT Array");
+                    //console.log("NOT Array");
                   }
 
                   fields_paths.push(node.field+"#"+prettyPrintPath(node.path));
@@ -1867,7 +1831,7 @@ function showResponseSchema(){
 
 
                 if (event.type === 'delete') {
-                  console.log("removed!");
+                  //console.log("removed!");
                 }
                 function prettyPrintPath(path) {
                   var str = '';
@@ -1890,8 +1854,8 @@ function showResponseSchema(){
 
             window.editor = new JSONEditor(container, options, json);
 
-            console.log('json', json);
-            console.log('string', JSON.stringify(json));
+            //console.log('json', json);
+            //console.log('string', JSON.stringify(json));
 
 
             for(var y=0; y<objJSONOBJ2.length; ++y){
@@ -1921,7 +1885,7 @@ function showResponseSchema(){
 
             //begin of treeview
             var json =  parsePathArray();
-            console.log("parsePathArray: ", json);
+            //console.log("parsePathArray: ", json);
             var tree = [];
             var final_tree = [];
 
@@ -2066,10 +2030,7 @@ function showResponseSchema(){
                 if ($(this).is(":checked")) { //ADD a badge with the name of response parameter
                   var o = getObject(final_tree,$(this).attr("id")-1);
                   var splitVal = $(this).attr("value").split('#');
-                  //$("#" + (o.id+1)).parents(".tree-leaf-text").eq(0).append('<span id="responce" class="badge badge-pill badge-success" onclick="removeCheckedResponseField(this,'+o.id+')">' +splitVal[0]+ '&nbsp; <i class="glyphicon glyphicon-remove"></i></span>');
                   $("#fields tbody").append('<tr id="'+o.id+'"><td><a id="'+o.id+'" onclick="removeCheckedResponseField(this, '+o.id+')" class="button button-mini button-circle button-reveal button-xsmall button-yellow tright" style="height:25px"><i class="glyphicon glyphicon-remove"></i><span>' +splitVal[0]+'</span></a></td></tr>');
-                  //<h4><span id="responce" class="badge badge-pill badge-success" onclick="removeCheckedResponseField('+o.id+')">' +splitVal[0]+ '<i class="glyphicon glyphicon-remove"></i></span></h4>');
-
                   checkChildren(o);
                   selectnode($(this).attr("id"))
 
@@ -2077,33 +2038,11 @@ function showResponseSchema(){
                   unCheckChildren(getObject(final_tree,$(this).attr("id")-1));
                 }
             });
-
-            // expandAll.onclick = function() {
-            //     t.expandAll();
-            // };
-            // collapseAll.onclick = function() {
-            //     t.collapseAll();
-            // };
-
-            // submit.onclick = function() {
-            //     var strResult = "";
-            //     jQuery("#responce").each(function() {
-            //         strResult = strResult + $(this).text() + "\n";
-            //         $("#result").val(strResult);
-            //     });
-            // };
-            //end of treeview
         }
-
-
-
       });
 
-
-      console.log("DATA2: ",data2);
-
+      //console.log("DATA2: ",data2);
       final_tree2 = final_tree;
-
 }
 
 
@@ -2113,8 +2052,6 @@ function removeCheckedResponseField(row, id){
   $("input[name='checkbox-1']")[id].checked=false;
   if(!$("input[name='checkbox-1']")[id].checked){
     $("#" + (id+1)).parents(".tree-leaf-text").eq(0).children('#responce').eq(0).remove();
-    //$("#" + (node.children[c].id+1)).parents(".tree-leaf-text").eq(0).append('<span id="responce" class="badge badge-pill badge-success" onclick="removeCheckedResponseField('+node.children[c].id+')">' +splitVal[0]+ '<i class="glyphicon glyphicon-remove"></i></span>');
-    //$("#"+id).remove();//append('<a class="button button-mini button-circle button-reveal button-xsmall button-yellow tright" style="height:30px" onclick="removeCheckedResponseField('+node.children[c].id+')"><i class="glyphicon glyphicon-remove"></i><span>' +splitVal[0]+'</span></a></br>');
     var i = row.parentNode.parentNode.rowIndex;
     document.getElementById('fields').deleteRow(i);
   }
@@ -2124,8 +2061,12 @@ function removeCheckedResponseField(row, id){
 
 var first_time=true;
 
+function populateDocs(){
+  prettierURL();
+}
 
 function callFirebase(){
+  prettierURL();
   registration();
 }
 
@@ -2134,7 +2075,7 @@ function signOutFunction(){
 }
 
 function callFirebaseForRegistration(){
-
+  prettierURL();
   registration();
   initApp();
 
@@ -2145,9 +2086,6 @@ function callFirebaseForRegistration(){
     if (firebase.auth().currentUser) {
       // [START signout]
       firebase.auth().signOut();
-      //show the sign out button
-      // $('#acc').show();
-      // $('#signout').show();
       // [END signout]
     } else {
       var email = document.getElementById('email').value;
@@ -2176,10 +2114,13 @@ function callFirebaseForRegistration(){
         }
         console.log(error);
         document.getElementById('quickstart-sign-in').disabled = false;
+        window.location='account.html';
         // [END_EXCLUDE]
       });
-
       // [END authwithemail]
+
+
+
     }
 
     // Listening for auth state changes.
@@ -2556,16 +2497,14 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
 
 
 function saveAPI(){
-  //save message anf go data-management page
-
-  //window.location.href='data-management.html?api=youtube';//api title firebase.database().ref('apis/' + $("#title").val())
+  window.location.href='data-management.html?api='+ myObj.title.replace(" ", "_");//api title firebase.database().ref('apis/' + $("#title").val())
   //document.getElementById("jsonSchema").innerHTML = JSON.stringify(myObj, '', 7);
 }
 
 function cancelAPI(){
   //firebase.initializeApp(config);
-  //console.log("title:", firebase.database().ref('apis/'+ myObj.title));
-  //firebase.database().ref('apis/'+ myObj.title).remove();
+  console.log("title:", firebase.database().ref('apis/'+ myObj.title));
+  firebase.database().ref('apis/'+ myObj.title).remove();
 }
 
 function submitRequestSchema(){
@@ -2578,6 +2517,7 @@ function submitRequestSchema(){
 
 function populateListOfAPIs(){
 
+  prettierURL();
   registration();
 
   firebase.database().ref('/apis/').once('value').then(function(snapshot) {
@@ -2763,13 +2703,19 @@ function populateRequestParam(list){
   document.getElementById('value').value =list[0]['v']
 
   for(var i=1; i<list.length; ++i){
-    //split each list[i] by "=" then add list[i][0] as the parameter name and list[i][1] as the default value
     $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" placeholder="" value="'+list[i]['p']+'"></td><td><input class="form-control" type="text" id="value" placeholder="" value="'+list[i]['v']+'"></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><input class="form-control" type="text" id="desc"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
   }
 }
 
+function prettierURL(){
+  var link = window.location.href;
+  var url = link.split('.html');
+  window.history.replaceState( null, null, url[0] );
+}
+
 function populatePublicSavedDataset(){
 
+  prettierURL();
   registration();
   //Files Table
   firebase.database().ref('publicSavedData/').once('value').then(function(snapshot) {
@@ -2777,32 +2723,12 @@ function populatePublicSavedDataset(){
       if(childSnapshot.val() != undefined){
         //console.log("VALUE: ", childSnapshot.val().description);
         var api_name = childSnapshot.val().apiName;
+        var file_title = childSnapshot.val().title;
         var file_desc = childSnapshot.val().description;
         var url = childSnapshot.val().urlCSV;
         var link = childSnapshot.val().queryLink;
         var urlJ = childSnapshot.val().urlJSON;
-        //var jsCode = childSnapshot.val().urlJSON;
-        $("#public_data_table tbody").append('<tr><td>'+file_desc+'</td><td>'+api_name+'</td><td><a href='+url+' download="my_data.csv"><img src="images/csv-file.png" width="28px"></a> &nbsp; <a href="data:'+ urlJ +'" download="data.json"><img src="images/json-file.png" width="25px"></a> &nbsp; <a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a> </td></tr>');
-
-        // $("#public_data_table tbody").append('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SAVE</button></td></tr>');
-        //
-        // $("#public_data_table tbody").append('<div class="dropdown-menu"><form class="px-4 py-3"><p>xxxxxxx</p></form></div>');
-
-        // $("#public_data_table tbody").append('<div class="modal1 mfp-hide" id="myModal1"><div class="block divcenter" style="background-color: #FFF; max-width: 800px; ">');
-        // $("#public_data_table tbody").append('<div style="padding-left: 40px; padding-right: 40px; padding-top:15px">');
-        // $("#public_data_table tbody").append('<label>Query Link</label>');
-        // $("#public_data_table tbody").append('<input type="text" class="form-control" id="title" value="url...">');
-        // $("#public_data_table tbody").append('</div>');
-        // $("#public_data_table tbody").append('<div style="padding-left: 40px; padding-right: 40px; padding-top:15px">');
-        // $("#public_data_table tbody").append('<label>JavaScript Snippet Code</label>');
-        // $("#public_data_table tbody").append('<textarea id="code" class="form-control" rows="10" cols="60">At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.jdfgDHSgfksdfgksfaksedgfjkdhsgfhsfksjdhgksdhgljsdfkghkdsfgksdsdksjhd</textarea>');
-        // $("#public_data_table tbody").append('</div>');
-        // $("#public_data_table tbody").append('<div class="section center nomargin" style="padding: 30px;">');
-        // $("#public_data_table tbody").append('<a href="#" class="button" onClick="$.magnificPopup.close();return false;">Close this Modal</a>');
-        // $("#public_data_table tbody").append('</div></div></div>');
-        // $("#public_data_table tbody").append('</td></tr>');
-
-
+        $("#public_data_table tbody").append('<tr><td>'+file_desc+'</td><td>'+api_name+'</td><td><a href='+url+' download="my_data.csv"><img src="images/csv-file.png" width="28px"></a> &nbsp; <a href="data:'+ urlJ +'" download="data.json"><img src="images/json-file.png" width="25px"></a> &nbsp; <a href="data-management.html?api='+api_name.replace(" ", "_")+'/#'+file_title+'" target="_blank"><img src="images/edit.png" width="25px"></a> &nbsp; <a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a> </td></tr>');
       }else{
         //////////
       }
