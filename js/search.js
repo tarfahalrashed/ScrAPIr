@@ -2090,7 +2090,7 @@ function callFirebaseForRegistration(){
     } else {
       var email = document.getElementById('email').value;
       var password = document.getElementById('password').value;
-      var displayName = document.getElementById('displayName').value;
+      //var displayName = document.getElementById('displayName').value;
 
       if (email.length < 4) {
         alert('Please enter an email address.');
@@ -2128,7 +2128,7 @@ function callFirebaseForRegistration(){
     // [START authstatelistener]
     firebase.auth().onAuthStateChanged(function(user) {
       // [START_EXCLUDE silent]
-      document.getElementById('quickstart-verify-email').disabled = true;
+      //document.getElementById('quickstart-verify-email').disabled = true;
       //$('#profile').show()
       //$('#profile').append("<p>Hello Tarfah!</p>");
       // [END_EXCLUDE]
@@ -2146,15 +2146,15 @@ function callFirebaseForRegistration(){
 
         //writeUserData(user.uid, document.getElementById('displayName').value, user.email);
 
-        document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
+        //document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
         document.getElementById('quickstart-sign-in').textContent = 'Sign out';
         //show the sign out button
         $('#acc').show();
         $('#signout').show();
         //console.log(JSON.stringify(user, null, '  '));
-        document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
+        //document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
         if (!emailVerified) {
-          document.getElementById('quickstart-verify-email').disabled = false;
+          //document.getElementById('quickstart-verify-email').disabled = false;
         }
 
         firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
@@ -2168,7 +2168,7 @@ function callFirebaseForRegistration(){
       } else {
         // User is signed out.
         // [START_EXCLUDE]
-        document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
+        //document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
         document.getElementById('quickstart-sign-in').textContent = 'Sign in';
         //document.getElementById('quickstart-account-details').textContent = 'null';
         // [END_EXCLUDE]
@@ -2190,9 +2190,9 @@ function callFirebaseForRegistration(){
    */
   var displayName = "";
   function handleSignUp() {
-    var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
-    displayName = document.getElementById('displayName').value;
+    var email = document.getElementById('email1').value;
+    var password = document.getElementById('password1').value;
+    displayName = document.getElementById('displayName1').value;
 
     if (email.length < 4) {
       alert('Please enter an email address.');
@@ -2224,7 +2224,7 @@ function callFirebaseForRegistration(){
     // [START authstatelistener]
     firebase.auth().onAuthStateChanged(function(user) {
       // [START_EXCLUDE silent]
-      document.getElementById('quickstart-verify-email').disabled = true;
+      //document.getElementById('quickstart-verify-email').disabled = true;
       //$('#profile').show()
       //$('#profile').append("<p>Hello Tarfah!</p>");
       // [END_EXCLUDE]
@@ -2240,14 +2240,14 @@ function callFirebaseForRegistration(){
         // [START_EXCLUDE]
 
 
-        writeUserData(user.uid, document.getElementById('displayName').value, user.email);
+        writeUserData(user.uid, document.getElementById('displayName1').value, user.email);
 
-        document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
+        //document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
         document.getElementById('quickstart-sign-in').textContent = 'Sign out';
         //console.log(JSON.stringify(user, null, '  '));
-        document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
+        //document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
         if (!emailVerified) {
-          document.getElementById('quickstart-verify-email').disabled = false;
+          //document.getElementById('quickstart-verify-email').disabled = false;
         }
 
         firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
@@ -2261,7 +2261,7 @@ function callFirebaseForRegistration(){
       } else {
         // User is signed out.
         // [START_EXCLUDE]
-        document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
+        //document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
         document.getElementById('quickstart-sign-in').textContent = 'Sign in';
         //document.getElementById('quickstart-account-details').textContent = 'null';
         // [END_EXCLUDE]
@@ -2324,8 +2324,8 @@ function callFirebaseForRegistration(){
 
     document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
     document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
-    document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
-    document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
+    //document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
+    //document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
 
 
 
@@ -2333,7 +2333,7 @@ function callFirebaseForRegistration(){
     // [START authstatelistener]
     firebase.auth().onAuthStateChanged(function(user) {
       // [START_EXCLUDE silent]
-      document.getElementById('quickstart-verify-email').disabled = true;
+      //document.getElementById('quickstart-verify-email').disabled = true;
       //$('#profile').show()
       //$('#profile').append("<p>Hello Tarfah!</p>");
       // [END_EXCLUDE]
@@ -2350,12 +2350,12 @@ function callFirebaseForRegistration(){
 
 //        writeUserData(user.uid, document.getElementById('displayName').value, user.email);
 
-        document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
+        //document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
         document.getElementById('quickstart-sign-in').textContent = 'Sign out';
         //console.log(JSON.stringify(user, null, '  '));
-        document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
+        //document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
         if (!emailVerified) {
-          document.getElementById('quickstart-verify-email').disabled = false;
+          //document.getElementById('quickstart-verify-email').disabled = false;
         }
 
         firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
@@ -2369,7 +2369,7 @@ function callFirebaseForRegistration(){
       } else {
         // User is signed out.
         // [START_EXCLUDE]
-        document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
+        //document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
         document.getElementById('quickstart-sign-in').textContent = 'Sign in';
         //document.getElementById('quickstart-account-details').textContent = 'null';
         // [END_EXCLUDE]
@@ -2730,7 +2730,7 @@ function populatePublicSavedDataset(){
         var link = childSnapshot.val().queryLink;
         var urlJ = childSnapshot.val().urlJSON;
         $("#public_data_table tbody").append('<tr><td>'+file_desc+'</td><td>'+api_name+'</td><td><a href='+url+' download="my_data.csv"><img src="images/csv-file.png" width="28px"></a> &nbsp; <a href="data:'+ urlJ +'" download="data.json"><img src="images/json-file.png" width="25px"></a> &nbsp; <a href="data-management.html?api='+api_name.replace(" ", "_")+'/#'+file_title.split(' ').join('_')+'" target="_blank"><img src="images/edit.png" width="25px"></a> &nbsp; <a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a> </td> </tr>');
-        // <td><img src="images/eye.png" alt="" width="15px">aa &nbsp;  <img src="images/down.png" alt="" width="15px">aa </td>    
+        // <td><img src="images/eye.png" alt="" width="15px">aa &nbsp;  <img src="images/down.png" alt="" width="15px">aa </td>
       }else{
         //////////
       }

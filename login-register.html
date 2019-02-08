@@ -120,8 +120,8 @@
 					<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 600px;">
 
 						<ul class="tab-nav tab-nav2 center clearfix">
-							<li class="inline-block"><a href="#tab-login">Login</a></li>
-							<li class="inline-block"><a href="#tab-register">Register</a></li>
+							<li class="inline-block"><a href="#tab-login">Sign in</a></li>
+							<li class="inline-block"><a href="#tab-register">Sign up</a></li>
 						</ul>
 
 						<div class="tab-container">
@@ -131,11 +131,10 @@
 									<div class="card-body" style="padding: 40px;">
 
 								<form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
-									<div class="col_full">
+									<!-- <div class="col_full">
 										<label for="login-form-username">Username:</label>
 										<input type="text" id="displayName" name="displayName" value="" class="form-control" />
-				          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/> -->
-									</div>
+									</div> -->
 
 									<div class="col_full">
 										<label for="login-form-username">Email:</label>
@@ -154,21 +153,65 @@
 
 			          <button disabled class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-in" name="signin">Sign In</button>
 			          &nbsp;&nbsp;&nbsp;
-			          <button class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-up" name="signup">Sign Up</button>
-			          &nbsp;&nbsp;&nbsp;
-			          <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>
-			          &nbsp;&nbsp;&nbsp;
-			          <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button>
+			          <!-- <button class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-up" name="signup">Sign Up</button>
+			          &nbsp;&nbsp;&nbsp; -->
+			          <!-- <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button> -->
+
+								<!-- <a href="" class="" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</a>
+
+								&nbsp;&nbsp;&nbsp;
+			          <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button> -->
 				</div>
 				</div>
 			          <!-- Container where we'll display the user details -->
-			          <div class="quickstart-user-details-container">
+			          <!-- <div class="quickstart-user-details-container">
 			            Firebase sign-in status: <span id="quickstart-sign-in-status">Unknown</span>
 			            <div>Firebase auth <code>currentUser</code> object value:</div>
 			            <pre><code id="quickstart-account-details">null</code></pre>
-			          </div>
+			          </div> -->
 			        </div>
-			      </div>
+
+							<!-- Register -->
+
+							<div class="tab-content clearfix" id="tab-register">
+								<div class="card nobottommargin">
+									<div class="card-body" style="padding: 40px;">
+
+								<form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
+									<div class="col_full">
+										<label for="login-form-username">Username:</label>
+										<input type="text" id="displayName1" name="displayName1" value="" class="form-control" />
+				          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/> -->
+									</div>
+
+									<div class="col_full">
+										<label for="login-form-username">Email:</label>
+										<input type="text" id="email1" name="email1" value="" class="form-control" />
+				          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/> -->
+									</div>
+
+									<div class="col_full">
+										<label for="login-form-password">Password:</label>
+										<input ttype="password" id="password1" name="password1" value="" class="form-control" />
+				          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/> -->
+									</div>
+							</form>
+
+								<!-- <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button> -->
+
+			          <!-- <button disabled class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-in" name="signin">Sign In</button>
+			          &nbsp;&nbsp;&nbsp; -->
+			          <button class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-up" name="signup" >Sign Up</button>
+			          <!-- &nbsp;&nbsp;&nbsp;
+			          <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>
+			          &nbsp;&nbsp;&nbsp;
+			          <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button> -->
+				</div>
+				</div>
+
+			        </div>
+
+			      </div> <!-- container -->
 
 			    </div>
 
