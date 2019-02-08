@@ -61,13 +61,13 @@
 
 		<!-- Header
 		============================================= -->
-		<header id="header" class="full-header">
+		<header id="header" class="transparent-header ">
 
 			<div id="header-wrap">
 
 				<div class="container clearfix">
 
-					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+					<!-- <div id="primary-menu-trigger"><i class="icon-reorder"></i></div> -->
 
 					<!-- Logo
 					============================================= -->
@@ -85,14 +85,16 @@
 							</li>
 							<li class="mega-menu"><a href="index.html#about">About</a>
 							</li>
-							<li class="mega-menu"><a href="docs.html">Docs</a>
-							</li>
+
 							<li class="mega-menu"><a href="index.html#demos" >Demos</a>
 							</li>
 							<li class="mega-menu"><a href="index.html#APIs">Websites</a>
 							</li>
+							<li class="mega-menu"><a href="docs.html">Docs</a>
+							</li>
 							<li class="current"><a href="dataset.html" data-offset="100" >Dataset</a>
 							</i>
+
 							<li class="mega-menu"><a href="api-integration.html">Integrate</a>
 							</li>
 							<li class="mega-menu"><a href="index.html#contact">Contact</a>
@@ -107,12 +109,13 @@
 
 						<!-- Top Search
 						============================================= -->
-						<div id="top-search">
+						<!-- <div id="top-search">
 							<a id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
 							<form action="search.html" method="get">
 								<input type="text" name="q" class="form-control" value="" placeholder="search for">
 							</form>
-						</div><!-- #top-search end -->
+						</div> -->
+						<!-- #top-search end -->
 
 					</nav><!-- #primary-menu end -->
 
@@ -126,13 +129,15 @@
 		============================================= -->
 		<section id="content">
 
-      <div class="container">
-      	<div class="row">
-              <div class="col-md-6">
-          		<h2>Search for dataset and queries</h2>
-                  <div id="custom-search-input">
-                      <div class="input-group col-md-12">
-                          <input id="myInput" type="text" class="form-control input-lg" onkeyup="myFunction()" placeholder="Search for datasets.." />
+      <div class="container" style="">
+      	<div class="row" style="">
+					<div class="col-sm-1">
+					</div>
+					<div class="col-sm-10">
+          		<h2>Explore Public Datasets</h2>
+                  <div id="custom-search-input" style="width:70%">
+                      <div class="input-group col-md-12" >
+                          <input id="myInput" type="text" class="form-control input-lg" onkeyup="myFunction()" placeholder="Search for datasets.."/>
                           <span class="input-group-btn">
                               <button class="btn btn-info btn-lg" type="button">
                                   <i class="glyphicon glyphicon-search"></i>
@@ -141,7 +146,9 @@
                       </div>
                   </div>
               </div>
-
+							<div class="col-sm-1">
+							</div>
+						</div>
 							<script>
 
 								function myFunction() {
@@ -175,101 +182,30 @@
 							}
 							</script>
 
-              <div class="divider divider-right"><i class="icon-circle"></i></div>
-
+              <!-- <div class="divider divider-right"><i class="icon-circle"></i></div> -->
+</br></br>
               <!-- list of datasets -->
-							<div>
-              <table id="public_data_table" class="table table-hover" style="width:1000px">
+							<div class="row">
+								<div class="col-sm-1">
+								</div>
+								<div class="col-sm-10">
+              <table id="public_data_table" class="table table-hover" style="width:auto">
 							<!-- class="display" style="width:1200px"> -->
 								<thead>
 								<tr>
-								  <th>Title</th>
+								  <th>Dataset Description</th>
 								  <th>Source</th>
 									<th></th>
 								</tr>
 							  </thead>
 								<tbody>
-	                <!-- <td>
-	                  <a href="#" class="button button-mini button-circle button-border button-red" style="width:90px; "><i class="glyphicon glyphicon-download-alt"></i>CSV</a>
-	                  <a href="#" class="button button-mini button-circle button-border button-green" style="width:90px"><i class="glyphicon glyphicon-download-alt"></i>JSON</a>
-	                </td> -->
-							</tbody>
-							<!-- <tfoot>
-								<tr>
-								  <th>Name</th>
-								  <th>Source</th>
-									<th></th>
-								</tr>
-							</tfoot> -->
+								</tbody>
               </table>
-							<!-- <a id="trig" href="#myModal1" data-lightbox="inline" class="button">Trigger Modal</a> -->
-
-
-							<!-- Modal -->
-							<!-- <div class="" style="padding: 50px;">
-								<h3>A Simple Example of a Text Modal</h3>
-								<p class="nobottommargin">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum delectus, tenetur obcaecati porro! Expedita nostrum tempora quia provident perspiciatis inventore, autem eaque, quod explicabo, ipsum, facilis aliquid! Sapiente, possimus quo!</p>
-							</div> -->
-							<!-- <div class="modal1 mfp-hide" id="myModal1">
-								<div class="block divcenter" style="background-color: #FFF; max-width: 800px; ">
-									<div style="padding-left: 40px; padding-right: 40px; padding-top:15px">
-										<label>Query Link</label>
-										<input type="text" class="form-control" id="title" value="url...">
-									</div>
-									<div style="padding-left: 40px; padding-right: 40px; padding-top:15px">
-										<label>JavaScript Snippet Code</label>
-										<textarea class="form-control" rows="10" cols="60">
-											var listP = {
-													"maxResults": "3",
-													"part": "snippet",
-														"q": $('#queryw').val(),
-													"key": "AIzaSyBaJakjjAHw0wvBtELAtDLPmhq1piGWwqQ"
-												};
-
-												$.ajax({
-													url: url,//'https://www.googleapis.com/youtube/v3/search',
-													data: JSON.parse(listP),
-													dataType: 'jsonp',
-													success: function (x) {
-														console.log(JSON.stringify(x, '', 7));
-														return x;
-													}
-												});
-
-										</textarea>
-									</div>
-									<div class="section center nomargin" style="padding: 30px;">
-										<a href="#" class="button" onClick="$.magnificPopup.close();return false;">Close this Modal</a>
-									</div>
-								</div>
-							</div> -->
-
-							<script>
-								// $(document).ready(function() {
-								//     // Setup - add a text input to each footer cell
-								//     $('#public_data_table tfoot th').each( function () {
-								//         var title = $(this).text();
-								//         $(this).html( '<input type="text" placeholder="" />' );
-								//     } );
-								//
-								//     // DataTable
-								//     var table = $('#public_data_table').DataTable();
-								//
-								//     // Apply the search
-								//     table.columns().every( function () {
-								//         var that = this;
-								//
-								//         $( 'input', this.footer() ).on( 'keyup change', function () {
-								//             if ( that.search() !== this.value ) {
-								//                 that.search( this.value )
-								//                 that.draw();
-								//             }
-								//         } );
-								//     } );
-								// });
-							</script>
 						</div>
-      	</div>
+						<div class="col-sm-1">
+						</div>
+						</div>
+
       </div>
 
 

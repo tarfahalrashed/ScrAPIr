@@ -436,7 +436,7 @@ function checkButtonClicked(){
     var url_title1 = url[1].split('_').join(' ');
     var url_title_only = url_title1.split("/#");
     var url_title = url_title_only[0];
-    var url_fileName = url_title_only[1];
+    var url_fileName = url_title_only[1].split('_').join(' ');//url_title_only[1];
 
     // var link = window.location.href;
     // var url1 = link.replace('.html','');
@@ -779,7 +779,7 @@ function populateAccountTables(){
               var url = childSnapshot.val().urlCSV;
               var urlJ = childSnapshot.val().urlJSON;
               var link = childSnapshot.val().queryLink;
-              $("#data_table_content tbody").append('<tr><td>'+name+'</td><td>'+api_name+'</td><td>'+file_desc+'</td><td><a href='+url+' download="my_data.csv"><img src="images/csv-file.png" width="30px"></a> &nbsp; <a href="data:'+ urlJ +'" download="data.json"><img src="images/json-file.png" width="25px"></a> &nbsp;  <a href="data-management.html?api='+api_name.replace(" ", "_")+'/#'+name+'" target="_blank"><img src="images/edit.png" width="25px"></a> &nbsp; <a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a> &nbsp;   <a id="'+name+'" href="" onclick="deleteRowAccountTableFiles(this,this)"><img src="images/del.png" width="25px"></a>   </td></tr>');
+              $("#data_table_content tbody").append('<tr><td>'+name+'</td><td>'+api_name+'</td><td>'+file_desc+'</td><td><a href='+url+' download="my_data.csv"><img src="images/csv-file.png" width="30px"></a> &nbsp; <a href="data:'+ urlJ +'" download="data.json"><img src="images/json-file.png" width="25px"></a> &nbsp;  <a href="data-management.html?api='+api_name.replace(" ", "_")+'/#'+name.split(' ').join('_')+'" target="_blank"><img src="images/edit.png" width="25px"></a> &nbsp; <a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a> &nbsp;   <a id="'+name+'" href="" onclick="deleteRowAccountTableFiles(this,this)"><img src="images/del.png" width="25px"></a>   </td></tr>');
 
 // <input id="'+name+'" type="image" src="images/del.png" width="25px" style="bottom:   -30px;" onclick="deleteRowAccountTableFiles(this,this)">
             }else{
@@ -2119,6 +2119,7 @@ function callFirebaseForRegistration(){
       });
       // [END authwithemail]
 
+      window.location.herf='index.html';
 
 
     }
@@ -2715,7 +2716,7 @@ function prettierURL(){
 
 function populatePublicSavedDataset(){
 
-  prettierURL();
+  //prettierURL();
   registration();
   //Files Table
   firebase.database().ref('publicSavedData/').once('value').then(function(snapshot) {
@@ -2728,7 +2729,8 @@ function populatePublicSavedDataset(){
         var url = childSnapshot.val().urlCSV;
         var link = childSnapshot.val().queryLink;
         var urlJ = childSnapshot.val().urlJSON;
-        $("#public_data_table tbody").append('<tr><td>'+file_desc+'</td><td>'+api_name+'</td><td><a href='+url+' download="my_data.csv"><img src="images/csv-file.png" width="28px"></a> &nbsp; <a href="data:'+ urlJ +'" download="data.json"><img src="images/json-file.png" width="25px"></a> &nbsp; <a href="data-management.html?api='+api_name.replace(" ", "_")+'/#'+file_title+'" target="_blank"><img src="images/edit.png" width="25px"></a> &nbsp; <a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a> </td></tr>');
+        $("#public_data_table tbody").append('<tr><td>'+file_desc+'</td><td>'+api_name+'</td><td><a href='+url+' download="my_data.csv"><img src="images/csv-file.png" width="28px"></a> &nbsp; <a href="data:'+ urlJ +'" download="data.json"><img src="images/json-file.png" width="25px"></a> &nbsp; <a href="data-management.html?api='+api_name.replace(" ", "_")+'/#'+file_title.split(' ').join('_')+'" target="_blank"><img src="images/edit.png" width="25px"></a> &nbsp; <a target="_blank" rel="noopener noreferrer" href='+link+'><img src="images/link.png" style="top:20px; width:18px" ></a> </td> </tr>');
+        // <td><img src="images/eye.png" alt="" width="15px">aa &nbsp;  <img src="images/down.png" alt="" width="15px">aa </td>    
       }else{
         //////////
       }
