@@ -39,7 +39,7 @@
 
 		<!-- Header
 		============================================= -->
-		<header id="header" class="transparent-header">
+		<header id="header" class="transparent-header" data-sticky-class="not-dark">
 
 			<div id="header-wrap">
 
@@ -68,7 +68,7 @@
 							</li>
 							<li class="mega-menu"><a href="docs.html">Docs</a>
 							</li>
-							<li class="mega-menu"><a href="dataset.html" data-offset="100" >Dataset</a>
+							<li class="mega-menu"><a href="dataset.html" data-offset="100" >Datasets</a>
 							</i>
 							<li class="mega-menu"><a href="api-integration.html">Integrate</a>
 							</li>
@@ -144,7 +144,19 @@
 
 									<div class="col_full">
 										<label for="login-form-password">Password:</label>
-										<input ttype="password" id="password" name="password" value="" class="form-control" />
+										<input type="password" id="password" name="password" value="" class="form-control" />
+										<input type="checkbox" onclick="myFunction()">&nbsp;Show Password
+
+										<script>
+											function myFunction() {
+											  var x = document.getElementById("password");
+											  if (x.type === "password") {
+											    x.type = "text";
+											  } else {
+											    x.type = "password";
+											  }
+											}
+										</script>
 				          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/> -->
 									</div>
 							</form>
@@ -192,7 +204,21 @@
 
 									<div class="col_full">
 										<label for="login-form-password">Password:</label>
-										<input ttype="password" id="password1" name="password1" value="" class="form-control" />
+										<input type="password" id="password1" name="password1" value="" class="form-control" />
+
+										<input type="checkbox" onclick="myFunction()">&nbsp;Show Password
+
+										<script>
+											function myFunction() {
+											  var x = document.getElementById("password1");
+											  if (x.type === "password") {
+											    x.type = "text";
+											  } else {
+											    x.type = "password";
+											  }
+											}
+										</script>
+
 				          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/> -->
 									</div>
 							</form>

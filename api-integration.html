@@ -4,6 +4,17 @@
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="author" content="SemiColonWeb" />
+	<!-- Slik Grid ---------------------------->
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+ <link rel="shortcut icon" type="images/ico" href="favicon.ico" />
+  <link rel="stylesheet" href="css/slick.grid.css" type="text/css"/>
+  <link rel="stylesheet" href="css/smoothness/jquery-ui-1.11.3.custom.css" type="text/css"/>
+ <link rel="stylesheet" href="controls/slick.pager.css" type="text/css"/>
+  <link rel="stylesheet" href="css/examples.css" type="text/css"/>
+ <link rel="stylesheet" href="controls/slick.columnpicker.css" type="text/css"/>
+
+  	 <link href="dist/jsoneditor.css" rel="stylesheet" type="text/css">
+    <script src="dist/jsoneditor.js"></script>
 
 	<!-- Stylesheets
 	============================================= -->
@@ -23,8 +34,6 @@
 
 	<link rel="stylesheet" href="css/treeview.min.css"/>
 
-
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
 
 	<!-- load the minimalist version of JSONEditor, which doesn't have Ace embedded -->
@@ -32,10 +41,8 @@
 	<link href="dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
  -->
 
- 	 <link href="dist/jsoneditor.css" rel="stylesheet" type="text/css">
-   <script src="dist/jsoneditor.js"></script>
 
-
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 	<!-- Document Title
 	============================================= -->
 	<title>API Integration Steps</title>
@@ -52,7 +59,7 @@
 
 		<!-- Header
 		============================================= -->
-		<header id="header" class="transparent-header">
+		<header id="header" class="transparent-header" data-sticky-class="not-dark">
 
 			<div id="header-wrap">
 
@@ -72,27 +79,27 @@
 					<nav id="primary-menu">
 
 						<ul>
-							<li class="mega-menu"><a href="index.html">Home</a>
+							<li class="mega-menu"><a href="index.html" target="_blank">Home</a>
 							</li>
-							<li class="mega-menu"><a href="index.html#about">About</a>
+							<li class="mega-menu"><a href="index.html#about" target="_blank">About</a>
 							</li>
 
-							<li class="mega-menu"><a href="index.html#demos" >Demos</a>
+							<li class="mega-menu"><a href="index.html#demos" target="_blank">Demos</a>
 							</li>
-							<li class="mega-menu"><a href="index.html#APIs">Websites</a>
+							<li class="mega-menu"><a href="index.html#APIs" target="_blank">Websites</a>
 							</li>
-							<li class="mega-menu"><a href="docs.html">Docs</a>
+							<li class="mega-menu"><a href="docs.html"target="_blank">Docs</a>
 							</li>
-							<li class="mega-menu"><a href="dataset.html" data-offset="100" >Dataset</a>
+							<li class="mega-menu"><a href="dataset.html" target="_blank" data-offset="100" >Datasets</a>
 							</i>
-							<li class="mega-menu"><a href="api-integration.html">Integrate</a>
+							<li class="mega-menu"><a href="api-integration.html" target="_blank">Integrate</a>
 							</li>
-							<li class="mega-menu"><a href="index.html#contact">Contact</a>
+							<li class="mega-menu"><a href="index.html#contact" target="_blank">Contact</a>
 							</li>
-							<li><a id="SignupLogin" href="login-register.html"><div>Sign in</div></a>
+							<li><a id="SignupLogin" href="login-register.html" target="_blank"><div>Sign in</div></a>
 								<ul style="width:100px;">
-									<li><a href="account.html" id="acc" style="display:none"><div>Account</div></a></li>
-									<li><a href="" onclick="signOutFunction()" id="signout" style="display:none"><div>Sign out</div></a></li>
+									<li><a href="account.html" target="_blank" id="acc" style="display:none"><div>Account</div></a></li>
+									<li><a href="" target="_blank" onclick="signOutFunction()" id="signout" style="display:none"><div>Sign out</div></a></li>
 								</ul>
 							</li>
 						</ul>
@@ -121,354 +128,619 @@
 
 			<div class="content-wrap">
 
-				<div class="container clearfix">
+				<!-- <div class="container clearfix"> -->
+				<div id="containerALL" onclick='' class="" style="padding-left:100px; padding-right:100px">
+
+					<div class="row">
+						<div class="col-9">
 					<!--<h4>Integrate your API</h4>-->
 
-					<div id="processTabs" style="">
+					<!-- <div id="processTabs" style=""> -->
 
-						<ul class="process-steps process-5 clearfix" style="position:relative; top:-60px; ">
+						<!-- <ul class="process-steps process-5 clearfix" style="position:relative; top:-60px; ">
 							<li>
 								<a href="#ptab1" class="i-circled i-bordered divcenter">1</a>
-								<h5>API Basics</h5>
+								<h5>API URL</h5>
 							</li>
 							<li>
 								<a href="#ptab2" class="i-circled i-bordered divcenter">2</a>
 								<h5>Pagination</h5>
 							</li>
 							<li>
-								<a href="#ptab3" class="i-circled i-bordered divcenter">2</a>
-								<h5>Request Parameters</h5>
+								<a href="#ptab3" class="i-circled i-bordered divcenter">3</a>
+								<h5>Parameters &amp; Authentication</h5>
 							</li>
 							<li>
-								<a href="#ptab4" class="i-circled i-bordered divcenter">3</a>
-								<h5>Response Parameters</h5>
-							</li>
-							<!--<li>
 								<a href="#ptab4" class="i-circled i-bordered divcenter">4</a>
-								<h5>Response Parameters</h5>
-							</li>-->
+								<h5>Response</h5>
+							</li>
 							<li>
-								<a href="#ptab5" class="i-circled i-bordered divcenter">4</a>
+								<a href="#ptab5" class="i-circled i-bordered divcenter">5</a>
 								<h5>Confirm Integration</h5>
 							</li>
-						</ul>
+						</ul> -->
 
-						<div style="position:relative; top:-80px">
-							<div id="ptab1">
-								<div class="tabs divcenter nobottommargin clearfix" style="max-width: 500px;">
 
-								<form style=""><!-- max-width: 60rem; position:relative; left:270px; -->
-									<div class="form-group">
-										<label>API Name*</label>
-										<input type="text" class="form-control" id="title" placeholder="e.g. 'YouTube API'" required>
+
+
+						<!-- <div style="position:relative; top:-80px"> -->
+							<!-- <div id="ptab1">
+								<div class="tabs divcenter nobottommargin clearfix" style="max-width:500px;"> -->
+
+
+									<!-- <a class="button button-3d nomargin fright tab-linker" style="position:relative; top:-10px" rel="2" onclick="similar(document.getElementById('url').value)"><i class="glyphicon glyphicon-chevron-right"></i></a> -->
+
+
+							<!-- </div>
+						</div> -->
+
+
+					<!-- <div id="ptab1"> -->
+							<!-- <div class="tabs divcenter nobottommargin clearfix" style="max-width:500px;"> -->
+							<h3 style="margin:0px; padding:10px">Follow these steps to add your API to scrAPIr</h3>
+
+							<!-- <p style="font-size:1.7em; margin:0px; padding:0px">This process wizard will guide through the steps you need to access\add APIs to scrAPI. Every step will ask you to provide specific information about the API you want to add: The API URL, the pagination information (to get more results), the parametrs to refine your search, and the response to choose the exact fields of the result you are interested in. All these information can be found in the API documentation page (e.g. <a target="_blank" href="https://developers.google.com/youtube/v3/docs/search/list">YouTube search API page</a>).</p> -->
+						  <!-- </br></br> -->
+							<div  class="form-group">
+								<div class="row">
+									<div class="col">
+									<p style="font-size:2em; margin:0px; padding:0px"><B><span style="color:red">1.</span> API URL*</B><label><a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="Every web API has a URL that you can use to access its data (e.g. the URL for YouTube search API is 'https://www.googleapis.com/youtube/v3/search')"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label></p>
+									<div style="display:inline">
+										<input style="width:400px; display: inline-block" type="text" class="form-control" id="url" onblur="urlBlur()" onkeyup="urlBlur()" placeholder="e.g. 'https://www.googleapis.com/youtube/v3/search'" required>
+										<!-- <button  style="display: inline-block"class="button button-3d button-small button-rounded button-teal" onclick="getAPIName(document.getElementById('url').value)">Submit</button> -->
 									</div>
-									<div class="form-group">
-										<label>API Version*</label>
-										<input type="text" class="form-control" id="version" placeholder="e.g. '3.0'" required>
+								</div>
+
+								<div class="col">
+									<p style="font-size:2em; margin:0px; padding:0px"><B>API Name</B><label><a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="Every web API has a URL that you can use to access its data (e.g. the URL for YouTube search API is 'https://www.googleapis.com/youtube/v3/search')"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label></p>
+									<input style="width:400px;" type="text" class="form-control" id="title" placeholder="add a name to the API" required>
+									</br></br>
+								</div>
+							</div>
+							</div>
+
+
+							<div class="toggle toggle-bg">
+								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">2.</span> Request Parameters <span style="font-style: italic; font-size:0.9em">(please add at least the required parameter(s))</span></div>
+								<div id="toggReq" class="togglec">
+									<h3 style="margin:0px; padding:0px;">Request Parameters</h3>
+									<!-- <div style="display:inline"> -->
+										<p style="font-size:1.7em; margin:0px; padding:0px;display:inline-block">Enter the request parameters for this API:
+											<a style="width:100px; text-align:center" class="button button-mini button-circle button-border button-pink" onclick="callGitHub(document.getElementById('url').value)">GitHub</a>
+											<a style="width:100px; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalSwagger" onclick="">OpenAPI</a>
+											<a style="width:100px; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalPaste" onclick="">Table</a>
+
+											<!-- <input type="button" id="butShowReq" class="button button-small button-circle button-border button-amber" onclick="showHideDiv(this)" value="Show Explanation"/> -->
+										</p></br>
+										<div id ="reqExp" style="display:none;">
+											<p style="font-size:1.5em; margin:0px; padding:0px;display:inline-block">
+											- <B>Name</B>: The name of the parameter as sepcified in the API documentation. (e.g. in NYT Article Search API q=Trump, q is the parameter name)</br>
+											- <B>Value</B>: A value that you can assign to the parameter (e.g. in NYT Article Search API q=Trump, Trump is the value we assigned to the parameter 'q'). NOTE: Some parameters need to be assigned specifc values (e.g. sort parameters can have one of the three values: newest, oldest, or relevance)</br>
+											- <B>Allowed Values</B>: Some parameters can be assigned one of several values (e.g. 'sort' parameters can have one of the three values: newest, oldest, or relevance), so we can just add newest,oldest,relevance to the Allowed Values field</br>
+											- <B>Displayed Name [optional]</B>: You can assign this parameter a name, and this name will be displayed to people.</br>
+											- <B>Descreption [optional]</B>: You can describe this parameter here</br>
+											- <B>Type [optional]</B>: The type fo the parameter</br>
+											- <B>Displayed?</B>: If you don't want this parameter to be displayed in the page, just uncheck this</br>
+											<p>
+											<p style="font-size:1.5em; display:inline-block"><span style="color:red">*With some APIs, you need to assign values to parameters</span></p>
+
+										</div>
+
+
+										<!-- <a style="width:100px; text-align:center" class="button button-mini button-circle button-border button-pink" onclick="callGitHub(document.getElementById('url').value)">GitHub</a>
+										<a style="width:100px; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalPaste" onclick="">Table</a>
+										<a style="width:100px; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalSwagger" onclick="">Swagger</a> -->
+									<!-- </div> -->
+										<!-- (1) Get the mostly used parameters on GitHub "it takes time to populate the table" <a class="button button-mini button-circle button-border button-red" onclick="callGitHub(document.getElementById('url').value)">GitHub</a></br>
+										(2) Copy the request parameters' table from the documentation page, if such table exists, and paste it here <a class="button button-mini button-circle button-border button-red" data-toggle="modal" data-target="#modalPaste" onclick="">Table</a></br>
+										(3) If you have the Open API(Swagger) JSON specifiction of this API, you can copy and paste it here. Check <a href"https://apis.guru/browse-apis/" target="_blank">here</a> for the API specifiction. <a class="button button-mini button-circle button-border button-red" data-toggle="modal" data-target="#modalSwagger" onclick="">OpenAPI/Swagger</a> </br>
+										Make sure to add the <B>"required"</B> parameters. If you do not want the parameter to be displayed <B>uncheck "displayed?"</B></p> -->
+
+									<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Launch modal</button> -->
+
+							<!-- Modal -->
+							<div id="modalPaste" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-body">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title" id="myModalLabel">Request Parameters</h4>
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											</div>
+											<div class="modal-body" style="padding:30px">
+												<p style="font-size:0.8em; margin:0px; padding:0px;"><B>You can copy the table form the API documentation page and paste it here:</B></p>
+												<p style="font-size:0.8em; margin:0px; padding:0px;">When you click Populate Table button, the pasted parameters will be populated into the table. Make sure to set values for these parameters (specially the required ones).</p></br>
+												<!-- <p style="font-size:1em"></p> -->
+												<textarea name="excel_data" style="width:700px;height:300px; background-color:#f1f1f1; font-size:0.7em;"></textarea></br></br>
+												<a class="button" data-dismiss="modal" onclick="generateTable()"></i>Populate Table</a>
+												<!-- <input type="button" onclick="generateTable()" value="Genereate Table"/> -->
+											</div>
+										</div>
 									</div>
-									<div class="form-group">
-										<label>API Description</label>
-										<textarea class="form-control" id="description" rows="2" placeholder=""></textarea>
+								</div>
+							</div>
+
+
+							<!-- Modal -->
+							<div id="modalSwagger" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-body">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title" id="myModalLabel">Request Parameters</h4>
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											</div>
+											<div class="modal-body" style="padding:30px">
+												<p style="font-size:0.8em; margin:0px; padding:0px;"><B>You can copy the <a href="https://apis.guru/browse-apis/" target="_blank">Open API JSON schema</a> for the API and paste it here:</B></p>
+												<p style="font-size:0.8em; margin:0px; padding:0px;">When you click Populate Table button, the pasted parameters will be populated into the table. Make sure to set values for these parameters (specially the required ones).</p></br>
+												<!-- <p style="font-size:1em"></p> -->
+												<textarea name="swagger_schema" style="width:700px;height:300px; background-color:#f1f1f1; font-size:0.7em;"></textarea></br></br>
+												<a class="button" data-dismiss="modal" onclick="generateTableFromSwagger(document.getElementById('url').value)"></i>Populate Table</a>
+												<!-- <input type="button" onclick="generateTable()" value="Genereate Table"/> -->
+											</div>
+										</div>
 									</div>
-									<div class="form-group">
-										<label>API Type*</label>
-										<select class="form-control" id="type">
-											<option>Articles</option>
-											<option>Videos</option>
-											<option>Images</option>
-											<option>Products</option>
-											<option>Books</option>
+								</div>
+							</div>
+
+									<table id="requestTabel" class="table table-bordered table-striped">
+										<thead style="font-size:1.5em">
+											<tr>
+												<th style="">Name </th>
+													<!-- <a data-toggle='tooltip' data-placement='right' title="This the name of the parameter (e.g. in YouTube search API 'q' is one the required parameters name=q and default value=cats videos)"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></th> -->
+												<th style=";">Value </th>
+													<!-- <a data-toggle='tooltip' data-placement='right' title="Make sure to add a default value here, specially for the required parameters. Some APIs will not return results if you did not assign a default value even for the optional parameters."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></th> -->
+												<!-- <th>Multivalue?</th> -->
+												<th style=";">Allowed Values </th>
+													<!-- <a data-toggle='tooltip' data-placement='right' title="If the parameter can take one of many values, add them here (separated by comma)"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></th> -->
+												<!-- <th>Display?</th> -->
+												<th style="">Displayed Name </th>
+													<!-- <a data-toggle='tooltip' data-placement='right' title="If you want this to be displayed in the interface you should write a value here"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a> </th> -->
+												<th style="">Description </th>
+												<th style="">Type</th>
+												<th style="">Required</th>
+												<th style="">Displayed</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody style="text-align:center">
+										<tr id="firstTR">
+											<td>
+												<input class="form-control" type="text" id="name" placeholder="Request parameter" onblur="urlBlur()" onkeyup="urlBlur()">
+											</td>
+											<td>
+												<input class="form-control" type="text" id="value" placeholder="Parameter default value" onblur="urlBlur()" onkeyup="urlBlur()">
+											</td>
+
+											<td>
+												<input class="form-control" type="text" id="listOfValues" placeholder="">
+											</td>
+
+											<td>
+												<div>
+													<input id="displayedName" class="form-control" type="text" placeholder="Name displayed to users">
+												</div>
+											</td>
+
+
+											<td>
+												<input class="form-control" type="text" id="desc" placeholder="Parameter description">
+											</td>
+											<td>
+												<select class="form-control" id="type" style="height:30px">
+													<option value="string">String</option>
+													<option value="int">Integer</option>
+													<option value="date-time">Boolean</option>
+													<option value="date">Date</option>
+													<option value="date-time">DateTime</option>
+												</select>
+											</td>
+
+											<td >
+												<input id='required'  value='' class='checkbox-style' name='' type='checkbox'  onchange='' autocomplete='off' checked/>
+											</td>
+
+											<td >
+												<input id='displayed'  value='' class='checkbox-style' name='' type='checkbox'  onchange='' autocomplete='off' checked/>
+											</td>
+
+											<td>
+												<input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/>
+											</td>
+										</tr>
+										</tbody>
+									</table>
+
+									<a class="button button-mini button-circle button-teal"onclick="addRow()" style="width:180px; text-align:center; color:white"><i class="glyphicon glyphicon-plus"></i>Add a Parameter</a>
+									<a style="color:white; width:180px; text-align:center" class="button button-mini button-circle button-red" onclick="clearTable()"><i class="glyphicon glyphicon-trash"></i>Empty Table</a>
+
+								</div>
+							</div>
+
+
+
+						<div class="toggle toggle-bg">
+							<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">3.</span> Authentication and Header <span style="font-style: italic; font-size:0.9em">(some APIs require authentication and\or header)</span></div>
+							<div class="togglec">
+								<h3 style="margin:0px; padding:0px;">Authentication Type <span id="messageQ" style="font-size:0.6em; display:none;  color:red">(Add your key as one of the request parameters above)</span> <span id="messageH" style="font-size:0.6em; display:none; color:red">(Add your key as one of the header parameters below)</span><span id="messageB" style="font-size:0.6em; display:none; color:red">(Add your token\key in the header section below)</span></h3>
+								<p style="font-size:1.7em; margin-bottom:5px;">Supported authentication methods are: HTTP authentication (Basic, Bearer, etc), API key as a header or query parameter, etc.</p>
+
+								<table id="authTabel"> <!-- class="table table-bordered table-striped" -->
+									<!-- <thead style="font-size:1.5em">
+										<tr>
+											<th style="">Type <a data-toggle='tooltip' data-placement='right' title="If you want this to be displayed in the interface you should write a value here"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></th>
+											<th style="">Default Value* <a data-toggle='tooltip' data-placement='right' title="Make sure to add a default value here, specially for the required parameters. Some APIs will not return results if you did not assign a default value even for the optional parameters."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></th>
+										</tr>
+									</thead> -->
+									<tbody style="text-align:center">
+									<tr>
+
+										<select class="form-control" id="selectid" style="height:30px; width:300px" onchange="authSelected()">
+											<option value="noAuth">No Auth</option>
+											<option value="queryAuth">API key as a Query Parameter</option>
+											<option value="headerAuth">API key as a Header</option>
+											<option value="bearerToken">Bearer Token</option>
+											<option value="basicAuth">Basic Auth</option>
+											<!-- <option value="oAuth1">OAuth 1.0</option>
+											<option value="oAuth2">OAuth 2.0</option> -->
 										</select>
-									</div>
-									<div class="form-group">
-										<label>API URL*</label>
-										<input type="text" class="form-control" id="url" placeholder="e.g. 'https://www.googleapis.com/youtube/v3/search'" required>
-									</div>
-								</form><!-- callGitHub(document.getElementById('url').value) -->
-								<a class="button button-3d nomargin fright tab-linker" style="position:relative; top:-10px" rel="2" onclick=""><i class="glyphicon glyphicon-chevron-right"></i></a>
+
+									</tr>
+								</tbody>
+							</table>
+
+						</br></br></br>
+
+							<h3 style="margin:0px; padding:0px;">Header Parameters</h3>
+							<p style="font-size:1.7em; margin-bottom:5px;">Some APIs might ask you to add header values to acces their data (e.g. In <a href="https://developer.github.com/v3/search/#text-match-metadata" target="_blank">GitHub search code API</a>, you can get the code snippets and highlights in search results by adding 'Accept' header as the key and assign it a value of 'application/vnd.github.v3.text-match+json'). Other APIs only required their authentication to be passed as a header parameter.</p>
+							<table id="headerTabel" class="table table-bordered table-striped">
+								<thead style="font-size:1.5em">
+									<tr>
+										<th style="background-color: #fff4f6; width:200px">Key</th>
+										<th style="background-color: #fff4f6;">Value</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+								<tr>
+									<td>
+										<input class="form-control" type="text" id="nameH" placeholder="" onblur="urlBlur()" onkeyup="urlBlur()">
+									</td>
+									<td>
+										<input class="form-control" type="text" id="valueH" placeholder="" onblur="urlBlur()" onkeyup="urlBlur()">
+									</td>
+									<td style="width:30px">
+										<input type="image" src="images/del.png" style="width:18px"onclick="deleteHeaderRow(this)"/>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</br>
+
+						<a class="button button-3d button-small button-rounded button-dirtygreen"onclick="addHeaderRow()" style="width:180px; text-align:center; color:white"><i class="glyphicon glyphicon-plus"></i>Add a Header</a>
+
+
 							</div>
 						</div>
 
+						<!-- <div class="toggle toggle-bg">
+							<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">4.</span> Headers <span style="font-style: italic; font-size:0.9em">(some APIs require header parameters)</span></div>
+							<div class="togglec">
 
-							<div id="ptab2">
-								<!-- <h3>Pagination Information</h3> -->
+							</div>
+						</div> -->
 
-								<h6 style=" position:relative; left:270px;">Please choose the pagination style of this API <a class="" type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></h6>
-								<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
+							<!-- </br> </br> </br> </br> </br> </br>
+
+
+						<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="">
+						</br> -->
+							<!-- <div> -->
+								<!-- <a class="button button-3d nomargin tab-linker" rel="1"><i class="glyphicon glyphicon-chevron-left"></i></a>
+								<a class="button button-3d nomargin fright tab-linker" rel="3" onclick=""><i class="glyphicon glyphicon-chevron-right"></i></a> -->
+								<!-- <a class="button button-3d nomargin fright tab-linker" style="position:relative; top:-10px" rel="2" onclick=""><i class="glyphicon glyphicon-chevron-right"></i></a>
+							</div> -->
+								<!-- Parameters HERE -->
+							<!-- </div> -->
+
+						<!-- </div> -->
+					<!-- </div>
+
+
+		  <div id="ptab2"> -->
+
+				<div class="toggle toggle-bg">
+					<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">4.</span> Response Fields <span style="font-style: italic; font-size:0.9em">(choose the fields you are interested in)</span></div>
+						<div id="toggRes" class="togglec">
+							<div class="row">
+								<div class="col" style="" >
+									<h4 style=" margin:0px; padding:0px">Response Sample</h4>
+									<p style=" margin:0px; padding:0px; font-size:1.7em">Please click on the fields you're interested in adding. <a data-toggle='tooltip' data-placement='right' title="This is a sample of the response data. You can browse through the tree view of the response and\or search for specific fields. Click on the fields that you are interested in adding."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></p>
+									<div id="jsoneditor"></div>
+								</div>
+
+								<div class="col">
+									<h4 style=" margin:0px; padding:0px">Selected Fields</h4>
+									<p style=" margin:0px; padding:0px; font-size:1.7em">This is the list of added fields, you can change their names and add descriptions, or remove them.</p>
+									<table id="fields"class="table table-bordered table-striped" style="font-size:1.3em; width:100%">
+										<tr>
+											<th>Field</th>
+										  <!-- <th>Path</th> -->
+											<th>Displayed Name [Optional]</th>
+											<th>Description [Optional]</th>
+										</tr>
+									</table>
+								</div>
+							</div><!-- row -->
+
+							<h5 style="color:red">[If you want to get more results than what you're seeing in this response sample, you need to fill in the 'PAGINATION' section]</h5>
+							</div>
+							</div>
+							<!-- </div> -->
+
+							<div class="toggle toggle-bg">
+								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">5.</span> Pagination</div>
+									<div class="togglec">
+								<h2>Pagination Information</h2>
+
+								<p style="font-size:1.7em;">When you access web APIs there’ll be a lot of results to return. For that reason, APIs paginate the results to make sure responses are easier to handle. APIs give you results in pages, every page has a default and a maximum number of results, here we need you to provide max number of results per page.
+								<a style="width:140px; color:white; text-align:center" class="button button-mini button-circle button-red" data-toggle="modal" data-target="#modalExample" onclick="">Check Example</a></p>
+
+								<!-- Modal -->
+								<div id="modalExample" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 									<div class="modal-dialog modal-lg">
 										<div class="modal-body">
 											<div class="modal-content">
-												<div class="modal-header">
-													<h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
+												<!-- <div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">Pagination in Spotify Search</h4>
 													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-												</div>
-												<div class="modal-body">
-													<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-													<p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-													<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-													<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-													<p class="nobottommargin">Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+												</div> -->
+												<div class="modal-body" style="padding:30px">
+													<p>From the <a href="https://developer.spotify.com/documentation/web-api/reference/search/search/" target="_blank">Spotify search API documentation</a>, this is how they deal with pagination.</p></br>
+													<img src="images/pagination.png" align="center" alt="photo">
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 
-
-								<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 500px;">
-
-
-
-								<form id="form-group" name="register-form" class="nobottommargin" action="#" method="post">
-									<div class="col_full">
-										<label>Max Number of results per page*</label>
-										<input type="text" class="form-control"  id="result_max" placeholder="" required>
-									</div>
-									<div class="col_full">
-										<label>Results per page [parameter name if exisit]</label>
-										<input type="text" class="form-control" id="result_param" placeholder="">
-									</div>
-								</form>
-
-							</div>
-
-
-								<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="background-color:#E8E8E8; max-width: 500px;">
-
-									<h5 style=" margin-left: 10px; margin-top: 10px;">Please fill in either Next or Index based on your API specification</h5>
-
-									<ul class="tab-nav tab-nav2 center clearfix">
-												<li class="inline-block"><a href="#tab-login">Next</a></li>
-												<li class="inline-block"><a href="#tab-register">Index</a></li>
-									</ul>
-
-										<div class="tab-container">
-
-															<div class="tab-content clearfix" id="tab-login">
-
-																<!-- <form style="">
-																	<div class="form-group">
-																		<label>API Name*</label>
-																		<input type="text" class="form-control" id="title" placeholder="e.g. 'YouTube API'" required>
-																	</div> -->
-
-																		<form style="width:400px; margin-left: 50px;">
-																			<!-- <h3>Login to your Account</h3> -->
-																			<div class="form-group">
-																				<label>Current Page [parameter name]*</label>
-																				<input type="text" class="form-control"  id="cur_page_param" placeholder="" required>
-
-																			</div>
-																			<div class="form-group">
-																				<label>Next Page [parameter name]*</label>
-																				<input type="text" class="form-control"  id="next_page_param" placeholder="" required>
-																			</div>
-																		</form>
-															</div>
-
-															<div class="tab-content clearfix" id="tab-register">
-																<div class="">
-																	<div class="" style="">
-																		<!-- <h3>Register for an Account</h3> -->
-																		<form style="width:400px; margin-left: 50px;">
-																			<div class="form-group">
-																				<label>Index [parameter name]*</label>
-																				<input type="text" class="form-control"  id="index_param" placeholder="" required>
-																			</div>
-																		</form>
-																	</div>
-																</div>
-															</div>
-
-														</div>
-
-						</div>
-						<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 500px;">
-						</br>
-							<div><!-- callGitHub(document.getElementById('url').value)-->
-								<a class="button button-3d nomargin tab-linker" rel="1"><i class="glyphicon glyphicon-chevron-left"></i></a>
-								<a class="button button-3d nomargin fright tab-linker" rel="3" onclick=""><i class="glyphicon glyphicon-chevron-right"></i></a>
-							</div>
-								<!-- Parameters HERE -->
-							</div>
-						</div>
-
-							<div id="ptab3">
-								<h3>Request Parameters</h3>
-								<h5>You can enter the request parameters one by one, or fetch the mostly used parameters on<a class="button button-mini button-circle button-border button-pink" onclick="callGitHub(document.getElementById('url').value)">GitHub</a></h5>
-								<table id="requestTabel" class="table table-bordered table-striped">
-								  <thead>
-										<tr>
-										  <th style="background-color: #fff7e5;">Name*</th>
-											<th style="background-color: #fff7e5;">Default Value*</th>
-											<!-- <th>Multivalue?</th> -->
-											<th style="background-color: #fff7e5;">List of Values</th>
-											<!-- <th>Display?</th> -->
-											<th style="background-color:#ecf6ef">Displayed Name</th>
-										  <!-- <th>HTML Element</th> -->
-											<th style="background-color:#ecf6ef">Description</th>
-											<th style="background-color:#ecf6ef">Type</th>
-											<!--<th>Required?</th>-->
-										</tr>
-								  </thead>
-								  <tbody>
-									<tr>
-										<td>
-											<input class="form-control" type="text" id="name" placeholder="">
-										</td>
-										<td>
-											<input class="form-control" type="text" id="value" placeholder="">
-										</td>
-
-										<td>
-											<input class="form-control" type="text" id="listOfValues" placeholder="If Multivalue">
-										</td>
-
-										<td>
-											<div>
-												<input id="displayedName" class="form-control" type="text" placeholder="Name Displayed to Users">
-											</div>
-										</td>
-
-
-										<td>
-											<input class="form-control" type="text" id="desc" placeholder="Parameter Description"> <!-- chaneg it to condition -->
-										</td>
-										<td>
-											<select class="form-control" id="type" style="height:30px">
-												<option value="string">String</option>
-												<option value="int">Integer</option>
-												<option value="date">Date</option>
-												<option value="date-time">DateTime</option>
-											</select>
-										</td>
-
-										<td>
-											<input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/>
-										</td>
-									</tr>
-								  </tbody>
-								</table>
-
-								<a class="button button-3d button-mini button-circle button-yellow"onclick="addRow()"><i class="glyphicon glyphicon-plus"></i>Add a Parameter</a>
-
-								<div>
-									<a class="button button-3d nomargin tab-linker" rel="2"><i class="glyphicon glyphicon-chevron-left"></i></a>
-									<a class="button button-3d nomargin fright tab-linker" rel="4" onclick="showResponseSchema()"><i class="glyphicon glyphicon-chevron-right"></i></a>
-								</div>
-							</div>
-
-							<div id="ptab4">
-								<!--<h3>Response Schema</h3>-->
-							<!--<div class="row" >  max-width: 60rem; position:relative; -->
-							<div class="row">
-								<div class="col" >
-									<h4>Response Schema</h4>
-									<div id="jsoneditor"></div>
-										<!--</br>
-										<button id="expandAll" class="button button-3d button-mini button-rounded button-teal">Expand All</button>
-										<button id="collapseAll" class="button button-3d button-mini button-rounded button-teal">Collapse All</button>
-										<button id="submit" class="button button-3d button-mini button-rounded button-teal">Review</button>-->
-								</div>
-
-								<div class="col">
-									<h4>Selected Fields</h4>
-									<!-- <pre id="fields" style="height:380px; border: 1px solid lightgray; background-color:#eeeeee"></pre> -->
-									<!-- <div id="fields" style="height:370px; width: 200px; overflow-y:scroll; overflow-y:auto; overflow-x:auto; border: 1px solid lightgray;">
-
-									</div> -->
-
-									<table id="fields" class="">
-									  <tbody>
-
-									  </tbody>
-									</table>
-
-								</div>
-
-								<!-- <div class="col">
-									<h4>Sample Data</h4>
-									<div id="tree" style="height:370px; overflow-y:scroll; overflow-y:auto; overflow-x:auto; "></div>
-
-									<form>
-									<div id="jsoneditor"></div>
-									  <div id="textModeSelection" style="display:none;">
-									    <b>Selection:</b><div id="textRange"></div>
-									    <b>Text:</b><div id="selectedText"></div>
-									  </div>
-									  <div id="treeModeSelection">
-									    <b>Selection:</b>
-									    <div id="selectedNodes"></div>
-									  </div>
-									</form>
+								<!-- <div class="a" id="aa" style="margin:0px; padding:0px">
+									<p style="margin:0px; padding:0px">Show example</p>
+									<figure>
+										<img src="images/pagination.png" width="700" height="600" alt="photo">
+									</fugure>
+								</div> -->
+								<!-- <div class="hover_img">
+									<a href="#" style="width:300p">Show Image<span><img src="images/pagination.png" alt="image" style="width:300px; height:200px"/></span></a>
 								</div> -->
 
-							</div>
-								<!--<div class="col">
-									<textarea id="result" rows="6" placeholder="Result" style=" width:60%;margin-top: 20px;"></textarea>
-								</div>
-							</div>-->
 
-							 <div >
-									<a class="button button-3d nomargin tab-linker" rel="3"><i class="glyphicon glyphicon-chevron-left"></i></a>
-									<a class="button button-3d nomargin fright tab-linker" rel="5" onclick="reviewAPIIntegration()"><i class="glyphicon glyphicon-chevron-right"></i></a>
+							<!-- <div>
+							  <p><a href="https://www.sitepoint.com/community/t/trying-to-show-image-in-popup-box-when-i-hover-over-a-button/232770?u=sama74">https://www.sitepoint.com/community/t/trying-to-show-image-in-popup-box-when-i-hover-over-a-button/232770?u=sama74</a></p>
+							</div> -->
+
+
+
+
+								<style>
+									/*.hover_img a { position:relative; }
+									.hover_img a span { display:none;  }
+								  /*.hover_img a span { position:absolute; display:none; z-index:99; }*/
+									/*.hover_img a:hover span { display:block; }*/
+
+									#aa {
+								  position: relative;
+								}
+
+								#aa p {
+								  display: inline-block;
+								  background: blue;*/
+								  color: black;
+								  /*padding: 0.4em 0.6em;*/
+								  font-size: 1.5em;
+								  /*border-radius: 1em;*/
+								}
+
+								#aa figure {
+								  display: none;
+								  position: absolute;
+								  top: 2em;
+								  left: 1em;
+								  padding: 0;
+								  margin: 0;
+								  border: 5px solid #fd0;
+								  background: #fd0;
+								  border-radius: 1em;
+								}
+
+								#aa img {
+								  display: block;
+								  border-radius: 0.8em;
+								  max-width: 100%;
+								  height: auto;
+								}
+
+								#aa:focus figure,
+								#aa:hover figure {
+								  display: block;
+								}
+								#aa:focus p,
+								#aa:hover p {
+								  background: red;
+								}
+								</style>
+								<!-- <div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 500px;"> -->
+								<form style="" autocomplete="on">
+									<div>
+										<div class="" style="display: inline-block;">
+										<label>Max Number of results per page* <a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="The maximum number of results per page as allowed by the API (e.g.the default number of results in YouTube search API is 5, but the maximum number fo results is 50 and that's what you need to provide here). Do not provide the number of results you want here."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label>
+										<!-- <p style="font-size:1.5em; margin:0px; padding:0px">The maximum number of results per page as allowed by the API (e.g.the maximum number of results in YouTube search API is 50)</p> -->
+										<input type="text" class="form-control"  id="result_max" placeholder="(e.g. 50)" required>
+
+									</div>
+									<div class="" style="display: inline-block;margin-left:100px;"> <!-- -->
+										<label>Results per page "parameter" [if exisit] <a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="The parameter used to set the maximum number of results to (e.g. the parameter that you set the number of results to in YouTube is 'maxResults'). Not all APIs provide this parameter."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label>
+										<!-- <p style="font-size:1.5em; margin:0px; padding:0px">The parameter used to set the maximum number of results to (e.g. YouTube search API is maxResults). Not all APIs provide this parameter</p> -->
+										<input style="" type="text" class="form-control" id="result_param" placeholder="(e.g. maxResults)">
+									</div>
+								</div>
+
+
+							<h4 style="margin-top: 30px; margin-bottom:5px">Please choose the pagination style for this API: <label><a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="If you want to get more results than the max number of results per page allowed by the API, you should loop through the other pages and get more results. There are two different ways to loop through pages: (1) Some APIs use index or offset to go through multiple pages (e.g. In Wikipedia search API, they use ‘offset’ as the page parameter. offset=0 is the first page, offset=1 is the second page, etc). (2) Other APIs will provide parameters that will indicate the current page, in which you can assign it to the next page parameter to get more results (e.g. in YouTube search API, the current page parameter is ‘pageToken’ and to go to the next page we assign ‘pageToken’ to the ‘nextPageToken’)."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label> <input type="button" id="butShowReq" class="button button-small button-circle button-border button-amber" onclick="showHideDivPag(this)" value="Show Explanation"/></h4>
+							<!-- <a target="_blank" href="docs.html#page">[Check Documentation]</a> -->
+							<div id="pagExp" style="display:none;">
+								<p style="font-size:1.7em;">If you want to get more results than the max number of results per page allowed by the API, there are two different ways to loop through pages: (1) Some APIs use index or offset to go through multiple pages(e.g. In Wikipedia search API, they use ‘offset’ as the page parameter. offset=0 is the first page, offset=1 is the second page, etc). (2) Other APIs will provide parameters that will indicate the current page, in which you can assign it to the next page parameter to get more results (e.g. in YouTube search API, the current page parameter is ‘pageToken’ and to go to the next page we assign ‘pageToken’ to the ‘nextPageToken’).<span style="color:red"> If the API provide both next\prev and index style pagination, you can just go with the index pagination.</span></p>
+
+							</div>
+
+							<!-- <div class="radio">
+								<label><input type="radio" name="radioPage" id="indexR" onchange="showIndex()"><p style="font-size:1.2em; margin:0px; padding:0px">Index</p></label>
+							</div>
+							<div class="radio">
+								<label><input type="radio" name="radioPage" id="indexR" onchange="showOffset()"><p style="font-size:1.2em; margin:0px; padding:0px">Offset</p></label>
+							</div>
+							<div class="radio">
+								<label><input type="radio" name="radioPage" id="nextR" onchange="showNext()"><p style="font-size:1.2em; margin:0px; padding:0px">Next\Prev</p></label>
+							</div> -->
+
+							<div class="row">
+								<div class="col">
+									<label>Type of pagination</label>
+									<select class="form-control" id="selectPage" style="height:30px; width:300px" onchange="pageSelected()">
+										<option value="offset">Offset Pagination</option>
+										<option value="index">Index Pagination</option>
+										<option value="nextPrev">Next\Prev Pagination</option>
+									</select>
+							</div>
+
+							<div class="col">
+								<div id="indexDiv" class="" id="" style="display:none;">
+												<label>Index [parameter name]</label>
+												<input type="text"  class="form-control"  id="index_param" placeholder="(e.g. page)" required>
+
+								</div>
+
+								<div id="offsetDiv" class="" id="" style="display:none;">
+												<label>Offset [parameter name]*</label>
+												<input type="text"  class="form-control"  id="offset_param" placeholder="(e.g. offset)" required>
+
+								</div>
+
+								<div id="nextDiv" class="" id="" style="display:none;">
+									<div class="form-group" style=" display=none;">
+										<label>Current Page [parameter name]*</label>
+										<input type="text" class="form-control"  id="cur_page_param" placeholder="(e.g. pageToken)" required>
+									</div>
+									<div class="form-group" style=" display=none;">
+										<label>Next Page [parameter name]*</label>
+										<input type="text" style="font-size:1em" class="form-control"  id="next_page_param" placeholder="(e.g. nextPageToken)" required>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+
+
+
+
+								</form>
+
+
+								<!-- <div>
+									<a class="button button-3d nomargin tab-linker" rel="2"><i class="glyphicon glyphicon-chevron-left"></i></a>
+									<a class="button button-3d nomargin fright tab-linker" rel="4" onclick="showResponseSchema()"><i class="glyphicon glyphicon-chevron-right"></i></a>
+								</div> -->
 							</div>
 
 						</div>
+				<!-- </div> -->
 
-							<!--<div id="ptab4">
-								<h3>Response Parameters</h3>
-								<table class="table">
-									<thead>
-										<th>Response Parameters</th>
-										<th>Displayed Names</th>
-									</thead>
-									<tbody id="res">
 
-									</tbody>
-								</table>
+						<!-- </br>
+							 <div>
+									<a class="button button-3d nomargin tab-linker" rel="1"><i class="glyphicon glyphicon-chevron-left"></i></a>
+									<a class="button button-3d nomargin fright tab-linker" rel="3" onclick="reviewAPIIntegration()"><i class="glyphicon glyphicon-chevron-right"></i></a>
+							</div> -->
 
-								<div>
-									<a class="button button-3d nomargin tab-linker" rel="3"><i class="glyphicon glyphicon-chevron-left"></i></a>
-									<a class="button button-3d nomargin fright tab-linker" rel="5"><i class="glyphicon glyphicon-chevron-right" onclick="showRequestSchema2()"></i></a>
-								</div>
-							</div>-->
 
-						  <div id="ptab5">
-								<!-- <div class="row">
-									<div class="col"> -->
-										<!-- <h4>Preview of your API Integration:</h4> -->
-									<!-- <p>Click on section to edit:</p>
-									<a class="button button-3d button-mini button-rounded button-teal tab-linker" rel="1">1</a>
-									<a class="button button-3d button-mini button-rounded button-teal tab-linker" rel="2">2</a>
-									<a class="button button-3d button-mini button-rounded button-teal tab-linker" rel="3">3</a> -->
-									<h5 style="display: inline-block;">Review\Edit your API Integration:</h5>
-									<a class="button button-3d button-mini button-rounded button-yellow tab-linker" rel="1" style="width:120px; text-align:center">1.Basic</a>
-									<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="2" style="width:120px; text-align:center">2.Pagination</a>
-									<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="3" style="width:120px; text-align:center">3.Request</a>
-									<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="4" style="width:120px; text-align:center">4.Response</a>
 
-									<div style="float:right;">
-										<button id="saveAPI" class="button button-3d button-mini button-rounded" onclick="saveAPI()" style="width:90px"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save</button>
-										<button id="cancelAPI" class="button button-3d button-mini button-rounded button-red" onclick="cancelAPI()" style="width:90px"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Cancel</button>
-									</div>
 
-									<div id="previewAPIIntegration" ></div>
+						  <!-- <div id="ptab3"> -->
+							<div class="toggle toggle-bg">
+								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">6.</span> Review Your API Integration</div>
+									<div class="togglec">
 
-									<!-- </div>
-									<div class="col" style="top:70px"> -->
-									<!-- <h5>Save or cancel your API integration:</h5> -->
+									<!-- <div class="row"> -->
+										<!-- <div class="col-xs"> -->
+											<!-- <div class="box"> -->
+											<h3 style="">Review your API Integration: <a style="color:black; width:180px; text-align:center;" class="button button-mini button-circle button-3d button-leaf" onclick="reviewAPIIntegration()">Review</a></h3>
+										<!-- </div> -->
+									<!-- </div> -->
+										<!-- <div class="col-xs"> -->
+											<!-- <div class="box">
+											<a class="button button-3d button-mini button-rounded button-yellow tab-linker" rel="1" style="width:120px; text-align:center">1.URL</a>
+											<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="2" style="width:120px; text-align:center">2.Pagination</a>
+											<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="3" style="width:120px; text-align:center">3.Parameters</a>
+											<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="4" style="width:120px; text-align:center">4.Response</a>
+										</div> -->
+									<!-- </div> -->
+
+									<!-- <div class="col-lg"> -->
+									<!-- <div class="box" style="float:left;"> -->
 
 									<!-- </div> -->
+								<!-- </div> -->
+							<!-- </div> -->
+
+							<div class="row">
+								<div class="col-lg">
+									<div class="" id="previewAPIIntegration" ></div>
+
+									<!-- START HERE -->
+
+							<!-- END HERE -->
+
 								</div>
+							</div>
 
-								<!--<a class="button button-3d nomargin tab-linker" rel="3"><i class="glyphicon glyphicon-chevron-left"></i></a>-->
-								<!-- <a class="button button-3d nomargin fright tab-linker" onclick="saveAPI()" >Integrate</a> -->
-
-
-
-						</div>
+							<!-- <div>
+	 								<a class="button button-3d nomargin tab-linker" rel="2"><i class="glyphicon glyphicon-chevron-left"></i></a>
+	 						</div> -->
+							</div>
 					</div>
+
+
+					<!-- <h1>APIs.guru specs reference</h1>
+					    <section id="links">Loading...</section>
+							<div id="linksD"></div>
+
+					    <script type="text/javascript">
+
+					    </script> -->
+
+				</div>
+				<div id="jsonResponse2" class="col-3" style="padding-top:56px">
+					<div style="display:inline;">
+					<p style="display:inline-block; font-size:2em; margin:0px; padding:0px"><B><span style="color:red"></span>Validate Your API Integration </B>
+					<img id="correct" src="images/correct.png" alt="" height="20" width="20" style="display:none;">
+					<img id="notcorrect" src="images/notcorrect.png" alt="" height="20" width="20" style="display:none">
+					</p>
+				</div>
+
+					<pre id="jsonResponse" style="background-color:#ffecef; height:363px; width:380px; font-size:1.5em">
+						<!-- <code class="prettyprint" id="jsonResponse">
+						</code> -->
+
+						<!-- <h5 style="color:red">If you want more results, fill in the 'PAGINATION' section</h5> -->
+
+					</pre>
+				</div>
+
+				<!-- </div> -->
+						<!-- </div> -->
+					<!-- </div> -->
 
 				</div>
 
@@ -478,29 +750,26 @@
 
 		<!-- Footer
 		============================================= -->
-		<footer id="footer" class="dark">
+		<!-- <footer id="footer" class="dark">
 
 			<div class="container-fullwidth">
 
-				<!-- Footer Widgets
-				============================================= -->
 				<div class="footer-widgets-wrap clearfix">
 
-				</div><!-- .footer-widgets-wrap end -->
+				</div>
 
 			</div>
 
-			<!-- Copyrights
-			============================================= -->
+
 			<div id="copyrights">
 
 				<div class="container-fullwidth clearfix">
 
 				</div>
 
-			</div><!-- #copyrights end -->
+			</div>
 
-		</footer><!-- #footer end -->
+		</footer> -->
 
 	</div><!-- #wrapper end -->
 
@@ -523,7 +792,7 @@
 	<!-- My
 	 JavaScripts
 	============================================= -->
-	<script src="js/search.js" type="text/javascript"></script>
+	<script src="js/search.js" type="text/javascript" charset="UTF-8"></script>
 	<script type="text/javascript" src="js/renderjson.js"></script>
 
 	<script src="js/treeview.min.js" type="text/javascript"></script>
@@ -531,17 +800,10 @@
 
 	<!-- Date & Time Picker JS -->
 	<script src="js/components/moment.js"></script>
-	<script src="demos/travel/js/datepicker.js"></script>
 	<script src="js/components/timepicker.js"></script>
 
 	<!-- Include Date Range Picker -->
 	<script src="js/components/daterangepicker.js"></script>
-
-
-	<!-- <script src="dist/jsoneditor-minimalist.js"></script>
-	<script src="dist/jsoneditor-minimalist.min.js"></script>
-	<script src="dist/jsoneditor.js"></script>
-	<script src="dist/jsoneditor.min.js"></script> -->
 
 	<script src="js/underscore.js"></script>
 	<script src="js/underscore-min.js"></script>
@@ -558,12 +820,36 @@
 
 	</script>
 
-	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+	<!-- <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script> -->
 	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-database.js"></script>
 
+
 	<style>
+
+	.tooltip .tooltip-inner{
+		max-width:400px;
+		padding:3px 8px;
+		color:#000;
+		font-size: 1.5em;
+		text-align: left;
+		font-weight: bold;
+		background-color:#ffdae0;
+		-webkit-border-radius:5px;
+		-moz-border-radius:5px;
+		border-radius:5px
+	}
+
+	#jsonResponse2 {
+		position: fixed;
+		left:72%;
+		/*right: 0;
+		top: 50%;
+		width: 8em;
+		margin-top: -2.5em;*/
+	}
+
 
 		.modal-body{
 			font-size:1.5em;
@@ -715,43 +1001,36 @@
     }
 
 		#jsoneditor {
-      width: 100%;
+      width: 450px;
       height: 400px;
     }
 
-		/*#jsoneditor td{
-			max-height: 24px;
-			height: 0px;
-			padding: 0 0 0 0;
-
-		}
-
-		#jsoneditor tr{
-			max-height: 24px;
-			margin: 0; border: 0; padding: 0;
-			border-collapse: collapse;
-
-			/*display: block;*/
-		/*}
-
-		#jsoneditor table{
-			border-spacing: 0;
-			border-collapse: collapse;
-		}
-
-		div.jsoneditor table {
-		  border-collapse: collapse;
-		  width: auto;
-		}
-
-
-		div.jsoneditor-tree table.jsoneditor-tree {
-		  border-collapse: collapse;
-		  border-spacing: 0;
-		  width: 100%;
-		}*/
-
 	</style>
+
+	<script>
+		//window.localStorage.setItem('link', document.getElementById('url').value);
+			window.onbeforeunload = function() {
+					localStorage.setItem("link", $('#url').val());
+					//console.log($('#url').val());
+					localStorage.setItem("apiname", $('#title').val());
+					localStorage.setItem("max", $('#result_max').val());
+					localStorage.setItem("result", $('#result_param').val());
+					localStorage.setItem("index", $('#index_param').val());
+
+					localStorage.setItem("cur", $('#cur_page_param').val());
+					localStorage.setItem("next", $('#next_page_param').val());
+
+					localStorage.setItem("nameR", $('#name').val());
+					localStorage.setItem("valueR", $('#value').val());
+					localStorage.setItem("listR", $('#listOfValues').val());
+					localStorage.setItem("descR", $('#desc').val());
+					//localStorage.setItem("dis", $('#displayed').is(":checked"));
+					//localStorage.setItem("dis", $('#displayed').val());
+					localStorage.setItem("nH", $('#nameH').val());
+					localStorage.setItem("vH", $('#valueH').val());
+
+			}
+	</script>
 
 </body>
 </html>

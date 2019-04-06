@@ -164,48 +164,47 @@
 			<!--<div class="content-wrap"> -->
 
 
-			<div class="container-fullwidth flex-cols"  id="allSections" style="width:100%; height:100%;">
+			<div class=""  id="allSections" style="width:98%; height:100%; padding:5px">
 
+					<div class="row">
 
-					<!-- Sidebar
-					============================================= -->
-
-					<div id="reqSection" class="sidebar" style="width:200px;">
-						<!--<div class="sidebar-widgets-wrap" style="float:bottom; height:700px; overflow: scroll;">--><!--overflow: scroll;">-->
+						<div class="col">
+							<div id="reqSection" class="box" style="float:right;">
 								<div class="form-group">
-									<h4>1. Search and Filter</h4>
+									<h4>Search and Filter</h4>
 								</div>
-							</br>
+								</br>
 
-								<div id="" style="height:550px;">
-								<div id="reqParameters" style="height:450px; overflow-y:scroll; overflow-y:auto; overflow-x:auto;"></div>
-									</br>
-									<a id="submitQuery" class="button button-mini" onclick="retrieveData()"></i>Submit </a>
-									<a class="button button-mini button-teal button-roundedl" type="reset" value="Reset" onClick="window.location.reload()"></i>Reset</a>
+								<div id="reqParametersContainer" style="">
+									<div id="reqParameters" style=" overflow-y:scroll; overflow-y:auto; overflow-x:auto;">
+									</div>
+								</br>
+								<a id="submitQuery" class="button button-mini" onclick="retrieveDataX()"></i>Submit </a>
+								<a class="button button-mini button-teal button-roundedl" type="reset" value="Reset" onClick="window.location.reload()"></i>Reset</a>
 								</div>
-
-				</div><!-- Request -->
+							</div>
+						</div>
+				<!-- Request -->
 
 					<!-- Post Content
 					============================================= -->
-					<div id="resultSection" class="sidebar coll1">
-						<h4>2. View Result</h4>
+					<!-- <div id="resultSection" class="sidebar coll1"> -->
+					<div class="col-6">
+						<div id="resultSection"  class="box" style="">
+
+							<h4>View, Save and Download Result</h4>
 						<!-- Choose the view type-->
 						<div id="viewButtons" style="display:none">
 							<button onclick="viewTable()" class="button button-mini button button-circle" data-toggle="tooltip" data-placement="bottom" title="Table View"> <i class="glyphicon glyphicon-th" style="left:2px"></i></button>
-							<!--<button onclick="viewList()" class="button button-mini button button-circle" data-toggle="tooltip" data-placement="bottom" title="List View"> <i class="glyphicon glyphicon-list-alt" style="left:2px"></i></button>-->
 							<button onclick="viewTree()" class="button button-mini button button-circle" data-toggle="tooltip" data-placement="bottom" title="Tree View"> <i class="glyphicon glyphicon-align-left" style="left:2px"></i></button>
+							<button onclick="viewList()" class="button button-mini button button-circle" data-toggle="tooltip" data-placement="bottom" title="List View"> <i class="glyphicon glyphicon-list-alt" style="left:2px"></i></button>
 
-							<div style="float:right;">
-								<a id="CSV" class="button button-mini button-border button-rounded button-red" style="display:none" onclick="DownloadJSON2CSV()"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>
-
-							<!--	<a id="Save-Data" class="button button-mini button-border button-rounded button-yellow" style="display:none" onclick="addQueryToDB()"><i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE</a> -->
-
-								<!--<a id="Save-Data" class="button button-mini button-border button-rounded button-yellow dropdown-toggle" style="display:none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="addQueryToDB()"><i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE</a>-->
-
-								<button type="button" class="button button-mini button-border button-rounded button-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>
-								<button type="button" class="button button-mini button-border button-rounded button-green"  aria-haspopup="true" aria-expanded="false"> <img src="images/java.png" width="15px" height="15px" bottom="5px"> &nbsp;Script </button>
-
+							<div id="viewButtons2" style="float:right;">
+								<!-- <a id="CSV" class="button button-mini button-border button-rounded button-red" style="display:none" onclick="DownloadJSON2CSV()"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a> -->
+								<!-- <a id="Save-Data" class="button button-mini button-border button-rounded button-yellow" style="display:none" onclick="addQueryToDB()"><i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE</a> -->
+								<!-- <a id="Save-Data" class="button button-mini button-border button-rounded button-yellow dropdown-toggle" style="display:none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="addQueryToDB()"><i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE</a>-->
+								<!-- <button type="button" class="button button-mini button-border button-rounded button-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>
+								<button type="button" class="button button-mini button-border button-rounded button-green"  aria-haspopup="true" aria-expanded="false"> <img src="images/java.png" width="15px" height="15px" bottom="5px"> &nbsp;Script </button> -->
 
 								<div class="dropdown-menu">
 									<form class="px-4 py-3">
@@ -236,8 +235,8 @@
 							</div>
 						</div>
 
-							<div id="myGrid" style="width:110vh; height:500px;"></div>
-							<div id="pager" style="width:110vh;"></div>
+							<div id="myGrid" style="width:400px; height:400px;"></div>
+							<div id="pager" style="width:400px;"></div>
 							<!-- edit modal -->
 							<script id="itemDetailsTemplate" type="text/x-jquery-tmpl">
 								<div class='item-details-form'>
@@ -256,18 +255,23 @@
 							</script>
 
 						<!--******* Tree View *******-->
-						<div id="myTree" style="width:110vh;height:500px; display:none; overflow: scroll; "></div>
+						<div id="myTree" style="; display:none; overflow: scroll; "></div>
 
 						<!--******* List View *******-->
-						<div id="myList" style="width:110vh;height:500px; display:none; overflow: scroll; "></div>
+						<div id="myList" style="; display:none; overflow: scroll; "></div>
 
-					</div><!-- .postcontent end -->
+					</div>
+				</div>
+					<!-- .postcontent end -->
 
 					<!-- Sidebar
 					============================================= -->
-					<div id="resSection" class="sidebar col_last" style="width:200px;">
-						<div class="sidebar-widgets-wrap">
-							<h4>3. Refine Result</h4>
+					<!-- <div id="resSection" class="sidebar col_last" style="width:200px;"> -->
+					<div class="col">
+						<div id="resSection">
+
+						<div class="sidebar-widgets-wrap" style="float:left;">
+							<h4>Choose Fields</h4>
 						</br>
 
 							<div id="accordion" role="tablist">
@@ -298,56 +302,10 @@
 								</div>
 							</div>
 
-
 						</div>
 
-						<!-- automatically ftech fields from firebase -->
-
-								<!--<div class="card">
-									<div class="card-header" role="tab" id="headingThree">
-										<h5 class="mb-0">
-											<a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-												Group By
-											</a>
-										</h5>
-									</div>
-									<div id="collapseThree" class="collapse show" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
-										<div class="card-body">
-											<select id="groupByFilterSelect" class="select-tags form-control" multiple="" tabindex="-1" aria-hidden="true" style="width:160px;" autocomplete='off' ondrop="drop(event)" ondragover="allowDrop(event)">
-												<option id="channelTitle" value="channelTitle">Channel Title</option>
-												<option id="publishedAt" value="publishedAt">Published At</option>
-											</select>
-
-											</br>
-											<a href="#" class="button button-mini button-teal button-roundedl" type="reset" value="Reset" onclick="dataView.setGrouping([])" ></i>Clear grouping</a>
-										</div>
-									</div>
-								</div>-->
-
-								<!--<div id="drop1" ondrop="drop(event)" ondragover="allowDrop(event)">-->
-
-
-
-								<!-- <script>
-								function allowDrop(ev) {
-										ev.preventDefault();
-								}
-
-								function drag(ev) {
-										ev.dataTransfer.setData("label", ev.target.id);
-								}
-
-								function drop(ev) {
-										ev.preventDefault();
-										var data = ev.dataTransfer.getData("label");
-										ev.target.appendChild(document.getElementById("channelTitle"));
-										//$("#channelTitle").selected=true;
-										//console.log($("#channelTitle").val());
-										//document.getElementById("groupByFilterSelect").innerHTML = "<option id='channelTitle' value='channelTitle' selected>Channel Title</option>";
-								}
-								</script> -->
-
 					</div><!-- .sidebar end -->
+				</div>
 
 			</div> <!-- All Three Sections -->
 
@@ -485,6 +443,7 @@
 			<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
 			<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-database.js"></script>
 
+			<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 			<style>
 					.checkbox-style-3-label{

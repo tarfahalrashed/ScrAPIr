@@ -23,7 +23,7 @@
 
 	<!-- Document Title
 	============================================= -->
-	<title>Project Name</title>
+	<title>scrAPIr</title>
 
 </head>
 
@@ -35,7 +35,7 @@
 
 		<!-- Header
 		============================================= -->
-		<header id="header" class="transparent-header dark">
+		<header id="header" class="transparent-header" data-sticky-class="not-dark">
 
 		<div id="header-wrap">
 
@@ -45,9 +45,12 @@
 					<!-- Logo
 					============================================= -->
 					<div id="logo">
-						<!-- <a href="index.html" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="images/logo.png" alt="Canvas Logo"></a>
-						<a href="index.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a> -->
+						<!-- <a href="index.html" data-dark-logo="images/scrapir1.png"><img src="images/scrapir1.png"></a> -->
+
+						<!-- <a href="index.html" class="" data-dark-logo="images/d1.png"><img src="images/d1.png" alt="" ></a> -->
+						<!--<a href="index.html" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="images/logo.png" alt="Canvas Logo"></a>-->
 					</div>
+
 
 					<!-- Primary Navigation
 					============================================= -->
@@ -62,12 +65,16 @@
 							</li>
 							<li class="mega-menu"><a href="#APIs">Websites</a>
 							</li>
-							<li class="mega-menu"><a href="docs.html">Docs</a>
+							<li class="mega-menu"><a href="docs.html" target="_blank">Docs</a>
+								<!-- <ul style="">
+									<li><a href="docs.html" id="" style=""><div>Access Websites' Data</div></a></li>
+									<li><a href="integrate.html" onclick="" id="" style=""><div>Integrate Web APIs</div></a></li>
+								</ul> -->
 							</li>
 							</li>
-							<li class="mega-menu"><a href="dataset.html" data-offset="100" >Dataset</a>
+							<li class="mega-menu"><a href="dataset.html" data-offset="100" target="_blank">Datasets</a>
 							</li>
-							<li class="mega-menu"><a href="api-integration.html">Integrate</a>
+							<li class="mega-menu"><a href="api-integration.html" target="_blank">Integrate</a>
 							</li>
 							<li class="mega-menu"><a href="#contact">Contact</a>
 							</li>
@@ -95,20 +102,28 @@
 
 		</header><!-- #header end -->
 
-		<section id="slider" class="slider-element slider-parallax swiper_wrapper clearfix" style="height:750px">
-			<div class="slider-parallax-inner">
+		<section id="slider" class="slider-element slider-parallax swiper_wrapper clearfix" style="height:800px">
+			<!-- <div class="slider-parallax-inner"> -->
 				<div class="swiper-container swiper-parent">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide " style="background-image: url('images/main/main42.jpg');">
+						<!-- dark in the below one makes tabs white -->
+						<!-- <div class="swiper-slide dark" style="background-image: url('images/main/main42.jpg');"> -->
+						<div class="swiper-slide" style="background-image: url('images/main/main42.jpg');">
 							<div class="container clearfix">
 								<div class="slider-caption slider-caption-center">
-									<!-- <img src="images/Aape-logo.png" alt="" width="200px"> -->
-									<h2>Project Name</h2> <!-- Accord -->
+									<!-- <img src="images/scrapir2.png" alt="" width="470px"> -->
+									<h2 id="proname" style="text-transform: capitalize; font-size:7em; font-family: Garamond;">scrAPIr</h2>
 									<p class="d-none d-sm-block"><B>Making Web Data APIs Accessible to Everyone.</B></p>
 								</div>
 						</div>
 					</div>
 				</div>
+
+				<style>
+					#proname::first-letter {
+					  text-transform:lowercase;
+					}
+				</style>
 
 				<a href="#" data-scrollto="#content" data-offset="100" class="dark one-page-arrow"><i class="icon-angle-down infinite fadeInDown"></i></a>
 
@@ -120,164 +135,306 @@
 		============================================= -->
 		<section id="content" style="background-color:#fafafa">
 
-			<!-- ABOUT -->
-			<div id="about" style="background-color:#EAEDED">
-				<div class="container">
-				</br>
-						<div class="topmargin-lg center">
-							<h2>How does it work?</h2>
-							<!-- <p>ADD A VIDEO</p> -->
-						</div>
-								<!-- <div class="row clearfix"> -->
-									<div class="container">
-										<div class="row"> <!-- style="margin-left:100px; margin-right:100px" -->
 
-									    <div class="col">
-
-												<div class="feature-box fbox-plain">
-													<div class="fbox-icon">
-														<span><i class="i-circled icon-globe"></i></span>
-														<!-- <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> -->
-													</div>
-														<h3>Explore</h3>
-														<p style="font-size:2em">You have complete easy control on each &amp; every element that provides endless customization possibilities.</p>
-												</div>
+<style>
+.btn-Primary:hover {
+  background-color: #74a2ed;
+}
+</style>
 
 
-											</div>
+<!-- ABOUT -->
+<div id="about" style="background-color:#EAEDED">
+	<div class="container">
+	</br>
+			<div class="topmargin-lg center">
+				<h2>How does it work?</h2>
+			</div>
+						<!-- <div class="container">
+							<div class="row">
 
-									    <div class="col">
-												<div class="feature-box fbox-plain">
-													<div class="fbox-icon">
-														<i class="i-circled icon-search"></i>
-														<!-- <img src="images/eye.png" alt="" width="10px"> -->
-													</div>
-														<h3>Search</h3>
-														<p style="font-size:2em">You have complete easy control on each &amp; every element that provides endless customization possibilities.</p>
-												</div>
-											</div>
+								<div class="col">
 
-									    <div class="w-100"></br></br></br></br></br></div>
-
-
-									    <div class="col">
-												<div class="feature-box fbox-plain">
-													<div class="fbox-icon">
-														<i class="i-circled icon-filter"></i>
-														<!-- <img src="images/eye.png" alt="" width="10px"> -->
-													</div>
-														<h3>Manage</h3>
-														<p style="font-size:2em">You have complete easy control on each &amp; every element that provides endless customization possibilities.</p>
-												</div>
-											</div>
-
-									    <div class="col">
-												<div class="feature-box fbox-plain">
-													<div class="fbox-icon">
-														<i class="i-circled icon-download"></i>
-														<!-- <img src="images/eye.png" alt="" width="10px"> -->
-													</div>
-														<h3>Save</h3>
-														<p style="font-size:2em">You have complete easy control on each &amp; every element that provides endless customization possibilities.</p>
-												</div>
-											</div>
-
+									<div class="feature-box fbox-plain">
+										<div class="fbox-icon">
+											<span><i class="i-circled icon-globe"></i></span>
 										</div>
+											<h3>Explore</h3>
+											<p style="font-size:2em">You have complete easy control on each &amp; every element that provides endless customization possibilities.</p>
 									</div>
-								<!-- </div> -->
-							</br></br></br></br></br></br>
-					</div>
-				</div>
-				<!-- end of ABOUT-->
 
 
-				<!-- DEMOS -->
-			<div id="demos">
-				<div class="container">
-				</br>
-						<div class="topmargin-lg center">
-							<h2>Try it out!</h2>
-						</div>
-								<div class="row clearfix">
-									<div class="container text-center">
-										<div class="row" style="margin-left:100px; margin-right:100px">
-											<div class="col-sm">
-												<button id="youtubeDemo" type="button" class="btn btn-danger" style="width:230px; height:240px; font-size:2.6em" onclick="window.location.href='data-management.html?api=YouTube_API/#Top_30_most_viewed_Adele_official_music_videos'">List of Adele's<br/>Official Music<br/>Videos Ordered <br/>by Date</button><!-- <i class="glyphicon glyphicon-eye-open" style="font-size:small; display: block; position: absolute; right:250px; top:220px" ></i> -->
-												<img src="images/youtube_logo.png" style="width:90px; display: block; position: absolute; right:60px; top:20px"/>
-											</div>
+								</div>
 
-											<div class="col-sm">
-												<button type="button" class="btn btn-secondary" style="width:230px; height:240px; font-size:2.6em" onclick="window.location.href='data-management.html?api=Wikipedia_API'">Top 20 pages<br/> contain the keyword<br/>"Albert Einstein"</button>
-												<img src="images/wikipedia-logo.png" style="width:35px; display: block; position: absolute; right:60px; top:15px" />
-											</div>
-
-											<div class="col-sm">
-												<button type="button" class="btn btn-dark" style="width:230px; height:240px; font-size:2.6em" onclick="window.location.href='data-management.html?api=Foursquare_API'">Top 15 Most<br/>Reviewed Italian<br/>Resturnats in <br/>Boston<br/></button>
-											  <img src="icons_svg/foursquare.png" style="width:30px; display: block; position: absolute; right:60px; top:10px" />
-											</div>
+								<div class="col">
+									<div class="feature-box fbox-plain">
+										<div class="fbox-icon">
+											<i class="i-circled icon-search"></i>
 										</div>
+											<h3>Search</h3>
+											<p style="font-size:2em">You have complete easy control on each &amp; every element that provides endless customization possibilities.</p>
 									</div>
 								</div>
-							</br></br></br></br></br></br>
+
+								<div class="w-100"></br></br></br></br></br></div>
+
+
+								<div class="col">
+									<div class="feature-box fbox-plain">
+										<div class="fbox-icon">
+											<i class="i-circled icon-filter"></i>
+										</div>
+											<h3>Manage</h3>
+											<p style="font-size:2em">You have complete easy control on each &amp; every element that provides endless customization possibilities.</p>
+									</div>
+								</div>
+
+								<div class="col">
+									<div class="feature-box fbox-plain">
+										<div class="fbox-icon">
+											<i class="i-circled icon-download"></i>
+										</div>
+											<h3>Save</h3>
+											<p style="font-size:2em">You have complete easy control on each &amp; every element that provides endless customization possibilities.</p>
+									</div>
+								</div>
+
+							</div>
+						</div> -->
+
+
+
+						<!-- <div class="container"> -->
+							<div class="row">
+
+								<div class="col">
+
+									<div class="feature-box fbox-plain">
+										<!-- <div class="fbox-icon">
+											<span><i class="i-circled icon-globe"></i></span>
+										</div> -->
+											<!-- <h3>scrAPIr </h3> -->
+											<p style="font-size:2em"> <B>scrAPIr </B>makes it possible to get and use the web data API without programming. You can:</p>
+											<ul class="iconlist">
+												<li style="left:15px"><i class="i-rounded i-small icon-ok" style="background:#1ABC9C; cursor: default; "></i> <p style="font-size:2em; text-indent: 1em;"> Access, filter, and save integrated websites' data.</p></li>
+												<li style="left:15px"><i class="i-rounded i-small icon-ok" style="background:#1ABC9C; cursor: default;"></i> <p style="font-size:2em; text-indent: 1em;"> Search through publicaly available datasets.</p></li>
+												<li style="left:15px"><i class="i-rounded i-small icon-ok" style="background:#1ABC9C; cursor: default;"></i> <p style="font-size:2em; text-indent: 1em;"> Integrate web data APIs.</p></li>
+											</ul>
+
+											<!-- <i class="i-rounded i-small icon-ok"></i>
+											<i class="i-rounded i-small icon-ok"></i><p style="font-size:2em; text-indent: 1em;"> - Search through publicaly available datasets.</p>
+											<i class="i-rounded i-small icon-ok"></i><p style="font-size:2em; text-indent: 1em;"> - Integrate web data APIs.</p> -->
+
+<!-- <i class="icon-phone-sign"></i> -->
+											<!-- <p style="font-size:2em">You have complete easy control on each</p> -->
+									</div>
+
+										<!-- <div class="feature-box fbox-plain">
+											<h3>Integrate web data service with no programming!</h3>
+											<p style="font-size:2em">You have complete easy control on each &amp; every element that provides endless customization possibilities.</p>
+										</div> -->
+
+
+										<!-- <div class="feature-box fbox-plain">
+											<div class="fbox-icon">
+												<i class="i-circled icon-filter"></i>
+											</div>
+												<h3>Manage</h3>
+												<p style="font-size:2em">You have complete easy control on each &amp; every element that provides endless customization possibilities.</p>
+										</div>
+
+										<div class="feature-box fbox-plain">
+											<div class="fbox-icon">
+												<i class="i-circled icon-download"></i>
+											</div>
+												<h3>Save</h3>
+												<p style="font-size:2em">You have complete easy control on each &amp; every element that provides endless customization possibilities.</p>
+										</div> -->
+
+								</div>
+
+								<div class="col">
+									<div class="feature-box fbox-plain">
+										<video width="520px" controls autoplay>
+										    <source src="images/docs/dataExt.mp4" type="video/mp4">
+										</video>
+									</div>
+								</div>
+
+								<!-- <div class="w-100"></br></br></br></br></br></div>
+
+								<div class="col">
+									<video width="400" controls autoplay>
+											<source src="images/data_demo.mov" type="video/mp4">
+									</video>
+								</div>
+
+								<div class="col">
+									<div class="feature-box fbox-plain">
+										<div class="fbox-icon">
+											<i class="i-circled icon-filter"></i>
+										</div>
+											<h3>Manage</h3>
+											<p style="font-size:2em">You have complete easy control on each &amp; every element that provides endless customization possibilities.</p>
+									</div>
+
+									<div class="feature-box fbox-plain">
+										<div class="fbox-icon">
+											<i class="i-circled icon-download"></i>
+										</div>
+											<h3>Save</h3>
+											<p style="font-size:2em">You have complete easy control on each &amp; every element that provides endless customization possibilities.</p>
+									</div>
+								</div> -->
+
+							</div>
+
+						</br> </br> </br>
+						<div align="center">
+							<a href="docs.html" class="button button-small button-circle button-border button-aqua" style="width:240px"><i class="icon-globe"></i>Explore added websites</a>
+							<a href="docs.html#datasets" class="button button-small button-circle button-border button-aqua" style="width:240px"><i class="icon-search"></i>Search public datasets </a>
+							<a href="docs.html#process" class="button button-small button-circle button-border button-aqua" style="width:240px"><i class="icon-plus"></i>Integrate web data APIs</a>
+						</div>
+						<!-- </div> -->
+
+
+
+				</br></br></br></br></br>
+		</div>
+	</div>
+	<!-- end of ABOUT-->
+
+
+	<!-- DEMOS -->
+<div id="demos">
+	<div class="container">
+	<!-- </br> -->
+			<div class="topmargin-lg center">
+				<h2>Try it out!</h2>
+			</div>
+					<div class="row clearfix">
+						<div class="container text-center">
+							<div class="row" style="margin-left:60px; margin-right:60px">
+								<div class="col-sm" style="position: relative;">
+									<button id="youtubeDemo" type="button" class="btn btn-danger" style="background-color:#a43134; border-color:#a43134; width:280px; height:290px; font-size:2.8em; " onclick="window.location.href='data-management.html?api=YouTube_API/#Top_30_most_viewed_Adele_official_music_videos'">List of Adele's<br/>Most Viewed<br/>Official Music<br/>Videos</button>
+									<img src="images/y.png" style="width:50px; display: block; position: absolute; right:60px; top:10px"/>
+								</div>
+
+								<div class="col-sm" style="position: relative;">
+									<button type="button" class="btn btn-info" style="background-color:#ea885d; border-color:#ea885d; width:280px; height:290px;  font-size:2.8em" onclick="window.location.href='data-management.html?api=Reddit_Search/#Hottest_AskReddit_posts'">The Hottest</br>100 AskReddit </br>Subreddit Posts</button>
+									<img src="images/reddit-icon.png" style="width:55px; display: block; position: absolute; right:60px; top:15px" />
+								</div>
+
+								<div class="col-sm" style="position: relative;">
+									<button type="button" class="btn btn-Primary" style="background-color:#90c7e1; border-color:#90c7e1; width:280px; height:290px;  font-size:2.8em" onclick="window.location.href='data-management.html?api=Google_Books/#Newst_ebooks_about_human_history'">Newst Ebooks </br> About Human </br>History</button>
+									<img src="images/g_books.png" style="width:50px; display: block; position: absolute; right:60px; top:15px" />
+								</div>
+
+								<!-- <div class="col-sm" style="position: relative;">
+									<button type="button" class="btn btn-secondary" style="background-color:#828984; border-color:#828984; width:280px; height:290px;  font-size:2.8em" onclick="window.location.href='data-management.html?api=Wikipedia/#Wikipedia_articles_about_World_War_II'">Wikipedia articles</br>about</br>World War II</button>
+									<img src="images/wikipedia-logo.png" style="width:45px; display: block; position: absolute; right:60px; top:15px" />
+								</div>
+
+								<div class="col-sm" style="position: relative;">
+									<button type="button" class="btn btn-dark" style="background-color:#404e4d; border-color:#404e4d; width:280px; height:290px; font-size:2.8em" onclick="">Most<br/>Reviewed Italian<br/>Resturnats in <br/>Boston<br/></button>
+									<img src="icons_svg/foursquare.png" style="width:30px; display: block; position: absolute; right:60px; top:20px" />
+								</div> -->
+							</div>
+						</div>
 					</div>
-				</div> <!-- end of DEMOS-->
+
+					</br></br></br></br>
+
+					<div class="row clearfix">
+						<div class="container text-center">
+							<div class="row" style="margin-left:60px; margin-right:60px">
+								<!-- <div class="col-sm" style="position: relative;">
+									<button id="youtubeDemo" type="button" class="btn btn-Light" style="background-color:#dad6d6; border-color:#dad6d6; width:280px; height:290px; font-size:2.8em; " onclick="window.location.href='data-management.html?api=NYT_Article_Search/#US_elections_news_articles_published_in_January_2019'">U.S. Elections</br>News Articles</br>Published in</br>January 2019</button>
+									<img src="images/n.png" style="width:35px; display: block; position: absolute; right:60px; top:20px"/>
+								</div> -->
+
+								<!-- <div class="col-sm" style="position: relative;">
+									<button type="button" class="btn btn-info" style="background-color:#ea885d; border-color:#ea885d; width:280px; height:290px;  font-size:2.8em" onclick="window.location.href='data-management.html?api=Reddit/#Hottest_AskReddit_posts'">The Hottest</br>100 AskReddit </br>Subreddit Posts</button>
+									<img src="images/reddit-icon.png" style="width:55px; display: block; position: absolute; right:60px; top:15px" />
+								</div>
+
+								<div class="col-sm" style="position: relative;">
+									<button type="button" class="btn btn-Primary" style="background-color:#90c7e1; border-color:#90c7e1; width:280px; height:290px;  font-size:2.8em" onclick="window.location.href='data-management.html?api=Google_Books/#Newst_ebooks_about_human_history'">Newst Ebooks </br> About Human </br>History</button>
+									<img src="images/g_books.png" style="width:50px; display: block; position: absolute; right:60px; top:15px" />
+								</div> -->
+							</div>
+						</div>
+					</div>
 
 
+				</br></br></br></br></br></br>
+		</div>
+	</div> <!-- end of DEMOS-->
 
 				<!-- APIs -->
 				<div id="APIs" style="background-color:#EAEDED" > <!-- "background-color:#fafaf8"-->
 					<div class="container">
 					</br>
 						<div class="heading-block topmargin-lg center">
-							<h2>Access these Web Services data</h2>
+							<h2>Access Data from Web Services</h2>
 						<span class="divcenter">Search, access, manage, obtain data from web services.</span>
 						</div>
 						<div class="row clearfix">
 							<div class="container text-center">
 								<div class="row" style="margin-left:180px; margin-right:180px "><!-- margin-right:150px -->
-									<div class="col-sm">
-										<input id="youtubeAPIButton" value="youtube" type="image" src="icons_svg/YouTube.svg" width="55%" height="55%" onclick="window.location.href='data-management.html?api=YouTube_API'"/>
+									<div class="col">
+										<input id="youtubeAPIButton" value="youtube" type="image" src="icons_svg/YouTube.svg" width="120px" height="120px" onclick="window.location.href='data-management.html?api=YouTube_API'"/>
 										<h5>Youtube</h5>
 									</div>
-									<div class="col-sm">
-										<input id="wikipediaAPIButton" value="wikipedia" type="image" src="icons_svg/wikipedia-icon.png" width="41%" height="55%" onclick="window.location.href='data-management.html?api=Wikipedia_API'"/>
-										<h5>Wikipedia</h5>
+
+									<div class="col">
+										<input id="wikipediaAPIButton" value="wikipedia" type="image" src="images/github_logo.png" width="120px" height="120px" onclick="window.location.href='data-management.html?api=GitHub_Search_Code'"/> <!-- window.location.href='data-management.html?api=Foursquare_Venues_Search' -->
+										<h5>GitHub</h5>
 									</div>
-									<div class="col-sm">
-										<input id="wikipediaAPIButton" value="wikipedia" type="image" src="icons_svg/foursquare2.png" width="42%" height="55%" onclick="window.location.href='data-management.html?api=Foursquare_API'"/>
-										<h5>Foursquare</h5>
+
+									<div class="col">
+										<input type="image" src="icons_svg/nytL.png" width="120px" height="120px" alt="Image" onclick="window.location.href='data-management.html?api=NYT_Article_Search'"/></br>
+										<input type="image" src="icons_svg/poweredby_nytimes_150a.png" alt="NYT" onclick="window.open('http://developer.nytimes.com')"/>
 									</div>
 								</div>
+									</br></br>
 							</div>
+
 
 							<div class="container text-center">
 								<div class="row" style="margin-left:180px; margin-right:180px ">
+
 									<div class="col-sm">
-										<input type="image" src="icons_svg/nytL.png" width="42%" height="55%" alt="Image" onclick="window.location.href='data-management.html?api=Foursquare_API'"/></br>
-										<input type="image" src="icons_svg/poweredby_nytimes_150a.png" alt="NYT" onclick="window.open('http://developer.nytimes.com')"/>
+										<input type="image" src="images/reddit.png" width="120px" height="120px"  alt="Image" onclick="window.location.href='data-management.html?api=Reddit_Search'"/></br>
+										<h5>Reddit</h5>
 									</div>
+
 									<div class="col-sm">
-										<input type="image" src="icons_svg/googleBooks.png"  width="42%" height="55%" alt="Image" onclick="window.location.href='data-management.html?api=Google_Books_API'"/></br>
+										<input type="image" src="icons_svg/googleBooks.png" width="120px" height="120px"  alt="Image" onclick="window.location.href='data-management.html?api=Google_Books'"/></br>
 										<h5>Google Books</h5>
 									</div>
 									<div class="col-sm">
-										<input type="image" src="icons_svg/amazon-2.svg" width="55%" height="55%" alt="Image" onclick="window.location.href='data-management.html?api=Amazon_API'"/></br>
-										<h5>Amazon</h5>
+										<input id="YelpAPIButton" value="Yelp" type="image" src="images/yelp_logo.png" width="120px" height="120px" onclick="window.location.href='data-management.html?api=Yelp_Search_Businesses'"/>
+										<!-- window.location.href='data-management.html?api=Yelp_Search_Businesses'"/> -->
+										<h5>Yelp</h5>
 									</div>
 								</div>
 							</div>
 						</div>
-						<!-- End List of APIs-->
-
-						<div style="text-align: center;">
-							<h5 for="apis_list" style="display: inline-block;">More Data Sources &nbsp;</h5>
-							<select class="form-control" id="apis_list" style="width:200px; display: inline-block;" onchange="apiHasBeenChosen(this)">
-								<option>Choose your data source</option>
-							</select>
-						</div>
-
-						</br></br>
 					</div>
+
+
+							<!-- <img src="https://i.ytimg.com/vi/WEkSYw3o5is/default.jpg" alt="Italian Trulli"> -->
+							<div style="text-align: center;">
+								</br>
+								<!-- <h5 for="apis_list" style="display: inline-block;">More Data Sources &nbsp;</h5> -->
+								<select class="form-control" id="apis_list" style="width:300px; display: inline-block; font-size:1.5em; text-align:center" onchange="apiHasBeenChosen(this)">
+									<option>More Data Sources</option>
+								</select>
+							</div>
+							</br></br></br></br></br></br>
+
+
 				</div>	<!-- End of APIs-->
 
 
@@ -312,16 +469,15 @@
 				<!-- End of CONTACT-->
 
 		</section>
-
 		<!-- Footer
 		============================================= -->
-		<footer id="footer" class="dark">
+		<!-- <footer id="footer" class="dark"> -->
 
-			<div class="container">
+			<!-- <div class="container"> -->
 
 				<!-- Footer Widgets
 				============================================= -->
-				<div class="footer-widgets-wrap clearfix">
+				<!-- <div class="footer-widgets-wrap clearfix"> -->
 
 					<!-- <div class="col_two_third">
 
@@ -472,11 +628,12 @@
 
 						</div>
 					-->
-					</div>
+					<!-- </div> -->
 
-				</div><!-- .footer-widgets-wrap end -->
+				<!-- </div> -->
+				<!-- .footer-widgets-wrap end -->
 
-			</div>
+			<!-- </div> -->
 
 			<!-- Copyrights
 			============================================= -->
@@ -541,7 +698,8 @@
 
 			</div> -->
 
-		</footer><!-- #footer end -->
+		<!-- </footer>-->
+		<!-- #footer end -->
 
 	</div><!-- #wrapper end -->
 
@@ -590,21 +748,21 @@
 
 
 
-		var email = document.getElementById("search_q");
+		// var email = document.getElementById("search_q");
 
-		form.addEventListener("submit", function (event) {
-		  // Each time the user tries to send the data, we check
-		  // if the email field is valid.
-		  if (!email.validity.valid) {
-
-		    // If the field is not valid, we display a custom
-		    // error message.
-		    error.innerHTML = "I expect an e-mail, darling!";
-		    error.className = "error active";
-		    // And we prevent the form from being sent by canceling the event
-		    event.preventDefault();
-		  }
-		}, false);
+		// form.addEventListener("submit", function (event) {
+		//   // Each time the user tries to send the data, we check
+		//   // if the email field is valid.
+		//   if (!email.validity.valid) {
+		//
+		//     // If the field is not valid, we display a custom
+		//     // error message.
+		//     error.innerHTML = "I expect an e-mail, darling!";
+		//     error.className = "error active";
+		//     // And we prevent the form from being sent by canceling the event
+		//     event.preventDefault();
+		//   }
+		// }, false);
 
 
 	</script>

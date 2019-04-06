@@ -92,7 +92,7 @@
 							</li>
 							<li class="mega-menu"><a href="docs.html">Docs</a>
 							</li>
-							<li class="current"><a href="dataset.html" data-offset="100" >Dataset</a>
+							<li class="current"><a href="dataset.html" data-offset="100" >Datasets</a>
 							</i>
 
 							<li class="mega-menu"><a href="api-integration.html">Integrate</a>
@@ -131,14 +131,15 @@
 
       <div class="container" style="">
       	<div class="row" style="">
-					<div class="col-sm-1">
-					</div>
-					<div class="col-sm-10">
+					<!-- <div class="col-sm-1">
+					</div> -->
+					<div class="">
           		<h2>Explore Public Datasets</h2>
-                  <div id="custom-search-input" style="width:70%">
-                      <div class="input-group col-md-12" >
-                          <input id="myInput" type="text" class="form-control input-lg" onkeyup="myFunction()" placeholder="Search for datasets.."/>
-                          <span class="input-group-btn">
+                  <div id="custom-search-input" style="width:600px">
+                      <div class="input-group" >
+                          <input id="myInput" type="search" class="form-control input-lg"  data-table="order-table" placeholder="Search for datasets..">
+													<!-- <input type="search" class="light-table-filter" data-table="order-table" placeholder="Filter"> -->
+													<span class="input-group-btn">
                               <button class="btn btn-info btn-lg" type="button">
                                   <i class="glyphicon glyphicon-search"></i>
                               </button>
@@ -146,64 +147,79 @@
                       </div>
                   </div>
               </div>
-							<div class="col-sm-1">
-							</div>
+							<!-- <div class="col-sm-1">
+							</div> -->
 						</div>
 							<script>
 
-								function myFunction() {
-								  var input, filter1, table, tr, td, i, txtValue;
-								  input = document.getElementById("myInput");
-								  filter1 = input.value.toUpperCase();
-								  table = document.getElementById("public_data_table");
-								  tr = table.getElementsByTagName("tr");
+							(function(document) {
+								//https://codepen.io/chriscoyier/pen/tIuBL
+								//function myFunction(){
+								'use strict';
 
-									var filter = filter1.split(" ");
-								  for (var j = 0; j < filter.length; j += 1) {
+								var LightTableFilter = (function(Arr) {
 
-										if(filter[j]!=" "){
-								    console.log("words: ", filter[j]);
+									var _input;
 
+									function _onInputEvent(e) {
+										_input = e.target;
+										var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+										Arr.forEach.call(tables, function(table) {
+											Arr.forEach.call(table.tBodies, function(tbody) {
+												Arr.forEach.call(tbody.rows, _filter);
+											});
+										});
+									}
 
-								  for (i = 0; i < tr.length; i++) {
-								    td = tr[i].getElementsByTagName("td")[0];
-								    if (td) {
-								      txtValue = td.textContent || td.innerText;
-								      if (txtValue.toUpperCase().indexOf(filter[j]) > -1) {
-								        tr[i].style.display = "";
-								      } else {
-								        tr[i].style.display = "none";
-								      }
-								    }
-								  }
-								}
-							}
+									function _filter(row) {
+										var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+										row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+									}
 
-							}
+									return {
+										init: function() {
+											var inputs = document.getElementsByClassName('form-control input-lg');
+											Arr.forEach.call(inputs, function(input) {
+												input.oninput = _onInputEvent;
+											});
+										}
+									};
+								})(Array.prototype);
+
+								document.addEventListener('readystatechange', function() {
+									if (document.readyState === 'complete') {
+										LightTableFilter.init();
+									}
+								});
+
+							 })(document);
+							//}
 							</script>
 
               <!-- <div class="divider divider-right"><i class="icon-circle"></i></div> -->
-</br></br>
+						</br></br>
               <!-- list of datasets -->
 							<div class="row">
-								<div class="col-sm-1">
-								</div>
-								<div class="col-sm-10">
-              <table id="public_data_table" class="table table-hover" style="width:auto">
+
+								<div class="">
+              <table id="public_data_table" class="order-table table" style="width:1000px">
 							<!-- class="display" style="width:1200px"> -->
 								<thead>
 								<tr>
-								  <th>Dataset Description</th>
+									<th>Title</th>
+								  <th>Description</th>
 								  <th>Source</th>
-									<th></th>
+									<th style="color:teal; background-color:#f4f9fa">CSV</th>
+									<th style="color:teal; background-color:#f4f9fa">JSON</th>
+									<th style="color:teal; background-color:#f4f9fa">Edit</th>
+									<th style="color:teal; background-color:#f4f9fa">URL</th>
 								</tr>
 							  </thead>
 								<tbody>
 								</tbody>
               </table>
 						</div>
-						<div class="col-sm-1">
-						</div>
+
 						</div>
 
       </div>

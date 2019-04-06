@@ -49,6 +49,10 @@
 
 	<!-- Radio Checkbox Plugin -->
 	<link rel="stylesheet" href="css/components/radio-checkbox.css" type="text/css" />
+
+	<!-- <link href="css/prism.css" rel="stylesheet" />
+	<script src="prism.js"></script> -->
+
 	<!-- Document Title
 	============================================= -->
 	<title>Data Management</title>
@@ -126,7 +130,7 @@
 
 		<!-- Header
 		============================================= -->
-		<header id="header" class="transparent-header"> <!-- style="background-image: url('images/youtube_logo.png'); background-size: 250px 80px; background-repeat: no-repeat;  background-position: center" -->
+		<header id="header" class="transparent-header" data-sticky-class="not-dark"> <!-- style="background-image: url('images/youtube_logo.png'); background-size: 250px 80px; background-repeat: no-repeat;  background-position: center" -->
 <!-- class="full-header" -->
 			<div id="header-wrap">
 
@@ -145,23 +149,23 @@
 					============================================= -->
 					<nav id="primary-menu">
 						<ul>
-							<li class="mega-menu"><a href="index.html">Home</a>
+							<li class="mega-menu"><a href="index.html" target="_blank">Home</a>
 							</li>
-							<li class="mega-menu"><a href="index.html#about">About</a>
+							<li class="mega-menu"><a href="index.html#about" target="_blank">About</a>
 							</li>
-							<li class="mega-menu"><a href="index.html#demos" >Demos</a>
+							<li class="mega-menu"><a href="index.html#demos" target="_blank">Demos</a>
 							</li>
 							<li class="current"><a href="index.html#APIs">Websites</a>
 							</li>
-							<li class="mega-menu"><a href="docs.html">Docs</a>
+							<li class="mega-menu"><a href="docs.html" target="_blank">Docs</a>
 							</li>
-							<li class="mega-menu"><a href="dataset.html" data-offset="100" >Dataset</a>
+							<li class="mega-menu"><a href="dataset.html" data-offset="100" target="_blank">Datasets</a>
 							</i>
-							<li class="mega-menu"><a href="api-integration.html">Integrate</a>
+							<li class="mega-menu"><a href="api-integration.html" target="_blank">Integrate</a>
 							</li>
-							<li class="mega-menu"><a href="index.html#contact">Contact</a>
+							<li class="mega-menu"><a href="index.html#contact" target="_blank">Contact</a>
 							</li>
-							<li><a id="SignupLogin" href="login-register.html"><div>Sign in</div></a>
+							<li><a id="SignupLogin" href="login-register.html" target="_blank"><div>Sign in</div></a>
 								<ul style="width:100px;">
 									<li><a href="account.html" id="acc" style="display:none"><div>Account</div></a></li>
 									<li><a href="" onclick="signOutFunction()" id="signout" style="display:none"><div>Sign out</div></a></li>
@@ -222,36 +226,53 @@
 
 				<div class="container-fullwidth flex-cols"  id="allSections" style="width:100%; height:100%;">
 
-
+					<div class="row">
+						<div class="col-xs">
+								<div id="reqSection" class="box" style="margin-right:40px; margin-left:40px;">
 						<!-- Sidebar
 						============================================= -->
-
-						<div id="reqSection" class="sidebar" style="width:200px;">
+						<!-- <div id="reqSection" class="sidebar col_first" style="width:200px;"> -->
 							<!--<div class="sidebar-widgets-wrap" style="float:bottom; height:700px; overflow: scroll;">--><!--overflow: scroll;">-->
 									<div class="form-group">
-										<h4>1. Search and Filter</h4>
+										<h4>Search and Filter</h4>
 									</div>
 								</br>
-
-									<div id="reqParametersContainer" style="height:550px;">
-										<div id="reqParameters" style="max-height:450px; overflow-y:scroll; overflow-y:auto; overflow-x:auto;"></div>
+								<form id="form1" class="my-form">
+									<div id="reqParametersContainer" style="">
+										<div id="reqParameters" style="max-height:480px; overflow-y:scroll; overflow-y:auto; overflow-x:auto;"></div>
 
 										</br>
-										<a id="submitQuery" class="button button-mini" onclick="retrieveData()"></i>Submit </a>
+										<a id="submitQuery" class="button button-mini" onclick="retrieveData()" type="submit"></i>Submit </a>
 										<a class="button button-mini button-teal button-roundedl" type="reset" value="Reset" onClick="window.location.reload()"></i>Reset</a>
 									</div>
+								</form>
 
-					</div><!-- Request -->
+								<script>
+								var input = document.getElementById("form1");
+								input.addEventListener("keyup", function(event) {
+								  if (event.keyCode === 13) {
+								   event.preventDefault();
+								   document.getElementById("submitQuery").click();
+								  }
+								});
+								</script>
 
+					<!-- </div> -->
+					<!-- Request -->
+
+				</div>
+				</div>
 						<!-- Post Content
 						============================================= -->
-						<div id="resultSection" class="sidebar coll1">
-							<h4>2. View Result</h4>
+						<!-- <div id="resultSection" class="sidebar coll1"> -->
+					<div class="col-xs">
+						<div id="resultSection"  class="box" style="margin-right:40px;">
+							<h4>View, Save and Download Result</h4>
 							<!-- Choose the view type-->
 							<div id="viewButtons" style="display:none">
 								<button onclick="viewTable()" class="button button-mini button button-circle" data-toggle="tooltip" data-placement="bottom" title="Table View"> <i class="glyphicon glyphicon-th" style="left:2px"></i></button>
-								<!--<button onclick="viewList()" class="button button-mini button button-circle" data-toggle="tooltip" data-placement="bottom" title="List View"> <i class="glyphicon glyphicon-list-alt" style="left:2px"></i></button>-->
 								<button onclick="viewTree()" class="button button-mini button button-circle" data-toggle="tooltip" data-placement="bottom" title="Tree View"> <i class="glyphicon glyphicon-align-left" style="left:2px"></i></button>
+								<button onclick="viewList()" class="button button-mini button button-circle" data-toggle="tooltip" data-placement="bottom" title="List View"> <i class="glyphicon glyphicon-list-alt" style="left:2px"></i></button>
 
 								<div id="viewButtons2" style="float:right;">
 
@@ -262,30 +283,68 @@
 												<input type="name" class="form-control" id="savedName" placeholder="">
 											</div>
 											<div class="form-group">
-												<label for="exampleDropdownFormEmail1">Descreption</label>
+												<label for="exampleDropdownFormEmail1">Description</label>
 												<input type="name" class="form-control" id="savedDescription" placeholder="Describe your data">
 											</div>
 											<div class="form-group">
-												<!-- <input type="name" class="form-control" id="savedDescription" placeholder="Describe your data">Make your dataset discoverable by others -->
 												<label class="checkbox">
-												  <input id="publicData" type="checkbox" value="remember-me">Make your dataset discoverable
+												  <input id="publicData" type="checkbox" value="remember-me">Make your dataset public
 												</label>
 											</div>
 											<button type="button" class="button button-3d button-small button-rounded button-teal" onclick="addDataToDB()">Save</button>
 											<!-- <button type="button" class="btn btn-info" onclick="addQueryToDB()">Save Query</button>-->
 										</form>
-										<!-- <div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="#">New around here? Sign up</a>
-										<a class="dropdown-item" href="#">Forgot password?</a> -->
+
 									</div>
+
+									<div id="modalPaste" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-body">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h4 class="modal-title" id="myModalLabel">Ajax</h4>
+														<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+													</div>
+													<div class="modal-body" style="padding:30px">
+														<pre id="jsCode" style="background-color:white; width:500px; font-size:1.2em" onClick="this.select();"><pre>
+														<!-- <p style="font-size:0.8em; margin:0px; padding:0px;"><B>You can copy the table form the API documentation page and paste it here:</B></p>
+														<p style="font-size:0.8em; margin:0px; padding:0px;">When you click Populate Table button, the pasted parameters will be populated into the table. Make sure to set values for these parameters (specially the required ones).</p></br>
+														<textarea name="excel_data" style="width:700px;height:300px; background-color:#f1f1f1; font-size:0.7em;"></textarea></br></br>
+														<a class="button" data-dismiss="modal" onclick="generateTable()"></i>Populate Table</a> -->
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<!-- <div id="code" class="dropdown-menu">
+										<form class="px-4 py-3">
+											<div class="form-group">
+												<label for="exampleDropdownFormEmail1">ghdgasasgd</label>
+												<input type="name" class="form-control" id="savedName" placeholder="">
+											</div>
+											<div class="form-group">
+												<label for="exampleDropdownFormEmail1">Description</label>
+												<input type="name" class="form-control" id="savedDescription" placeholder="Describe your data">
+											</div>
+											<div class="form-group">
+												<label class="checkbox">
+												  <input id="publicData" type="checkbox" value="remember-me">Make your dataset public
+												</label>
+											</div>
+											<button type="button" class="button button-3d button-small button-rounded button-teal" onclick="addDataToDB()">Save</button>
+										</form>
+
+									</div> -->
 
 									<!-- <a id="JSON" class="button button-mini button-border button-rounded button-blue" style="display:none" onclick="copyHTML()"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>-->
 									<!--<a id="HTML" class="button button-mini button-border button-rounded button-green" style="display:none" onclick="copyHTML()"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>HTML</a>-->
 								</div>
 							</div>
 
-								<div id="myGrid" style="width:110vh; height:500px;"></div>
-								<div id="pager" style="width:110vh;"></div>
+								<div id="myGrid" style="width:800px; height:480px;"></div>
+								<div id="pager" style="width:800px;"></div>
 								<!-- edit modal -->
 								<script id="itemDetailsTemplate" type="text/x-jquery-tmpl">
 									<div class='item-details-form'>
@@ -304,20 +363,28 @@
 								</script>
 
 							<!--******* Tree View *******-->
-							<div id="myTree" style="width:110vh;height:500px; display:none; overflow: scroll; "></div>
+							<div id="myTree" style="width:800px;height:500px; display:none; overflow: scroll; "></div>
 
 							<!--******* List View *******-->
-							<div id="myList" style="width:110vh;height:500px; display:none; overflow: scroll; "></div>
+							<div id="myList" style="width:800px;height:500px; display:none; overflow: scroll; "></div>
 
-						</div><!-- .postcontent end -->
+						</div>
+					</div>
+
+						<!-- </div> -->
+						<!-- .postcontent end -->
 
 						<!-- Sidebar
 						============================================= -->
-						<div id="resSection" class="sidebar col_last" style="width:200px;">
+						<!-- <div id="resSection" class="sidebar col_last" style="width:200px;"> -->
+						<div class="col-xs">
+							<div id="resSection"  class="box">
 							<div class="sidebar-widgets-wrap">
-								<h4>3. Refine Result</h4>
+								<h4>Choose Fields</h4>
 							</br>
 
+							<form id="form2" class="my-form">
+							<!--  -->
 								<div id="accordion" role="tablist">
 									<div class="card">
 										<div class="card-header" role="tab" id="headingOne">
@@ -329,75 +396,35 @@
 										</div>
 										<div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
 											<div class="card-body" id="resParameters"> <!--id="resParameters"> -->
-												<!-- <div>
-													<input id="Title" value="response.search[j].title" class="checkbox-style" name="checkbox-w" type="checkbox"  autocomplete='off' checked>
-													<label for="Title" class="checkbox-style-3-label">Title</label>
-												</div>
-												<div>
-													<input id="PageID" value="response.search[j].pageid" class="checkbox-style" name="checkbox-w" type="checkbox" autocomplete='off' checked>
-													<label for="PageID" class="checkbox-style-3-label">PageID</label>
-												</div>
-												<div>
-													<input id="Size" value="response.search[j].size" class="checkbox-style" name="checkbox-w" type="checkbox" autocomplete='off' checked>
-													<label for="Size" class="checkbox-style-3-label">Size</label>
-												</div>  -->
+
 											</div>
 										</div>
 									</div>
 								</div>
 
+								<!-- <a id="submitQuery2" class="button button-mini" onclick="retrieveData()" display="none" type="submit"></i>Submit </a> -->
+
+							</form>
+
+							<script>
+							var input = document.getElementById("form2");
+							input.addEventListener("keyup", function(event) {
+								if (event.keyCode === 13) {
+								 event.preventDefault();
+								 document.getElementById("submitQuery2").click();
+								}
+							});
+							</script>
 
 							</div>
+						</div>
+						</div>
+						<!-- .sidebar end -->
 
-							<!-- automatically ftech fields from firebase -->
-
-									<!--<div class="card">
-										<div class="card-header" role="tab" id="headingThree">
-											<h5 class="mb-0">
-												<a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-													Group By
-												</a>
-											</h5>
-										</div>
-										<div id="collapseThree" class="collapse show" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
-											<div class="card-body">
-												<select id="groupByFilterSelect" class="select-tags form-control" multiple="" tabindex="-1" aria-hidden="true" style="width:160px;" autocomplete='off' ondrop="drop(event)" ondragover="allowDrop(event)">
-													<option id="channelTitle" value="channelTitle">Channel Title</option>
-													<option id="publishedAt" value="publishedAt">Published At</option>
-												</select>
-
-												</br>
-												<a href="#" class="button button-mini button-teal button-roundedl" type="reset" value="Reset" onclick="dataView.setGrouping([])" ></i>Clear grouping</a>
-											</div>
-										</div>
-									</div>-->
-
-									<!--<div id="drop1" ondrop="drop(event)" ondragover="allowDrop(event)">-->
-
-
-
-									<!-- <script>
-									function allowDrop(ev) {
-									    ev.preventDefault();
-									}
-
-									function drag(ev) {
-									    ev.dataTransfer.setData("label", ev.target.id);
-									}
-
-									function drop(ev) {
-									    ev.preventDefault();
-									    var data = ev.dataTransfer.getData("label");
-									    ev.target.appendChild(document.getElementById("channelTitle"));
-											//$("#channelTitle").selected=true;
-											//console.log($("#channelTitle").val());
-											//document.getElementById("groupByFilterSelect").innerHTML = "<option id='channelTitle' value='channelTitle' selected>Channel Title</option>";
-									}
-									</script> -->
-
-						</div><!-- .sidebar end -->
+					</div> <!-- row -->
 
 				</div> <!-- All Three Sections -->
+			</br></br></br></br>
 
 			<!--</div> -->
 
@@ -559,8 +586,8 @@
 			<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
 			<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-database.js"></script>
 
-			<style>
 
+			<style>
 
 			.flex-container {
 			  display: flex;
