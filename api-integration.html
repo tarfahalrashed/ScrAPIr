@@ -485,8 +485,13 @@
 								<h2>Pagination Information</h2>
 
 								<p style="font-size:1.7em;">When you access web APIs there’ll be a lot of results to return. For that reason, APIs paginate the results to make sure responses are easier to handle. APIs give you results in pages, every page has a default and a maximum number of results, here we need you to provide max number of results per page.
-								<a style="width:140px; color:white; text-align:center" class="button button-mini button-circle button-red" data-toggle="modal" data-target="#modalExample" onclick="">Check Example</a></p>
+								<a style="width:140px; color:white; text-align:center" class="button button-mini button-circle button-red" data-toggle="modal" data-target="#modalExample" onclick="">Check Example</a>
+								<input type="button" id="butShowReq" class="button button-small button-circle button-border button-amber" onclick="showHideDivPag(this)" value="Show Explanation"/></p>
 
+								<div id="pagExp" style="display:none;">
+									<p style="font-size:1.7em;">If you want to get more results than the max number of results per page allowed by the API, there are two different ways to loop through pages: (1) Some APIs use index or offset to go through multiple pages(e.g. In Wikipedia search API, they use ‘offset’ as the page parameter. offset=0 is the first page, offset=1 is the second page, etc). (2) Other APIs will provide parameters that will indicate the current page, in which you can assign it to the next page parameter to get more results (e.g. in YouTube search API, the current page parameter is ‘pageToken’ and to go to the next page we assign ‘pageToken’ to the ‘nextPageToken’).<span style="color:red"> If the API provide both next\prev and index style pagination, you can just go with the index pagination.</span></p>
+
+								</div>
 								<!-- Modal -->
 								<div id="modalExample" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 									<div class="modal-dialog modal-lg">
@@ -587,12 +592,10 @@
 								</div>
 
 
-							<h4 style="margin-top: 30px; margin-bottom:5px">Please choose the pagination style for this API: <label><a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="If you want to get more results than the max number of results per page allowed by the API, you should loop through the other pages and get more results. There are two different ways to loop through pages: (1) Some APIs use index or offset to go through multiple pages (e.g. In Wikipedia search API, they use ‘offset’ as the page parameter. offset=0 is the first page, offset=1 is the second page, etc). (2) Other APIs will provide parameters that will indicate the current page, in which you can assign it to the next page parameter to get more results (e.g. in YouTube search API, the current page parameter is ‘pageToken’ and to go to the next page we assign ‘pageToken’ to the ‘nextPageToken’)."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label> <input type="button" id="butShowReq" class="button button-small button-circle button-border button-amber" onclick="showHideDivPag(this)" value="Show Explanation"/></h4>
+							<h4 style="margin-top: 30px; margin-bottom:5px">Please choose the pagination style for this API: <label><a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="If you want to get more results than the max number of results per page allowed by the API, you should loop through the other pages and get more results. There are two different ways to loop through pages: (1) Some APIs use index or offset to go through multiple pages (e.g. In Wikipedia search API, they use ‘offset’ as the page parameter. offset=0 is the first page, offset=1 is the second page, etc). (2) Other APIs will provide parameters that will indicate the current page, in which you can assign it to the next page parameter to get more results (e.g. in YouTube search API, the current page parameter is ‘pageToken’ and to go to the next page we assign ‘pageToken’ to the ‘nextPageToken’)."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label>
+							</h4>
 							<!-- <a target="_blank" href="docs.html#page">[Check Documentation]</a> -->
-							<div id="pagExp" style="display:none;">
-								<p style="font-size:1.7em;">If you want to get more results than the max number of results per page allowed by the API, there are two different ways to loop through pages: (1) Some APIs use index or offset to go through multiple pages(e.g. In Wikipedia search API, they use ‘offset’ as the page parameter. offset=0 is the first page, offset=1 is the second page, etc). (2) Other APIs will provide parameters that will indicate the current page, in which you can assign it to the next page parameter to get more results (e.g. in YouTube search API, the current page parameter is ‘pageToken’ and to go to the next page we assign ‘pageToken’ to the ‘nextPageToken’).<span style="color:red"> If the API provide both next\prev and index style pagination, you can just go with the index pagination.</span></p>
 
-							</div>
 
 							<!-- <div class="radio">
 								<label><input type="radio" name="radioPage" id="indexR" onchange="showIndex()"><p style="font-size:1.2em; margin:0px; padding:0px">Index</p></label>
@@ -604,8 +607,10 @@
 								<label><input type="radio" name="radioPage" id="nextR" onchange="showNext()"><p style="font-size:1.2em; margin:0px; padding:0px">Next\Prev</p></label>
 							</div> -->
 
-							<div class="row">
-								<div class="col">
+
+
+							<div class="">
+								<div class="" style="display: inline-block;">
 									<label>Type of pagination</label>
 									<select class="form-control" id="selectPage" style="height:30px; width:300px" onchange="pageSelected()">
 										<option value="offset">Offset Pagination</option>
@@ -614,14 +619,14 @@
 									</select>
 							</div>
 
-							<div class="col">
+							<div class="" style="display: inline-block;">
 								<div id="indexDiv" class="" id="" style="display:none;">
 												<label>Index [parameter name]</label>
 												<input type="text"  class="form-control"  id="index_param" placeholder="(e.g. page)" required>
 
 								</div>
 
-								<div id="offsetDiv" class="" id="" style="display:none;">
+								<div id="offsetDiv" class="" id="" style="">
 												<label>Offset [parameter name]*</label>
 												<input type="text"  class="form-control"  id="offset_param" placeholder="(e.g. offset)" required>
 

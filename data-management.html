@@ -157,7 +157,7 @@
 							</li>
 							<li class="current"><a href="index.html#APIs">Websites</a>
 							</li>
-							<li class="mega-menu"><a href="docs.html" Docs</a>
+							<li class="mega-menu"><a href="docs.html"> Docs</a>
 							</li>
 							<li class="mega-menu"><a href="dataset.html" data-offset="100" >Datasets</a>
 							</i>
@@ -242,7 +242,7 @@
 										<div id="reqParameters" style="max-height:480px; overflow-y:scroll; overflow-y:auto; overflow-x:auto;"></div>
 
 										</br>
-										<a id="submitQuery" class="button button-mini" onclick="retrieveData()" type="submit"></i>Submit </a>
+										<a id="submitQuery" class="button button-mini" onclick="retrieveDataX()" type="submit"></i>Submit </a>
 										<a class="button button-mini button-teal button-roundedl" type="reset" value="Reset" onClick="window.location.reload()"></i>Reset</a>
 									</div>
 								</form>
@@ -302,15 +302,15 @@
 											<div class="modal-body">
 												<div class="modal-content">
 													<div class="modal-header">
-														<h4 class="modal-title" id="myModalLabel">Ajax</h4>
-														<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+														<h4 class="modal-title" id="myModalLabel">Generate Code Snippets</h4>
 													</div>
 													<div class="modal-body" style="padding:30px">
-														<pre id="jsCode" style="background-color:white; width:500px; font-size:1.2em" onClick="this.select();"><pre>
-														<!-- <p style="font-size:0.8em; margin:0px; padding:0px;"><B>You can copy the table form the API documentation page and paste it here:</B></p>
-														<p style="font-size:0.8em; margin:0px; padding:0px;">When you click Populate Table button, the pasted parameters will be populated into the table. Make sure to set values for these parameters (specially the required ones).</p></br>
-														<textarea name="excel_data" style="width:700px;height:300px; background-color:#f1f1f1; font-size:0.7em;"></textarea></br></br>
-														<a class="button" data-dismiss="modal" onclick="generateTable()"></i>Populate Table</a> -->
+														<select class="form-control" id="selectCode" style="height:30px; width:200px; font-size:1.2em" onchange="codeSnippetSelected()">
+															<option value="js">JavaScript</option>
+															<option value="py">Python</option>
+														</select>
+													</br>
+														<pre id="jsCode" style="background-color:white; width:700px; font-size:1.2em" onClick="this.select();"><pre>
 													</div>
 												</div>
 											</div>
@@ -432,29 +432,32 @@
 
 		<!-- Footer
 		============================================= -->
-		<footer id="footer" class="dark">
+		<!-- <footer id="footer" class="dark"> -->
 
-			<div class="container-fullwidth">
+			<!-- <div class="container-fullwidth"> -->
 
 				<!-- Footer Widgets
 				============================================= -->
-				<div class="footer-widgets-wrap clearfix">
+				<!-- <div class="footer-widgets-wrap clearfix">
 
-				</div><!-- .footer-widgets-wrap end -->
+				</div> -->
+				<!-- .footer-widgets-wrap end -->
 
-			</div>
+			<!-- </div> -->
 
 			<!-- Copyrights
 			============================================= -->
-			<div id="copyrights">
+			<!-- <div id="copyrights">
 
 				<div class="container-fullwidth clearfix">
 
 				</div>
 
-			</div><!-- #copyrights end -->
+			</div> -->
+			<!-- #copyrights end -->
 
-		</footer><!-- #footer end -->
+		<!-- </footer> -->
+		<!-- #footer end -->
 
 	</div><!-- #wrapper end -->
 

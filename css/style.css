@@ -160,9 +160,9 @@ dl, dt, dd, ol, ul, li {
 	Typography
 -----------------------------------------------------------------*/
 
-
+/*jsoneditor height*/
 body {
-	line-height: 1.5;
+	line-height: 1;
 	color: #555;
 	font-family: 'Lato', sans-serif;
 }
@@ -234,10 +234,12 @@ dl,
 dd,
 blockquote,
 address,
-table,
 fieldset,
 form { margin-bottom: 30px; }
 
+table{
+	margin-bottom: 5px;
+}
 small { font-family: 'Lato', sans-serif; }
 
 
@@ -565,9 +567,11 @@ span.middot {
 
 .section {
 	position: relative;
-	margin: 60px 0;
-	padding: 60px 0;
-	background-color: #F9F9F9;
+	/*margin: 60px 0;
+	padding: 60px 0;*/
+	padding-bottom:  70px;
+	background-color: white;
+	/*#F9F9F9;*/
 	overflow: hidden;
 }
 
@@ -1036,7 +1040,7 @@ body.stretched #header.full-header .container {
 	position: relative;
 	float: left;
 	font-family: 'Raleway', sans-serif;
-	font-size: 36px;
+	font-size: 40px;
 	line-height: 100%;
 	margin-right: 40px;
 }
@@ -2018,9 +2022,15 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #header.transparent-header:
 -----------------------------------------------------------------*/
 
 #header,
-#header-wrap,
+#header-wrap{
+		height: 100px;
+		-webkit-transition: height .4s ease, opacity .3s ease;
+		-o-transition: height .4s ease, opacity .3s ease;
+		transition: height .4s ease, opacity .3s ease;
+}
+
 #logo img {
-	height: 100px;
+	height: 60px;
 	-webkit-transition: height .4s ease, opacity .3s ease;
 	-o-transition: height .4s ease, opacity .3s ease;
 	transition: height .4s ease, opacity .3s ease;
@@ -13571,5 +13581,3 @@ body:not(.no-transition) #wrapper,
 	-webkit-text-stroke: 0px !important;
 	text-shadow: none !important;
 }
-
-

@@ -525,6 +525,16 @@ function fieldHasBeenSelected(th, select){
 populateTable(data);
 
 function populateTable(data){
+  $("#jsCode").empty();
+
+  //pagination + response fields + headers
+
+  jsSnippet= '<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data:'+JSON.parse(JSON.stringify(listP))+',</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response);</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>';
+
+  pySnippet= 'import requests</br>url = "'+obJSON1.url+'" </br>querystring = '+JSON.parse(JSON.stringify(listP))+' </br>response = requests.request("GET", url, params=querystring)';
+
+  $("#jsCode").append(jsSnippet);
+
   $('#myTree').empty();
   $('#myList').empty();
 
@@ -558,6 +568,7 @@ function populateTable(data){
 
         $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="DownloadJSON2CSV();return false;"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
         $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
+        $('<a id="JS" class="button button-mini button-border button-rounded button-green" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
         $('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-amber dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>').appendTo('#viewButtons2');
         // $('<button id="SCRIPT" type="button" class="button button-mini button-border button-rounded button-green"  aria-haspopup="true" aria-expanded="false"> <img src="images/java.png" width="15px" height="15px" bottom="5px"> &nbsp;Script </button>').appendTo('#viewButtons2');
         /***************** Table View ******************/
@@ -1392,7 +1403,7 @@ var countResults = 0;
 
 function retrieveDataX(){
   defined=true;
-  //console.log("retrieveData() has been called");
+  console.log("retrieveDataX() has been called");
   $('#myTree').empty();
   $('#myList').empty();
 
@@ -1477,6 +1488,10 @@ function retrieveDataX(){
       listP+= JSON.stringify(obJSON1.indexPage);
       listP+= ":";
       listP+= p;
+    }else if(obJSON1.offsetPage){
+      listP+= JSON.stringify(obJSON1.offsetPage);
+      listP+= ":";
+      listP+= p*(eval(obJSON1.maxResPerPage));
     }else{
       listP+= JSON.stringify(obJSON1.currPageParam);
       listP+= ":";
@@ -1487,15 +1502,15 @@ function retrieveDataX(){
     //console.log("listP: ", JSON.parse(listP));
     // console.log("Page: ", p);
 
-    if(obJSON1.url.includes('.json')){
-      var jp = "json";
-    }else{
-      var jp = "jsonp";
-    }
+    // if(obJSON1.url.includes('.json')){
+    //   var jp = "json";
+    // }else{
+    //   var jp = "jsonp";
+    // }
 
 //console.log("listPYEAH: ",listP);
 
-if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //CHANGE BEARER
+if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no CORS
     $.ajax({
       url: obJSON1.url,
       data: JSON.parse(listP),
@@ -1504,7 +1519,7 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //CHANGE BEARER
       success: function (response) {
         console.log("RES_Ret: ", response);
 
-        if(obJSON1.indexPage || obJSON1.currPageParam){
+        if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
           for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
              objData={};
 
@@ -1597,8 +1612,9 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //CHANGE BEARER
            if($("input[name='checkbox-w']").is(":checked")){
                $("input[name='checkbox-w']:checked").each(function(){
                 var s = "response."+this.id.split('.')[0];
-                 //console.log("s: ",s);
-                if(eval(s) || typeof eval(s) === 'undefined'){
+                var ln = s.split('[')[0];
+                 console.log("s: ",eval(ln).length);
+                if(eval(s)){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
                  var id = this.value;
                  if(this.value=="Video URL"){
                    objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
@@ -1673,11 +1689,16 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //CHANGE BEARER
 
         if(p<pages){
           console.log("Data: ", data);
-          if(!obJSON1.indexPage){
+          if(obJSON1.currPageParam){ //nex\prev page
               ++p;
               console.log("Next: ", eval("response."+obJSON1.nextPageParam));
               getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
-          }else{
+          }else if(obJSON1.offsetPage){//offset page
+            console.log("offset");
+            ++p;
+            getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
+          }else{//index page
+              console.log("index");
             ++p;
             getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
           }
@@ -1701,7 +1722,7 @@ else{
       },
       success: function (response) {
         //console.log("RES_Ret: ", response);
-        if(obJSON1.indexPage || obJSON1.currPageParam){
+        if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
           for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
              objData={};
 
@@ -1786,94 +1807,98 @@ else{
         var j=0;
         while(defined){
         //for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
-           objData={};
-           ++start;
-           objData["id"]= start;
+        objData={};
+        ++start;
+        objData["id"]= start;
+        console.log("J: ",j);
 
-           if($("input[name='checkbox-w']").is(":checked")){
-               $("input[name='checkbox-w']:checked").each(function(){
-                var s = "response."+this.id.split('.')[0];
-                 //console.log("s: ",s);
-                if(eval(s)){
-                 var id = this.value;
-                 if(this.value=="Video URL"){
-                   objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
-                 }else{
-                   var str = (this.checked ? "response."+this.id : 0);
-                   //IF ARRAY
-                   if(str.includes("[i]")){
-                     //console.log("Includes [i]: ",str);
-                     var i=0;
-                     var splt =  str.split("[i]");
-                     // start if undefined
-                     if(eval(splt[0]).length==0){
-                      objData[id]="";
-                    }else{// start if NOT undefined
-                    objData[id] = (this.checked ? eval("response."+this.id) : 0);
-                    for(i=1; i<eval(splt[0]).length; ++i){
-                      objData[id] += ", ";
-                      objData[id] += eval("response."+this.id);
-                    }
-                  }///test undefined
-                    //IF OBJECT and not ARRAY
-                   }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
-                     //console.log("IT IS OBJECT");
-                     var objD = (this.checked ? eval("response."+this.id) : 0);
-                     var objKV = "";
-                     var first = true;
-                     for(var i in objD){
-                      //console.log("Key: ", i);
-                      //console.log("Value: ", objD[i]);
-                      if(!first){
-                        objKV+=", "
-                      }else{
-                        first = false;
-                      }
-                      objKV+=i+": "+objD[i];
-                    }
-                    objData[id]=objKV;
-
-                    for(var i in objD){
-                     //console.log("Key: ", i);
-                     //console.log("Value: ", objD[i]);
-                     objData[i]=objD[i];
-                     //console.log("objData[id]: ", objData[i]);
-                   }
-                   //console.log("objData[id]: ", objData[id]);
-                   //IF NEITHER
-                   }else{
-                     //console.log("Does NOT Include [i]");
-                     objData[id] = (this.checked ? eval("response."+this.id) : 0);
-                     //console.log("objData[id]: ", objData[id]);
-                   }
-
+        if($("input[name='checkbox-w']").is(":checked")){
+            $("input[name='checkbox-w']:checked").each(function(){
+             var s = "response."+this.id.split('.')[0];
+             var ln = s.split('[')[0];
+              console.log("s: ",eval(ln).length);
+             if(eval(s)){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+              var id = this.value;
+              if(this.value=="Video URL"){
+                objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+              }else{
+                var str = (this.checked ? "response."+this.id : 0);
+                //IF ARRAY
+                if(str.includes("[i]")){
+                  //console.log("Includes [i]: ",str);
+                  var i=0;
+                  var splt =  str.split("[i]");
+                  // start if undefined
+                  if(eval(splt[0]).length==0){
+                   objData[id]="";
+                 }else{// start if NOT undefined
+                 objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                 for(i=1; i<eval(splt[0]).length; ++i){
+                   objData[id] += ", ";
+                   objData[id] += eval("response."+this.id);
                  }
-               }//if not undefined
-             else{
-               defined=false;
-             }
-           });//checkbox
-         }//chckbox loop
+               }///test undefined
+                 //IF OBJECT and not ARRAY
+                }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
+                  //console.log("IT IS OBJECT");
+                  var objD = (this.checked ? eval("response."+this.id) : 0);
+                  var objKV = "";
+                  var first = true;
+                  for(var i in objD){
+                   //console.log("Key: ", i);
+                   //console.log("Value: ", objD[i]);
+                   if(!first){
+                     objKV+=", "
+                   }else{
+                     first = false;
+                   }
+                   objKV+=i+": "+objD[i];
+                 }
+                 objData[id]=objKV;
 
-             if(defined){
-               data.push(objData);
-               obj.lists=[];
-               obj.lists.push(objData);
-            }
+                 for(var i in objD){
+                  //console.log("Key: ", i);
+                  //console.log("Value: ", objD[i]);
+                  objData[i]=objD[i];
+                  //console.log("objData[id]: ", objData[i]);
+                }
+                //console.log("objData[id]: ", objData[id]);
+                //IF NEITHER
+                }else{
+                  //console.log("Does NOT Include [i]");
+                  objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                  //console.log("objData[id]: ", objData[id]);
+                }
 
-            ++j;
-            //++start;
+              }
+            }//if not undefined
+          else{
+            defined=false;
+          }
+        });//checkbox
+      }//chckbox loop
+
+          if(defined){
+            data.push(objData);
+            obj.lists=[];
+            obj.lists.push(objData);
+         }
+
+         ++j;
+         //++start;
 
         }//while loop
       }//else
 
         if(p<pages){
           //console.log("Data: ", data);
-          if(!obJSON1.indexPage){
+          if(obJSON1.currPageParam){ //nex\prev page
               ++p;
-              //console.log("Next: ", eval("response."+obJSON1.nextPageParam));
               getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
-          }else{
+          }else if(obJSON1.offsetPage){//offset page
+            ++p;
+            getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
+          }else{//index page
             ++p;
             getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
           }
@@ -1884,13 +1909,23 @@ else{
       }//response
   //  );//new AJAX
    });//AJAX
-  }
+ }//else CORS
 
   }//end of getTheNextPage function
 
 
   function populateTable(data){
-    //console.log("popTable: ", data)
+    $("#jsCode").empty();
+
+    //pagination + response fields + headers
+
+    jsSnippet= '<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data:'+JSON.parse(JSON.stringify(listP))+',</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response);</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>';
+
+    pySnippet= 'import requests</br>url = "'+obJSON1.url+'" </br>querystring = '+JSON.parse(JSON.stringify(listP))+' </br>response = requests.request("GET", url, params=querystring)';
+
+    $("#jsCode").append(jsSnippet);
+
+    console.log("popTable: ", data)
 
           /***************** List View ******************/
           for(var j=0; j<arrData2.length; ++j){
@@ -1937,8 +1972,9 @@ else{
 
           $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="DownloadJSON2CSV();return false;"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
           $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
-          //$('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-amber dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>').appendTo('#viewButtons2');
-          // $('<button id="SCRIPT" type="button" class="button button-mini button-border button-rounded button-green"  aria-haspopup="true" aria-expanded="false"> <img src="images/java.png" width="15px" height="15px" bottom="5px"> &nbsp;Script </button>').appendTo('#viewButtons2');
+          $('<a id="JS" class="button button-mini button-border button-rounded button-green" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
+          $('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-amber dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>').appendTo('#viewButtons2');
+
           /***************** Table View ******************/
           var loadingIndicator = null;
           var jsonReturn;
@@ -2224,9 +2260,25 @@ else{
 }//end of retrieveData function
 
 
+
+var jsSnippet, pySnippet;
+
+function codeSnippetSelected(){
+
+  if(document.getElementById('selectCode').value == "js") {
+    $("#jsCode").empty();
+    $("#jsCode").append(jsSnippet);
+  }else{
+    $("#jsCode").empty();
+    $("#jsCode").append(pySnippet);
+  }
+
+    // $("#jsCode").append(jsSnippet);
+}
+
 function retrieveData(){
   defined=true;
-  //console.log("retrieveData() has been called");
+  console.log("retrieveData() has been called");
   $('#myTree').empty();
   $('#myList').empty();
 
@@ -2425,11 +2477,14 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //CHANGE BEARER
 
         if(p<pages){
           //console.log("Data: ", data);
-          if(!obJSON1.indexPage){
+          if(obJSON1.currPageParam){ //nex\prev page
               ++p;
-              //console.log("Next: ", eval("response."+obJSON1.nextPageParam));
+              console.log("Next: ", eval("response."+obJSON1.nextPageParam));
               getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
-          }else{
+          }else if(obJSON1.offsetPage){//offset page
+            ++p;
+            getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
+          }else{//index page
             ++p;
             getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
           }
@@ -2525,10 +2580,14 @@ else{
 
         if(obJSON1.url != "https://www.eventbriteapi.com/v3/events/search"){
         if(p<pages){
-          if(!obJSON1.indexPage){
+          if(obJSON1.currPageParam){ //nex\prev page
               ++p;
+              console.log("Next: ", eval("response."+obJSON1.nextPageParam));
               getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
-          }else{
+          }else if(obJSON1.offsetPage){//offset page
+            ++p;
+            getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
+          }else{//index page
             ++p;
             getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
           }
@@ -2548,8 +2607,23 @@ else{
 
 
   function populateTable(data){
+
     $("#jsCode").empty();
-    $("#jsCode").append('<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data: "'+JSON.parse(JSON.stringify(listP))+'",</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response);</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>');
+
+    //pagination + response fields + headers
+
+    jsSnippet= '<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data:'+JSON.parse(JSON.stringify(listP))+',</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response);</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>';
+
+    pySnippet= 'import requests</br>url = "'+obJSON1.url+'" </br>querystring = '+JSON.parse(JSON.stringify(listP))+' </br>response = requests.request("GET", url, params=querystring)';
+
+    $("#jsCode").append(jsSnippet);
+
+// headers = {
+//     'Cache-Control': "no-cache",
+//     'Postman-Token': "3561e626-6439-4699-a552-b4df3337f970"
+//     }
+
+
 
 
     // $('pre.prettyprint').each(function() {
@@ -3794,6 +3868,9 @@ function showResponseSchema(){
   //indexed pagination
   myObj.indexPage=$("#index_param").val();
 
+  //offset pagination
+  myObj.offsetPage=$("#offset_param").val();
+
   //sequential pagination
   myObj.currPageParam=$("#cur_page_param").val();
   myObj.nextPageParam=$("#next_page_param").val();
@@ -4686,6 +4763,7 @@ function callFirebase(){
   document.getElementById('result_max').value = window.localStorage.getItem('max');
   document.getElementById('result_param').value = window.localStorage.getItem('result');
   document.getElementById('index_param').value = window.localStorage.getItem('index');
+  document.getElementById('offset_param').value = window.localStorage.getItem('offset');
   document.getElementById('cur_page_param').value = window.localStorage.getItem('cur');
   document.getElementById('next_page_param').value = window.localStorage.getItem('next');
 
@@ -5066,6 +5144,9 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
 
   //indexed pagination
   myObj.indexPage=$("#index_param").val();
+
+  //offset pagination
+  myObj.offsetPage=$("#offset_param").val();
 
   //sequential pagination
   myObj.currPageParam=$("#cur_page_param").val();

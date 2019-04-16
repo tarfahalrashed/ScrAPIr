@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>
@@ -164,42 +165,55 @@
 			<!--<div class="content-wrap"> -->
 
 
-			<div class=""  id="allSections" style="width:98%; height:100%; padding:5px">
+			<div class="container-fullwidth flex-cols"  id="allSections" style="width:100%; height:100%;">
 
+
+					<!-- Sidebar
+					============================================= -->
+
+					<!-- <div id="reqSection" class="sidebar" style="width:200px;"> -->
 					<div class="row">
 
-						<div class="col">
-							<div id="reqSection" class="box" style="float:right;">
+						<div class="col-xs">
+								<div id="reqSection" class="box" style="float:right;">
+									<!--<div class="sidebar-widgets-wrap" style="float:bottom; height:700px; overflow: scroll;">--><!--overflow: scroll;">-->
 								<div class="form-group">
 									<h4>Search and Filter</h4>
 								</div>
-								</br>
+							</br>
 
-								<div id="reqParametersContainer" style="">
-									<div id="reqParameters" style=" overflow-y:scroll; overflow-y:auto; overflow-x:auto;">
-									</div>
+							<div id="reqParametersContainer" style="">
+								<div id="reqParameters" style=" overflow-y:scroll; overflow-y:auto; overflow-x:auto;"></div>
 								</br>
 								<a id="submitQuery" class="button button-mini" onclick="retrieveDataX()"></i>Submit </a>
 								<a class="button button-mini button-teal button-roundedl" type="reset" value="Reset" onClick="window.location.reload()"></i>Reset</a>
-								</div>
 							</div>
-						</div>
+
+								<!-- <div id="" style="height:550px;">
+								<div id="reqParameters" style="height:450px; overflow-y:scroll; overflow-y:auto; overflow-x:auto;"></div>
+									</br>
+									<a id="submitQuery" class="button button-mini" onclick="retrieveData()"></i>Submit </a>
+									<a class="button button-mini button-teal button-roundedl" type="reset" value="Reset" onClick="window.location.reload()"></i>Reset</a>
+								</div> -->
+
+				</div>
+			</div>
 				<!-- Request -->
 
 					<!-- Post Content
 					============================================= -->
 					<!-- <div id="resultSection" class="sidebar coll1"> -->
-					<div class="col-6">
-						<div id="resultSection"  class="box" style="">
+					<div class="col-xs">
+						<div id="resultSection"  class="box" style="margin-right:40px;">
 
 							<h4>View, Save and Download Result</h4>
 						<!-- Choose the view type-->
 						<div id="viewButtons" style="display:none">
 							<button onclick="viewTable()" class="button button-mini button button-circle" data-toggle="tooltip" data-placement="bottom" title="Table View"> <i class="glyphicon glyphicon-th" style="left:2px"></i></button>
+							<!--<button onclick="viewList()" class="button button-mini button button-circle" data-toggle="tooltip" data-placement="bottom" title="List View"> <i class="glyphicon glyphicon-list-alt" style="left:2px"></i></button>-->
 							<button onclick="viewTree()" class="button button-mini button button-circle" data-toggle="tooltip" data-placement="bottom" title="Tree View"> <i class="glyphicon glyphicon-align-left" style="left:2px"></i></button>
-							<button onclick="viewList()" class="button button-mini button button-circle" data-toggle="tooltip" data-placement="bottom" title="List View"> <i class="glyphicon glyphicon-list-alt" style="left:2px"></i></button>
 
-							<div id="viewButtons2" style="float:right;">
+							<div style="float:right;">
 								<!-- <a id="CSV" class="button button-mini button-border button-rounded button-red" style="display:none" onclick="DownloadJSON2CSV()"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a> -->
 								<!-- <a id="Save-Data" class="button button-mini button-border button-rounded button-yellow" style="display:none" onclick="addQueryToDB()"><i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE</a> -->
 								<!-- <a id="Save-Data" class="button button-mini button-border button-rounded button-yellow dropdown-toggle" style="display:none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="addQueryToDB()"><i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE</a>-->
@@ -235,6 +249,8 @@
 							</div>
 						</div>
 
+							<!-- <div id="myGrid" style="width:110vh; height:500px;"></div>
+							<div id="pager" style="width:110vh;"></div> -->
 							<div id="myGrid" style="width:400px; height:400px;"></div>
 							<div id="pager" style="width:400px;"></div>
 							<!-- edit modal -->
@@ -255,10 +271,10 @@
 							</script>
 
 						<!--******* Tree View *******-->
-						<div id="myTree" style="; display:none; overflow: scroll; "></div>
+						<div id="myTree" style="width:110vh;height:500px; display:none; overflow: scroll; "></div>
 
 						<!--******* List View *******-->
-						<div id="myList" style="; display:none; overflow: scroll; "></div>
+						<div id="myList" style="width:110vh;height:500px; display:none; overflow: scroll; "></div>
 
 					</div>
 				</div>
@@ -267,12 +283,13 @@
 					<!-- Sidebar
 					============================================= -->
 					<!-- <div id="resSection" class="sidebar col_last" style="width:200px;"> -->
-					<div class="col">
-						<div id="resSection">
+					<div class="col-xs">
+						<div id="resSection"  class="box">
 
-						<div class="sidebar-widgets-wrap" style="float:left;">
-							<h4>Choose Fields</h4>
-						</br>
+							<div class="sidebar-widgets-wrap" style="float:left;">
+								<h4>Choose Fields</h4>
+							</br>
+
 
 							<div id="accordion" role="tablist">
 								<div class="card">
@@ -443,7 +460,6 @@
 			<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
 			<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-database.js"></script>
 
-			<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 			<style>
 					.checkbox-style-3-label{

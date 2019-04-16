@@ -2,7 +2,7 @@
 
 * {
   font-family: arial;
-  font-size: 8pt;
+  /*font-size: 8pt;*/
 }
 
 body {
@@ -230,5 +230,3 @@ input.editor-checkbox {
   padding: 0;
   border: 0;
 }
-
-
