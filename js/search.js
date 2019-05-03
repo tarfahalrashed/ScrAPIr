@@ -135,6 +135,41 @@ function registration(){
   });
 }
 
+
+function isSignedUp(){
+  firebase.initializeApp(config);
+
+  firebase.auth().onAuthStateChanged(function (user) {
+    if(user){
+      //console.log("CURRENT USER: ",user.uid);
+      // firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
+      //   //console.log("NAME: ", displayName);
+      //   $("#SignupLogin").html(snapshot.val().name);
+      // });
+      //
+      // $('#acc').show();
+      // $('#signout').show();
+
+      // document.getElementById('acc').style.visibility = 'visible';
+      // document.getElementById('signout').style.visibility = 'visible';
+    }
+    else{
+      //redirect to signup page
+      // window.location.href='login-register.html';
+
+      // $(window).on('load',function(){
+      $('#loginModal').modal('show');
+      // });
+
+      //window.alert("No USER")
+      // $("#SignupLogin").html("Sign in");
+      //
+      // document.getElementById('acc').style.visibility = 'hidden';
+      // document.getElementById('signout').style.visibility = 'hidden';
+    }
+  });
+}
+
 // function createResource(properties) {
 //   var resource = {};
 //   var normalizedProps = properties;
@@ -4758,6 +4793,10 @@ function getAPIName(apiName){
 }
 
 function callFirebase(){
+  //registration();
+
+  isSignedUp();
+
   document.getElementById('url').value = window.localStorage.getItem('link');
   document.getElementById('title').value = window.localStorage.getItem('apiname');
   document.getElementById('result_max').value = window.localStorage.getItem('max');
@@ -4785,7 +4824,7 @@ function callFirebase(){
   // localStorage.setItem("next", $('#next_page_param').val());
   // console.log("GET ITEM: ", window.localStorage.getItem('link'))
   prettierURL();
-  registration();
+  // registration();
 }
 
 function signOutFunction(){
@@ -5245,14 +5284,18 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
 
     var api_title = myObj.title.split(' ').join('_');
 
+    if($("#title").val()){
+      //do nothing
+    }else{
+      $("#title").value = $("#url").val();
+    }
+
     //if(first_time){
       // save myObj to FireBase DB
-      if($("#url").val() && $("#title").val()){
-
-        firebase.database().ref('apis/' + $("#title").val()).set(JSON.parse(JSON.stringify(myObj)));
-
-    }else{//do nothing
-
+    if($("#url").val()){
+      firebase.database().ref('apis/' + $("#title").val()).set(JSON.parse(JSON.stringify(myObj)));
+    }else{
+      //do nothing
     }
       first_time=false;
     //  }//else{

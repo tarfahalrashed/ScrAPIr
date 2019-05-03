@@ -175,10 +175,140 @@
 						</div> -->
 
 
+						<div class="modal" id="loginModal">
+						  <!-- <div class="modal-header">
+						    <a class="close" data-dismiss="modal">×</a>
+						    <h3>Signup/Login</h3>
+						  </div> -->
+						  <div class="modal-body">
+
+							</br></br></br></br></br></br></br></br>
+
+						<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 600px;">
+							<h5>Please sign up first</h5>
+							<ul class="tab-nav tab-nav2 center clearfix">
+								<li class="inline-block"><a href="#tab-login">Sign in</a></li>
+								<li class="inline-block"><a href="#tab-register">Sign up</a></li>
+							</ul>
+
+							<div class="tab-container">
+
+								<div class="tab-content clearfix" id="tab-login">
+									<div class="card nobottommargin">
+										<div class="card-body" style="padding: 40px;">
+
+									<form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
+										<!-- <div class="col_full">
+											<label for="login-form-username">Username:</label>
+											<input type="text" id="displayName" name="displayName" value="" class="form-control" />
+										</div> -->
+
+										<div class="col_full">
+											<label for="login-form-username">Email:</label>
+											<input type="text" id="email" name="email" value="" class="form-control" />
+					          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/> -->
+										</div>
+
+										<div class="col_full">
+											<label for="login-form-password">Password:</label>
+											<input type="password" id="password" name="password" value="" class="form-control" />
+											<input type="checkbox" onclick="myFunction()">&nbsp;Show Password
+
+											<script>
+												function myFunction() {
+												  var x = document.getElementById("password");
+												  if (x.type === "password") {
+												    x.type = "text";
+												  } else {
+												    x.type = "password";
+												  }
+												}
+											</script>
+					          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/> -->
+										</div>
+								</form>
+
+									<!-- <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button> -->
+
+				          <button disabled class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-in" name="signin">Sign In</button>
+				          &nbsp;&nbsp;&nbsp;
+
+					</div>
+					</div>
+
+				        </div>
+
+								<!-- Register -->
+
+								<div class="tab-content clearfix" id="tab-register">
+									<div class="card nobottommargin">
+										<div class="card-body" style="padding: 40px;">
+
+									<form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
+										<div class="col_full">
+											<label for="login-form-username">Username:</label>
+											<input type="text" id="displayName1" name="displayName1" value="" class="form-control" />
+					          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/> -->
+										</div>
+
+										<div class="col_full">
+											<label for="login-form-username">Email:</label>
+											<input type="text" id="email1" name="email1" value="" class="form-control" />
+					          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/> -->
+										</div>
+
+										<div class="col_full">
+											<label for="login-form-password">Password:</label>
+											<input type="password" id="password1" name="password1" value="" class="form-control" />
+
+											<input type="checkbox" onclick="myFunction()">&nbsp;Show Password
+
+											<script>
+												function myFunction() {
+												  var x = document.getElementById("password1");
+												  if (x.type === "password") {
+												    x.type = "text";
+												  } else {
+												    x.type = "password";
+												  }
+												}
+											</script>
+
+					          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/> -->
+										</div>
+								</form>
+
+									<!-- <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button> -->
+
+				          <!-- <button disabled class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-in" name="signin">Sign In</button>
+				          &nbsp;&nbsp;&nbsp; -->
+				          <button class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-up" name="signup" >Sign Up</button>
+				          <!-- &nbsp;&nbsp;&nbsp;
+				          <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>
+				          &nbsp;&nbsp;&nbsp;
+				          <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button> -->
+					</div>
+					</div>
+
+				        </div>
+
+				      </div> <!-- container -->
+
+				    </div>
+
+					</div>
+					<!-- <div class="modal-footer"> -->
+						<!-- <a href="#" class="btn">Close</a> -->
+						<!-- <a href="#" class="btn btn-primary">Save changes</a> -->
+					<!-- </div> -->
+					</div>
+
+
 					<!-- <div id="ptab1"> -->
 							<!-- <div class="tabs divcenter nobottommargin clearfix" style="max-width:500px;"> -->
 							<h3 style="margin:0px; padding:10px">Follow these steps to add your API to scrAPIr</h3>
-
+							<p style="font-size:1.7em; margin:0px; padding:0px; text-indent:0.9em">  Follow these 6 steps to access and publish web APIs. Informaiton required in each step can be found in the API documentation.</p>
+						</br></br></br>
 							<!-- <p style="font-size:1.7em; margin:0px; padding:0px">This process wizard will guide through the steps you need to access\add APIs to scrAPI. Every step will ask you to provide specific information about the API you want to add: The API URL, the pagination information (to get more results), the parametrs to refine your search, and the response to choose the exact fields of the result you are interested in. All these information can be found in the API documentation page (e.g. <a target="_blank" href="https://developers.google.com/youtube/v3/docs/search/list">YouTube search API page</a>).</p> -->
 						  <!-- </br></br> -->
 							<div  class="form-group">
@@ -192,7 +322,9 @@
 								</div>
 
 								<div class="col">
-									<p style="font-size:2em; margin:0px; padding:0px"><B>API Name</B><label><a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="Every web API has a URL that you can use to access its data (e.g. the URL for YouTube search API is 'https://www.googleapis.com/youtube/v3/search')"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label></p>
+									<p style="font-size:2em; margin:0px; padding:0px"><B>API Name</B>
+										<!-- <label><a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="Every web API has a URL that you can use to access its data (e.g. the URL for YouTube search API is 'https://www.googleapis.com/youtube/v3/search')"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label> -->
+									</p>
 									<input style="width:400px;" type="text" class="form-control" id="title" placeholder="add a name to the API" required>
 									</br></br>
 								</div>

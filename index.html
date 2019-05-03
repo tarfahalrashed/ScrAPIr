@@ -216,7 +216,7 @@
 											<!-- <h3>scrAPIr </h3> -->
 											<p style="font-size:2em"> <B>scrAPIr </B>makes it possible to get and use the web data API without programming. You can:</p>
 											<ul class="iconlist">
-												<li style="left:15px"><i class="i-rounded i-small icon-ok" style="background:#1ABC9C; cursor: default; "></i> <p style="font-size:2em; text-indent: 1em;"> Access, filter, and save integrated websites' data.</p></li>
+												<li style="left:15px"><i class="i-rounded i-small icon-ok" style="background:#1ABC9C; cursor: default; "></i> <p style="font-size:2em; text-indent: 1em;"> Access, query, and save integrated web APIs.</p></li>
 												<li style="left:15px"><i class="i-rounded i-small icon-ok" style="background:#1ABC9C; cursor: default;"></i> <p style="font-size:2em; text-indent: 1em;"> Search through publicaly available datasets.</p></li>
 												<li style="left:15px"><i class="i-rounded i-small icon-ok" style="background:#1ABC9C; cursor: default;"></i> <p style="font-size:2em; text-indent: 1em;"> Integrate web data APIs.</p></li>
 											</ul>
@@ -383,18 +383,52 @@
 							<div class="container text-center">
 								<div class="row" style="margin-left:180px; margin-right:180px "><!-- margin-right:150px -->
 									<div class="col">
-										<input id="youtubeAPIButton" value="youtube" type="image" src="icons_svg/YouTube.svg" width="120px" height="120px" onclick="window.location.href='data-management.html?api=YouTube_API'"/>
+										<input id="youtubeAPIButton" value="youtube" type="image" src="icons_svg/YouTube.svg" width="100px" height="100px" onclick="window.location.href='data-management.html?api=YouTube_API'"/>
 										<h5>Youtube</h5>
 									</div>
 
 									<div class="col">
-										<input id="wikipediaAPIButton" value="wikipedia" type="image" src="images/github_logo.png" width="120px" height="120px" onclick="window.location.href='data-management.html?api=GitHub_Search_Code'"/> <!-- window.location.href='data-management.html?api=Foursquare_Venues_Search' -->
+										<input id="wikipediaAPIButton" value="wikipedia" type="image" src="images/github_logo.png" width="100px" height="100px" onclick="window.location.href='data-management.html?api=GitHub_Search_Code'"/> <!-- window.location.href='data-management.html?api=Foursquare_Venues_Search' -->
 										<h5>GitHub</h5>
 									</div>
 
+									<div class="col-sm">
+										<input type="image" src="images/reddit.png" width="100px" height="100px"  alt="Image" onclick="window.location.href='data-management.html?api=Reddit_Search'"/></br>
+										<h5>Reddit</h5>
+									</div>
+
+									<div class="col-sm">
+										<input id="YelpAPIButton" value="Yelp" type="image" src="images/yelp_logo.png" width="100px" height="100px" onclick="window.location.href='data-management.html?api=Yelp_Search_Businesses'"/>
+										<h5>Yelp</h5>
+									</div>
+
+								</div>
+									</br></br>
+							</div>
+
+
+							<div class="container text-center">
+								<div class="row" style="margin-left:180px; margin-right:180px ">
+
+									<div class="col-sm">
+										<input type="image" src="images/reddit.png" width="100px" height="100px"  alt="Image" onclick="window.location.href='data-management.html?api=Reddit_Search'"/></br>
+										<h5>Reddit</h5>
+									</div>
+
+									<div class="col-sm">
+										<input type="image" src="icons_svg/googleBooks.png" width="100px" height="100px"  alt="Image" onclick="window.location.href='data-management.html?api=Google_Books'"/></br>
+										<h5>Google Books</h5>
+									</div>
+
+									<div class="col-sm">
+										<input id="NewsAPIButton" value="NewsAPI" type="image" src="images/newsAPI1.png" width="100px" height="100px" onclick="window.location.href='data-management.html?api=NewsAPI'"/>
+										<h5>News API</h5>
+									</div>
+
 									<div class="col">
-										<input type="image" src="icons_svg/nytL.png" width="120px" height="120px" alt="Image" onclick="window.location.href='data-management.html?api=NYT_Article_Search'"/></br>
-										<input type="image" src="icons_svg/poweredby_nytimes_150a.png" alt="NYT" onclick="window.open('http://developer.nytimes.com')"/>
+										<input type="image" src="images/tumblr.png" width="100px" height="100px" alt="Image" onclick="window.location.href='data-management.html?api=Tumblr'"/></br>
+										<!-- <input type="image" src="icons_svg/poweredby_nytimes_150a.png" alt="NYT" onclick="window.open('http://developer.nytimes.com')"/> -->
+										<h5>Tumblr</h5>
 									</div>
 								</div>
 									</br></br>
@@ -405,21 +439,29 @@
 								<div class="row" style="margin-left:180px; margin-right:180px ">
 
 									<div class="col-sm">
-										<input type="image" src="images/reddit.png" width="120px" height="120px"  alt="Image" onclick="window.location.href='data-management.html?api=Reddit_Search'"/></br>
-										<h5>Reddit</h5>
+										<input type="image" src="images/unsplash.png" width="110px" height="110px"  alt="Image" onclick="window.location.href='data-management.html?api=Unsplash_Search'"/></br>
+										<h5>Unsplash</h5>
 									</div>
 
 									<div class="col-sm">
-										<input type="image" src="icons_svg/googleBooks.png" width="120px" height="120px"  alt="Image" onclick="window.location.href='data-management.html?api=Google_Books'"/></br>
-										<h5>Google Books</h5>
+										<input type="image" src="images/sg.png" width="100px" height="100px"  alt="Image" onclick="window.location.href='data-management.html?api=Google_Books'"/></br>
+										<h5>Songkick</h5>
 									</div>
+
 									<div class="col-sm">
-										<input id="YelpAPIButton" value="Yelp" type="image" src="images/yelp_logo.png" width="120px" height="120px" onclick="window.location.href='data-management.html?api=Yelp_Search_Businesses'"/>
-										<!-- window.location.href='data-management.html?api=Yelp_Search_Businesses'"/> -->
-										<h5>Yelp</h5>
+										<input id="NewsAPIButton" value="StackOverflow" type="image" src="images/so.png" width="100px" height="100px" onclick="window.location.href='data-management.html?api=Stack_Overflow_Search'"/>
+										<h5>Stack Overflow</h5>
+									</div>
+
+									<div class="col">
+										<input type="image" src="icons_svg/nytL.png" width="100px" height="100px" alt="Image" onclick="window.location.href='data-management.html?api=NYT_Article_Search'"/></br>
+										<input type="image" src="icons_svg/poweredby_nytimes_150a.png" alt="NYT" onclick="window.open('http://developer.nytimes.com')"/>
 									</div>
 								</div>
+									</br></br>
 							</div>
+
+
 						</div>
 					</div>
 

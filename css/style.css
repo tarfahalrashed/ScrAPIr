@@ -9275,7 +9275,8 @@ ul.tab-nav-lg.tab-nav-section li.ui-tabs-active:before {
 
 .tab-container {
 	position: relative;
-	padding: 20px 0 0;
+	padding: 5px 0 0;
+	/* padding: 20px 0 0; */
 }
 
 ul.tab-nav li a i {
