@@ -184,117 +184,100 @@
 
 							</br></br></br></br></br></br></br></br>
 
-						<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 600px;">
-							<h5>Please sign up first</h5>
-							<ul class="tab-nav tab-nav2 center clearfix">
-								<li class="inline-block"><a href="#tab-login">Sign in</a></li>
-								<li class="inline-block"><a href="#tab-register">Sign up</a></li>
-							</ul>
+							<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 600px;">
 
-							<div class="tab-container">
+								<ul class="tab-nav tab-nav2 center clearfix">
+									<li class="inline-block"><a href="#tab-login">Sign in</a></li>
+									<li class="inline-block"><a href="#tab-register">Sign up</a></li>
+								</ul>
 
-								<div class="tab-content clearfix" id="tab-login">
-									<div class="card nobottommargin">
-										<div class="card-body" style="padding: 40px;">
+								<div class="tab-container">
 
-									<form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
-										<!-- <div class="col_full">
-											<label for="login-form-username">Username:</label>
-											<input type="text" id="displayName" name="displayName" value="" class="form-control" />
-										</div> -->
+									<div class="tab-content clearfix" id="tab-login">
+										<div class="card nobottommargin">
+											<div class="card-body" style="padding: 40px;">
 
-										<div class="col_full">
-											<label for="login-form-username">Email:</label>
-											<input type="text" id="email" name="email" value="" class="form-control" />
-					          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/> -->
-										</div>
+										<form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
 
-										<div class="col_full">
-											<label for="login-form-password">Password:</label>
-											<input type="password" id="password" name="password" value="" class="form-control" />
-											<input type="checkbox" onclick="myFunction()">&nbsp;Show Password
+											<div class="col_full">
+												<label for="login-form-username">Email:</label>
+												<input type="text" id="email" name="email" value="" class="form-control" />
+											</div>
 
-											<script>
-												function myFunction() {
-												  var x = document.getElementById("password");
-												  if (x.type === "password") {
-												    x.type = "text";
-												  } else {
-												    x.type = "password";
-												  }
-												}
-											</script>
-					          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/> -->
-										</div>
-								</form>
+											<div class="col_full">
+												<label for="login-form-password">Password:</label>
+												<input type="password" id="password" name="password" value="" class="form-control" />
+												<input type="checkbox" onclick="myFunction()">&nbsp;Show Password
 
-									<!-- <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button> -->
+												<script>
+													function myFunction() {
+														var x = document.getElementById("password");
+														if (x.type === "password") {
+															x.type = "text";
+														} else {
+															x.type = "password";
+														}
+													}
+												</script>
+											</div>
+									</form>
 
-				          <button disabled class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-in" name="signin">Sign In</button>
-				          &nbsp;&nbsp;&nbsp;
+										<button disabled class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-in" name="signin">Sign In</button>
+										&nbsp;&nbsp;&nbsp;
+								</div>
+						</div>
+
+									</div>
+
+									<!-- Register -->
+
+									<div class="tab-content clearfix" id="tab-register">
+										<div class="card nobottommargin">
+											<div class="card-body" style="padding: 40px;">
+
+										<form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
+											<div class="col_full">
+												<label for="login-form-username">Username:</label>
+												<input type="text" id="displayName1" name="displayName1" value="" class="form-control" />
+											</div>
+
+											<div class="col_full">
+												<label for="login-form-username">Email:</label>
+												<input type="text" id="email1" name="email1" value="" class="form-control" />
+											</div>
+
+											<div class="col_full">
+												<label for="login-form-password">Password:</label>
+												<input type="password" id="password1" name="password1" value="" class="form-control" />
+
+												<input type="checkbox" onclick="myFunction()">&nbsp;Show Password
+
+
+
+											</div>
+									</form>
+
+										<button class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-up" name="signup" >Sign Up</button>
+							</div>
+						</div>
 
 					</div>
-					</div>
 
-				        </div>
+			  </div> <!-- container -->
+		  </div> <!-- TAB-->
 
-								<!-- Register -->
 
-								<div class="tab-content clearfix" id="tab-register">
-									<div class="card nobottommargin">
-										<div class="card-body" style="padding: 40px;">
+			<script>
+				function myFunction() {
+					var x = document.getElementById("password1");
+					if (x.type === "password") {
+						x.type = "text";
+					} else {
+						x.type = "password";
+					}
+				}
+			</script>
 
-									<form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
-										<div class="col_full">
-											<label for="login-form-username">Username:</label>
-											<input type="text" id="displayName1" name="displayName1" value="" class="form-control" />
-					          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/> -->
-										</div>
-
-										<div class="col_full">
-											<label for="login-form-username">Email:</label>
-											<input type="text" id="email1" name="email1" value="" class="form-control" />
-					          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/> -->
-										</div>
-
-										<div class="col_full">
-											<label for="login-form-password">Password:</label>
-											<input type="password" id="password1" name="password1" value="" class="form-control" />
-
-											<input type="checkbox" onclick="myFunction()">&nbsp;Show Password
-
-											<script>
-												function myFunction() {
-												  var x = document.getElementById("password1");
-												  if (x.type === "password") {
-												    x.type = "text";
-												  } else {
-												    x.type = "password";
-												  }
-												}
-											</script>
-
-					          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/> -->
-										</div>
-								</form>
-
-									<!-- <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button> -->
-
-				          <!-- <button disabled class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-in" name="signin">Sign In</button>
-				          &nbsp;&nbsp;&nbsp; -->
-				          <button class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-up" name="signup" >Sign Up</button>
-				          <!-- &nbsp;&nbsp;&nbsp;
-				          <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>
-				          &nbsp;&nbsp;&nbsp;
-				          <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button> -->
-					</div>
-					</div>
-
-				        </div>
-
-				      </div> <!-- container -->
-
-				    </div>
 
 					</div>
 					<!-- <div class="modal-footer"> -->
@@ -307,7 +290,9 @@
 					<!-- <div id="ptab1"> -->
 							<!-- <div class="tabs divcenter nobottommargin clearfix" style="max-width:500px;"> -->
 							<h3 style="margin:0px; padding:10px">Follow these steps to add your API to scrAPIr</h3>
-							<p style="font-size:1.7em; margin:0px; padding:0px; text-indent:0.9em">  Follow these 6 steps to access and publish web APIs. Informaiton required in each step can be found in the API documentation.</p>
+							<div id ="reqExp" style="display:inline">
+							<p style="font-size:1.7em; margin:0px; padding:0px; text-indent:0.9em; display:inline-block">Informaiton required in each step can be found in the API documentation. <a>Supported web APIs.</a></p> 	<a style="width:100px; display:inline-block; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalDemo" onclick="">Demo</a>
+						</div>
 						</br></br></br>
 							<!-- <p style="font-size:1.7em; margin:0px; padding:0px">This process wizard will guide through the steps you need to access\add APIs to scrAPI. Every step will ask you to provide specific information about the API you want to add: The API URL, the pagination information (to get more results), the parametrs to refine your search, and the response to choose the exact fields of the result you are interested in. All these information can be found in the API documentation page (e.g. <a target="_blank" href="https://developers.google.com/youtube/v3/docs/search/list">YouTube search API page</a>).</p> -->
 						  <!-- </br></br> -->
@@ -319,6 +304,28 @@
 										<input style="width:400px; display: inline-block" type="text" class="form-control" id="url" onblur="urlBlur()" onkeyup="urlBlur()" placeholder="e.g. 'https://www.googleapis.com/youtube/v3/search'" required>
 										<!-- <button  style="display: inline-block"class="button button-3d button-small button-rounded button-teal" onclick="getAPIName(document.getElementById('url').value)">Submit</button> -->
 									</div>
+
+									<!-- Modal -->
+									<div class="modal fade bs-example-modal-lg" id="modalDemo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+									  <div class="modal-dialog modal-lg" >
+									    <div class="modal-content">
+									      <!-- <div class="modal-header">
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+									      </div> -->
+									      <div class="modal-body">
+									        <video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+									          <source src="images/docs/Intgration_Demo.mp4" type="video/mp4">
+									          Your browser doesn't support HTML5 video tag.
+									        </video>
+									      </div>
+									      <!-- <div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									      </div> -->
+									    </div>
+									  </div>
+									</div>
+
 								</div>
 
 								<div class="col">
@@ -332,16 +339,21 @@
 							</div>
 
 
-							<div class="toggle toggle-bg">
+							<div id="reqDIV" class="toggle toggle-bg">
 								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">2.</span> Request Parameters <span style="font-style: italic; font-size:0.9em">(please add at least the required parameter(s))</span></div>
-								<div id="toggReq" class="togglec">
-									<h3 style="margin:0px; padding:0px;">Request Parameters</h3>
+								<div id="toggReq" class="togglec" tabindex="0">
+									<div id ="reqExp" style="display:inline">
+										<h3 style="margin:0px; padding:0px; display: inline-block">Request Parameters</h3>
+										<a style="width:100px; text-align:center; display: inline-block" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalDemoReq" onclick="">Demo</a>
+										<a style="width:100px; text-align:center; display: inline-block" class="button button-mini button-circle button-border button-blue" data-toggle="modal" data-target="#modalExampleReq" onclick="">Example</a>
+									</div>
 									<!-- <div style="display:inline"> -->
-										<p style="font-size:1.7em; margin:0px; padding:0px;display:inline-block">Enter the request parameters for this API:
-											<a style="width:100px; text-align:center" class="button button-mini button-circle button-border button-pink" onclick="callGitHub(document.getElementById('url').value)">GitHub</a>
-											<a style="width:100px; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalSwagger" onclick="">OpenAPI</a>
-											<a style="width:100px; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalPaste" onclick="">Table</a>
+										<p style="font-size:1.7em; margin:0px; padding:0px;display:inline-block">Enter the request parameters in the table below, or automatically populate the table by choosing one of the following:
+										<a style="color:#1ABC9C; text-decoration:underline; cursor:pointer;" class="" onclick="callGitHub(document.getElementById('url').value)">GitHub</a>,
+										<a style="color:#1ABC9C; text-decoration:underline; cursor:pointer;" class="" data-toggle="modal" data-target="#modalSwagger" onclick="">OpenAPI</a>, or
+										<a style="color:#1ABC9C; text-decoration:underline; cursor:pointer;" class="" data-toggle="modal" data-target="#modalPaste" onclick="">Table</a>. Click on the example button above for more details.
 
+									</br></br>
 											<!-- <input type="button" id="butShowReq" class="button button-small button-circle button-border button-amber" onclick="showHideDiv(this)" value="Show Explanation"/> -->
 										</p></br>
 										<div id ="reqExp" style="display:none;">
@@ -369,6 +381,52 @@
 										Make sure to add the <B>"required"</B> parameters. If you do not want the parameter to be displayed <B>uncheck "displayed?"</B></p> -->
 
 									<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Launch modal</button> -->
+
+
+									<!-- Modal -->
+									<div class="modal fade bs-example-modal-lg" id="modalDemoReq" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+									  <div class="modal-dialog modal-lg" >
+									    <div class="modal-content">
+									      <!-- <div class="modal-header">
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+									      </div> -->
+									      <div class="modal-body">
+									        <video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+									          <source src="images/docs/Intgration_Demo.mp4" type="video/mp4">
+									          Your browser doesn't support HTML5 video tag.
+									        </video>
+									      </div>
+									      <!-- <div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									      </div> -->
+									    </div>
+									  </div>
+									</div>
+
+									<!-- Modal -->
+									<div class="modal fade bs-example-modal-lg" id="modalExampleReq" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+									  <div class="modal-dialog modal-lg" >
+									    <div class="modal-content">
+									      <!-- <div class="modal-header">
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+									      </div> -->
+									      <div class="modal-body">
+													<img src="images/docs/req.png" width="width: 100%; height: auto; margin:0 auto;">
+
+									        <!-- <video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+									          <source src="images/docs/Intgration_Demo.mp4" type="video/mp4">
+									          Your browser doesn't support HTML5 video tag.
+									        </video> -->
+									      </div>
+									      <!-- <div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									      </div> -->
+									    </div>
+									  </div>
+									</div>
+
 
 							<!-- Modal -->
 							<div id="modalPaste" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -491,11 +549,16 @@
 
 
 
+
 						<div class="toggle toggle-bg">
 							<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">3.</span> Authentication and Header <span style="font-style: italic; font-size:0.9em">(some APIs require authentication and\or header)</span></div>
 							<div class="togglec">
-								<h3 style="margin:0px; padding:0px;">Authentication Type <span id="messageQ" style="font-size:0.6em; display:none;  color:red">(Add your key as one of the request parameters above)</span> <span id="messageH" style="font-size:0.6em; display:none; color:red">(Add your key as one of the header parameters below)</span><span id="messageB" style="font-size:0.6em; display:none; color:red">(Add your token\key in the header section below)</span></h3>
-								<p style="font-size:1.7em; margin-bottom:5px;">Supported authentication methods are: HTTP authentication (Basic, Bearer, etc), API key as a header or query parameter, etc.</p>
+								<div style="display:inline">
+									<h3 style="margin:0px; padding:0px; display: inline-block">Authentication Type <span id="messageQ" style="font-size:0.6em; display:none;  color:red">(Add your key as one of the request parameters above)</span> <span id="messageH" style="font-size:0.6em; display:none; color:red">(Add your key as one of the header parameters below)</span><span id="messageB" style="font-size:0.6em; display:none; color:red">(Add your token\key in the header section below)</span></h3>
+									<a style="width:100px; display:inline-block; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalDemoAuth" onclick="">Demo</a>
+									<a style="width:100px; text-align:center; display: inline-block" class="button button-mini button-circle button-border button-blue" data-toggle="modal" data-target="#modalExampleAuth" onclick="">Example</a>
+								</div>
+								<p style="font-size:1.7em; margin-bottom:5px;">Supported authentication methods are: HTTP authentication (Basic, Bearer, etc), API key as a header or query parameter.</p>
 
 								<table id="authTabel"> <!-- class="table table-bordered table-striped" -->
 									<!-- <thead style="font-size:1.5em">
@@ -524,11 +587,11 @@
 						</br></br></br>
 
 							<h3 style="margin:0px; padding:0px;">Header Parameters</h3>
-							<p style="font-size:1.7em; margin-bottom:5px;">Some APIs might ask you to add header values to acces their data (e.g. In <a href="https://developer.github.com/v3/search/#text-match-metadata" target="_blank">GitHub search code API</a>, you can get the code snippets and highlights in search results by adding 'Accept' header as the key and assign it a value of 'application/vnd.github.v3.text-match+json'). Other APIs only required their authentication to be passed as a header parameter.</p>
+							<p style="font-size:1.7em; margin-bottom:5px;">Some APIs might ask you to add header to acces their data (e.g. In <a href="https://developer.github.com/v3/search/#text-match-metadata" target="_blank">GitHub search code API</a>, you can get the code snippets in search results by adding 'Accept' header as the name and assign it a value of 'application/vnd.github.v3.text-match+json').</p>
 							<table id="headerTabel" class="table table-bordered table-striped">
 								<thead style="font-size:1.5em">
 									<tr>
-										<th style="background-color: #fff4f6; width:200px">Key</th>
+										<th style="background-color: #fff4f6; width:200px">Name</th>
 										<th style="background-color: #fff4f6;">Value</th>
 										<th></th>
 									</tr>
@@ -549,42 +612,65 @@
 						</table>
 					</br>
 
-						<a class="button button-3d button-small button-rounded button-dirtygreen"onclick="addHeaderRow()" style="width:180px; text-align:center; color:white"><i class="glyphicon glyphicon-plus"></i>Add a Header</a>
+						<a class="button button-mini button-circle button-teal"onclick="addHeaderRow()" style="width:180px; text-align:center; color:white"><i class="glyphicon glyphicon-plus"></i>Add a Header</a>
+
+						<!-- Modal -->
+						<div class="modal fade bs-example-modal-lg" id="modalDemoAuth" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-lg" >
+								<div class="modal-content">
+									<!-- <div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+									</div> -->
+									<div class="modal-body">
+										<video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+											<source src="images/docs/Intgration_Demo.mp4" type="video/mp4">
+											Your browser doesn't support HTML5 video tag.
+										</video>
+									</div>
+									<!-- <div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									</div> -->
+								</div>
+							</div>
+						</div>
+
+						<!-- Modal -->
+						<div class="modal fade bs-example-modal-lg" id="modalExampleAuth" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-lg" >
+								<div class="modal-content">
+									<!-- <div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+									</div> -->
+									<div class="modal-body">
+										<!-- <video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+											<source src="images/docs/Intgration_Demo.mp4" type="video/mp4">
+											Your browser doesn't support HTML5 video tag.
+										</video> -->
+									</div>
+									<!-- <div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									</div> -->
+								</div>
+							</div>
+						</div>
 
 
 							</div>
 						</div>
 
-						<!-- <div class="toggle toggle-bg">
-							<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">4.</span> Headers <span style="font-style: italic; font-size:0.9em">(some APIs require header parameters)</span></div>
-							<div class="togglec">
 
-							</div>
-						</div> -->
-
-
-							<!-- </br> </br> </br> </br> </br> </br>
-
-
-						<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="">
-						</br> -->
-							<!-- <div> -->
-								<!-- <a class="button button-3d nomargin tab-linker" rel="1"><i class="glyphicon glyphicon-chevron-left"></i></a>
-								<a class="button button-3d nomargin fright tab-linker" rel="3" onclick=""><i class="glyphicon glyphicon-chevron-right"></i></a> -->
-								<!-- <a class="button button-3d nomargin fright tab-linker" style="position:relative; top:-10px" rel="2" onclick=""><i class="glyphicon glyphicon-chevron-right"></i></a>
-							</div> -->
-								<!-- Parameters HERE -->
-							<!-- </div> -->
-
-						<!-- </div> -->
-					<!-- </div>
-
-
-		  <div id="ptab2"> -->
 
 				<div class="toggle toggle-bg">
 					<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">4.</span> Response Fields <span style="font-style: italic; font-size:0.9em">(choose the fields you are interested in)</span></div>
 						<div id="toggRes" class="togglec">
+							<div style="display:inline">
+								<h3 style="margin:0px; padding:0px; display: inline-block">Response Fields</h3>
+								<a style="width:100px; display:inline-block; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalDemoRes" onclick="">Demo</a>
+								<a style="width:100px; text-align:center; display: inline-block" class="button button-mini button-circle button-border button-blue" data-toggle="modal" data-target="#modalExampleRes" onclick="">Example</a>
+							</div>
+						</br></br>
 							<div class="row">
 								<div class="col" style="" >
 									<h4 style=" margin:0px; padding:0px">Response Sample</h4>
@@ -594,7 +680,7 @@
 
 								<div class="col">
 									<h4 style=" margin:0px; padding:0px">Selected Fields</h4>
-									<p style=" margin:0px; padding:0px; font-size:1.7em">This is the list of added fields, you can change their names and add descriptions, or remove them.</p>
+									<p style=" margin:0px; padding:0px; font-size:1.7em">You can change the displayed names and add descriptions.</p>
 									<table id="fields"class="table table-bordered table-striped" style="font-size:1.3em; width:100%">
 										<tr>
 											<th>Field</th>
@@ -607,6 +693,53 @@
 							</div><!-- row -->
 
 							<h5 style="color:red">[If you want to get more results than what you're seeing in this response sample, you need to fill in the 'PAGINATION' section]</h5>
+
+
+													<!-- Modal -->
+													<div class="modal fade bs-example-modal-lg" id="modalDemoRes" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+														<div class="modal-dialog modal-lg" >
+															<div class="modal-content">
+																<!-- <div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																	<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+																</div> -->
+																<div class="modal-body">
+																	<video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+																		<source src="images/docs/Intgration_Demo.mp4" type="video/mp4">
+																		Your browser doesn't support HTML5 video tag.
+																	</video>
+																</div>
+																<!-- <div class="modal-footer">
+																	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+																</div> -->
+															</div>
+														</div>
+													</div>
+
+													<!-- Modal -->
+													<div class="modal fade bs-example-modal-lg" id="modalExampleRes" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+														<div class="modal-dialog modal-lg" >
+															<div class="modal-content">
+																<!-- <div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																	<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+																</div> -->
+																<div class="modal-body">
+																	<img src="images/docs/resp.png" width="width: 100%; height: auto; margin:0 auto;">
+																	<!-- <video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+																		<source src="images/docs/Intgration_Demo.mp4" type="video/mp4">
+																		Your browser doesn't support HTML5 video tag.
+																	</video> -->
+																</div>
+																<!-- <div class="modal-footer">
+																	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+																</div> -->
+															</div>
+														</div>
+													</div>
+
+
+
 							</div>
 							</div>
 							<!-- </div> -->
@@ -614,57 +747,23 @@
 							<div class="toggle toggle-bg">
 								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">5.</span> Pagination</div>
 									<div class="togglec">
-								<h2>Pagination Information</h2>
+										<!-- <h3>Pagination Information</h3> -->
+										<div style="display:inline">
+											<h3 style="margin:0px; padding:0px; display: inline-block">Pagination Information</h3>
+											<a style="width:90px; display:inline-block; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalDemoPage" onclick="">Demo</a>
+											<a style="width:90px; text-align:center; display: inline-block" class="button button-mini button-circle button-border button-blue" data-toggle="modal" data-target="#modalExamplePage" onclick="">Example</a>
+										</div>
 
 								<p style="font-size:1.7em;">When you access web APIs there’ll be a lot of results to return. For that reason, APIs paginate the results to make sure responses are easier to handle. APIs give you results in pages, every page has a default and a maximum number of results, here we need you to provide max number of results per page.
-								<a style="width:140px; color:white; text-align:center" class="button button-mini button-circle button-red" data-toggle="modal" data-target="#modalExample" onclick="">Check Example</a>
+								<!-- <a style="width:140px; color:white; text-align:center" class="button button-mini button-circle button-red" data-toggle="modal" data-target="#modalExample" onclick="">Check Example</a> -->
 								<input type="button" id="butShowReq" class="button button-small button-circle button-border button-amber" onclick="showHideDivPag(this)" value="Show Explanation"/></p>
 
 								<div id="pagExp" style="display:none;">
-									<p style="font-size:1.7em;">If you want to get more results than the max number of results per page allowed by the API, there are two different ways to loop through pages: (1) Some APIs use index or offset to go through multiple pages(e.g. In Wikipedia search API, they use ‘offset’ as the page parameter. offset=0 is the first page, offset=1 is the second page, etc). (2) Other APIs will provide parameters that will indicate the current page, in which you can assign it to the next page parameter to get more results (e.g. in YouTube search API, the current page parameter is ‘pageToken’ and to go to the next page we assign ‘pageToken’ to the ‘nextPageToken’).<span style="color:red"> If the API provide both next\prev and index style pagination, you can just go with the index pagination.</span></p>
+									<p style="font-size:1.7em;">If you want to get more results than the max number of results per page allowed by the API, there are two different ways to loop through pages: (1) Some APIs use index or offset to go through multiple pages(e.g. In Wikipedia search API, they use ‘offset’ as the page parameter. offset=0 is the first page, offset=1 is the second page, etc). (2) Other APIs will provide parameters that will indicate the current page, in which you can assign it to the next page parameter to get more results (e.g. in YouTube search API, the current page parameter is ‘pageToken’ and to go to the next page we assign ‘pageToken’ to the ‘nextPageToken’).</p>
 
 								</div>
-								<!-- Modal -->
-								<div id="modalExample" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-lg">
-										<div class="modal-body">
-											<div class="modal-content">
-												<!-- <div class="modal-header">
-													<h4 class="modal-title" id="myModalLabel">Pagination in Spotify Search</h4>
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-												</div> -->
-												<div class="modal-body" style="padding:30px">
-													<p>From the <a href="https://developer.spotify.com/documentation/web-api/reference/search/search/" target="_blank">Spotify search API documentation</a>, this is how they deal with pagination.</p></br>
-													<img src="images/pagination.png" align="center" alt="photo">
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<!-- <div class="a" id="aa" style="margin:0px; padding:0px">
-									<p style="margin:0px; padding:0px">Show example</p>
-									<figure>
-										<img src="images/pagination.png" width="700" height="600" alt="photo">
-									</fugure>
-								</div> -->
-								<!-- <div class="hover_img">
-									<a href="#" style="width:300p">Show Image<span><img src="images/pagination.png" alt="image" style="width:300px; height:200px"/></span></a>
-								</div> -->
-
-
-							<!-- <div>
-							  <p><a href="https://www.sitepoint.com/community/t/trying-to-show-image-in-popup-box-when-i-hover-over-a-button/232770?u=sama74">https://www.sitepoint.com/community/t/trying-to-show-image-in-popup-box-when-i-hover-over-a-button/232770?u=sama74</a></p>
-							</div> -->
-
-
-
 
 								<style>
-									/*.hover_img a { position:relative; }
-									.hover_img a span { display:none;  }
-								  /*.hover_img a span { position:absolute; display:none; z-index:99; }*/
-									/*.hover_img a:hover span { display:block; }*/
 
 									#aa {
 								  position: relative;
@@ -751,23 +850,23 @@
 									</select>
 							</div>
 
-							<div class="" style="display: inline-block;">
-								<div id="indexDiv" class="" id="" style="display:none;">
-												<label>Index [parameter name]</label>
-												<input type="text"  class="form-control"  id="index_param" placeholder="(e.g. page)" required>
+							<div class="" style="display: inline-block; margin-left: 83px;">
+								<div id="indexDiv" class="" id="" style="display:none; ">
+												<label>Index [parameter name]*</label>
+												<input type="text"  class="form-control"  id="index_param" placeholder="(e.g. page)" style="width:335px" required>
 
 								</div>
 
 								<div id="offsetDiv" class="" id="" style="">
 												<label>Offset [parameter name]*</label>
-												<input type="text"  class="form-control"  id="offset_param" placeholder="(e.g. offset)" required>
+												<input type="text"  class="form-control"  id="offset_param" placeholder="(e.g. offset)" style="width:335px" required>
 
 								</div>
 
 								<div id="nextDiv" class="" id="" style="display:none;">
 									<div class="form-group" style=" display=none;">
 										<label>Current Page [parameter name]*</label>
-										<input type="text" class="form-control"  id="cur_page_param" placeholder="(e.g. pageToken)" required>
+										<input type="text" class="form-control"  id="cur_page_param" placeholder="(e.g. pageToken)" style="width:334px" required>
 									</div>
 									<div class="form-group" style=" display=none;">
 										<label>Next Page [parameter name]*</label>
@@ -789,19 +888,51 @@
 									<a class="button button-3d nomargin tab-linker" rel="2"><i class="glyphicon glyphicon-chevron-left"></i></a>
 									<a class="button button-3d nomargin fright tab-linker" rel="4" onclick="showResponseSchema()"><i class="glyphicon glyphicon-chevron-right"></i></a>
 								</div> -->
+
+
+								<!-- Modal -->
+								<div class="modal fade bs-example-modal-lg" id="modalDemoPage" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-lg" >
+										<div class="modal-content">
+											<!-- <div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+											</div> -->
+											<div class="modal-body">
+												<video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+													<source src="images/docs/Intgration_Demo.mp4" type="video/mp4">
+													Your browser doesn't support HTML5 video tag.
+												</video>
+											</div>
+											<!-- <div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+											</div> -->
+										</div>
+									</div>
+								</div>
+
+								<!-- Modal -->
+								<div id="modalExamplePage" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-lg">
+										<div class="modal-body">
+											<div class="modal-content">
+												<!-- <div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">Pagination in Spotify Search</h4>
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												</div> -->
+												<div class="modal-body" style="padding:30px">
+													<p>Pagination in <a href="https://developer.spotify.com/documentation/web-api/reference/search/search/" target="_blank">Spotify search API documentation</a></p></br>
+													<img src="images/pagination.png" align="center" alt="photo">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
 							</div>
 
 						</div>
-				<!-- </div> -->
-
-
-						<!-- </br>
-							 <div>
-									<a class="button button-3d nomargin tab-linker" rel="1"><i class="glyphicon glyphicon-chevron-left"></i></a>
-									<a class="button button-3d nomargin fright tab-linker" rel="3" onclick="reviewAPIIntegration()"><i class="glyphicon glyphicon-chevron-right"></i></a>
-							</div> -->
-
-
 
 
 						  <!-- <div id="ptab3"> -->
@@ -809,27 +940,17 @@
 								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">6.</span> Review Your API Integration</div>
 									<div class="togglec">
 
-									<!-- <div class="row"> -->
-										<!-- <div class="col-xs"> -->
-											<!-- <div class="box"> -->
-											<h3 style="">Review your API Integration: <a style="color:black; width:180px; text-align:center;" class="button button-mini button-circle button-3d button-leaf" onclick="reviewAPIIntegration()">Review</a></h3>
-										<!-- </div> -->
-									<!-- </div> -->
-										<!-- <div class="col-xs"> -->
-											<!-- <div class="box">
-											<a class="button button-3d button-mini button-rounded button-yellow tab-linker" rel="1" style="width:120px; text-align:center">1.URL</a>
-											<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="2" style="width:120px; text-align:center">2.Pagination</a>
-											<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="3" style="width:120px; text-align:center">3.Parameters</a>
-											<a class="button button-3d button-mini button-rounded button-yellow  tab-linker" rel="4" style="width:120px; text-align:center">4.Response</a>
-										</div> -->
-									<!-- </div> -->
+											<div style="display:inline">
+												<h3 style="margin:0px; padding:0px; display: inline-block">Review your API Integration</h3>
+												<a style="width:90px; display:inline-block; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalDemoReview" onclick="">Demo</a>
+												<a style="width:90px; text-align:center; display: inline-block" class="button button-mini button-circle button-border button-blue" data-toggle="modal" data-target="#modalExampleReview" onclick="">Example</a>
+											</div>
 
-									<!-- <div class="col-lg"> -->
-									<!-- <div class="box" style="float:left;"> -->
-
-									<!-- </div> -->
-								<!-- </div> -->
-							<!-- </div> -->
+											<div style="display:inline">
+												<p style="font-size:1.7em; display: inline-block"> To review and publish your API integration, please click on </p>
+												<a style="color:black; width:80px; text-align:center; display: inline-block; text:white" class="button button-mini button-circle button-teal" onclick="reviewAPIIntegration()">Review</a></h3>
+												<!-- <p style="font-size:1.7em; display: inline-block"> Everytime you make changes you need to click on the Review button</p> -->
+											</div>
 
 							<div class="row">
 								<div class="col-lg">
@@ -842,9 +963,51 @@
 								</div>
 							</div>
 
-							<!-- <div>
-	 								<a class="button button-3d nomargin tab-linker" rel="2"><i class="glyphicon glyphicon-chevron-left"></i></a>
-	 						</div> -->
+							<!-- Modal -->
+							<div class="modal fade bs-example-modal-lg" id="modalDemoReview" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-lg" >
+									<div class="modal-content">
+										<!-- <div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+										</div> -->
+										<div class="modal-body">
+											<video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+												<source src="images/docs/Intgration_Demo.mp4" type="video/mp4">
+												Your browser doesn't support HTML5 video tag.
+											</video>
+										</div>
+										<!-- <div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										</div> -->
+									</div>
+								</div>
+							</div>
+
+
+																<!-- Modal -->
+																<div class="modal fade bs-example-modal-lg" id="modalExampleReview" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+																	<div class="modal-dialog modal-lg" >
+																		<div class="modal-content">
+																			<!-- <div class="modal-header">
+																				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+																			</div> -->
+																			<div class="modal-body">
+																				<!-- <video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+																					<source src="images/docs/Intgration_Demo.mp4" type="video/mp4">
+																					Your browser doesn't support HTML5 video tag.
+																				</video> -->
+																			</div>
+																			<!-- <div class="modal-footer">
+																				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+																			</div> -->
+																		</div>
+																	</div>
+																</div>
+
+
+
 							</div>
 					</div>
 
@@ -1140,6 +1303,8 @@
 		#jsoneditor {
       width: 450px;
       height: 400px;
+			/* max-height: 200px; */
+			/* 800px; */
     }
 
 	</style>

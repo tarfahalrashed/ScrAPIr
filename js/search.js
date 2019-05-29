@@ -140,32 +140,24 @@ function isSignedUp(){
   firebase.initializeApp(config);
 
   firebase.auth().onAuthStateChanged(function (user) {
-    if(user){
-      //console.log("CURRENT USER: ",user.uid);
-      // firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
-      //   //console.log("NAME: ", displayName);
-      //   $("#SignupLogin").html(snapshot.val().name);
-      // });
-      //
-      // $('#acc').show();
-      // $('#signout').show();
 
-      // document.getElementById('acc').style.visibility = 'visible';
-      // document.getElementById('signout').style.visibility = 'visible';
+    if(user){
+      firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
+        //console.log("NAME: ", displayName);
+        $("#SignupLogin").html(snapshot.val().name);
+      });
+
+      $('#acc').show();
+      $('#signout').show();
     }
     else{
-      //redirect to signup page
-      // window.location.href='login-register.html';
 
-      // $(window).on('load',function(){
       $('#loginModal').modal('show');
-      // });
+      $("#SignupLogin").html("Sign in");
 
-      //window.alert("No USER")
-      // $("#SignupLogin").html("Sign in");
-      //
-      // document.getElementById('acc').style.visibility = 'hidden';
-      // document.getElementById('signout').style.visibility = 'hidden';
+      document.getElementById('acc').style.visibility = 'hidden';
+      document.getElementById('signout').style.visibility = 'hidden';
+
     }
   });
 }
@@ -598,6 +590,7 @@ function populateTable(data){
 
         $( "#JSON" ).remove();
         $( "#CSV" ).remove();
+        $( "#JS" ).remove();
         $( "#saveBut" ).remove();
         //$( "#SCRIPT" ).remove();
 
@@ -1452,7 +1445,7 @@ function retrieveDataX(){
   $("#CSV").show();
   //$("#Save-Data").show();
   $("#JSON").show();
-  $("#viewButtons").show();
+  // $("#viewButtons").show();
   $("#groupByFilter").show();
   $("#txtSearch").show();
   //$("#searchTable").show();
@@ -2002,6 +1995,7 @@ else{
 
           $( "#JSON" ).remove();
           $( "#CSV" ).remove();
+          $( "#JS" ).remove();
           //$( "#saveBut" ).remove();
           //$( "#SCRIPT" ).remove();
 
@@ -3550,7 +3544,7 @@ $("#containerALL").click(function(){
         $("#jsonResponse").append('<code>'+JSON.stringify(response, null, 2)+'</code>');
 
         showResponseSchema();
-        $("#toggRes").show();
+        // $("#toggRes").show();
         $("#correct").show();
         $("#notcorrect").hide();
 
@@ -3561,21 +3555,50 @@ $("#containerALL").click(function(){
         document.getElementById('jsonResponse').style.backgroundColor="#ffecef";
         $("#jsoneditor").empty();
         $("#jsonResponse").append('<code>'+response.responseText+'</code>');
-        $("#toggRes").hide();
+        //$("#toggRes").hide();
         $("#correct").hide();
         $("#notcorrect").show();
       }
     });
   }else{
     //add url!
-    $("#toggRes").hide();
+    // $("#toggRes").hide();
     console.log("No URL");
    }
   });
 
+
+
+function urlBlurLog(){
+  //save log of everything
+  console.log("save this row: ");
+  // console.log("part "+partNum);
+
+  if(document.getElementById("correct").display == "hidden"){
+    console.log("TRUE");
+  }else{
+    console.log("FALSE");
+  }
+
+
+  // console.log("listData: ", listData);
+  console.log("LINK: ", $("#url").val());
+
+  // if($("#correct").show())
+
+  // $("#toggRes").show();
+  // $("#correct").show();
+  // $("#notcorrect").hide();
+
+}
+
 function urlBlur(){
 
   if($("#url").val()){
+    console.log("Timestamp: ", Date.now());
+    var thi = $(this);
+    console.log("Fields: ", this.myObj);
+
   var arrParamVal = [];
   //document.getElementById('title').value = "TYPE NAME HERE";
   //document.getElementById('title').style.color="red";
@@ -3596,114 +3619,10 @@ function urlBlur(){
 
     for(var x=0; x<arrParamVal.length; ++x){
       var p = arrParamVal[x].split("=");
-      $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+p[0]+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="" value="'+p[1]+'"></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><input class="form-control" type="text" id="desc"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+      $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+p[0]+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="" value="'+p[1]+'"></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><input class="form-control" type="text" id="desc"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
     }
   }else{
     var link = $("#url").val();
-    // var swagger = link.split('https://www.')[1]
-    // var swagger2 = swagger.substring(0, swagger.lastIndexOf("/") );
-    // // googleapis.com/youtube/v3
-    // var guru = 'https://api.apis.guru/v2/specs/'+swagger2+'/swagger.json'
-    //
-    // console.log("swagger2: ",guru);
-
-    // var urlTemplate = '{swaggerJson}';
-    // var match = window.location.search.match(/^\?urlTemplate=(.*)$/);
-    // if (match)
-    //   urlTemplate = decodeURIComponent(match[1]);
-    // var rootUrl = 'https://api.apis.guru/v2/';
-    // var xhttp = new XMLHttpRequest();
-    // xhttp.onload = function() {
-    //   if (xhttp.status != 200)
-    //     return;
-    //   var specList = JSON.parse(xhttp.responseText)
-    //   var links = '';
-    //   for(var apiId in specList){
-    //     var api = specList[apiId];
-    //     for (var version in api.versions) {
-    //       var swaggerYaml = api.versions[version].swaggerYamlUrl;
-    //       var swaggerJson = api.versions[version].swaggerUrl;
-    //       var specName = swaggerJson	.replace(rootUrl + 'specs/', '');
-    //       var href = urlTemplate.replace('{swaggerJson}', swaggerJson);
-    //       c//onsole.log("rootUrl: ", href);
-    //
-    //
-    //       $.ajax({
-    //       	url: href,
-    //       	// data: data,
-    //       	type: 'GET',
-    //       	success: function(response) {
-    //           //console.log(response);
-    //       		// var s = $.parseJSON(response.responseText);
-    //       		// alert(s.name) // prints the value of name
-    //
-    //           // $("#firstTR").remove();
-    //
-    //           //var data = $('textarea[name=swagger_schema]').val();
-    //           var obj = JSON.parse(JSON.stringify(response));
-    //           //console.log(obj);
-    //           var tmp = link.split("/");
-    //           var path = "/"+tmp.pop();
-    //           var wholePath = obj.host+obj.basePath;
-    //           if(link.includes(wholePath)){
-    //             console.log("damn yeah");
-    //           }
-    //           // console.log(obj.paths[path].get.parameters);
-    //           // var params = obj.paths[path].get.parameters;
-    //           // for(var i=0; i<params.length; ++i){
-    //           //   console.log("Name: ", params[i]['name']);
-    //           //   console.log("Description: ", params[i]['description']);
-    //           //   console.log("Type: ", params[i]['type']);
-    //           //
-    //           //     $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+params[i]['name']+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder=""></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text" value="'+params[i]['name']+'"></div></td><td><input class="form-control" type="text" id="desc" value="'+params[i]['description']+'"></td><td><select class="form-control" id="type" style="height:30px" value="'+params[i]['type']+'"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
-    //           // }
-    //
-    //        	}
-    //       });
-
-
-          // links += '<p><a href="'+ href +'" target="_blank">'+ specName +'</a></p>';
-    //       // document.getElementById('linksD').append('<p><a href="'+ href +'" target="_blank">'+ specName +'</a></p>');
-    //     }
-    //   }
-    //   // document.getElementById('links').innerHTML = links;
-    // };
-    // xhttp.open('GET', rootUrl + 'list.json', true);
-    // //
-    // xhttp.send(null);
-    //
-    // $.ajax({
-    // 	url: guru,
-    // 	// data: data,
-    // 	type: 'GET',
-    // 	success: function(response) {
-    //     console.log(response);
-    // 		// var s = $.parseJSON(response.responseText);
-    // 		// alert(s.name) // prints the value of name
-    //
-    //     $("#firstTR").remove();
-    //
-    //     //var data = $('textarea[name=swagger_schema]').val();
-    //     var obj = JSON.parse(JSON.stringify(response));
-    //     console.log(obj);
-    //     var tmp = link.split("/");
-    //     var path = "/"+tmp.pop();
-    //     console.log(obj.paths[path].get.parameters);
-    //     var params = obj.paths[path].get.parameters;
-    //     for(var i=0; i<params.length; ++i){
-    //       console.log("Name: ", params[i]['name']);
-    //       console.log("Description: ", params[i]['description']);
-    //       console.log("Type: ", params[i]['type']);
-    //
-    //         $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+params[i]['name']+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder=""></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text" value="'+params[i]['name']+'"></div></td><td><input class="form-control" type="text" id="desc" value="'+params[i]['description']+'"></td><td><select class="form-control" id="type" style="height:30px" value="'+params[i]['type']+'"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
-    //     }
-    //
-    //  	}
-    // });
-
-    //https://api.apis.guru/v2/specs/x/swagger.json
-    //https://www.googleapis.com/youtube/v3/search
-
   }//else
 
   $("#jsonResponse").empty();
@@ -3735,9 +3654,8 @@ function urlBlur(){
 
   listData+="}";
 
-
-  console.log("listData: ", listData);
-  console.log("LINK: ", link);
+  // console.log("listData: ", listData);
+  // console.log("LINK: ", link);
 
   if($("#valueH").val()){
     console.log("it has header!");
@@ -3751,25 +3669,27 @@ function urlBlur(){
         // "Access-Control-Allow-Headers": "x-requested-with"
       },
       success: function (response) {
-        //console.log(response);
+        console.log("Response Status: success");
         document.getElementById('jsonResponse').style.backgroundColor="#e4f3db";
         $("#jsoneditor").empty();
         $("#jsonResponse").append('<code>'+JSON.stringify(response, null, 2)+'</code>');
         //document.getElementById("jsonResponse").appendChild(renderjson(response));
 
         showResponseSchema();
-        $("#toggRes").show();
+        // $("#toggRes").show();
         $("#correct").show();
         $("#notcorrect").hide();
 
         //reviewAPIIntegration();
       },
       error: function(response, jqXHR, textStatus, errorThrown) {
+        console.log("Response Status: error");
+        showResponseSchema();
         //console.log(response.responseText);
         document.getElementById('jsonResponse').style.backgroundColor="#ffecef";
         $("#jsoneditor").empty();
         $("#jsonResponse").append('<code>'+response.responseText+'</code>');
-        $("#toggRes").hide();
+        // $("#toggRes").hide();
         $("#correct").hide();
         $("#notcorrect").show();
       }
@@ -3782,31 +3702,36 @@ function urlBlur(){
     data: JSON.parse(listData),
     method: 'GET',
     success: function (response) {
+      console.log("Response Status: success");
       //console.log(response);
       document.getElementById('jsonResponse').style.backgroundColor="#e4f3db";
       $("#jsoneditor").empty();
       $("#jsonResponse").append('<code>'+JSON.stringify(response, null, 2)+'</code>');
       showResponseSchema();
-      $("#toggRes").show();
+      // $("#toggRes").show();
       $("#correct").show();
       $("#notcorrect").hide();
 
       //reviewAPIIntegration();
     },
     error: function(response, jqXHR, textStatus, errorThrown) {
+      console.log("Response Status: error");
+
+      showResponseSchema();
       //console.log(response.responseText);
       document.getElementById('jsonResponse').style.backgroundColor="#ffecef";
       $("#jsoneditor").empty();
       $("#jsonResponse").append('<code>'+response.responseText+'</code>');
-      $("#toggRes").hide();
+      // $("#toggRes").hide();
       $("#correct").hide();
       $("#notcorrect").show();
     }
   });
   }
 }else{
+  console.log("Time Now: ", Date.now());
   //add url!
-  $("#toggRes").hide();
+  // $("#toggRes").hide();
   console.log("No URL");
  }
 
@@ -4652,10 +4577,10 @@ function showResponseSchema(){
         //
         // }
 
-        console.log("response.status: ",response);
+        // console.log("response.status: ",response);
         //console.log("response: ", response);
         //console.log('AJAX call failed.');
-        console.log(textStatus + ': ' + errorThrown);
+        // console.log(textStatus + ': ' + errorThrown);
       //}
     }
       });
@@ -4793,8 +4718,7 @@ function getAPIName(apiName){
 }
 
 function callFirebase(){
-  //registration();
-
+  // registration();
   isSignedUp();
 
   document.getElementById('url').value = window.localStorage.getItem('link');
@@ -4919,7 +4843,7 @@ function callFirebaseForRegistration(){
           var displayName = snapshot.val().name;
           console.log("NAME: ", displayName);
           $("#SignupLogin").html(displayName);
-          window.location.href='index.html';
+          window.location.href='api-integration.html';
         });
 
 
@@ -5011,7 +4935,7 @@ function callFirebaseForRegistration(){
           var displayName = snapshot.val().name;
           console.log("NAME: ", displayName);
           $("#SignupLogin").html(displayName);
-          window.location.href='index.html';
+          window.location.href='api-integration.html';
         });
 
 
@@ -5162,10 +5086,10 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
     $("#previewAPIIntegration").append("<h5 style='color:red'>Go to 'Response Fields' section and choose fields you are intersted in, then click on 'Review' button</h5>")
   }
 
-  if($("#title").val()){
-    $("#previewAPIIntegration").empty();
-    $("#previewAPIIntegration").append("<h5 style='color:red'>You did not add an name to this API, please go to the top of the page and type a name for this API.</h5>")
-  }
+  // if($("#title").val()){
+  //   $("#previewAPIIntegration").empty();
+  //   $("#previewAPIIntegration").append("<h5 style='color:red'>You did not add an name to this API, please go to the top of the page and type a name for this API.</h5>")
+  // }
 
   myObj = {};
   //(1) info
@@ -5345,6 +5269,12 @@ function submitRequestSchema(){
 
 function populateListOfAPIs(){
   //callIT();
+
+  var name = "codemzy";
+  $.get('https://cors-anywhere.herokuapp.com/https://any-api.com/nytimes_com/books_api/docs/_lists_format_/GET_lists_format', function(response) {
+    console.log(response);
+  });
+
 
 //  getYelp();
   prettierURL();
@@ -5554,7 +5484,7 @@ setTimeout(function(){
     document.getElementById('value').value =tempOb[0]['v']
 
     for(var i=1; i<tempOb.length; ++i){
-      $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+tempOb[i]['p']+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="" value="'+tempOb[i]['v']+'"></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><input class="form-control" type="text" id="desc"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+      $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+tempOb[i]['p']+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="" value="'+tempOb[i]['v']+'"></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><input class="form-control" type="text" id="desc"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
     }
   }else{
     console.log("GitHub was too slow! Try to click the GitHub button again!");
@@ -5710,7 +5640,7 @@ function populateRequestParam(list){
   document.getElementById('value').value =list[0]['v']
 
   for(var i=1; i<list.length; ++i){
-    $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+list[i]['p']+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="" value="'+list[i]['v']+'"></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><input class="form-control" type="text" id="desc"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+    $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+list[i]['p']+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="" value="'+list[i]['v']+'"></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><input class="form-control" type="text" id="desc"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
   }
 }
 
