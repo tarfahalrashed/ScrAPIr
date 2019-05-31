@@ -3368,7 +3368,10 @@ function clearTable(){
 
   $('#requestTabel tbody').empty();
 
-  $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="Request parameter"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="Parameter default value"></td><td><input class="form-control" type="text" id="listOfValues" placeholder="Value1, Value2, ..."></td><td><input id="displayedName" class="form-control" type="text" placeholder="Name displayed to users"></td><td><input class="form-control" type="text" id="desc" placeholder="Parameter description"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
+  // $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="Request parameter"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="Parameter default value"></td><td><input class="form-control" type="text" id="listOfValues" placeholder="Value1, Value2, ..."></td><td><input id="displayedName" class="form-control" type="text" placeholder="Name displayed to users"></td><td><input class="form-control" type="text" id="desc" placeholder="Parameter description"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
+
+  $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="Request parameter"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="Parameter default value"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="Value1, Value2, ..."rows="1"></textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="Name displayed to users"></td><td><textarea class="form-control" type="text" id="desc" placeholder="Parameter description" rows="1"></textarea></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
+
 }
 
 
@@ -3386,7 +3389,10 @@ function generateTableFromSwagger(url){
     console.log("Description: ", params[i]['description']);
     console.log("Type: ", params[i]['type']);
 
-      $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+params[i]['name']+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder=""></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text" value="'+params[i]['name']+'"></div></td><td><input class="form-control" type="text" id="desc" value="'+params[i]['description']+'"></td><td><select class="form-control" id="type" style="height:30px" value="'+params[i]['type']+'"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+      // $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+params[i]['name']+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder=""></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text" value="'+params[i]['name']+'"></div></td><td><input class="form-control" type="text" id="desc" value="'+params[i]['description']+'"></td><td><select class="form-control" id="type" style="height:30px" value="'+params[i]['type']+'"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+
+      $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="Request parameter"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="Parameter default value"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="Value1, Value2, ..."rows="1"></textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="Name displayed to users"></td><td><textarea class="form-control" type="text" id="desc" placeholder="Parameter description" rows="1"></textarea></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
+
   }
 
 }
@@ -3416,7 +3422,7 @@ function generateTable() {
       //var row = $('<tr />');
       //for(var x in cells) {
           // row.append('<td><input class="form-control" type="text" id="name" placeholder="" value="'+cells[x]+'"></td>');
-          $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+cells[0]+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder=""></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text" value="'+cells[0]+'"></div></td><td><input class="form-control" type="text" id="desc" value="'+d+'"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+          $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+cells[0]+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder=""></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" value="'+cells[0]+'"></div></td><td><textarea class="form-control" type="text" id="desc" value="'+d+'" rows="1"></textarea></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
     //  }
       // table.append(row);
     }
@@ -3429,7 +3435,7 @@ function generateTable() {
 
 //request functions
 function addRow() {
-  $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder=""></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder=""></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><input class="form-control" type="text" id="desc"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+  $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder=""></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder=""></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1"></textarea></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1"></textarea></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
 }
 
 
@@ -3495,7 +3501,7 @@ $("#containerALL").click(function(){
 
       for(var x=0; x<arrParamVal.length; ++x){
         var p = arrParamVal[x].split("=");
-        $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+p[0]+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="" value="'+p[1]+'"></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><input class="form-control" type="text" id="desc"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+        $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+p[0]+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="" value="'+p[1]+'"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1"></textarea></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1"></textarea></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
       }
     }else{
       var link = $("#url").val();
@@ -3619,7 +3625,7 @@ function urlBlur(){
 
     for(var x=0; x<arrParamVal.length; ++x){
       var p = arrParamVal[x].split("=");
-      $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+p[0]+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="" value="'+p[1]+'"></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><input class="form-control" type="text" id="desc"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+      $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+p[0]+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="" value="'+p[1]+'"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1"></textarea></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1"></textarea></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
     }
   }else{
     var link = $("#url").val();
@@ -3790,7 +3796,7 @@ function dataValues(par, val){
 
 //response functions
 function addRowResponse() {
-  $("#responseTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" placeholder=""></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><input class="form-control" type="text" id="path" placeholder=""></td><td><input class="form-control" type="text" id="desc" placeholder=""></td><td><div><input id="default" value="" class="checkbox-style" name="" type="checkbox"  autocomplete=“off” checked></div></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRowResponse(this)"</td></tr>');
+  $("#responseTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" placeholder=""></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><input class="form-control" type="text" id="path" placeholder=""></td><td><textarea class="form-control" type="text" id="desc" placeholder="" rows="1"></textarea></td><td><div><input id="default" value="" class="checkbox-style" name="" type="checkbox"  autocomplete=“off” checked></div></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRowResponse(this)"</td></tr>');
 }
 
 function deleteRowResponse(row) {
@@ -5093,7 +5099,15 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
 
   myObj = {};
   //(1) info
-  myObj.title = $("#title").val();
+  if($("#title").val()){
+    myObj.title = $("#title").val();
+  }else{
+    var urlTitle1 = $("#url").val().split('.').join('/');
+    var urlTitle = urlTitle1.split('/').join('');
+
+    myObj.title = urlTitle;
+  }
+
   myObj.version=$("#version").val();
   myObj.description=$("#description").val();
   myObj.type=$("#type").val();
@@ -5178,46 +5192,19 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
                 name: uiName,
                 description: uiDesc
               });
-              // if(this.value=="videoId"){
-              //   objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
-              // }else{
-                //if array, add them to the same line and seperate them with a comma (e.g. authors: tom, jerry, eric)
-              //objData[id] = eval("response."+prettyPrintPath(f[1]));
-              //}
+
             }
 
-
-//OLD WAY
-    //   if($("input[name='checkbox-1']").is(":checked")){
-    //       $("input[name='checkbox-1']:checked").each(function(){
-    //         var splitVal = this.value.split('#');
-    //         var name = splitVal[0];
-    //         var value = splitVal[1];
-    //         responses.push({
-    //           displayedName: name,
-    //           parameter: value//.split('[j]').join('*')
-    //         });
-    //       });
-    // }
-
-
-    //HERE NEW
 
     console.log("responses: ", myObj);
     myObj.responses = responses;
 
-    var api_title = myObj.title.split(' ').join('_');
+    // if(myObj.title.includes(' ')){
+      var api_title = myObj.title.split(' ').join('_');
 
-    if($("#title").val()){
-      //do nothing
-    }else{
-      $("#title").value = $("#url").val();
-    }
-
-    //if(first_time){
-      // save myObj to FireBase DB
+    // save myObj to FireBase DB
     if($("#url").val()){
-      firebase.database().ref('apis/' + $("#title").val()).set(JSON.parse(JSON.stringify(myObj)));
+      firebase.database().ref('apis/' + myObj.title).set(JSON.parse(JSON.stringify(myObj)));
     }else{
       //do nothing
     }
@@ -5236,7 +5223,7 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
 function saveAPI(){
   firebase.auth().onAuthStateChanged(function (user) {
     if(user){
-      firebase.database().ref('apis/' + $("#title").val()).set(JSON.parse(JSON.stringify(myObj)));
+      firebase.database().ref('apis/' + myObj.title).set(JSON.parse(JSON.stringify(myObj)));
       $("#showUI").show();
     }else{
       console.log("NOT Authorized");
@@ -5484,7 +5471,7 @@ setTimeout(function(){
     document.getElementById('value').value =tempOb[0]['v']
 
     for(var i=1; i<tempOb.length; ++i){
-      $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+tempOb[i]['p']+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="" value="'+tempOb[i]['v']+'"></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><input class="form-control" type="text" id="desc"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+      $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+tempOb[i]['p']+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="" value="'+tempOb[i]['v']+'"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1"></textarea></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1"></textarea></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
     }
   }else{
     console.log("GitHub was too slow! Try to click the GitHub button again!");
@@ -5518,6 +5505,9 @@ setTimeout(function(){
 }//callGithub function
 
 
+function googleIt(term){
+  window.open("https://www.google.com/search?q="+term);
+}
 
 
 function mySandwich(param1, param2, callback) {
@@ -5640,7 +5630,7 @@ function populateRequestParam(list){
   document.getElementById('value').value =list[0]['v']
 
   for(var i=1; i<list.length; ++i){
-    $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+list[i]['p']+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="" value="'+list[i]['v']+'"></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><input class="form-control" type="text" id="desc"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+    $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onblur="urlBlur()" placeholder="" value="'+list[i]['p']+'"></td><td><input class="form-control" type="text" id="value" onblur="urlBlur()" placeholder="" value="'+list[i]['v']+'"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1"></textarea></td><td><div><input id="displayedName" class="form-control" type="text"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1"></textarea></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
   }
 }
 

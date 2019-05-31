@@ -65,7 +65,7 @@
 
 				<div class="container clearfix">
 
-					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+					<!-- <div id="primary-menu-trigger"><i class="icon-reorder"></i></div> -->
 
 					<!-- Logo
 					============================================= -->
@@ -289,17 +289,40 @@
 
 					<!-- <div id="ptab1"> -->
 							<!-- <div class="tabs divcenter nobottommargin clearfix" style="max-width:500px;"> -->
-							<h3 style="margin:0px; padding:10px">Follow these steps to add your API to scrAPIr</h3>
+							<h3 style="margin:0px; padding:10px">Follow these steps to add your API to ScrAPIr</h3>
 							<div id ="reqExp" style="display:inline">
-							<p style="font-size:1.7em; margin:0px; padding:0px; text-indent:0.9em; display:inline-block">Informaiton required in each step can be found in the API documentation. <a>Supported web APIs.</a></p> 	<a style="width:100px; display:inline-block; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalDemo" onclick="">Demo</a>
+							<p style="font-size:1.7em; margin:0px; padding:0px; text-indent:0.9em; display:inline-block">Informaiton required for each step can be found in the API documentation web page. <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods" target="_blank">Only Supports GET Request</a></p> 	<a style="width:100px; display:inline-block; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalDemo" onclick="">Demo</a>
+						  </br>
+							<!-- <p style="font-size:1.7em; margin:0px; padding:0px; text-indent:0.9em; display:inline-block"><a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods" target="_blank">Only Supports GET Request</a></p> -->
 						</div>
 						</br></br></br>
 							<!-- <p style="font-size:1.7em; margin:0px; padding:0px">This process wizard will guide through the steps you need to access\add APIs to scrAPI. Every step will ask you to provide specific information about the API you want to add: The API URL, the pagination information (to get more results), the parametrs to refine your search, and the response to choose the exact fields of the result you are interested in. All these information can be found in the API documentation page (e.g. <a target="_blank" href="https://developers.google.com/youtube/v3/docs/search/list">YouTube search API page</a>).</p> -->
 						  <!-- </br></br> -->
+
+							<div  class="form-group" id="googleSearch">
+								<p style="font-size:2em; margin:0px; padding:0px"><B><span style="color:red">1.</span> Search for the API docuemntation</B><label></label></p>
+								<div style="display:inline">
+									<input style="width:400px; display: inline-block" type="text" class="form-control" id="google"  onblur="" onkeyup="" placeholder="e.g. 'YouTube search API'" required>
+									<button  id="googleBut" style="display: inline-block"class="button button-3d button-small button-rounded button-teal" onclick="googleIt(document.getElementById('google').value)">Search</button>
+								</div>
+							</div>
+
+							<script>
+								var input = document.getElementById("googleSearch");
+								input.addEventListener("keyup", function(event) {
+									if (event.keyCode === 13) {
+									 event.preventDefault();
+									 document.getElementById("googleBut").click();
+									}
+								});
+							</script>
+
+						</br>
+
 							<div  class="form-group">
 								<div class="row">
 									<div class="col">
-									<p style="font-size:2em; margin:0px; padding:0px"><B><span style="color:red">1.</span> API URL*</B><label><a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="Every web API has a URL that you can use to access its data (e.g. the URL for YouTube search API is 'https://www.googleapis.com/youtube/v3/search')"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label></p>
+									<p style="font-size:2em; margin:0px; padding:0px"><B><span style="color:red">2.</span> API URL*</B><label><a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="Every web API has a URL that you can use to access its data (e.g. the URL for YouTube search API is 'https://www.googleapis.com/youtube/v3/search')"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label></p>
 									<div style="display:inline">
 										<input style="width:400px; display: inline-block" type="text" class="form-control" id="url" onblur="urlBlur()" onkeyup="urlBlur()" placeholder="e.g. 'https://www.googleapis.com/youtube/v3/search'" required>
 										<!-- <button  style="display: inline-block"class="button button-3d button-small button-rounded button-teal" onclick="getAPIName(document.getElementById('url').value)">Submit</button> -->
@@ -340,7 +363,7 @@
 
 
 							<div id="reqDIV" class="toggle toggle-bg">
-								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">2.</span> Request Parameters <span style="font-style: italic; font-size:0.9em">(please add at least the required parameter(s))</span></div>
+								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">3.</span> Request Parameters <span style="font-style: italic; font-size:0.9em">(please add at least the required parameter(s))</span></div>
 								<div id="toggReq" class="togglec" tabindex="0">
 									<div id ="reqExp" style="display:inline">
 										<h3 style="margin:0px; padding:0px; display: inline-block">Request Parameters</h3>
@@ -488,7 +511,7 @@
 													<!-- <a data-toggle='tooltip' data-placement='right' title="If you want this to be displayed in the interface you should write a value here"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a> </th> -->
 												<th style="">Description </th>
 												<th style="">Type</th>
-												<th style="">Required</th>
+												<!-- <th style="">Required</th> -->
 												<th style="">Displayed</th>
 												<th></th>
 											</tr>
@@ -499,11 +522,11 @@
 												<input class="form-control" type="text" id="name" placeholder="Request parameter" onblur="urlBlur()" onkeyup="urlBlur()">
 											</td>
 											<td>
-												<input class="form-control" type="text" id="value" placeholder="Parameter default value" onblur="urlBlur()" onkeyup="urlBlur()">
+												<input class="form-control" type="text" id="value" placeholder="Value1" onblur="urlBlur()" onkeyup="urlBlur()">
 											</td>
 
 											<td>
-												<input class="form-control" type="text" id="listOfValues" placeholder="">
+												<textarea class="form-control" type="text" id="listOfValues" placeholder="Value1, Value2, .." height="2px" rows="1"></textarea>
 											</td>
 
 											<td>
@@ -514,7 +537,7 @@
 
 
 											<td>
-												<input class="form-control" type="text" id="desc" placeholder="Parameter description">
+												<textarea class="form-control" type="text" id="desc" placeholder="Parameter description" rows="1"></textarea>
 											</td>
 											<td>
 												<select class="form-control" id="type" style="height:30px">
@@ -526,9 +549,9 @@
 												</select>
 											</td>
 
-											<td >
+											<!-- <td >
 												<input id='required'  value='' class='checkbox-style' name='' type='checkbox'  onchange='' autocomplete='off' checked/>
-											</td>
+											</td> -->
 
 											<td >
 												<input id='displayed'  value='' class='checkbox-style' name='' type='checkbox'  onchange='' autocomplete='off' checked/>
@@ -551,7 +574,7 @@
 
 
 						<div class="toggle toggle-bg">
-							<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">3.</span> Authentication and Header <span style="font-style: italic; font-size:0.9em">(some APIs require authentication and\or header)</span></div>
+							<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">4.</span> Authentication and Header <span style="font-style: italic; font-size:0.9em">(some APIs require authentication and\or header)</span></div>
 							<div class="togglec">
 								<div style="display:inline">
 									<h3 style="margin:0px; padding:0px; display: inline-block">Authentication Type <span id="messageQ" style="font-size:0.6em; display:none;  color:red">(Add your key as one of the request parameters above)</span> <span id="messageH" style="font-size:0.6em; display:none; color:red">(Add your key as one of the header parameters below)</span><span id="messageB" style="font-size:0.6em; display:none; color:red">(Add your token\key in the header section below)</span></h3>
@@ -663,7 +686,7 @@
 
 
 				<div class="toggle toggle-bg">
-					<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">4.</span> Response Fields <span style="font-style: italic; font-size:0.9em">(choose the fields you are interested in)</span></div>
+					<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">5.</span> Response Fields <span style="font-style: italic; font-size:0.9em">(choose the fields you are interested in)</span></div>
 						<div id="toggRes" class="togglec">
 							<div style="display:inline">
 								<h3 style="margin:0px; padding:0px; display: inline-block">Response Fields</h3>
@@ -745,7 +768,7 @@
 							<!-- </div> -->
 
 							<div class="toggle toggle-bg">
-								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">5.</span> Pagination</div>
+								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">6.</span> Pagination</div>
 									<div class="togglec">
 										<!-- <h3>Pagination Information</h3> -->
 										<div style="display:inline">
@@ -937,7 +960,7 @@
 
 						  <!-- <div id="ptab3"> -->
 							<div class="toggle toggle-bg">
-								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">6.</span> Review Your API Integration</div>
+								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">7.</span> Review Your API Integration</div>
 									<div class="togglec">
 
 											<div style="display:inline">
@@ -946,9 +969,12 @@
 												<a style="width:90px; text-align:center; display: inline-block" class="button button-mini button-circle button-border button-blue" data-toggle="modal" data-target="#modalExampleReview" onclick="">Example</a>
 											</div>
 
+										  </br>
+
 											<div style="display:inline">
 												<p style="font-size:1.7em; display: inline-block"> To review and publish your API integration, please click on </p>
-												<a style="color:black; width:80px; text-align:center; display: inline-block; text:white" class="button button-mini button-circle button-teal" onclick="reviewAPIIntegration()">Review</a></h3>
+												<!-- <button style="color:black; width:80px; text-align:center; display: inline-block; text:white" class="button button-3d button-small button-rounded button-teal" onclick="reviewAPIIntegration()">Review</button></h3> -->
+												<button  id="" style="display: inline-block"class="button button-3d button-small button-rounded button-teal" onclick="reviewAPIIntegration()">Review</button>
 												<!-- <p style="font-size:1.7em; display: inline-block"> Everytime you make changes you need to click on the Review button</p> -->
 											</div>
 
