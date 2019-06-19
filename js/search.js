@@ -805,24 +805,6 @@ obj.lists = lists;
 var col = {};
 var columns = [];
 
-// function myFilter(item, args) {
-//  if (args.searchString != "" && item["VideoTitle"].indexOf(args.searchString) == -1) {
-//     return true;
-//   }
-//   if (args.searchString != "" && item["ChannelTitle"].indexOf(args.searchString) == -1) {
-//      return true;
-//    }
-//
-//   if(args.searchString == ""){
-//     return true;
-//   }
-//   return false;
-// }
-
-// function toggleFilterRow() {
-//   grid.setTopPanelVisibility(!grid.getOptions().showTopPanel);
-// }
-
 $(".grid-header .ui-icon")
 .addClass("ui-state-default ui-corner-all")
 .mouseover(function (e) {
@@ -884,7 +866,7 @@ function populateTable(data){
 
   //pagination + response fields + headers
 
-  jsSnippet= '<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data:'+JSON.parse(JSON.stringify(listP))+',</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response);</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>';
+  jsSnippet= '<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data:'+JSON.parse(JSON.stringify(listP))+',</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log('+arrData2+');</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>';
 
   pySnippet= 'import requests</br>url = "'+obJSON1.url+'" </br>querystring = '+JSON.parse(JSON.stringify(listP))+' </br>response = requests.request("GET", url, params=querystring)';
 
@@ -2298,7 +2280,7 @@ else{
 
     //pagination + response fields + headers
 
-    jsSnippet= '<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data:'+JSON.parse(JSON.stringify(listP))+',</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response);</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>';
+    jsSnippet= '<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data:'+JSON.parse(JSON.stringify(listP))+',</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log('+arrData2+');</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>';
 
     pySnippet= 'import requests</br>url = "'+obJSON1.url+'" </br>querystring = '+JSON.parse(JSON.stringify(listP))+' </br>response = requests.request("GET", url, params=querystring)';
 
@@ -2691,20 +2673,14 @@ function retrieveData(){
   }
 
     var pages;
-    // if(!obJSON1.maxResPerPage){
-    //   page = 1;
-    // }else{
+
     if($("#numOfResults").val()){
-    var pages = Math.ceil($("#numOfResults").val()/obJSON1.maxResPerPage); //# of pages = (# of results entered by the user \ # of results returned by the API)
-    var totalRes = $("#numOfResults").val();
-    // console.log("totalRes: ", totalRes);
-    // console.log("number of pages: ", pages);
-    numResults = obJSON1.maxResPerPage;
-    //console.log("More pages")
-  }else{
-    page=1;
-    //console.log("One page")
-  }
+      var pages = Math.ceil($("#numOfResults").val()/obJSON1.maxResPerPage);
+      var totalRes = $("#numOfResults").val();
+      numResults = obJSON1.maxResPerPage;
+    }else{
+      page=1;
+    }
 
     var start = 0;
     var next="";
@@ -2714,13 +2690,8 @@ function retrieveData(){
     getTheNextPage(p, pages, nextPage);
 
     function getTheNextPage(p, pages, nextPage){
-      //console.log("getTheNextPage");
       listP=  "{";
       for(var i=0; i<obJSON1.parameters.length; ++i){
-        //  if(!obJSON1.parameters[i]['description']){
-        //  console.log("No DESC: ");
-        //   console.log(obJSON1.parameters[i]['description'])
-        // }
         listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
         listP+= ":"
         if(obJSON1.parameters[i]['displayedName']){ //displayedName
@@ -2729,8 +2700,7 @@ function retrieveData(){
           listP+= JSON.stringify(obJSON1.parameters[i]['value']);
         }
         listP+= ","
-    //}//if
-    }
+      }
 
     if(obJSON1.resPerPageParam){
       listP+= JSON.stringify(obJSON1.resPerPageParam);
@@ -3175,7 +3145,7 @@ else{
 
     //pagination + response fields + headers
 
-    jsSnippet= '<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data:'+JSON.parse(JSON.stringify(listP))+',</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response);</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>';
+    jsSnippet= '<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data:'+JSON.parse(JSON.stringify(listP))+',</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log('+arrData2+');</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>';
 
     pySnippet= 'import requests</br>url = "'+obJSON1.url+'" </br>querystring = '+JSON.parse(JSON.stringify(listP))+' </br>response = requests.request("GET", url, params=querystring)';
 
@@ -5772,13 +5742,9 @@ function callFirebaseForRegistration(){
 
 function reviewAPIIntegration(){ //Review? show all information in 3 squares to edit
 
+  urlBlur();
+  
   // if(!fields_paths){
-  if(document.getElementById("fields").rows.length == 0){
-    console.log("choose fields");
-    $("#previewAPIIntegration").empty();
-    $("#previewAPIIntegration").append("<h5 style='color:red'>Go to 'Response Fields' section and choose fields you are intersted in, then click on 'Review' button</h5>")
-  }
-
   // if($("#title").val()){
   //   $("#previewAPIIntegration").empty();
   //   $("#previewAPIIntegration").append("<h5 style='color:red'>You did not add an name to this API, please go to the top of the page and type a name for this API.</h5>")
@@ -5896,11 +5862,20 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
     //  }//else{
     //   firebase.database().ref('apis/' + $("#title").val()).set(JSON.parse(JSON.stringify(myObj)));
     // }
-    $("#previewAPIIntegration").empty();
 
-    $("#previewAPIIntegration").append('<button id="saveAPI" class="button button-3d button-mini button-rounded" onclick="showAPIUI()" style="width:130px; text-align:center;"><span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> Publish API</button>');
-    $("#previewAPIIntegration").append('<button id="cancelAPI" class="button button-3d button-mini button-rounded button-red" onclick="cancelAPI()" style="width:130px; text-align:center;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Cancel</button>');
-    $("#previewAPIIntegration").append("<div class='box' style='border: 1px solid gray;'><iframe src='data-management-review.html?api="+api_title+"' width = '100%' height= '500px'></iframe><div>");
+    // if ($("#fields tbody tr")) {
+    var tbody = $("#fields tbody");
+
+    if (tbody.children().length == 0) {
+      console.log("choose fields");
+      $("#previewAPIIntegration").empty();
+      $("#previewAPIIntegration").append("<h5 style='color:red'>Go to 'Response Fields' section and choose fields you are intersted in, then click on 'Review' button</h5>")
+    }else{
+      $("#previewAPIIntegration").empty();
+      $("#previewAPIIntegration").append('<button id="saveAPI" class="button button-3d button-mini button-rounded" onclick="showAPIUI()" style="width:130px; text-align:center;"><span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> Publish API</button>');
+      $("#previewAPIIntegration").append('<button id="cancelAPI" class="button button-3d button-mini button-rounded button-red" onclick="cancelAPI()" style="width:130px; text-align:center;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Cancel</button>');
+      $("#previewAPIIntegration").append("<div class='box' style='border: 1px solid gray;'><iframe src='data-management-review.html?api="+api_title+"' width = '100%' height= '500px'></iframe><div>");
+  }
 }
 
 
