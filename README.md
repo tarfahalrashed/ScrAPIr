@@ -1,2 +1,1 @@
 # ScrAPIr
-http://scrapir.org
