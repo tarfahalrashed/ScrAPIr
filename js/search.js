@@ -5743,7 +5743,7 @@ function callFirebaseForRegistration(){
 function reviewAPIIntegration(){ //Review? show all information in 3 squares to edit
 
   urlBlur();
-  
+
   // if(!fields_paths){
   // if($("#title").val()){
   //   $("#previewAPIIntegration").empty();
