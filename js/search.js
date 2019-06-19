@@ -18,87 +18,8 @@ var objArray = [];
 var reachLastPage = false;
 var publishedAfter;
 
-//getYelp();
 
-function getYelp(){
-//   console.log("getYelp");
-//
-// firebase.initializeApp(config);
-// firebase.database().ref('apis').push("dadada");
-// firebase.database().ref('apis/TEST').child('responses').push({
-//   displayedName: "test1",
-//   parameter: "test1",
-//   name: "test1",
-//   description: "test1"
-// });
-
-//var obj = {displayedName: "test1", parameter: "test1",name: "test1",description: "test1"};
-//usersRef.push(obj);
-
-//firebase.database().ref('/apis/TEST/responses/').child.push("TESTTT");
-//firebase.database().ref('apis/TEST/responses/').set({displayedName: "test1", parameter: "test1",name: "test1",description: "test1"});
-//var adaRef = firebase.database().ref("/apis/TEST/responses");
-//var key = adaRef.key;  // key === "ada"
-//key = adaRef.child({displayedName: "test1", parameter: "test1",name: "test1",description: "test1"}).key;  // key === "last"
-//);
-
-
-//$firebase(db).$ref().child('c').push(data);
-
-// FirebaseDatabase database = FirebaseDatabase.getInstance();
-// DatabaseReference dbRef = database.getReference("/data");
-// DatabaseReference newChildRef = dbRef.push();
-// String key = newChildRef.getKey();
-// dbRef.child(key).setValue("An Item");
-//
-// firebase.database().ref.child('/apis/TEST/responses').push({displayedName: "test1", parameter: "test1",name: "test1",description: "test1"});
-
-  // var name = "codemzy";
-  // $.get('https://cors-anywhere.herokuapp.com/https://any-api.com/googleapis_com/youtube/docs/search/youtube_search_list', function(response) {
-  //   console.log(JSON.stringify(response));
-  //   //$(response).find('tbody tr').length;
-  // });
-
-  // $.get("https://cors-anywhere.herokuapp.com/https://any-api.com/googleapis_com/youtube/console/search/youtube_search_list",function(data){
-  //   //$('#data').append($('.parameter-title',data));
-  //   console.log($('label',data));
-  // });
-
-//   console.log("twitter");
-//     var settings3 = {
-//   // "async": true,
-//   // "crossDomain": true, //https://cors-anywhere.herokuapp.com/
-//   "url": "https://cors-anywhere.herokuapp.com/https://api.twitter.com/1.1/search/tweets.json?q=nasa",
-//   "method": "GET",
-//   "headers": {
-//     "Authorization": "Bearer 1065340767244300289-89yeYMwPB2WK4E4zcH42C1p6vqcHO7",
-//     "Content-Type": "application/json"
-//   }
-// }
-//
-// console.log("settings3: ",settings3);
-//
-//
-//   $.ajax(settings3).done(function (response) {
-//     console.log("EVENTRIBE: ",response);
-//   });
-
-
-  // curl --request POST \
-  // --url https://api.twitter.com/1.1/tweets/search/30day/<ENV>.json \
-  // --header 'authorization: Bearer <BEARER_TOKEN>' \
-  // --header 'content-type: application/json' \
-  // --data '{
-  //               "query":"from:TwitterDev lang:en",
-  //               "maxResults": "100",
-  //               "fromDate":"<YYYYMMDDHHmm>",
-  //               "toDate":"<YYYYMMDDHHmm>"
-  //               }'
-
-}
 // Initialize Firebase
-  //var firebase = require(‘firebase’);
-
   var config = {
     apiKey: "AIzaSyBaJakjjAHw0wvBtELAtDLPmhq1piGWwqQ",
     authDomain: "superapi-52bc2.firebaseapp.com",
@@ -113,29 +34,20 @@ function registration(){
 
   firebase.auth().onAuthStateChanged(function (user) {
     if(user){
-      //console.log("CURRENT USER: ",user.uid);
       firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
-        //console.log("NAME: ", displayName);
         $("#SignupLogin").html(snapshot.val().name);
       });
 
       $('#acc').show();
       $('#signout').show();
-
-      // document.getElementById('acc').style.visibility = 'visible';
-      // document.getElementById('signout').style.visibility = 'visible';
     }
     else{
-      //window.alert("No USER")
       $("#SignupLogin").html("Sign in");
-
       document.getElementById('acc').style.visibility = 'hidden';
       document.getElementById('signout').style.visibility = 'hidden';
     }
   });
 }
-
-// var currUser="test";
 
 function isSignedUp(){
   firebase.initializeApp(config);
@@ -143,31 +55,8 @@ function isSignedUp(){
   initApp();
 
 
-  // firebase.auth().onAuthStateChanged(function (user) {
-  //
-  //   if(user){
-  //     firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
-  //       //console.log("NAME: ", displayName);
-  //       $("#SignupLogin").html(snapshot.val().name);
-  //     });
-  //
-  //     $('#acc').show();
-  //     $('#signout').show();
-  //   }
-  //   else{
-  //
-  //     $('#loginModal').modal('show');
-  //     $("#SignupLogin").html("Sign in");
-  //
-  //     document.getElementById('acc').style.visibility = 'hidden';
-  //     document.getElementById('signout').style.visibility = 'hidden';
-  //   }
-  // });
+  //Handles the sign in button press.
 
-
-  /**
-   * Handles the sign in button press.
-   */
   function toggleSignIn() {
     if (firebase.auth().currentUser) {
       // [START signout]
@@ -204,10 +93,6 @@ function isSignedUp(){
         // [END_EXCLUDE]
       });
       // [END authwithemail]
-
-      //window.location.href='index.html';
-
-
     }
 
     // Listening for auth state changes.
@@ -229,7 +114,6 @@ function isSignedUp(){
         // var uid = user.uid;
         // var providerData = user.providerData;
         // [START_EXCLUDE]
-
 
         //writeUserData(user.uid, document.getElementById('displayName').value, user.email);
 
@@ -325,7 +209,6 @@ function isSignedUp(){
         // var uid = user.uid;
         // var providerData = user.providerData;
         // [START_EXCLUDE]
-
 
         writeUserData(user.uid, document.getElementById('displayName1').value, user.email);
 
