@@ -65,19 +65,15 @@
 							</li>
 							<li class="mega-menu"><a href="#APIs">Websites</a>
 							</li>
-							<li class="mega-menu"><a href="docs.html">Docs</a>
-								<!-- <ul style="">
-									<li><a href="docs.html" id="" style=""><div>Access Websites' Data</div></a></li>
-									<li><a href="integrate.html" onclick="" id="" style=""><div>Integrate Web APIs</div></a></li>
-								</ul> -->
-							</li>
+							<!-- <li class="mega-menu"><a href="docs.html">Docs</a>
+							</li> -->
 							</li>
 							<li class="mega-menu"><a href="dataset.html" data-offset="100" >Datasets</a>
 							</li>
 							<li class="mega-menu"><a href="api-integration.html" >Integrate</a>
 							</li>
-							<li class="mega-menu"><a href="#contact">Contact</a>
-							</li>
+							<!-- <li class="mega-menu"><a href="#contact">Contact</a>
+							</li> -->
 
 							<li><a id="SignupLogin" href="login-register.html"><div>Sign in</div></a>
 								<ul style="width:100px;">
@@ -283,7 +279,7 @@
 								<div class="col">
 									<div class="feature-box fbox-plain">
 										<video width="520px" controls autoplay>
-										    <source src="images/docs/dataExt.mp4" type="video/mp4">
+										    <source src="images/docs/demos/videos/dataExt.mp4" type="video/mp4">
 										</video>
 									</div>
 								</div>
@@ -318,9 +314,9 @@
 
 						</br> </br> </br>
 						<div align="center">
-							<a href="docs.html" class="button button-small button-circle button-border button-aqua" style="width:240px"><i class="icon-globe"></i>Explore added websites</a>
-							<a href="docs.html#datasets" class="button button-small button-circle button-border button-aqua" style="width:240px"><i class="icon-search"></i>Search public datasets </a>
-							<a href="docs.html#process" class="button button-small button-circle button-border button-aqua" style="width:240px"><i class="icon-plus"></i>Integrate web data APIs</a>
+							<a href="#APIs" class="button button-small button-circle button-border button-aqua" style="width:240px"><i class="icon-globe"></i>Explore added websites</a>
+							<a href="dataset.html" class="button button-small button-circle button-border button-aqua" style="width:240px"><i class="icon-search"></i>Search public datasets </a>
+							<a href="api-integration.html" class="button button-small button-circle button-border button-aqua" style="width:240px"><i class="icon-plus"></i>Integrate web data APIs</a>
 						</div>
 						<!-- </div> -->
 
@@ -428,9 +424,14 @@
 							<div class="container text-center">
 								<div class="row" style="margin-left:180px; margin-right:180px ">
 
-									<div class="col-sm">
+									<!-- <div class="col-sm">
 										<input type="image" src="images/reddit.png" width="100px" height="100px"  alt="Image" onclick="window.location.href='data-management.html?api=Reddit_Search'"/></br>
 										<h5>Reddit</h5>
+									</div> -->
+
+									<div class="col">
+										<input type="image" src="icons_svg/nytL.png" width="100px" height="100px" alt="Image" onclick="window.location.href='data-management.html?api=NYT_Article_Search'"/></br>
+										<input type="image" src="icons_svg/poweredby_nytimes_150a.png" alt="NYT" onclick="window.open('http://developer.nytimes.com')"/>
 									</div>
 
 									<div class="col-sm">
@@ -443,41 +444,33 @@
 										<h5>News API</h5>
 									</div>
 
-									<div class="col">
-										<input type="image" src="images/tumblr.png" width="100px" height="100px" alt="Image" onclick="window.location.href='data-management.html?api=Tumblr'"/></br>
-										<!-- <input type="image" src="icons_svg/poweredby_nytimes_150a.png" alt="NYT" onclick="window.open('http://developer.nytimes.com')"/> -->
-										<h5>Tumblr</h5>
-									</div>
-								</div>
-									</br></br>
-							</div>
-
-
-							<div class="container text-center">
-								<div class="row" style="margin-left:180px; margin-right:180px ">
-
-									<div class="col-sm">
-										<input type="image" src="images/unsplash.png" width="110px" height="110px"  alt="Image" onclick="window.location.href='data-management.html?api=Unsplash_Search'"/></br>
-										<h5>Unsplash</h5>
-									</div>
-
-									<div class="col-sm">
-										<input type="image" src="images/sg.png" width="100px" height="100px"  alt="Image" onclick="window.location.href='data-management.html?api=Google_Books'"/></br>
-										<h5>Songkick</h5>
-									</div>
-
 									<div class="col-sm">
 										<input id="NewsAPIButton" value="StackOverflow" type="image" src="images/so.png" width="100px" height="100px" onclick="window.location.href='data-management.html?api=Stack_Overflow_Search'"/>
 										<h5>Stack Overflow</h5>
 									</div>
 
-									<div class="col">
-										<input type="image" src="icons_svg/nytL.png" width="100px" height="100px" alt="Image" onclick="window.location.href='data-management.html?api=NYT_Article_Search'"/></br>
-										<input type="image" src="icons_svg/poweredby_nytimes_150a.png" alt="NYT" onclick="window.open('http://developer.nytimes.com')"/>
-									</div>
 								</div>
 									</br></br>
 							</div>
+
+
+							<!-- <div class="container text-center">
+								<div class="row" style="margin-left:180px; margin-right:180px "> -->
+
+									<!-- <div class="col-sm">
+										<input type="image" src="images/unsplash.png" width="110px" height="110px"  alt="Image" onclick="window.location.href='data-management.html?api=Unsplash_Search'"/></br>
+										<h5>Unsplash</h5>
+									</div> -->
+
+									<!-- <div class="col-sm">
+										<input type="image" src="images/sg.png" width="100px" height="100px"  alt="Image" onclick="window.location.href='data-management.html?api=Google_Books'"/></br>
+										<h5>Songkick</h5>
+									</div> -->
+
+
+								<!-- </div>
+									</br></br>
+							</div> -->
 
 
 						</div>
@@ -506,25 +499,6 @@
 					<div id="contact" class="container">
 					</br></br>
 
-						<div class="center">
-							<h2>Contact Us</h2>
-						</div>
-
-						<div class="container text-center">
-							<div class="row" style="margin-left:200px; margin-right:200px">
-								<div class="col-lg-6">
-									<input value="youtube" type="image" src="images/tarfah.png" width="45%" height="83%" onclick="window.open('http://www.tarfahalrashed.com/')"/>
-								  </br>
-									<a style="font-size:1.5em" href="mailto:tarfah@mit.edu">Tarfah Alrashed</a>
-								</div>
-								<div class="col-lg-6" >
-									<input type="image" src="images/karger.png" width="45%" height="83%" onclick="window.open('http://people.csail.mit.edu/karger/')"/>
-									</br>
-									<a style="font-size:1.5em" href="mailto:karger@mit.edu">David Karger</a>
-								</div>
-							</div>
-						</div>
-					</br></br></br>
 				</div> -->
 				<!-- End of CONTACT-->
 
