@@ -1504,7 +1504,7 @@ $('#downloadCSVFileButton').click(function () {
 
 function populateAccountTables(){
   //look for the user, then get their save queries and files and add them to the tables
-  prettierURL();
+  // prettierURL();
   firebase.initializeApp(config);
 
   firebase.auth().onAuthStateChanged(function (user) {
@@ -5301,7 +5301,7 @@ function signOutFunction(){
 }
 
 function callFirebaseForRegistration(){
-  prettierURL();
+  // prettierURL();
   registration();
   initApp();
 
@@ -5834,7 +5834,7 @@ function populateListOfAPIs(){
 
 
 //  getYelp();
-  prettierURL();
+  // prettierURL();
   registration();
 
   firebase.database().ref('/apis/').once('value').then(function(snapshot) {
