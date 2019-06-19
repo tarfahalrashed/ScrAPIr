@@ -749,7 +749,7 @@ function populateTable(data){
 
   //pagination + response fields + headers
 
-  jsSnippet= '<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data:'+JSON.parse(JSON.stringify(listP))+',</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log('+arrData2+');</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>';
+  jsSnippet= '<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data:'+JSON.parse(JSON.stringify(listP))+',</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response);</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>';
 
   pySnippet= 'import requests</br>url = "'+obJSON1.url+'" </br>querystring = '+JSON.parse(JSON.stringify(listP))+' </br>response = requests.request("GET", url, params=querystring)';
 
@@ -2163,7 +2163,7 @@ else{
 
     //pagination + response fields + headers
 
-    jsSnippet= '<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data:'+JSON.parse(JSON.stringify(listP))+',</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log('+arrData2+');</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>';
+    jsSnippet= '<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data:'+JSON.parse(JSON.stringify(listP))+',</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response);</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>';
 
     pySnippet= 'import requests</br>url = "'+obJSON1.url+'" </br>querystring = '+JSON.parse(JSON.stringify(listP))+' </br>response = requests.request("GET", url, params=querystring)';
 
@@ -3028,7 +3028,7 @@ else{
 
     //pagination + response fields + headers
 
-    jsSnippet= '<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data:'+JSON.parse(JSON.stringify(listP))+',</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log('+arrData2+');</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>';
+    jsSnippet= '<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data:'+JSON.parse(JSON.stringify(listP))+',</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response);</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>';
 
     pySnippet= 'import requests</br>url = "'+obJSON1.url+'" </br>querystring = '+JSON.parse(JSON.stringify(listP))+' </br>response = requests.request("GET", url, params=querystring)';
 
