@@ -161,9 +161,9 @@ function isSignedUp(){
    */
   var displayName = "";
   function handleSignUp() {
-    var email = document.getElementById('email1').value;
+    var email    = document.getElementById('email1').value;
     var password = document.getElementById('password1').value;
-    displayName = document.getElementById('displayName1').value;
+    displayName  = document.getElementById('displayName1').value;
 
     if (email.length < 4) {
       alert('Please enter an email address.');
@@ -190,7 +190,6 @@ function isSignedUp(){
     });
     // [END createwithemail]
 
-
     // Listening for auth state changes.
     // [START authstatelistener]
     firebase.auth().onAuthStateChanged(function(user) {
@@ -210,7 +209,12 @@ function isSignedUp(){
         // var providerData = user.providerData;
         // [START_EXCLUDE]
 
-        writeUserData(user.uid, document.getElementById('displayName1').value, user.email);
+        firebase.database().ref('users/'+user.uid).set({
+          userId: user.uid,
+          email: user.email,
+          name:displayName
+          //some more user data
+        });
 
         //document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
         document.getElementById('quickstart-sign-in').textContent = 'Sign out';
@@ -220,11 +224,13 @@ function isSignedUp(){
           //document.getElementById('quickstart-verify-email').disabled = false;
         }
 
-        firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
+        firebase.database().ref('/users/'+user.uid).once('value').then(function(snapshot) {
           var displayName = snapshot.val().name;
-          console.log("NAME: ", displayName);
           $("#SignupLogin").html(displayName);
-          window.location.href='api-integration.html';
+          setTimeout(function(){
+            window.location.href='api-integration.html';
+          }, 1000);
+
         });
 
 
@@ -298,8 +304,6 @@ function isSignedUp(){
     //document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
     //document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
 
-
-
     // Listening for auth state changes.
     // [START authstatelistener]
     firebase.auth().onAuthStateChanged(function(user) {
@@ -319,7 +323,7 @@ function isSignedUp(){
         // var providerData = user.providerData;
         // [START_EXCLUDE]
 
-//        writeUserData(user.uid, document.getElementById('displayName').value, user.email);
+       // writeUserData(user.uid, document.getElementById('displayName').value, user.email);
 
         //document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
         document.getElementById('quickstart-sign-in').textContent = 'Sign out';
@@ -340,6 +344,7 @@ function isSignedUp(){
 
         // [END_EXCLUDE]
       } else {
+
         // User is signed out.
         // [START_EXCLUDE]
         //document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
@@ -367,8 +372,6 @@ function isSignedUp(){
       //some more user data
     });
   }
-
-
 
 
 }
@@ -5416,6 +5419,7 @@ function callFirebaseForRegistration(){
    */
   var displayName = "";
   function handleSignUp() {
+    console.log("Handle Signup");
     var email = document.getElementById('email1').value;
     var password = document.getElementById('password1').value;
     displayName = document.getElementById('displayName1').value;
@@ -5612,14 +5616,13 @@ function callFirebaseForRegistration(){
   }
 
   function writeUserData(userId, name, email) {
-    firebase.database().ref('users/' + userId).set({
+    console.log("WRITE!");
+    firebase.database().ref('users/'+userId).set({
       userId: userId,
       email: email,
       name:name
-      //some more user data
     });
   }
-
 
 }
 
