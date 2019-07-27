@@ -1207,7 +1207,9 @@ function checkButtonClicked(){
             listP1="{";
 
             for(var i=0; i<obJSON1.parameters.length; ++i){
+              console.log("second ", obJSON1.parameters[i]['value'])
 
+              if(obJSON1.parameters[i]['value']){
               listP1+= JSON.stringify(obJSON1.parameters[i]['name']);
               listP1+= ":"
               if(obJSON1.parameters[i]['displayedName']){
@@ -1218,6 +1220,7 @@ function checkButtonClicked(){
               if(i+1<obJSON1.parameters.length){
                  listP1+= ","
                }
+             }
             }
             //listP1+= ",";
 
@@ -1325,7 +1328,8 @@ function checkButtonClicked(){
             listP1="{";
 
             for(var i=0; i<obJSON1.parameters.length; ++i){
-
+              console.log("first ", obJSON1.parameters[i]['value'])
+              if(obJSON1.parameters[i]['value']){
               listP1+= JSON.stringify(obJSON1.parameters[i]['name']);
               listP1+= ":" //$('#queryw').val()
               if(obJSON1.parameters[i]['displayedName']){
@@ -1336,6 +1340,7 @@ function checkButtonClicked(){
               if(i+1<obJSON1.parameters.length){
                  listP1+= ","
                }
+             }
             }
             //listP1+= ",";
             if(obJSON1.url != "https://www.eventbriteapi.com/v3/events/search"){
@@ -1710,43 +1715,50 @@ function retrieveDataX(){
       //console.log("getTheNextPage");
       listP=  "{";
       for(var i=0; i<obJSON1.parameters.length; ++i){
-        //  if(!obJSON1.parameters[i]['description']){
-        //  console.log("No DESC: ");
-        //   console.log(obJSON1.parameters[i]['description'])
-        // }
+        if(obJSON1.parameters[i]['value']){
         listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
         listP+= ":"
-        if(obJSON1.parameters[i]['displayedName']){ //displayedName
+        if(obJSON1.parameters[i]['displayedName'] && JSON.stringify(obJSON1.parameters[i]['value'])!=""){ //displayedName
           listP+= JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
         }else{
           listP+= JSON.stringify(obJSON1.parameters[i]['value']);
         }
-        listP+= ","
-    //}//if
+        //change
+        if(i+1<obJSON1.parameters.length){
+           listP1+= ","
+         }        //}//if
+      }
     }
 
     if(obJSON1.resPerPageParam){
       listP+= JSON.stringify(obJSON1.resPerPageParam);
       listP+= ":";
       listP+= JSON.stringify(obJSON1.maxResPerPage);
-      listP+= ","
     }
     if(obJSON1.indexPage){
+      listP+= ","
       listP+= JSON.stringify(obJSON1.indexPage);
       listP+= ":";
       listP+= p;
     }else if(obJSON1.offsetPage){
+      listP+= ","
       listP+= JSON.stringify(obJSON1.offsetPage);
       listP+= ":";
       listP+= p*(eval(obJSON1.maxResPerPage));
-    }else{
+    }else if(obJSON1.nextPageParam){
+      listP+= ","
       listP+= JSON.stringify(obJSON1.currPageParam);
       listP+= ":";
       listP+= JSON.stringify(nextPage);
+    }else{
+      //don't add anything
     }
+
     listP+= "}";
 
-    //console.log("listP: ", JSON.parse(listP));
+    console.log("listP no: ", listP);
+
+    console.log("listP: ", JSON.parse(listP));
     // console.log("Page: ", p);
 
     // if(obJSON1.url.includes('.json')){
@@ -2578,38 +2590,47 @@ function retrieveData(){
     function getTheNextPage(p, pages, nextPage){
       listP=  "{";
       for(var i=0; i<obJSON1.parameters.length; ++i){
+        if(obJSON1.parameters[i]['value']){
         listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
         listP+= ":"
-        if(obJSON1.parameters[i]['displayedName']){ //displayedName
+        if(obJSON1.parameters[i]['displayedName'] && JSON.stringify(obJSON1.parameters[i]['value'])!=""){ //displayedName
           listP+= JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
         }else{
           listP+= JSON.stringify(obJSON1.parameters[i]['value']);
         }
-        listP+= ","
+        //change
+        if(i+1<obJSON1.parameters.length){
+           listP1+= ","
+         }
       }
+    }
 
     if(obJSON1.resPerPageParam){
       listP+= JSON.stringify(obJSON1.resPerPageParam);
       listP+= ":";
       listP+= JSON.stringify(obJSON1.maxResPerPage);
-      listP+= ","
     }
     if(obJSON1.indexPage){
+      listP+= ","
       listP+= JSON.stringify(obJSON1.indexPage);
       listP+= ":";
       listP+= p;
     }else if(obJSON1.offsetPage){
+      listP+= ","
       listP+= JSON.stringify(obJSON1.offsetPage);
       listP+= ":";
       listP+= p*(eval(obJSON1.maxResPerPage));
-    }else{
+    }else if(obJSON1.nextPageParam){
+      listP+= ","
       listP+= JSON.stringify(obJSON1.currPageParam);
       listP+= ":";
       listP+= JSON.stringify(nextPage);
+    }else{
+
     }
     listP+= "}";
 
-    //console.log("listP: ", JSON.parse(listP));
+    console.log("listP: ", JSON.parse(listP));
     // console.log("Page: ", p);
 
     // if(obJSON1.url.includes('.json')){
@@ -3928,18 +3949,22 @@ $("#containerALL").click(function(){
     $('#requestTabel tbody tr').each(function(i, n){
       var $row = $(n);
       if(first){
+        if($row.find('#value:eq(0)').val()){
+          if($row.find('#name:eq(0)').val()){
+            listData+= JSON.stringify($row.find('#name:eq(0)').val());
+            listData+=":";
+            listData+= JSON.stringify($row.find('#value:eq(0)').val());
+          }
+        }
+        first = false;
+      }else{
+      if($row.find('#value:eq(0)').val()){
         if($row.find('#name:eq(0)').val()){
+          listData+=", "
           listData+= JSON.stringify($row.find('#name:eq(0)').val());
           listData+=":";
           listData+= JSON.stringify($row.find('#value:eq(0)').val());
         }
-        first = false;
-      }else{
-      if($row.find('#name:eq(0)').val()){
-        listData+=", "
-        listData+= JSON.stringify($row.find('#name:eq(0)').val());
-        listData+=":";
-        listData+= JSON.stringify($row.find('#value:eq(0)').val());
       }
     }
 
@@ -4091,19 +4116,23 @@ function urlBlur(){
   $('#requestTabel tbody tr').each(function(i, n){
     var $row = $(n);
     if(first){
+      if($row.find('#value:eq(0)').val()){
+        if($row.find('#name:eq(0)').val()){
+          listData+= JSON.stringify($row.find('#name:eq(0)').val());
+          listData+=":";
+          listData+= JSON.stringify($row.find('#value:eq(0)').val());
+        }
+      }else{}
+      first = false;
+    }else{
+    if($row.find('#value:eq(0)').val()){
       if($row.find('#name:eq(0)').val()){
+        listData+=", "
         listData+= JSON.stringify($row.find('#name:eq(0)').val());
         listData+=":";
         listData+= JSON.stringify($row.find('#value:eq(0)').val());
       }
-      first = false;
-    }else{
-    if($row.find('#name:eq(0)').val()){
-      listData+=", "
-      listData+= JSON.stringify($row.find('#name:eq(0)').val());
-      listData+=":";
-      listData+= JSON.stringify($row.find('#value:eq(0)').val());
-    }
+    }else{}
   }
 
   $("#reqParameters").append(""+$row.find('#name:eq(0)').val()+"&nbsp;<a type=''  data-trigger='focus' data-placement='right' title='"+$row.find('#name:eq(0)').val()+"'><span class='glyphicon glyphicon-info-sign' aria-hidden='true'></span></a>")
@@ -4113,7 +4142,8 @@ function urlBlur(){
 
   listData+="}";
 
-  // console.log("listData: ", listData);
+
+  console.log("listData: ", listData);
   // console.log("LINK: ", link);
 
   if($("#valueH").val()){
@@ -4430,9 +4460,14 @@ function showResponseSchema(){
                 onEvent: function(node, event) {
                     urlBlur();
                   if (event.type === 'click') {
+                    console.log("clicked: ", node.field);
                     var textEl = document.getElementById('selectedText');
 
-                    var paramValue = eval("response."+prettyPrintPath(node.path));
+                    var paramValue = eval("response."+prettyPrintPath(node.path).replace(' ','%20'));
+                    // r1=prettyPrintPath(node.path).replace(/[0-9]/,'');
+
+
+                    // console.log("here ", response.hits.hits[0]._source.Acknowledgments);
 
                       var s1 = node.field;
                       var s2 = prettyPrintPath(node.path);
@@ -4482,18 +4517,21 @@ function showResponseSchema(){
                   }
 
                   function prettyPrintPath(path) {
-                    var str = '';
-                    for (var i=0; i<path.length; i++) {
-                      var element = path[i];
-                      if (typeof element === 'number') {
-                        str += '[' + element + ']'
-                      } else {
-                        if (str.length > 0) str += '.';
-                        str += element;
-                      }
-                    }
-                    return str;
-                  }
+                                var str = '';
+                                for (var i=0; i<path.length; i++) {
+                                  var element = path[i];
+                                  if (typeof element === 'number') {
+                                    str += '[' + element + ']'
+                                  } else if(element.includes(' ')) {
+                                    str += "['"+element+"']";
+                                    console.log(str)
+                                  }else {
+                                    if (str.length > 0) str += '.';
+                                    str += element;
+                                  }
+                                }
+                                return str;
+                              }
                 }
 
               };
@@ -4768,9 +4806,12 @@ function showResponseSchema(){
               },
               onEvent: function(node, event) {
                 if (event.type === 'click') {
+      console.log("clicked: ", node.path);
                     var textEl = document.getElementById('selectedText');
 
                     var paramValue = eval("response."+prettyPrintPath(node.path));
+                    // console.log(eval("response."+prettyPrintPath(node.path));
+
 
                     var s1 = node.field;
                     var s2 = prettyPrintPath(node.path);
@@ -4809,7 +4850,6 @@ function showResponseSchema(){
                      }
 
                     var nameDefaule = nameDefaule1.join(' ');
-
                     $("#fields tbody").append('<tr id="'+xx+'"><td>'+node.field+'</td>    <td><input type="text" class="form-control" id="displayName'+s1+'" placeholder="" value="'+nameDefaule+'" onchange="urlBlur()" style="font-size:1em"></td> <td><input type="text" class="form-control" id="displayDesc'+s1+'" placeholder="" onchange="urlBlur()"> </td> <td><input id='+xx+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
                     urlBlur();
                 }//else does not exists
@@ -4821,18 +4861,21 @@ function showResponseSchema(){
                 // }
 
                 function prettyPrintPath(path) {
-                  var str = '';
-                  for (var i=0; i<path.length; i++) {
-                    var element = path[i];
-                    if (typeof element === 'number') {
-                      str += '[' + element + ']'
-                    } else {
-                      if (str.length > 0) str += '.';
-                      str += element;
-                    }
-                  }
-                  return str;
-                }
+                              var str = '';
+                              for (var i=0; i<path.length; i++) {
+                                var element = path[i];
+                                if (typeof element === 'number') {
+                                  str += '[' + element + ']'
+                                } else if(element.includes(' ')) {
+                                  str += "['"+element+"']";
+                                  console.log(str)
+                                }else {
+                                  if (str.length > 0) str += '.';
+                                  str += element;
+                                }
+                              }
+                              return str;
+                            }
               }
 
             };
