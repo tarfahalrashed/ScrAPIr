@@ -1870,10 +1870,11 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
 
            if($("input[name='checkbox-w']").is(":checked")){
                $("input[name='checkbox-w']:checked").each(function(){
-                var s = "response."+this.id.split('.')[0];
-                var ln = s.split('[')[0];
-                 console.log("s: ",eval(ln).length);
-                if(eval(s)){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+                 var s = "response."+this.id.split('.')[0];
+                 var arrLength = "response."+this.id.split('[j]')[0];
+                 var ln = s.split('[')[0];
+
+                 if(j<eval(arrLength).length-1){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
                  var id = this.value;
                  if(this.value=="Video URL"){
                    objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
@@ -2073,10 +2074,11 @@ else{
 
         if($("input[name='checkbox-w']").is(":checked")){
             $("input[name='checkbox-w']:checked").each(function(){
-             var s = "response."+this.id.split('.')[0];
-             var ln = s.split('[')[0];
-              console.log("s: ",eval(ln).length);
-             if(eval(s)){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+              var s = "response."+this.id.split('.')[0];
+              var arrLength = "response."+this.id.split('[j]')[0];
+              var ln = s.split('[')[0];
+
+              if(j<eval(arrLength).length-1){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
               var id = this.value;
               if(this.value=="Video URL"){
                 objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
@@ -2742,10 +2744,11 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
 
            if($("input[name='checkbox-w']").is(":checked")){
                $("input[name='checkbox-w']:checked").each(function(){
-                var s = "response."+this.id.split('.')[0];
-                var ln = s.split('[')[0];
-                 // console.log("s: ",eval(ln).length);
-                if(eval(s)){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+                 var s = "response."+this.id.split('.')[0];
+                 var arrLength = "response."+this.id.split('[j]')[0];
+                 var ln = s.split('[')[0];
+
+                 if(j<eval(arrLength).length-1){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
                  var id = this.value;
                  if(this.value=="Video URL"){
                    objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
@@ -2945,10 +2948,11 @@ else{
 
         if($("input[name='checkbox-w']").is(":checked")){
             $("input[name='checkbox-w']:checked").each(function(){
-             var s = "response."+this.id.split('.')[0];
-             var ln = s.split('[')[0];
-              // console.log("s: ",eval(ln).length);
-             if(eval(s)){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+              var s = "response."+this.id.split('.')[0];
+              var arrLength = "response."+this.id.split('[j]')[0];
+              var ln = s.split('[')[0];
+
+              if(j<eval(arrLength).length-1){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
               var id = this.value;
               if(this.value=="Video URL"){
                 objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
