@@ -1715,19 +1715,19 @@ function retrieveDataX(){
       //console.log("getTheNextPage");
       listP=  "{";
       for(var i=0; i<obJSON1.parameters.length; ++i){
-        if(obJSON1.parameters[i]['value']){
+        //  if(!obJSON1.parameters[i]['description']){
+        //  console.log("No DESC: ");
+        //   console.log(obJSON1.parameters[i]['description'])
+        // }
         listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
         listP+= ":"
-        if(obJSON1.parameters[i]['displayedName'] && JSON.stringify(obJSON1.parameters[i]['value'])!=""){ //displayedName
+        if(obJSON1.parameters[i]['displayedName']){ //displayedName
           listP+= JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
         }else{
           listP+= JSON.stringify(obJSON1.parameters[i]['value']);
         }
-        //change
-        if(i+1<obJSON1.parameters.length){
-           listP1+= ","
-         }        //}//if
-      }
+        listP+= ","
+    //}//if
     }
 
     if(obJSON1.resPerPageParam){
@@ -1862,27 +1862,30 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
         }else{
         var j=0;
         while(defined){
-        // for (var j=0; j<25 && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
            objData={};
            ++start;
            objData["id"]= start;
-           // console.log("J: ",j);
+            // console.log("J: ",j);
 
            if($("input[name='checkbox-w']").is(":checked")){
                $("input[name='checkbox-w']:checked").each(function(){
-                 var s = "response."+this.id.split('.')[0];
-                 var arrLength = "response."+this.id.split('[j]')[0];
-                 var ln = s.split('[')[0];
 
-                 if(j<eval(arrLength).length-1){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+                var s = "response."+this.id.split('.')[0];
+                var arrLength = "response."+this.id.split('[j]')[0];
+                var ln = s.split('[')[0];
+
+                if(j<eval(arrLength).length){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
                  var id = this.value;
                  if(this.value=="Video URL"){
                    objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
                  }else{
                    var str = (this.checked ? "response."+this.id : 0);
                    //IF ARRAY
+
+                   // console.log("check: ", eval("response."+this.id));
+
                    if(str.includes("[i]")){
-                     //console.log("Includes [i]: ",str);
+                     // console.log("Includes [i]: ",str);
                      var i=0;
                      var splt =  str.split("[i]");
                      // start if undefined
@@ -1928,12 +1931,11 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
                    }
 
                  }
-               }//if not undefined
-             else{
+               }else{
                defined=false;
              }
            });//checkbox
-         }//chckbox loop
+         }//chckbox if
 
              if(defined){
                data.push(objData);
@@ -1942,23 +1944,22 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
             }
 
             ++j;
-            //++start;
 
         }//while loop
       }//else
 
         if(p<pages){
-          console.log("Data: ", data);
+          // console.log("Data: ", data);
           if(obJSON1.currPageParam){ //nex\prev page
               ++p;
-              console.log("Next: ", eval("response."+obJSON1.nextPageParam));
+              // console.log("Next: ", eval("response."+obJSON1.nextPageParam));
               getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
           }else if(obJSON1.offsetPage){//offset page
-            console.log("offset");
+            // console.log("offset");
             ++p;
             getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
           }else{//index page
-              console.log("index");
+              // console.log("index");
             ++p;
             getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
           }
@@ -2066,89 +2067,89 @@ else{
         }else{
         var j=0;
         while(defined){
-        //for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
-        objData={};
-        ++start;
-        objData["id"]= start;
-        // console.log("J: ",j);
+          //for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
+          objData={};
+          ++start;
+          objData["id"]= start;
+          // console.log("J: ",j);
 
-        if($("input[name='checkbox-w']").is(":checked")){
-            $("input[name='checkbox-w']:checked").each(function(){
-              var s = "response."+this.id.split('.')[0];
-              var arrLength = "response."+this.id.split('[j]')[0];
-              var ln = s.split('[')[0];
+          if($("input[name='checkbox-w']").is(":checked")){
+              $("input[name='checkbox-w']:checked").each(function(){
+                var s = "response."+this.id.split('.')[0];
+                var arrLength = "response."+this.id.split('[j]')[0];
+                var ln = s.split('[')[0];
 
-              if(j<eval(arrLength).length-1){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
-              var id = this.value;
-              if(this.value=="Video URL"){
-                objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
-              }else{
-                var str = (this.checked ? "response."+this.id : 0);
-                //IF ARRAY
-                if(str.includes("[i]")){
-                  //console.log("Includes [i]: ",str);
-                  var i=0;
-                  var splt =  str.split("[i]");
-                  // start if undefined
-                  if(eval(splt[0]).length==0){
-                   objData[id]="";
-                 }else{// start if NOT undefined
-                 objData[id] = (this.checked ? eval("response."+this.id) : 0);
-                 for(i=1; i<eval(splt[0]).length; ++i){
-                   objData[id] += ", ";
-                   objData[id] += eval("response."+this.id);
-                 }
-               }///test undefined
-                 //IF OBJECT and not ARRAY
-                }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
-                  //console.log("IT IS OBJECT");
-                  var objD = (this.checked ? eval("response."+this.id) : 0);
-                  var objKV = "";
-                  var first = true;
-                  for(var i in objD){
-                   //console.log("Key: ", i);
-                   //console.log("Value: ", objD[i]);
-                   if(!first){
-                     objKV+=", "
-                   }else{
-                     first = false;
-                   }
-                   objKV+=i+": "+objD[i];
-                 }
-                 objData[id]=objKV;
-
-                 for(var i in objD){
-                  //console.log("Key: ", i);
-                  //console.log("Value: ", objD[i]);
-                  objData[i]=objD[i];
-                  //console.log("objData[id]: ", objData[i]);
-                }
-                //console.log("objData[id]: ", objData[id]);
-                //IF NEITHER
+                if(j<eval(arrLength).length){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+                var id = this.value;
+                if(this.value=="Video URL"){
+                  objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
                 }else{
-                  //console.log("Does NOT Include [i]");
-                  objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                  var str = (this.checked ? "response."+this.id : 0);
+                  //IF ARRAY
+                  if(str.includes("[i]")){
+                    //console.log("Includes [i]: ",str);
+                    var i=0;
+                    var splt =  str.split("[i]");
+                    // start if undefined
+                    if(eval(splt[0]).length==0){
+                     objData[id]="";
+                   }else{// start if NOT undefined
+                   objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                   for(i=1; i<eval(splt[0]).length; ++i){
+                     objData[id] += ", ";
+                     objData[id] += eval("response."+this.id);
+                   }
+                 }///test undefined
+                   //IF OBJECT and not ARRAY
+                  }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
+                    //console.log("IT IS OBJECT");
+                    var objD = (this.checked ? eval("response."+this.id) : 0);
+                    var objKV = "";
+                    var first = true;
+                    for(var i in objD){
+                     //console.log("Key: ", i);
+                     //console.log("Value: ", objD[i]);
+                     if(!first){
+                       objKV+=", "
+                     }else{
+                       first = false;
+                     }
+                     objKV+=i+": "+objD[i];
+                   }
+                   objData[id]=objKV;
+
+                   for(var i in objD){
+                    //console.log("Key: ", i);
+                    //console.log("Value: ", objD[i]);
+                    objData[i]=objD[i];
+                    //console.log("objData[id]: ", objData[i]);
+                  }
                   //console.log("objData[id]: ", objData[id]);
+                  //IF NEITHER
+                  }else{
+                    //console.log("Does NOT Include [i]");
+                    objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                    //console.log("objData[id]: ", objData[id]);
+                  }
+
                 }
+              }//if not undefined
+            else{
+              defined=false;
+            }
+          });//checkbox
+        }//chckbox loop
 
-              }
-            }//if not undefined
-          else{
-            defined=false;
-          }
-        });//checkbox
-      }//chckbox loop
+            if(defined){
+              data.push(objData);
+              obj.lists=[];
+              obj.lists.push(objData);
+           }
 
-          if(defined){
-            data.push(objData);
-            obj.lists=[];
-            obj.lists.push(objData);
-         }
+           ++j;
+           //++start;
 
-         ++j;
-         //++start;
-
-        }//while loop
+          }//while loop
       }//else
 
         if(p<pages){
@@ -2591,48 +2592,54 @@ function retrieveData(){
 
     function getTheNextPage(p, pages, nextPage){
       listP=  "{";
-      for(var i=0; i<obJSON1.parameters.length; ++i){
-        if(obJSON1.parameters[i]['value']){
-        listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
-        listP+= ":"
-        if(obJSON1.parameters[i]['displayedName'] && JSON.stringify(obJSON1.parameters[i]['value'])!=""){ //displayedName
-          listP+= JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
-        }else{
-          listP+= JSON.stringify(obJSON1.parameters[i]['value']);
-        }
-        //change
-        if(i+1<obJSON1.parameters.length){
-           listP1+= ","
-         }
-      }
+      for(var i=0; i<obJSON1.parameters.length; ++i) {
+    listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
+    listP+= ":"
+    if(obJSON1.parameters[i]['displayedName']){ //displayedName
+      listP+= JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
+    }else{
+      listP+= JSON.stringify(obJSON1.parameters[i]['value']);
     }
+    listP+= ","
+    }
+    //   for(var i=0; i<obJSON1.parameters.length; ++i){
+    //     if(obJSON1.parameters[i]['value']){
+    //     listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
+    //     listP+= ":"
+    //     if(obJSON1.parameters[i]['displayedName'] && JSON.stringify(obJSON1.parameters[i]['value'])!=""){ //displayedName
+    //       listP+= JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
+    //     }else{
+    //       listP+= JSON.stringify(obJSON1.parameters[i]['value']);
+    //     }
+    //     //change
+    //     if(i+1<obJSON1.parameters.length){
+    //        listP1+= ","
+    //      }
+    //   }
+    // }
 
     if(obJSON1.resPerPageParam){
       listP+= JSON.stringify(obJSON1.resPerPageParam);
       listP+= ":";
       listP+= JSON.stringify(obJSON1.maxResPerPage);
+      listP+= ","
     }
     if(obJSON1.indexPage){
-      listP+= ","
       listP+= JSON.stringify(obJSON1.indexPage);
       listP+= ":";
       listP+= p;
     }else if(obJSON1.offsetPage){
-      listP+= ","
       listP+= JSON.stringify(obJSON1.offsetPage);
       listP+= ":";
       listP+= p*(eval(obJSON1.maxResPerPage));
-    }else if(obJSON1.nextPageParam){
-      listP+= ","
+    }else{
       listP+= JSON.stringify(obJSON1.currPageParam);
       listP+= ":";
       listP+= JSON.stringify(nextPage);
-    }else{
-
     }
     listP+= "}";
 
-    console.log("listP: ", JSON.parse(listP));
+    // console.log("listP: ", JSON.parse(listP));
     // console.log("Page: ", p);
 
     // if(obJSON1.url.includes('.json')){
@@ -2748,7 +2755,7 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
                  var arrLength = "response."+this.id.split('[j]')[0];
                  var ln = s.split('[')[0];
 
-                 if(j<eval(arrLength).length-1){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+                 if(j<eval(arrLength).length){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
                  var id = this.value;
                  if(this.value=="Video URL"){
                    objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
@@ -2822,17 +2829,17 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
       }//else
 
         if(p<pages){
-          console.log("Data: ", data);
+          // console.log("Data: ", data);
           if(obJSON1.currPageParam){ //nex\prev page
               ++p;
-              console.log("Next: ", eval("response."+obJSON1.nextPageParam));
+              // console.log("Next: ", eval("response."+obJSON1.nextPageParam));
               getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
           }else if(obJSON1.offsetPage){//offset page
-            console.log("offset");
+            // console.log("offset");
             ++p;
             getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
           }else{//index page
-              console.log("index");
+              // console.log("index");
             ++p;
             getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
           }
@@ -2940,90 +2947,90 @@ else{
         }else{
         var j=0;
         while(defined){
-        //for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
-        objData={};
-        ++start;
-        objData["id"]= start;
-        // console.log("J: ",j);
+      //for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
+      objData={};
+      ++start;
+      objData["id"]= start;
+      // console.log("J: ",j);
 
-        if($("input[name='checkbox-w']").is(":checked")){
-            $("input[name='checkbox-w']:checked").each(function(){
-              var s = "response."+this.id.split('.')[0];
-              var arrLength = "response."+this.id.split('[j]')[0];
-              var ln = s.split('[')[0];
+      if($("input[name='checkbox-w']").is(":checked")){
+          $("input[name='checkbox-w']:checked").each(function(){
+            var s = "response."+this.id.split('.')[0];
+            var arrLength = "response."+this.id.split('[j]')[0];
+            var ln = s.split('[')[0];
 
-              if(j<eval(arrLength).length-1){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
-              var id = this.value;
-              if(this.value=="Video URL"){
-                objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
-              }else{
-                var str = (this.checked ? "response."+this.id : 0);
-                //IF ARRAY
-                if(str.includes("[i]")){
-                  //console.log("Includes [i]: ",str);
-                  var i=0;
-                  var splt =  str.split("[i]");
-                  // start if undefined
-                  if(eval(splt[0]).length==0){
-                   objData[id]="";
-                 }else{// start if NOT undefined
-                 objData[id] = (this.checked ? eval("response."+this.id) : 0);
-                 for(i=1; i<eval(splt[0]).length; ++i){
-                   objData[id] += ", ";
-                   objData[id] += eval("response."+this.id);
+            if(j<eval(arrLength).length){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+            var id = this.value;
+            if(this.value=="Video URL"){
+              objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+            }else{
+              var str = (this.checked ? "response."+this.id : 0);
+              //IF ARRAY
+              if(str.includes("[i]")){
+                //console.log("Includes [i]: ",str);
+                var i=0;
+                var splt =  str.split("[i]");
+                // start if undefined
+                if(eval(splt[0]).length==0){
+                 objData[id]="";
+               }else{// start if NOT undefined
+               objData[id] = (this.checked ? eval("response."+this.id) : 0);
+               for(i=1; i<eval(splt[0]).length; ++i){
+                 objData[id] += ", ";
+                 objData[id] += eval("response."+this.id);
+               }
+             }///test undefined
+               //IF OBJECT and not ARRAY
+              }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
+                //console.log("IT IS OBJECT");
+                var objD = (this.checked ? eval("response."+this.id) : 0);
+                var objKV = "";
+                var first = true;
+                for(var i in objD){
+                 //console.log("Key: ", i);
+                 //console.log("Value: ", objD[i]);
+                 if(!first){
+                   objKV+=", "
+                 }else{
+                   first = false;
                  }
-               }///test undefined
-                 //IF OBJECT and not ARRAY
-                }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
-                  //console.log("IT IS OBJECT");
-                  var objD = (this.checked ? eval("response."+this.id) : 0);
-                  var objKV = "";
-                  var first = true;
-                  for(var i in objD){
-                   //console.log("Key: ", i);
-                   //console.log("Value: ", objD[i]);
-                   if(!first){
-                     objKV+=", "
-                   }else{
-                     first = false;
-                   }
-                   objKV+=i+": "+objD[i];
-                 }
-                 objData[id]=objKV;
+                 objKV+=i+": "+objD[i];
+               }
+               objData[id]=objKV;
 
-                 for(var i in objD){
-                  //console.log("Key: ", i);
-                  //console.log("Value: ", objD[i]);
-                  objData[i]=objD[i];
-                  //console.log("objData[id]: ", objData[i]);
-                }
-                //console.log("objData[id]: ", objData[id]);
-                //IF NEITHER
-                }else{
-                  //console.log("Does NOT Include [i]");
-                  objData[id] = (this.checked ? eval("response."+this.id) : 0);
-                  //console.log("objData[id]: ", objData[id]);
-                }
-
+               for(var i in objD){
+                //console.log("Key: ", i);
+                //console.log("Value: ", objD[i]);
+                objData[i]=objD[i];
+                //console.log("objData[id]: ", objData[i]);
               }
-            }//if not undefined
-          else{
-            defined=false;
-          }
-        });//checkbox
-      }//chckbox loop
+              //console.log("objData[id]: ", objData[id]);
+              //IF NEITHER
+              }else{
+                //console.log("Does NOT Include [i]");
+                objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                //console.log("objData[id]: ", objData[id]);
+              }
 
-          if(defined){
-            data.push(objData);
-            obj.lists=[];
-            obj.lists.push(objData);
-         }
+            }
+          }//if not undefined
+        else{
+          defined=false;
+        }
+      });//checkbox
+    }//chckbox loop
 
-         ++j;
-         //++start;
+        if(defined){
+          data.push(objData);
+          obj.lists=[];
+          obj.lists.push(objData);
+       }
 
-        }//while loop
-      }//else
+       ++j;
+       //++start;
+
+      }//while loop
+    }//else
 
         if(p<pages){
           //console.log("Data: ", data);
