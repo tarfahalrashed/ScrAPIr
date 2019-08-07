@@ -131,11 +131,10 @@ function isSignedUp(){
         firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
           var displayName = snapshot.val().name;
           console.log("NAME: ", displayName);
-          // currUser = displayName;
+          //currUser = displayName;
           $("#SignupLogin").html(displayName);
           window.location.href='api-integration.html';
         });
-
 
         // [END_EXCLUDE]
       } else {
@@ -342,6 +341,8 @@ function isSignedUp(){
         $('#acc').show();
         $('#signout').show();
 
+        $('#consentIntModal').modal('show');
+        // $('#cooki').click();
         // [END_EXCLUDE]
       } else {
 
@@ -374,6 +375,14 @@ function isSignedUp(){
   }
 
 
+}
+
+var logDecision="accept";
+var logIntDecision="accept";
+
+function canIntLog(dec){
+  logIntDecision = dec;
+  // console.log("DEC: ", logDecision);
 }
 
 // function createResource(properties) {
@@ -790,9 +799,9 @@ function populateTable(data){
         $( "#saveBut" ).remove();
         //$( "#SCRIPT" ).remove();
 
-        $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="DownloadJSON2CSV();return false;"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
-        $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
-        $('<a id="JS" class="button button-mini button-border button-rounded button-green" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
+        $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="DownloadJSON2CSV();return false;saveLogs()"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
+        $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" onclick="downloadJSON()" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
+        $('<a id="JS" class="button button-mini button-border button-rounded button-green" onclick="getCodeClicked()" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
         $('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-amber dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>').appendTo('#viewButtons2');
         // $('<button id="SCRIPT" type="button" class="button button-mini button-border button-rounded button-green"  aria-haspopup="true" aria-expanded="false"> <img src="images/java.png" width="15px" height="15px" bottom="5px"> &nbsp;Script </button>').appendTo('#viewButtons2');
         /***************** Table View ******************/
@@ -1132,7 +1141,27 @@ function showHideDivPag(t) {
     }
 }
 
+
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm(dec) {
+  logDecision = dec;
+  document.getElementById("myForm").style.display = "none";
+}
+
+
+var ui;
+
 function checkButtonClicked(){
+
+  ui = create_UUID();
+
+  //show consent modal
+  // $('#consentDataModal').modal('show');
+  $('#butDD').click();
+
 
   var str = window.location.href;
 
@@ -1328,7 +1357,7 @@ function checkButtonClicked(){
             listP1="{";
 
             for(var i=0; i<obJSON1.parameters.length; ++i){
-              console.log("first ", obJSON1.parameters[i]['value'])
+              // console.log("first ", obJSON1.parameters[i]['value'])
               if(obJSON1.parameters[i]['value']){
               listP1+= JSON.stringify(obJSON1.parameters[i]['name']);
               listP1+= ":" //$('#queryw').val()
@@ -1553,14 +1582,15 @@ function populateAccountTables(){
               $("#apisTable").show();
               $("#api_table_content").show();
               //console.log(childSnapshot.val().title);
-              var name = childSnapshot.val().title;
+              var name1 = childSnapshot.val().title;
+              var name = name1.split(' ').join('_');
               // var api_name = childSnapshot.val().apiName;
               // var file_desc = childSnapshot.val().description;
               // //var type = childSnapshot.val().type;
               // var url = childSnapshot.val().urlCSV;
               // var urlJ = childSnapshot.val().urlJSON;
               // var link = childSnapshot.val().queryLink;
-              $("#api_table_content tbody").append('<tr><td>'+name+'</td> <td><a href="api-integration.html?'+name+'" target="_blank"><img src="images/edit.png" width="25px"></a> &nbsp;  <a id="'+name+'" href="" onclick="deleteRowAccountTableAPIs(this,this)"><img src="images/del.png" width="25px"></a>   </td></tr>');
+              $("#api_table_content tbody").append('<tr><td>'+name1+'</td> <td><a href="api-integration.html?'+name+'" target="_blank"><img src="images/edit.png" width="25px"></a> &nbsp;  <a id="'+name+'" href="" onclick="deleteRowAccountTableAPIs(this,this)"><img src="images/del.png" width="25px"></a>   </td></tr>');
 
             }else{
               //window.alert("No USER")
@@ -1734,31 +1764,26 @@ function retrieveDataX(){
       listP+= JSON.stringify(obJSON1.resPerPageParam);
       listP+= ":";
       listP+= JSON.stringify(obJSON1.maxResPerPage);
+      listP+= ","
     }
     if(obJSON1.indexPage){
-      listP+= ","
       listP+= JSON.stringify(obJSON1.indexPage);
       listP+= ":";
       listP+= p;
     }else if(obJSON1.offsetPage){
-      listP+= ","
       listP+= JSON.stringify(obJSON1.offsetPage);
       listP+= ":";
       listP+= p*(eval(obJSON1.maxResPerPage));
-    }else if(obJSON1.nextPageParam){
-      listP+= ","
+    }else{
       listP+= JSON.stringify(obJSON1.currPageParam);
       listP+= ":";
       listP+= JSON.stringify(nextPage);
-    }else{
-      //don't add anything
     }
-
     listP+= "}";
 
-    console.log("listP no: ", listP);
+    // console.log("listP no: ", listP);
 
-    console.log("listP: ", JSON.parse(listP));
+    // console.log("listP: ", JSON.parse(listP));
     // console.log("Page: ", p);
 
     // if(obJSON1.url.includes('.json')){
@@ -2233,9 +2258,9 @@ else{
           //$( "#saveBut" ).remove();
           //$( "#SCRIPT" ).remove();
 
-          $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="DownloadJSON2CSV();return false;"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
-          $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
-          $('<a id="JS" class="button button-mini button-border button-rounded button-green" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
+          $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="DownloadJSON2CSV();return false;saveLogs()"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
+          $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" onclick="downloadJSON()" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
+          $('<a id="JS" class="button button-mini button-border button-rounded button-green" onclick="getCodeClicked()" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
           $('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-amber dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>').appendTo('#viewButtons2');
 
           /***************** Table View ******************/
@@ -2539,7 +2564,10 @@ function codeSnippetSelected(){
     // $("#jsCode").append(jsSnippet);
 }
 
+var getLogObj;
+
 function retrieveData(){
+
   defined=true;
   $('#myTree').empty();
   $('#myList').empty();
@@ -2572,6 +2600,43 @@ function retrieveData(){
         col.columns.push({id: this.id, name: this.value, field: this.value, editor: Slick.Editors.Text, sortable: true});
       });
   }
+
+
+  // save logs submit clicked START
+  if(logDecision == "accept"){
+
+  var res = [];
+  var param = [];
+
+  if($("input[name='checkbox-w']").is(":checked")){
+      $("input[name='checkbox-w']:checked").each(function(){
+        res.push({
+          name: this.id
+        });
+      });
+    }
+
+
+  for(var i=0; i<obJSON1.parameters.length; ++i){
+   param.push({
+     name: obJSON1.parameters[i]['name'],
+     value: obJSON1.parameters[i]['value']
+   });
+ }
+
+  getLogObj = {};
+
+  getLogObj.id = ui;
+  getLogObj.timestamp = Date.now();
+  getLogObj.url = obJSON1.url;
+  getLogObj.parameters = param;
+  getLogObj.butClicked = "QUERY";
+
+  firebase.database().ref('getLog/' + ui).push(JSON.parse(JSON.stringify(getLogObj)));
+  // firebase.database().ref('getLog/').remove();
+  }
+  // console.log("Data Logged: ", getLogObj);
+  // save logs submit clicked END
 
     var pages;
 
@@ -2721,7 +2786,6 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
                        objData[id] = (this.checked ? eval("response."+this.id) : 0);
                        //console.log("objData[id]: ", objData[id]);
                      }
-
                    }
                  }//if not undefined
                else{
@@ -3155,9 +3219,9 @@ else{
           $( "#saveBut" ).remove();
           //$( "#SCRIPT" ).remove();
 
-          $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="DownloadJSON2CSV();return false;"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
-          $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
-          $('<a id="JS" class="button button-mini button-border button-rounded button-green" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
+          $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="DownloadJSON2CSV();return false;saveLogs()"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
+          $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" onclick="downloadJSON()" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
+          $('<a id="JS" class="button button-mini button-border button-rounded button-green" onclick="getCodeClicked()" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
 
           // $('<button onclick="dang()" id="codeBut" type="button" class="button button-mini button-border button-rounded button-green dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</button>').appendTo('#viewButtons2');
           $('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-amber dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>').appendTo('#viewButtons2');
@@ -3447,6 +3511,19 @@ else{
 }//end of retrieveData function
 
 
+
+function create_UUID(){
+    var dt = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (dt + Math.random()*16)%16 | 0;
+        dt = Math.floor(dt/16);
+        return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+}
+
+
+
 var here = false;
 var t = 0;
 function flattenObjectJSON(response){
@@ -3580,7 +3657,12 @@ function addDataToDB(){
   var dObj={};
 
   dObj.apiName = obJSON1.title;
-  dObj.title = $("#savedName").val()
+  if($("#savedName").val()){
+    dObj.title = $("#savedName").val();
+  }else{
+    dObj.title = obJSON1.title;
+  }
+
   dObj.description = $("#savedDescription").val()
   //dObj.type = 'CSV';
 
@@ -3680,8 +3762,7 @@ function addDataToDB(){
         console.log("NAME: ", displayName);
         $("#SignupLogin").html(displayName);
         //save the saved query in the firebase
-        //firebase.database().ref('users/'+ user.uid+'/savedFiles/' + $("#savedName").val()).set(JSON.parse(JSON.stringify(dObj)));
-        firebase.database().ref('users/'+ user.uid+'/savedData/' + $("#savedName").val()).set(JSON.parse(JSON.stringify(dObj)));
+        firebase.database().ref('users/'+ user.uid+'/savedData/' + dObj.title).set(JSON.parse(JSON.stringify(dObj)));
 
         console.log("addedFile");
 
@@ -3693,12 +3774,132 @@ function addDataToDB(){
     }
   });
   //IF public add the to the public savedQueries and allow users to search for these queries!
+  var isPublic = false;
+
   if(document.getElementById("publicData").checked==true){
-    //console.log("saved publicly")
-    firebase.database().ref('publicSavedData/' + $("#savedName").val()).set(JSON.parse(JSON.stringify(dObj)));
+    firebase.database().ref('publicSavedData/' + dObj.title).set(JSON.parse(JSON.stringify(dObj)));
+    isPublic = true;
   }
+
+// save logs csv clicked END
+if(logDecision == "accept"){
+
+  var res = [];
+  var param = [];
+
+  if($("input[name='checkbox-w']").is(":checked")){
+      $("input[name='checkbox-w']:checked").each(function(){
+        res.push({
+          name: this.id
+        });
+      });
+    }
+
+
+  for(var i=0; i<obJSON1.parameters.length; ++i){
+   param.push({
+     name: obJSON1.parameters[i]['name'],
+     value: obJSON1.parameters[i]['value']
+   });
+  }
+
+  getLogObj = {};
+
+  getLogObj.id = ui;
+  getLogObj.timestamp = Date.now();
+  getLogObj.url = obJSON1.url;
+  getLogObj.parameters = param;
+  getLogObj.response = res;
+  getLogObj.butClicked = "SAVE";
+  getLogObj.savePublic = isPublic;
+
+  firebase.database().ref('getLog/' + ui).push(JSON.parse(JSON.stringify(getLogObj)));
 }
 
+  // console.log("Data Logged: ", getLogObj);
+  // save logs csv clicked END
+}
+
+
+function getCodeClicked(){
+  // save logs code clicked END
+  if(logDecision == "accept"){
+    var res = [];
+    var param = [];
+
+    if($("input[name='checkbox-w']").is(":checked")){
+        $("input[name='checkbox-w']:checked").each(function(){
+          res.push({
+            name: this.id
+          });
+        });
+      }
+
+
+    for(var i=0; i<obJSON1.parameters.length; ++i){
+     param.push({
+       name: obJSON1.parameters[i]['name'],
+       value: obJSON1.parameters[i]['value']
+     });
+    }
+
+    getLogObj = {};
+
+    getLogObj.id = ui;
+    getLogObj.timestamp = Date.now();
+    getLogObj.url = obJSON1.url;
+    getLogObj.parameters = param;
+    getLogObj.response = res;
+    getLogObj.butClicked = "CODE";
+
+    firebase.database().ref('getLog/' + ui).push(JSON.parse(JSON.stringify(getLogObj)));
+  }
+    // console.log("Data Logged: ", getLogObj);
+    // save logs code clicked END
+
+}
+
+
+function downloadJSON(){
+
+  // save logs JSON clicked END
+  if(logDecision == "accept"){
+    var res = [];
+    var param = [];
+
+    if($("input[name='checkbox-w']").is(":checked")){
+        $("input[name='checkbox-w']:checked").each(function(){
+          // console.log("VALUE: ",this.value);
+          // console.log("FIELD: ",this.id);
+          res.push({
+            name: this.id
+          });
+        });
+      }
+
+
+    for(var i=0; i<obJSON1.parameters.length; ++i){
+     param.push({
+       name: obJSON1.parameters[i]['name'],
+       value: obJSON1.parameters[i]['value']
+     });
+    }
+
+    getLogObj = {};
+
+    getLogObj.id = ui;
+    getLogObj.timestamp = Date.now();
+    getLogObj.url = obJSON1.url;
+    getLogObj.parameters = param;
+    getLogObj.response = res;
+    getLogObj.butClicked = "JSON";
+
+    firebase.database().ref('getLog/' + ui).push(JSON.parse(JSON.stringify(getLogObj)));
+  }
+    // console.log("Data Logged: ", getLogObj);
+    // save logs JSON clicked END
+
+}
 
 
 function DownloadJSON2CSV(){
@@ -3716,6 +3917,46 @@ function DownloadJSON2CSV(){
             str += line + '\r\n';
         }
         window.open( "data:text/csv;charset=utf-8," + escape(str))
+}
+
+function saveLogs(){
+  // save logs save clicked END
+  if(logDecision == "accept"){
+
+    var res = [];
+    var param = [];
+
+    if($("input[name='checkbox-w']").is(":checked")){
+        $("input[name='checkbox-w']:checked").each(function(){
+          // console.log("VALUE: ",this.value);
+          // console.log("FIELD: ",this.id);
+          res.push({
+            name: this.id
+          });
+        });
+      }
+
+
+    for(var i=0; i<obJSON1.parameters.length; ++i){
+     param.push({
+       name: obJSON1.parameters[i]['name'],
+       value: obJSON1.parameters[i]['value']
+     });
+   }
+
+    getLogObj = {};
+
+    getLogObj.id = ui;
+    getLogObj.timestamp = Date.now();
+    getLogObj.url = obJSON1.url;
+    getLogObj.parameters = param;
+    getLogObj.response = res;
+    getLogObj.butClicked = "CSV";
+
+    firebase.database().ref('getLog/' + ui).push(JSON.parse(JSON.stringify(getLogObj)));
+  }
+    // console.log("Data Logged: ", getLogObj);
+    // save logs save clicked END
 }
 
 
@@ -3792,9 +4033,9 @@ function clearTable(){
 
   // $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name" onchange="urlBlur()" placeholder="Request parameter"></td><td><input class="form-control" type="text" id="value" onchange="urlBlur()" placeholder="Parameter default value"></td><td><input class="form-control" type="text" id="listOfValues" placeholder="Value1, Value2, ..."></td><td><input id="displayedName" class="form-control" type="text" placeholder="Name displayed to users"></td><td><input class="form-control" type="text" id="desc" placeholder="Parameter description"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
 
-  $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="Request parameter"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="Parameter default value"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="Value1, Value2, ..."rows="1" onchange="urlBlur()"></textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlur()"></td><td><textarea class="form-control" type="text" id="desc" placeholder="" rows="1" onchange="urlBlur()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlur()"><option value="string">String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
+  $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="Request parameter"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="Parameter default value"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="Value1, Value2, ..."rows="1" onchange="urlBlurNoCall()"></textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()"></td><td><textarea class="form-control" type="text" id="desc" placeholder="" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
 
-  urlBlur();
+  urlBlurNoCall();
 }
 
 
@@ -3812,9 +4053,9 @@ function generateTableFromSwagger(url){
     console.log("Description: ", params[i]['description']);
     console.log("Type: ", params[i]['type']);
 
-      // $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onchange="urlBlur()" placeholder="" value="'+params[i]['name']+'"></td><td><input class="form-control" type="text" id="value" onchange="urlBlur()" placeholder=""></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text" value="'+params[i]['name']+'"></div></td><td><input class="form-control" type="text" id="desc" value="'+params[i]['description']+'"></td><td><select class="form-control" id="type" style="height:30px" value="'+params[i]['type']+'"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+      // $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onchange="urlBlurNoCall()" placeholder="" value="'+params[i]['name']+'"></td><td><input class="form-control" type="text" id="value" onchange="urlBlur()" placeholder=""></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text" value="'+params[i]['name']+'"></div></td><td><input class="form-control" type="text" id="desc" value="'+params[i]['description']+'"></td><td><select class="form-control" id="type" style="height:30px" value="'+params[i]['type']+'"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
 
-      $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="Request parameter"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="Parameter default value"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="Value1, Value2, ..."rows="1" onchange="urlBlur()"></textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlur()"></td><td><textarea class="form-control" type="text" id="desc" placeholder="" rows="1" onchange="urlBlur()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlur()"><option value="string">String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
+      $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="Request parameter"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="Parameter default value"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="Value1, Value2, ..."rows="1" onchange="urlBlurNoCall()"></textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()"></td><td><textarea class="form-control" type="text" id="desc" placeholder="" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
 
   }
 
@@ -3845,7 +4086,7 @@ function generateTable() {
       //var row = $('<tr />');
       //for(var x in cells) {
           // row.append('<td><input class="form-control" type="text" id="name" placeholder="" value="'+cells[x]+'"></td>');
-          $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" style="width:85px" onchange="urlBlur()" placeholder="" value="'+cells[0]+'"></td><td><input class="form-control" type="text" id="value" style="width:85px" onchange="urlBlur()" placeholder=""></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlur()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" value="'+cells[0]+'" onchange="urlBlur()" ></div></td><td><textarea class="form-control" type="text" id="desc" value="'+d+'" rows="1" onchange="urlBlur()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlur()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+          $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" style="width:85px" onchange="urlBlur()" placeholder="" value="'+cells[0]+'"></td><td><input class="form-control" type="text" id="value" style="width:85px" onchange="urlBlur()" placeholder=""></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlurNoCall()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" value="'+cells[0]+'" onchange="urlBlurNoCall()" ></div></td><td><textarea class="form-control" type="text" id="desc" value="'+d+'" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
 
 
 
@@ -3861,15 +4102,15 @@ function generateTable() {
 
 //request functions
 function addRow() {
-  $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" style="width:85px" onchange="urlBlur()" placeholder=""></td><td><input class="form-control" type="text" id="value" style="width:85px" onchange="urlBlur()" placeholder=""></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlur()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlur()"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlur()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlur()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+  $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" style="width:85px" onchange="urlBlur()" placeholder=""></td><td><input class="form-control" type="text" id="value" style="width:85px" onchange="urlBlur()" placeholder=""></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlurNoCall()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlurNoCall()"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
 
-  urlBlur();
+  urlBlurNoCall();
 }
 
 
 function addHeaderRow() {
   $("#headerTabel tbody").append('<tr><td><input class="form-control" type="text" id="nameH" placeholder=""></td><td><input class="form-control" type="text" id="valueH" placeholder=""></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteHeaderRow(this)"</td></tr>');
-  urlBlur();
+  urlBlurNoCall();
 }
 
 
@@ -3947,7 +4188,7 @@ $("#containerALL").click(function(){
 
       for(var x=0; x<arrParamVal.length; ++x){
         var p = arrParamVal[x].split("=");
-        $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" style="width:85px" onchange="urlBlur()" placeholder="" value="'+p[0]+'"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+p[1]+'"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlur()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlur()"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlur()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlur()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+        $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" style="width:85px" onchange="urlBlur()" placeholder="" value="'+p[0]+'"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+p[1]+'"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlurNoCall()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlurNoCall()"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
       }
     }else{
       var link = $("#url").val();
@@ -4057,7 +4298,7 @@ var firstSuc = true;
 
 function urlBlur(){
 
-  // console.log("urlBlur called");
+  console.log("urlBlur called");
 
   logObj = {};
   logs = [];
@@ -4079,18 +4320,6 @@ function urlBlur(){
   });
 
 
-  //check if name exists
-  // if($("#title").val()){
-  //   firebase.database().ref('/apis/').once('value').then(function(snapshot) {
-  //     snapshot.forEach(function(childSnapshot) { //for each API
-  //       if(childSnapshot.val().title == $("#title").val()){
-  //         $("#takenName").show();
-  //       }else{
-  //         $("#takenName").hide();
-  //       }
-  //     });
-  //   });
-  // }
 
   if($("#url").val()){
 
@@ -4114,7 +4343,7 @@ function urlBlur(){
 
     for(var x=0; x<arrParamVal.length; ++x){
       var p = arrParamVal[x].split("=");
-      $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+p[0]+'"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+p[1]+'"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlur()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlur()"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlur()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlur()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+      $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+p[0]+'"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+p[1]+'"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlurNoCall()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlurNoCall()"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
     }
   }else{
     var link = $("#url").val();
@@ -4238,15 +4467,12 @@ function urlBlur(){
       // $("#toggRes").hide();
       $("#correct").hide();
       $("#notcorrect").show();
-
-
     }
   });
 
   }
 
   //save logObj to firebase
-
 
 }else{
   // console.log("Time Now: ", Date.now());
@@ -4257,33 +4483,61 @@ function urlBlur(){
   //save logObj to firebase
   // firebase.database().ref('log/' + uID).set(JSON.parse(JSON.stringify(logObj)));
 
-
  }
 
 
 
 }
 
-function authBlur(){
+function urlBlurNoCall(){
 
+  console.log("urlBlurNoCall called");
 
+  logObj = {};
+  logs = [];
 
-  console.log("YUP")
+  firebase.auth().onAuthStateChanged(function (user) {
+    if(user){
+      firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
+        uID = snapshot.val().userId;
 
-  var settings3 = {
-    "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=burgers&location=boston",
-    //"data": listData,
-    "method": "GET"
-    // "headers": {
-    //   "Authorization": "Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx"
-    //   //'Origin': 'https://api.yelp.com/v3/businesses/search'
-    // }
-  }
+        logObj.user = snapshot.val().name;
+        logObj.timestamp = Date.now();
+        logObj.fields = this.myObj;
+        logObj.status = status;
+        logObj.feedback = jsResponse;
 
-  $.ajax(settings3).done(function (response) {
-    console.log("hmm:", response);
+        firebase.database().ref('log/' + uID).push(JSON.parse(JSON.stringify(logObj)));
+      });
+    }
   });
+
+    var responses = [];
+      //(4) responses
+      if(fields_paths.length>0){
+      for(var j=0; j<fields_paths.length; ++j){
+              var f = fields_paths[j].split("/"); //here change
+              var name = f[0];//this.value;
+              var value =  f[1].replace(/[0-9]/, "j"); // /([0]/, replacer
+              // var value = value1.replace("[0]", "[i]");
+              var paramPath = value.replace(/[0-9]/, "i");
+              var uiName= $("#displayName"+name).val();
+              var uiDesc= $("#displayDesc"+name).val();
+
+              responses.push({
+                displayedName: name,
+                parameter: paramPath,
+                name: uiName,
+                description: uiDesc
+              });
+
+      }
+    }
+    myObj.responses = responses;
+
 }
+
+
 
 var reqParamsVales=[];
 
@@ -4469,7 +4723,7 @@ function showResponseSchema(){
                 //   }
                 // },
                 onEvent: function(node, event) {
-                    urlBlur();
+                    urlBlurNoCall();
                   if (event.type === 'click') {
                     console.log("clicked: ", node.field);
                     var textEl = document.getElementById('selectedText');
@@ -4517,8 +4771,8 @@ function showResponseSchema(){
 
                       var nameDefaule = nameDefaule1.join(' ');
 
-                      $("#fields tbody").append('<tr id="'+xx+'"><td>'+node.field+'</td>  <td><input type="text" class="form-control" id="displayName'+s1+'" placeholder="" value="'+nameDefaule+'" style="font-size:1em" onchange="urlBlur()"></td> <td><input type="text" class="form-control" id="displayDesc'+s1+'" placeholder="" onchange="urlBlur()"> </td> <td><input id='+xx+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
-                      urlBlur();
+                      $("#fields tbody").append('<tr id="'+xx+'"><td>'+node.field+'</td>  <td><input type="text" class="form-control" id="displayName'+s1+'" placeholder="" value="'+nameDefaule+'" style="font-size:1em" onchange="urlBlurNoCall()"></td> <td><input type="text" class="form-control" id="displayDesc'+s1+'" placeholder="" onchange="urlBlurNoCall()"> </td> <td><input id='+xx+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
+                      urlBlurNoCall();
                   }//else does not exists
 
                 }
@@ -4692,8 +4946,8 @@ function showResponseSchema(){
                     var splitVal = $("#" + (node.children[c].id+1)).attr("value").split('#');
                     //$("#" + (node.children[c].id+1)).parents(".tree-leaf-text").eq(0).append('<span id="responce" class="badge badge-pill badge-success" onclick="removeCheckedResponseField(this,'+node.children[c].id+')">' +splitVal[0]+ '<i class="glyphicon glyphicon-remove"></i></span>');
                     //$("#fields tbody").append('<tr id="'+node.children[c].id+'"><td><a id="'+node.children[c].id+'" class="button button-mini button-circle button-reveal button-xsmall button-yellow tright" style="height:25px" onclick="removeCheckedResponseField(this,'+node.children[c].id+')"><i class="glyphicon glyphicon-remove"></i><span>' +splitVal[0]+'</span></a></td></tr>');
-                    $("#fields").append('<tr id="'+xx+'"><td>'+node.field+'</td>   <td><input type="text" class="form-control" id="displayName'+s1+'" placeholder="" value="'+nameDefaule+'" style="font-size:1em" onchange="urlBlur()"></td> <td><input type="text" class="form-control" id="displayDesc'+s1+'" placeholder="" onchange="urlBlur()"> </td> <td><input id='+xx+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
-                    urlBlur();
+                    $("#fields").append('<tr id="'+xx+'"><td>'+node.field+'</td>   <td><input type="text" class="form-control" id="displayName'+s1+'" placeholder="" value="'+nameDefaule+'" style="font-size:1em" onchange="urlBlurNoCall()"></td> <td><input type="text" class="form-control" id="displayDesc'+s1+'" placeholder="" onchange="urlBlurNoCall()"> </td> <td><input id='+xx+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
+                    urlBlurNoCall();
                     //<h4><span id="responce" class="badge badge-pill badge-success" onclick="removeCheckedResponseField('+node.children[c].id+')">' +splitVal[0]+ '<i class="glyphicon glyphicon-remove"></i></span></h4>');
                   }
                 }
@@ -4861,8 +5115,8 @@ function showResponseSchema(){
                      }
 
                     var nameDefaule = nameDefaule1.join(' ');
-                    $("#fields tbody").append('<tr id="'+xx+'"><td>'+node.field+'</td>    <td><input type="text" class="form-control" id="displayName'+s1+'" placeholder="" value="'+nameDefaule+'" onchange="urlBlur()" style="font-size:1em"></td> <td><input type="text" class="form-control" id="displayDesc'+s1+'" placeholder="" onchange="urlBlur()"> </td> <td><input id='+xx+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
-                    urlBlur();
+                    $("#fields tbody").append('<tr id="'+xx+'"><td>'+node.field+'</td>    <td><input type="text" class="form-control" id="displayName'+s1+'" placeholder="" value="'+nameDefaule+'" onchange="urlBlurNoCall()" style="font-size:1em"></td> <td><input type="text" class="form-control" id="displayDesc'+s1+'" placeholder="" onchange="urlBlurNoCall()"> </td> <td><input id='+xx+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
+                    urlBlurNoCall();
                 }//else does not exists
 
               }
@@ -5032,8 +5286,8 @@ function showResponseSchema(){
                   var splitVal = $("#" + (node.children[c].id+1)).attr("value").split('#');
                   //$("#" + (node.children[c].id+1)).parents(".tree-leaf-text").eq(0).append('<span id="responce" class="badge badge-pill badge-success" onclick="removeCheckedResponseField(this,'+node.children[c].id+')">' +splitVal[0]+ '<i class="glyphicon glyphicon-remove"></i></span>');
                 //  $("#fields tbody").append('<tr id="'+node.children[c].id+'"><td><a id="'+node.children[c].id+'" class="button button-mini button-circle button-reveal button-xsmall button-yellow tright" style="height:25px" onclick="removeCheckedResponseField(this,'+node.children[c].id+')"><i class="glyphicon glyphicon-remove"></i><span>' +splitVal[0]+'</span></a></td></tr>');
-                  $("#fields").append('<tr id="'+xx+'"><td>'+node.field+'</td>  <td><input type="text" class="form-control" id="displayName'+s1+'" placeholder="" value="'+nameDefaule+'" style="font-size:1em" onchange="urlBlur()"></td> <td><input type="text" class="form-control" id="displayDesc'+s1+'" placeholder="" onchange="urlBlur()"> </td> <td><input id='+xx+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
-                  urlBlur();
+                  $("#fields").append('<tr id="'+xx+'"><td>'+node.field+'</td>  <td><input type="text" class="form-control" id="displayName'+s1+'" placeholder="" value="'+nameDefaule+'" style="font-size:1em" onchange="urlBlurNoCall()"></td> <td><input type="text" class="form-control" id="displayDesc'+s1+'" placeholder="" onchange="urlBlurNoCall()"> </td> <td><input id='+xx+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
+                  // urlBlurNoCall();
                   //<h4><span id="responce" class="badge badge-pill badge-success" onclick="removeCheckedResponseField('+node.children[c].id+')">' +splitVal[0]+ '<i class="glyphicon glyphicon-remove"></i></span></h4>');
                 }
               }
@@ -5206,7 +5460,7 @@ function authSelected(){
     $("#messageB").hide();
   }
 
-  urlBlur();
+  urlBlurNoCall();
 }
 
 
@@ -5261,7 +5515,8 @@ function callFirebase(){
   var link = window.location.href;
 
   if(link.includes('?')){
-    var savedApi = link.split('?')[1];
+    var savedApi1 = link.split('?')[1];
+    var savedApi = savedApi1.split('_').join(' ');
 
     firebase.auth().onAuthStateChanged(function (user) {
       if(user){
@@ -5290,9 +5545,9 @@ function callFirebase(){
 
                 for(var i=0; i<childSnapshot.val().parameters.length; ++i){
                   if(childSnapshot.val().parameters[i].displayed){
-                    $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+childSnapshot.val().parameters[i].name+'"></td><td><input class="form-control" type="text" id="value" style="width:85px"  onchange="urlBlur()" placeholder="" value="'+childSnapshot.val().parameters[i].value+'"></td><td><textarea class="form-control" type="text" id="listOfValues" rows="1" onchange="urlBlur()">'+childSnapshot.val().parameters[i].listOfValues+'</textarea></td><td><div><input id="displayedName" class="form-control" type="text" value="'+childSnapshot.val().parameters[i].displayedName+'" onchange="urlBlur()"></div></td><td><textarea class="form-control" type="text" id="desc" value="'+childSnapshot.val().parameters[i].description+'" rows="1" onchange="urlBlur()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlur()" value="'+childSnapshot.val().parameters[i].type+'"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input id="displayed" value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+                    $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+childSnapshot.val().parameters[i].name+'"></td><td><input class="form-control" type="text" id="value" style="width:85px"  onchange="urlBlur()" placeholder="" value="'+childSnapshot.val().parameters[i].value+'"></td><td><textarea class="form-control" type="text" id="listOfValues" rows="1" onchange="urlBlurNoCall()">'+childSnapshot.val().parameters[i].listOfValues+'</textarea></td><td><div><input id="displayedName" class="form-control" type="text" value="'+childSnapshot.val().parameters[i].displayedName+'" onchange="urlBlurNoCall()"></div></td><td><textarea class="form-control" type="text" id="desc" value="'+childSnapshot.val().parameters[i].description+'" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()" value="'+childSnapshot.val().parameters[i].type+'"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed" value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
                   }else{
-                    $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+childSnapshot.val().parameters[i].name+'"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+childSnapshot.val().parameters[i].value+'"></td><td><textarea class="form-control" type="text" id="listOfValues" rows="1" onchange="urlBlur()">'+childSnapshot.val().parameters[i].listOfValues+'</textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlur()" value="'+childSnapshot.val().parameters[i].displayedName+'"></div></td><td><textarea class="form-control" type="text" id="desc" value="'+childSnapshot.val().parameters[i].description+'" rows="1" onchange="urlBlur()"></textarea></td><td><select class="form-control" id="type" onchange="urlBlur()" style="height:30px" value="'+childSnapshot.val().parameters[i].type+'"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input id="displayed" value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off"/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+                    $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+childSnapshot.val().parameters[i].name+'"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+childSnapshot.val().parameters[i].value+'"></td><td><textarea class="form-control" type="text" id="listOfValues" rows="1" onchange="urlBlurNoCall()">'+childSnapshot.val().parameters[i].listOfValues+'</textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlurNoCall()" value="'+childSnapshot.val().parameters[i].displayedName+'"></div></td><td><textarea class="form-control" type="text" id="desc" value="'+childSnapshot.val().parameters[i].description+'" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" onchange="urlBlurNoCall()" style="height:30px" value="'+childSnapshot.val().parameters[i].type+'"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed" value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off"/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
                   }
                 }
 
@@ -5303,8 +5558,8 @@ function callFirebase(){
                   var pathf = f+"/"+pathReplaceJ;  //xx
                   fields_paths.push(pathf);
 
-                  $("#fields tbody").append('<tr id="'+pathf+'"><td>'+childSnapshot.val().responses[i].displayedName+'</td>  <td><input type="text" class="form-control" id="displayName'+f+'" placeholder="" value="'+childSnapshot.val().responses[i].name+'" onchange="urlBlur()" style="font-size:1em"></td> <td><input type="text" class="form-control" id="displayDesc'+f+'" placeholder="" value="'+childSnapshot.val().responses[i].description+'" onchange="urlBlur()"></td> <td><input id='+pathf+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
-                  urlBlur();
+                  $("#fields tbody").append('<tr id="'+pathf+'"><td>'+childSnapshot.val().responses[i].displayedName+'</td>  <td><input type="text" class="form-control" id="displayName'+f+'" placeholder="" value="'+childSnapshot.val().responses[i].name+'" onchange="urlBlurNoCall()" style="font-size:1em"></td> <td><input type="text" class="form-control" id="displayDesc'+f+'" placeholder="" value="'+childSnapshot.val().responses[i].description+'" onchange="urlBlurNoCall()"></td> <td><input id='+pathf+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
+                  urlBlurNoCall();
                 }
 
               }
@@ -5318,14 +5573,15 @@ function callFirebase(){
                 $("#apisTable").show();
                 $("#api_table_content").show();
                 //console.log(childSnapshot.val().title);
-                var name = childSnapshot.val().title;
+                var name1 = childSnapshot.val().title;
+                var name = name1.split(' ').join('_');
                 // var api_name = childSnapshot.val().apiName;
                 // var file_desc = childSnapshot.val().description;
                 // //var type = childSnapshot.val().type;
                 // var url = childSnapshot.val().urlCSV;
                 // var urlJ = childSnapshot.val().urlJSON;
                 // var link = childSnapshot.val().queryLink;
-                $("#api_table_content tbody").append('<tr><td>'+name+'</td> <td><a href="api-integration.html?'+name+'" target="_blank"><img src="images/edit.png" width="25px"></a> &nbsp;  <a id="'+name+'" href="" onclick="deleteRowAccountTableAPIs(this,this)"><img src="images/del.png" width="25px"></a>   </td></tr>');
+                $("#api_table_content tbody").append('<tr><td>'+name1+'</td> <td><a href="api-integration.html?'+name+'" target="_blank"><img src="images/edit.png" width="25px"></a> &nbsp;  <a id="'+name+'" href="" onclick="deleteRowAccountTableAPIs(this,this)"><img src="images/del.png" width="25px"></a>   </td></tr>');
 
               }else{
                 //window.alert("No USER")
@@ -5682,7 +5938,7 @@ function callFirebaseForRegistration(){
 
 function reviewAPIIntegration(){ //Review? show all information in 3 squares to edit
 
-  urlBlur();
+  urlBlurNoCall();
 
   // if(!fields_paths){
   // if($("#title").val()){
@@ -5862,13 +6118,10 @@ function addAPIToDB(){
     }
   });
 
-  // console.log("OBJ: ",this.myObj);
-
 }
 
 
 function cancelAPI(){
-  //firebase.initializeApp(config);
   console.log("title:", firebase.database().ref('apis/'+ myObj.title));
   firebase.database().ref('apis/'+ myObj.title).remove();
 }
@@ -5882,16 +6135,7 @@ function submitRequestSchema(){
 
 
 function populateListOfAPIs(){
-  //callIT();
 
-  // var name = "codemzy";
-  // $.get('https://cors-anywhere.herokuapp.com/https://any-api.com/nytimes_com/books_api/docs/_lists_format_/GET_lists_format', function(response) {
-  //   console.log(response);
-  // });
-
-
-//  getYelp();
-  // prettierURL();
   registration();
 
   firebase.database().ref('/apis/').once('value').then(function(snapshot) {
@@ -5905,27 +6149,19 @@ function populateListOfAPIs(){
     });
   });
 
-
   //test json url
 
-  $.ajax({
-    url: "https://api.apis.guru/v2/list.json",
-    method: "GET",
-    success: function (response) {
-      console.log("RESPONSE: ",response);
-      // for(var n=0; n<response.items.length; ++n){
-      //   for(var m=0; m<response.items[n].text_matches.length; ++m){
-      //     objJSON.push(response.items[n].text_matches[m].fragment);
-      //   }
-      // }
-    }
-  });
+  // $.ajax({
+  //   url: "https://api.apis.guru/v2/list.json",
+  //   method: "GET",
+  //   success: function (response) {
+  //     // console.log("RESPONSE: ",response);
+  //   }
+  // });
 
 }
 
-// $('input[name="checkbox-w"]').on('change', function () {
-//     retrieveData();
-// })
+
 
 function apiHasBeenChosen(select){
 //alert(select.options[select.selectedIndex].getAttribute("myid"));
@@ -6115,7 +6351,7 @@ setTimeout(function(){
     document.getElementById('value').value =tempOb[0]['v']
 
     for(var i=1; i<tempOb.length; ++i){
-      $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+tempOb[i]['p']+'"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+tempOb[i]['v']+'"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlur()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlur()"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlur()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlur()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+      $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+tempOb[i]['p']+'"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+tempOb[i]['v']+'"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlurNoCall()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlurNoCall()"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
     }
   }else{
     console.log("GitHub was too slow! Try to click the GitHub button again!");
@@ -6274,7 +6510,7 @@ function populateRequestParam(list){
   document.getElementById('value').value =list[0]['v']
 
   for(var i=1; i<list.length; ++i){
-    $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+list[i]['p']+'"></td><td><input class="form-control" type="text" id="value" style="width:85px"  onchange="urlBlur()" placeholder="" value="'+list[i]['v']+'"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlur()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlur()"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlur()"></textarea></td><td><select class="form-control" id="type" onchange="urlBlur()" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlur()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+    $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+list[i]['p']+'"></td><td><input class="form-control" type="text" id="value" style="width:85px"  onchange="urlBlur()" placeholder="" value="'+list[i]['v']+'"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlurNoCall()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlurNoCall()"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" onchange="urlBlurNoCall()" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
   }
 }
 

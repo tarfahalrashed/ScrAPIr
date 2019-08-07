@@ -61,9 +61,11 @@
 
 <body class="stretched" onload="checkButtonClicked()" style="background-color:white">
 
+
 	<!-- Document Wrapper
 	============================================= -->
 	<div id="wrapper" class="clearfix">
+
 
 		<!-- Top Bar
 		============================================= -->
@@ -208,6 +210,18 @@
 		<!-- Content
 		============================================= -->
 		<section id="content" style="">
+
+
+			<!-- Have fun using Bootstrap JS -->
+			<!-- <script type="text/javascript">
+			$(window).load(function() {
+					$('#consentModal').modal('show');
+			});
+			</script> -->
+			<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#consentModal">Open Modal</button> -->
+
+			<!-- <a href="#" class="btn btn-secondary" data-notify-position="top-full-width" data-notify-type="info" data-notify-msg="<i class=icon-info-sign></i> Welcome to Canvas Demo!" onclick="SEMICOLON.widget.notifications(this); return false;">Top Full Width</a> -->
+
 			<!--<ul class="process-steps bottommargin clearfix">
 				<li>
 					<a href="#ptab1" class="i-circled i-bordered i-alt divcenter">1</a>
@@ -227,7 +241,52 @@
 				<div class="container-fullwidth flex-cols"  id="allSections" style="width:100%; height:100%;">
 
 					<div class="row">
+
+						<!-- <div id="consentDataModal" class="modal" tabindex="" role="" aria-labelledby="" aria-hidden="">
+							<div class="">
+								<div class="modal-body">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="myModalLabel">Generate Code Snippets</h4>
+										</div>
+										<div class="modal-body" style="padding:30px">
+											<select class="form-control" id="selectCode" style="height:30px; width:200px; font-size:1.2em" onchange="codeSnippetSelected()">
+												<option value="js">JavaScript</option>
+												<option value="py">Python</option>
+											</select>
+										</br>
+											<pre id="jsCode" style="background-color:white; width:700px; font-size:1.2em" onClick="this.select();"><pre>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div> -->
+
+						<button id="butDD" style="display:none" class="open-button" onclick="openForm()">Open Form</button>
+
+						<div class="form-popup" id="myForm">
+						  <!-- <form action="" class="form-container"> -->
+						    <h5>we are logging the actions you are doing in this page accpet or decline</h5>
+
+						    <!-- <label for="email"><b>Email</b></label>
+						    <input type="text" placeholder="Enter Email" name="email" required>
+
+						    <label for="psw"><b>Password</b></label>
+						    <input type="password" placeholder="Enter Password" name="psw" required> -->
+
+								<!-- <button id="cookieModalConsent" type="button" class="btn btn-success btn-lg btn-block" data-dismiss="modal" onclick="canIntLog('accept')">Accept</button></br>
+								<button id="cookieModalConsent" type="button" class="btn btn-danger btn-lg btn-block" data-dismiss="modal" onclick="canIntLog('decline')">Decline</button> -->
+
+						    <button type="submit" class="btn" onclick="closeForm('accept')">Accept</button>
+						    <button type="button" class="btn cancel" onclick="closeForm('decline')">Decline</button>
+						  <!-- </form> -->
+						</div>
+
+
+
 						<div class="col-xs">
+
+
 								<div id="reqSection" class="box" style="margin-right:40px; margin-left:40px;">
 						<!-- Sidebar
 						============================================= -->
@@ -291,10 +350,8 @@
 												  <input id="publicData" type="checkbox" value="remember-me">Make your dataset public
 												</label>
 											</div>
-											<button type="button" class="button button-3d button-small button-rounded button-teal" onclick="addDataToDB()">Save</button>
-											<!-- <button type="button" class="btn btn-info" onclick="addQueryToDB()">Save Query</button>-->
+											<button type="button" class="button button-3d button-small button-rounded button-teal" onclick="addDataToDB()">Save to Account</button>
 										</form>
-
 									</div>
 
 									<div id="modalPaste" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -460,11 +517,32 @@
 		<!-- </footer> -->
 		<!-- #footer end -->
 
+		<!-- <div class="modal fade cookieModal" id="consentModal" tabindex="-1" role="dialog" aria-labelledby="cookieModalLabel">
+		    <div class="modal-dialog" role="document">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <h2 id="cookieModalLabel">Cookie Information and Consent Request</h2>
+		            </div>
+		            <div class="modal-body">
+		                <h4>Cookie Policy</h4>
+		                <p>[COOKIE MESSAGE HERE]</p>
+		                <p>
+		                    <a href="/privacy-statement" target="_blank">Click here to view our cookie policy</a>
+		                </p>
+		            </div>
+		            <div class="modal-footer">
+		                <button id="cookieModalConsent" type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal">Accept</button>
+		            </div>
+		        </div>
+		    </div>
+		</div> -->
+
 	</div><!-- #wrapper end -->
 
 	<!-- Go To Top
 	============================================= -->
-	<div id="gotoTop" class="icon-angle-up"></div>
+	<!-- <div id="gotoTop" class="icon-angle-up"></div> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 	<!-- External JavaScripts
 	============================================= -->
@@ -546,7 +624,7 @@
 	    <script src="../build/js/custom.min.js"></script>
 
 	    <!-- Load any supplemental Javascript libraries here -->
-	    <script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
+	    <!-- <script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script> -->
 
 			<!-- Date & Time Picker JS -->
 			<script src="js/components/moment.js"></script>
@@ -576,14 +654,14 @@
 			============================================= -->
 			<script src="js/functions.js"></script>
 
-			<script>
+			<!-- <script>
 				jQuery(".bt-switch").bootstrapSwitch();
 				//
 				// select Tags
 				$(".select-tags").select2({
 					tags: true
 				});
-	    </script>
+	    </script> -->
 
 			<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
 			<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
@@ -592,6 +670,69 @@
 
 
 			<style>
+
+
+			.open-button {
+			  background-color: #555;
+			  color: white;
+			  padding: 16px 20px;
+			  border: none;
+			  cursor: pointer;
+			  opacity: 0.8;
+			  position: fixed;
+			  /* bottom: 23px; */
+			  /* right: 28px; */
+			  /* width: 280px; */
+			}
+
+			/* The popup form - hidden by default */
+			.form-popup {
+			  display: none;
+			  position: fixed;
+			  bottom: 0;
+			  right: 15px;
+			  border: 3px solid #E4F2F8;
+			  z-index: 9;
+				background-color: #E4F2F8;
+				padding: 10px;
+			}
+
+			/* Add styles to the form container */
+			.form-container {
+			  /* max-width: 300px; */
+			  padding: 10px;
+				/* width:100% */
+			  background-color: #E4F2F8;
+			}
+
+			/* Set a style for the submit/login button */
+			.form-popup .btn {
+			  background-color: #426380;
+			  color: white;
+			  padding: 16px 20px;
+			  border: none;
+			  cursor: pointer;
+			  width: 100px;
+			  /* margin-bottom:10px; */
+			  opacity: 0.9;
+				font-size: 1.6em;
+			}
+
+			/* Add a red background color to the cancel button */
+			.form-popup .cancel {
+			  background-color: #a83b51;
+			}
+
+			/* Add some hover effects to buttons */
+			.form-popup .btn:hover, .open-button:hover {
+			  opacity: 1;
+			}
+
+
+
+
+
+
 
 			.flex-container {
 			  display: flex;
@@ -712,24 +853,9 @@
 
 				}
 
-				/*#allSections {
-
-						position: relative;
-
-					}
-					#resultSection {
-						position:absolute;
-						left:200px
-						}*/
-						/*#reqSection {
-							position:absolute;
-
-
-							}
-							#resSection {
-								position:absolute;
-
-								}*/
 			</style>
+
+	<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
 </body>
 </html>

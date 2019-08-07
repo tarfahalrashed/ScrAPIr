@@ -144,56 +144,24 @@
 
 					<div class="row">
 						<div class="col-9">
-					<!--<h4>Integrate your API</h4>-->
 
-					<!-- <div id="processTabs" style=""> -->
-
-						<!-- <ul class="process-steps process-5 clearfix" style="position:relative; top:-60px; ">
-							<li>
-								<a href="#ptab1" class="i-circled i-bordered divcenter">1</a>
-								<h5>API URL</h5>
-							</li>
-							<li>
-								<a href="#ptab2" class="i-circled i-bordered divcenter">2</a>
-								<h5>Pagination</h5>
-							</li>
-							<li>
-								<a href="#ptab3" class="i-circled i-bordered divcenter">3</a>
-								<h5>Parameters &amp; Authentication</h5>
-							</li>
-							<li>
-								<a href="#ptab4" class="i-circled i-bordered divcenter">4</a>
-								<h5>Response</h5>
-							</li>
-							<li>
-								<a href="#ptab5" class="i-circled i-bordered divcenter">5</a>
-								<h5>Confirm Integration</h5>
-							</li>
-						</ul> -->
-
-
-
-
-						<!-- <div style="position:relative; top:-80px"> -->
-							<!-- <div id="ptab1">
-								<div class="tabs divcenter nobottommargin clearfix" style="max-width:500px;"> -->
-
-
-									<!-- <a class="button button-3d nomargin fright tab-linker" style="position:relative; top:-10px" rel="2" onclick="similar(document.getElementById('url').value)"><i class="glyphicon glyphicon-chevron-right"></i></a> -->
-
-
-							<!-- </div>
-						</div> -->
-
-						<div class="modal" id="loginModal2">
-							<!-- <div class="modal-header">
-								<a class="close" data-dismiss="modal">×</a>
-								<h3>Signup/Login</h3>
-							</div> -->
-							<div class="modal-body">
-								<h3>You need to signup/login</h3>
-							</div>
+						<div class="modal fade cookieModal" id="consentIntModal" tabindex="-1" role="dialog" aria-labelledby="cookieModalLabel">
+						    <div class="modal-dialog" role="document">
+						        <div class="modal-content">
+						            <!-- <div class="modal-header">
+						                <h2 id="cookieModalLabel">Cookie Information and Consent Request</h2>
+						            </div> -->
+						            <div class="modal-body">
+						                <h4>For research purpusoes we are recording the steps your taken, no personal information is recoreded. Can we save your actions?</h4>
+						            </div>
+						            <div class="modal-footer">
+													<button id="cookieModalConsent" type="button" class="btn btn-success btn-lg btn-block" data-dismiss="modal" onclick="canIntLog('accept')">Accept</button></br>
+						              <button id="cookieModalConsent" type="button" class="btn btn-danger btn-lg btn-block" data-dismiss="modal" onclick="canIntLog('decline')">Decline</button>
+						            </div>
+						        </div>
+						    </div>
 						</div>
+
 
 
 						<div class="modal" id="loginModal">
@@ -394,7 +362,7 @@
 									<p style="font-size:2em; margin:0px; padding:0px"><B>API Name</B> <span id="takenName" style="color:red; font-size:0.8em; display:none">This name is taken, please change it!</span>
 										<!-- <label><a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="Every web API has a URL that you can use to access its data (e.g. the URL for YouTube search API is 'https://www.googleapis.com/youtube/v3/search')"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label> -->
 									</p>
-									<input style="width:400px;" type="text" class="form-control" id="title" onchange="urlBlur()" placeholder="add a name to the API" required>
+									<input style="width:400px;" type="text" class="form-control" id="title" onchange="urlBlurNoCall()" placeholder="add a name to the API" required>
 									</br></br>
 								</div>
 							</div>
@@ -566,18 +534,18 @@
 												<input class="form-control" type="text" id="value" placeholder="" onchange="urlBlur()" style="width:85px">
 											</td>
 											<td>
-												<textarea class="form-control" type="text" id="listOfValues" placeholder="" height="2px" rows="1" onchange="urlBlur()"></textarea>
+												<textarea class="form-control" type="text" id="listOfValues" placeholder="" height="2px" rows="1" onchange="urlBlurNoCall()"></textarea>
 											</td>
 											<td>
 												<div>
-													<input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlur()">
+													<input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()">
 												</div>
 											</td>
 											<td>
-												<textarea class="form-control" type="text" id="desc" placeholder="" rows="1" onchange="urlBlur()"></textarea>
+												<textarea class="form-control" type="text" id="desc" placeholder="" rows="1" onchange="urlBlurNoCall()"></textarea>
 											</td>
 											<td>
-												<select class="form-control" id="type" style="height:30px" onchange="urlBlur()">
+												<select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()">
 													<option value="string">String</option>
 													<option value="int">Integer</option>
 													<option value="date-time">Boolean</option>
@@ -586,13 +554,13 @@
 												</select>
 											</td>
 											<td>
-												<input id='required'  value='' class='checkbox-style' name='' type='checkbox'  onchange="urlBlur()" autocomplete='off' checked/>
+												<input id='required'  value='' class='checkbox-style' name='' type='checkbox'  onchange="urlBlurNoCall()" autocomplete='off' checked/>
 											</td>
 											<td >
-												<input id='displayed'  value='' class='checkbox-style' name='' type='checkbox'  onchange="urlBlur()" autocomplete='off' checked/>
+												<input id='displayed'  value='' class='checkbox-style' name='' type='checkbox'  onchange="urlBlurNoCall()" autocomplete='off' checked/>
 											</td>
 											<td>
-												<input type="image" src="images/del.png" style="width:18px" onclick="deleteRow(this)" onchange="urlBlur()"/>
+												<input type="image" src="images/del.png" style="width:18px" onclick="deleteRow(this)" onchange="urlBlurNoCall()"/>
 											</td>
 										</tr>
 										</tbody>
@@ -868,13 +836,13 @@
 										<div class="" style="display: inline-block;">
 										<label>Max Number of results per page* <a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="The maximum number of results per page as allowed by the API (e.g.the default number of results in YouTube search API is 5, but the maximum number fo results is 50 and that's what you need to provide here). Do not provide the number of results you want here."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label>
 										<!-- <p style="font-size:1.5em; margin:0px; padding:0px">The maximum number of results per page as allowed by the API (e.g.the maximum number of results in YouTube search API is 50)</p> -->
-										<input type="text" class="form-control"  id="result_max" placeholder="(e.g. 50)" required onchange="urlBlur()">
+										<input type="text" class="form-control"  id="result_max" placeholder="(e.g. 50)" required onchange="urlBlurNoCall()">
 
 									</div>
 									<div class="" style="display: inline-block;margin-left:100px;"> <!-- -->
 										<label>Results per page "parameter" [if exisit] <a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="The parameter used to set the maximum number of results to (e.g. the parameter that you set the number of results to in YouTube is 'maxResults'). Not all APIs provide this parameter."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label>
 										<!-- <p style="font-size:1.5em; margin:0px; padding:0px">The parameter used to set the maximum number of results to (e.g. YouTube search API is maxResults). Not all APIs provide this parameter</p> -->
-										<input style="" type="text" class="form-control" id="result_param" placeholder="(e.g. maxResults)" onchange="urlBlur()">
+										<input style="" type="text" class="form-control" id="result_param" placeholder="(e.g. maxResults)" onchange="urlBlurNoCall()">
 									</div>
 								</div>
 
@@ -913,22 +881,22 @@
 							<div class="" style="display: inline-block; margin-left: 83px;">
 								<div id="indexDiv" class="" id="" style="display:none; ">
 												<label>Index [parameter name]*</label>
-												<input type="text"  class="form-control"  id="index_param" placeholder="(e.g. page)" style="width:335px" required onchange="urlBlur()">
+												<input type="text"  class="form-control"  id="index_param" placeholder="(e.g. page)" style="width:335px" required onchange="urlBlurNoCall()">
 								</div>
 
 								<div id="offsetDiv" class="" id="" style="">
 												<label>Offset [parameter name]*</label>
-												<input type="text"  class="form-control"  id="offset_param" placeholder="(e.g. offset)" style="width:335px" required onchange="urlBlur()">
+												<input type="text"  class="form-control"  id="offset_param" placeholder="(e.g. offset)" style="width:335px" required onchange="urlBlurNoCall()">
 								</div>
 
 								<div id="nextDiv" class="" id="" style="display:none;">
 									<div class="form-group" style=" display=none;">
 										<label>Current Page [parameter name]*</label>
-										<input type="text" class="form-control"  id="cur_page_param" placeholder="(e.g. pageToken)" style="width:334px" required onchange="urlBlur()">
+										<input type="text" class="form-control"  id="cur_page_param" placeholder="(e.g. pageToken)" style="width:334px" required onchange="urlBlurNoCall()">
 									</div>
 									<div class="form-group" style=" display=none;">
 										<label>Next Page [parameter name]*</label>
-										<input type="text" style="font-size:1em" class="form-control"  id="next_page_param" placeholder="(e.g. nextPageToken)" required onchange="urlBlur()">
+										<input type="text" style="font-size:1em" class="form-control"  id="next_page_param" placeholder="(e.g. nextPageToken)" required onchange="urlBlurNoCall()">
 									</div>
 								</div>
 
@@ -1171,6 +1139,9 @@
 	 JavaScripts
 	============================================= -->
 	<script src="js/search.js" type="text/javascript" charset="UTF-8"></script>
+
+	<script src="node_modules⁩/cors-anywhere⁩/search.js" type="text/javascript" charset="UTF-8"></script>
+
 	<script type="text/javascript" src="js/renderjson.js"></script>
 
 	<script src="js/treeview.min.js" type="text/javascript"></script>
