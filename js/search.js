@@ -799,7 +799,7 @@ function populateTable(data){
         $( "#saveBut" ).remove();
         //$( "#SCRIPT" ).remove();
 
-        $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="DownloadJSON2CSV();return false;saveLogs()"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
+        $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="saveLogs();DownloadJSON2CSV();return false;"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
         $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" onclick="downloadJSON()" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
         $('<a id="JS" class="button button-mini button-border button-rounded button-green" onclick="getCodeClicked()" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
         $('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-amber dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>').appendTo('#viewButtons2');
@@ -1238,7 +1238,7 @@ function checkButtonClicked(){
             for(var i=0; i<obJSON1.parameters.length; ++i){
               console.log("second ", obJSON1.parameters[i]['value'])
 
-              if(obJSON1.parameters[i]['value']){
+              if($("#"+obJSON1.parameters[i]['name']).val() || obJSON1.parameters[i]['value']){
               listP1+= JSON.stringify(obJSON1.parameters[i]['name']);
               listP1+= ":"
               if(obJSON1.parameters[i]['displayedName']){
@@ -1246,10 +1246,17 @@ function checkButtonClicked(){
               }else{
                 listP1+= JSON.stringify(obJSON1.parameters[i]['value']);
               }
-              if(i+1<obJSON1.parameters.length){
-                 listP1+= ","
-               }
+              // if(i+1<obJSON1.parameters.length){
+              //    listP1+= ","
+              //  }
              }
+
+             if(i+1<obJSON1.parameters.length){
+             if($("#"+obJSON1.parameters[i+1]['name']).val() || obJSON1.parameters[i+1]['value']) {
+               listP+= ",";
+             }
+            }
+
             }
             //listP1+= ",";
 
@@ -1298,7 +1305,6 @@ function checkButtonClicked(){
 }else{
   var url = window.location.href.split("api=");
   var url_title = url[1].split('_').join(' ');
-
 
     // retrieve myObj for YouTube from FireBase DB
     registration();
@@ -1355,22 +1361,31 @@ function checkButtonClicked(){
 
             //[3] Request parameters
             listP1="{";
-
             for(var i=0; i<obJSON1.parameters.length; ++i){
               // console.log("first ", obJSON1.parameters[i]['value'])
-              if(obJSON1.parameters[i]['value']){
+              if($("#"+obJSON1.parameters[i]['name']).val() || obJSON1.parameters[i]['value']){
               listP1+= JSON.stringify(obJSON1.parameters[i]['name']);
               listP1+= ":" //$('#queryw').val()
+              //change here now
               if(obJSON1.parameters[i]['displayedName']){
+                // console.log("print this: ", JSON.parse(obJSON1.parameters[i]['name']));
                 listP1+= JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
               }else{
                 listP1+= JSON.stringify(obJSON1.parameters[i]['value']);
               }
-              if(i+1<obJSON1.parameters.length){
-                 listP1+= ","
-               }
+              // if(i+1<obJSON1.parameters.length){
+              //    listP1+= ","
+              //  }
+             }
+             if(i+1<obJSON1.parameters.length){
+             if($("#"+obJSON1.parameters[i+1]['name']).val() || obJSON1.parameters[i+1]['value']) {
+               listP+= ",";
              }
             }
+            }
+
+
+
             //listP1+= ",";
             if(obJSON1.url != "https://www.eventbriteapi.com/v3/events/search"){
 
@@ -1381,7 +1396,7 @@ function checkButtonClicked(){
               }
             }
             listP1+= "}";
-            //console.log("listP1 SETITEM: ",listP1);
+            // console.log("listP1 SETITEM: ",listP1);
             if(obJSON1.maxResPerPage){
               $("#reqParameters").append("<label style='font-size:1em'>Number of results</label>");
               $("#reqParameters").append("<input style='height:27px' type='text' class='form-control' id='numOfResults' value="+obJSON1.maxResPerPage+"></input>")
@@ -1590,7 +1605,7 @@ function populateAccountTables(){
               // var url = childSnapshot.val().urlCSV;
               // var urlJ = childSnapshot.val().urlJSON;
               // var link = childSnapshot.val().queryLink;
-              $("#api_table_content tbody").append('<tr><td>'+name1+'</td> <td><a href="api-integration.html?'+name+'" target="_blank"><img src="images/edit.png" width="25px"></a> &nbsp;  <a id="'+name+'" href="" onclick="deleteRowAccountTableAPIs(this,this)"><img src="images/del.png" width="25px"></a>   </td></tr>');
+              $("#api_table_content tbody").append('<tr><td>'+name1+'</td> <td><a href="api-integration.html?'+name+'" target="_blank"><img src="images/edit.png" width="25px"></a> &nbsp;  <a id="'+name1+'" href="" onclick="deleteRowAccountTableAPIs(this,this)"><img src="images/del.png" width="25px"></a>   </td></tr>');
 
             }else{
               //window.alert("No USER")
@@ -1744,55 +1759,53 @@ function retrieveDataX(){
     function getTheNextPage(p, pages, nextPage){
       //console.log("getTheNextPage");
       listP=  "{";
-      for(var i=0; i<obJSON1.parameters.length; ++i){
-        //  if(!obJSON1.parameters[i]['description']){
-        //  console.log("No DESC: ");
-        //   console.log(obJSON1.parameters[i]['description'])
-        // }
-        listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
-        listP+= ":"
-        if(obJSON1.parameters[i]['displayedName']){ //displayedName
-          listP+= JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
-        }else{
-          listP+= JSON.stringify(obJSON1.parameters[i]['value']);
+      for(var i=0; i<obJSON1.parameters.length; ++i) {
+        if($("#"+obJSON1.parameters[i]['name']).val() || obJSON1.parameters[i]['value']){
+          listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
+          listP+= ":"
+          if(obJSON1.parameters[i]['displayedName']){ //displayedName
+            listP+= JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
+          }else{
+            listP+= JSON.stringify(obJSON1.parameters[i]['value']);
+          }
         }
-        listP+= ","
-    //}//if
+
+        if(i+1<obJSON1.parameters.length){
+        if($("#"+obJSON1.parameters[i+1]['name']).val() || obJSON1.parameters[i+1]['value']) {
+          listP+= ",";
+        }
+       }
+
     }
 
+
     if(obJSON1.resPerPageParam){
+      listP+= ","
       listP+= JSON.stringify(obJSON1.resPerPageParam);
       listP+= ":";
       listP+= JSON.stringify(obJSON1.maxResPerPage);
-      listP+= ","
     }
     if(obJSON1.indexPage){
+      listP+= ","
       listP+= JSON.stringify(obJSON1.indexPage);
       listP+= ":";
       listP+= p;
     }else if(obJSON1.offsetPage){
+      listP+= ","
       listP+= JSON.stringify(obJSON1.offsetPage);
       listP+= ":";
       listP+= p*(eval(obJSON1.maxResPerPage));
-    }else{
+    }else if(obJSON1.currPageParam){
+      listP+= ","
       listP+= JSON.stringify(obJSON1.currPageParam);
       listP+= ":";
       listP+= JSON.stringify(nextPage);
     }
     listP+= "}";
 
-    // console.log("listP no: ", listP);
+    console.log("listP no: ", listP);
 
-    // console.log("listP: ", JSON.parse(listP));
-    // console.log("Page: ", p);
 
-    // if(obJSON1.url.includes('.json')){
-    //   var jp = "json";
-    // }else{
-    //   var jp = "jsonp";
-    // }
-
-//console.log("listPYEAH: ",listP);
 
 if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no CORS
     $.ajax({
@@ -2258,7 +2271,7 @@ else{
           //$( "#saveBut" ).remove();
           //$( "#SCRIPT" ).remove();
 
-          $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="DownloadJSON2CSV();return false;saveLogs()"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
+          $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="saveLogs();DownloadJSON2CSV();return false;"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
           $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" onclick="downloadJSON()" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
           $('<a id="JS" class="button button-mini button-border button-rounded button-green" onclick="getCodeClicked()" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
           $('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-amber dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>').appendTo('#viewButtons2');
@@ -2605,16 +2618,16 @@ function retrieveData(){
   // save logs submit clicked START
   if(logDecision == "accept"){
 
-  var res = [];
-  var param = [];
+    var res = [];
+    var param = [];
 
-  if($("input[name='checkbox-w']").is(":checked")){
-      $("input[name='checkbox-w']:checked").each(function(){
-        res.push({
-          name: this.id
+    if($("input[name='checkbox-w']").is(":checked")){
+        $("input[name='checkbox-w']:checked").each(function(){
+          res.push({
+            name: this.id
+          });
         });
-      });
-    }
+      }
 
 
   for(var i=0; i<obJSON1.parameters.length; ++i){
@@ -2630,10 +2643,13 @@ function retrieveData(){
   getLogObj.timestamp = Date.now();
   getLogObj.url = obJSON1.url;
   getLogObj.parameters = param;
+  getLogObj.response = res;
   getLogObj.butClicked = "QUERY";
 
-  firebase.database().ref('getLog/' + ui).push(JSON.parse(JSON.stringify(getLogObj)));
-  // firebase.database().ref('getLog/').remove();
+   firebase.database().ref('getLog/' + ui).push(JSON.parse(JSON.stringify(getLogObj)));
+   // firebase.database().ref('getLog/').remove();
+   // firebase.database().ref('log/').remove();
+
   }
   // console.log("Data Logged: ", getLogObj);
   // save logs submit clicked END
@@ -2656,64 +2672,55 @@ function retrieveData(){
     getTheNextPage(p, pages, nextPage);
 
     function getTheNextPage(p, pages, nextPage){
+
       listP=  "{";
       for(var i=0; i<obJSON1.parameters.length; ++i) {
-    listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
-    listP+= ":"
-    if(obJSON1.parameters[i]['displayedName']){ //displayedName
-      listP+= JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
-    }else{
-      listP+= JSON.stringify(obJSON1.parameters[i]['value']);
+        if($("#"+obJSON1.parameters[i]['name']).val() || obJSON1.parameters[i]['value']){
+          listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
+          listP+= ":"
+          if(obJSON1.parameters[i]['displayedName']){ //displayedName
+            listP+= JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
+          }else{
+            listP+= JSON.stringify(obJSON1.parameters[i]['value']);
+          }
+
+          //console.log("LIST: ",listP);
+      }
+
+      if(i+1<obJSON1.parameters.length){
+      if($("#"+obJSON1.parameters[i+1]['name']).val() || obJSON1.parameters[i+1]['value']) {
+        listP+= ",";
+      }
+     }
     }
-    listP+= ","
-    }
-    //   for(var i=0; i<obJSON1.parameters.length; ++i){
-    //     if(obJSON1.parameters[i]['value']){
-    //     listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
-    //     listP+= ":"
-    //     if(obJSON1.parameters[i]['displayedName'] && JSON.stringify(obJSON1.parameters[i]['value'])!=""){ //displayedName
-    //       listP+= JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
-    //     }else{
-    //       listP+= JSON.stringify(obJSON1.parameters[i]['value']);
-    //     }
-    //     //change
-    //     if(i+1<obJSON1.parameters.length){
-    //        listP1+= ","
-    //      }
-    //   }
-    // }
+
 
     if(obJSON1.resPerPageParam){
+      listP+= ","
       listP+= JSON.stringify(obJSON1.resPerPageParam);
       listP+= ":";
       listP+= JSON.stringify(obJSON1.maxResPerPage);
-      listP+= ","
     }
     if(obJSON1.indexPage){
+      listP+= ","
       listP+= JSON.stringify(obJSON1.indexPage);
       listP+= ":";
       listP+= p;
     }else if(obJSON1.offsetPage){
+      listP+= ","
       listP+= JSON.stringify(obJSON1.offsetPage);
       listP+= ":";
       listP+= p*(eval(obJSON1.maxResPerPage));
-    }else{
+    }else if(obJSON1.currPageParam){
+      listP+= ","
       listP+= JSON.stringify(obJSON1.currPageParam);
       listP+= ":";
       listP+= JSON.stringify(nextPage);
     }
     listP+= "}";
 
-    // console.log("listP: ", JSON.parse(listP));
-    // console.log("Page: ", p);
 
-    // if(obJSON1.url.includes('.json')){
-    //   var jp = "json";
-    // }else{
-    //   var jp = "jsonp";
-    // }
-
-//console.log("listPYEAH: ",listP);
+  console.log("listPYEAH: ",listP);
 
 if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no CORS
     $.ajax({
@@ -3219,7 +3226,7 @@ else{
           $( "#saveBut" ).remove();
           //$( "#SCRIPT" ).remove();
 
-          $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="DownloadJSON2CSV();return false;saveLogs()"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
+          $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="saveLogs();DownloadJSON2CSV();return false;"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
           $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" onclick="downloadJSON()" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
           $('<a id="JS" class="button button-mini button-border button-rounded button-green" onclick="getCodeClicked()" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
 
@@ -3920,6 +3927,7 @@ function DownloadJSON2CSV(){
 }
 
 function saveLogs(){
+  console.log("SAVE CSV");
   // save logs save clicked END
   if(logDecision == "accept"){
 
@@ -3928,8 +3936,6 @@ function saveLogs(){
 
     if($("input[name='checkbox-w']").is(":checked")){
         $("input[name='checkbox-w']:checked").each(function(){
-          // console.log("VALUE: ",this.value);
-          // console.log("FIELD: ",this.id);
           res.push({
             name: this.id
           });
@@ -3937,24 +3943,57 @@ function saveLogs(){
       }
 
 
-    for(var i=0; i<obJSON1.parameters.length; ++i){
-     param.push({
-       name: obJSON1.parameters[i]['name'],
-       value: obJSON1.parameters[i]['value']
-     });
-   }
+  for(var i=0; i<obJSON1.parameters.length; ++i){
+   param.push({
+     name: obJSON1.parameters[i]['name'],
+     value: obJSON1.parameters[i]['value']
+   });
+ }
 
-    getLogObj = {};
+  getLogObj = {};
 
-    getLogObj.id = ui;
-    getLogObj.timestamp = Date.now();
-    getLogObj.url = obJSON1.url;
-    getLogObj.parameters = param;
-    getLogObj.response = res;
-    getLogObj.butClicked = "CSV";
+  getLogObj.id = ui;
+  getLogObj.timestamp = Date.now();
+  getLogObj.url = obJSON1.url;
+  getLogObj.parameters = param;
+  getLogObj.response = res;
+  getLogObj.butClicked = "CSV";
 
-    firebase.database().ref('getLog/' + ui).push(JSON.parse(JSON.stringify(getLogObj)));
+   firebase.database().ref('getLog/' + ui).push(JSON.parse(JSON.stringify(getLogObj)));
+
   }
+  // if(logDecision == "accept"){
+  //
+  //   var res = [];
+  //   var param = [];
+  //
+  //   if($("input[name='checkbox-w']").is(":checked")){
+  //       $("input[name='checkbox-w']:checked").each(function(){
+  //         res.push({
+  //           name: this.id
+  //         });
+  //       });
+  //     }
+  //
+  //
+  //   for(var i=0; i<obJSON1.parameters.length; ++i){
+  //    param.push({
+  //      name: obJSON1.parameters[i]['name'],
+  //      value: obJSON1.parameters[i]['value']
+  //    });
+  //  }
+  //
+  //   getLogObj = {};
+  //
+  //   getLogObj.id = ui;
+  //   getLogObj.timestamp = Date.now();
+  //   getLogObj.url = obJSON1.url;
+  //   getLogObj.parameters = param;
+  //   getLogObj.response = res;
+  //   getLogObj.butClicked = "CSV";
+  //
+  //   firebase.database().ref('getLog/' + ui).push(JSON.parse(JSON.stringify(getLogObj)));
+  // }
     // console.log("Data Logged: ", getLogObj);
     // save logs save clicked END
 }
@@ -4305,6 +4344,8 @@ function urlBlur(){
 
   firebase.auth().onAuthStateChanged(function (user) {
     if(user){
+
+    if(logIntDecision == "accept"){
       firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
         uID = snapshot.val().userId;
 
@@ -4317,6 +4358,7 @@ function urlBlur(){
         firebase.database().ref('log/' + uID).push(JSON.parse(JSON.stringify(logObj)));
       });
     }
+  }
   });
 
 
@@ -4324,8 +4366,6 @@ function urlBlur(){
   if($("#url").val()){
 
   var arrParamVal = [];
-  //document.getElementById('title').value = "TYPE NAME HERE";
-  //document.getElementById('title').style.color="red";
 
   if($("#url").val().includes('?')){
     $("#requestTabel tbody").empty();
@@ -4440,10 +4480,6 @@ function urlBlur(){
     method: 'GET',
     success: function (response) {
       status = "success";
-      // if(firstSuc){
-      //   draw = true;
-      //   firstSuc = false;
-      // }
       jsResponse = JSON.stringify(response, null, 2);
 
       document.getElementById('jsonResponse').style.backgroundColor="#e4f3db";
@@ -4498,17 +4534,20 @@ function urlBlurNoCall(){
 
   firebase.auth().onAuthStateChanged(function (user) {
     if(user){
-      firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
-        uID = snapshot.val().userId;
 
-        logObj.user = snapshot.val().name;
-        logObj.timestamp = Date.now();
-        logObj.fields = this.myObj;
-        logObj.status = status;
-        logObj.feedback = jsResponse;
+      if(logIntDecision == "accept"){
+        firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
+          uID = snapshot.val().userId;
 
-        firebase.database().ref('log/' + uID).push(JSON.parse(JSON.stringify(logObj)));
-      });
+          logObj.user = snapshot.val().name;
+          logObj.timestamp = Date.now();
+          logObj.fields = this.myObj;
+          logObj.status = status;
+          logObj.feedback = jsResponse;
+
+          firebase.database().ref('log/' + uID).push(JSON.parse(JSON.stringify(logObj)));
+        });
+      }
     }
   });
 
@@ -5552,14 +5591,16 @@ function callFirebase(){
                 }
 
                 //responses
+                console.log("length: ", childSnapshot.val().responses.length);
                 for(var i=0; i<childSnapshot.val().responses.length; ++i){
                   var f = childSnapshot.val().responses[i].displayedName; //s1
+                  console.log("response name: ",f);
                   var pathReplaceJ = childSnapshot.val().responses[i].parameter.replace("[j]", "[0]");
                   var pathf = f+"/"+pathReplaceJ;  //xx
                   fields_paths.push(pathf);
 
                   $("#fields tbody").append('<tr id="'+pathf+'"><td>'+childSnapshot.val().responses[i].displayedName+'</td>  <td><input type="text" class="form-control" id="displayName'+f+'" placeholder="" value="'+childSnapshot.val().responses[i].name+'" onchange="urlBlurNoCall()" style="font-size:1em"></td> <td><input type="text" class="form-control" id="displayDesc'+f+'" placeholder="" value="'+childSnapshot.val().responses[i].description+'" onchange="urlBlurNoCall()"></td> <td><input id='+pathf+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
-                  urlBlurNoCall();
+                  // urlBlurNoCall();
                 }
 
               }
@@ -5581,7 +5622,7 @@ function callFirebase(){
                 // var url = childSnapshot.val().urlCSV;
                 // var urlJ = childSnapshot.val().urlJSON;
                 // var link = childSnapshot.val().queryLink;
-                $("#api_table_content tbody").append('<tr><td>'+name1+'</td> <td><a href="api-integration.html?'+name+'" target="_blank"><img src="images/edit.png" width="25px"></a> &nbsp;  <a id="'+name+'" href="" onclick="deleteRowAccountTableAPIs(this,this)"><img src="images/del.png" width="25px"></a>   </td></tr>');
+                $("#api_table_content tbody").append('<tr><td>'+name1+'</td> <td><a href="api-integration.html?'+name+'" target="_blank"><img src="images/edit.png" width="25px"></a> &nbsp;  <a id="'+name1+'" href="" onclick="deleteRowAccountTableAPIs(this,this)"><img src="images/del.png" width="25px"></a>   </td></tr>');
 
               }else{
                 //window.alert("No USER")
