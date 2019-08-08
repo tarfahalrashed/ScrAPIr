@@ -145,12 +145,10 @@
 					<div class="row">
 						<div class="col-9">
 
-						<div class="modal fade cookieModal" id="consentIntModal" tabindex="-1" role="dialog" aria-labelledby="cookieModalLabel">
+						<!-- <div class="modal fade cookieModal" id="consentIntModal" tabindex="-1" role="dialog" aria-labelledby="cookieModalLabel">
 						    <div class="modal-dialog" role="document">
 						        <div class="modal-content">
-						            <!-- <div class="modal-header">
-						                <h2 id="cookieModalLabel">Cookie Information and Consent Request</h2>
-						            </div> -->
+
 						            <div class="modal-body">
 						                <h4>For research purpusoes we are recording the steps your taken, no personal information is recoreded. Can we save your actions?</h4>
 						            </div>
@@ -160,8 +158,28 @@
 						            </div>
 						        </div>
 						    </div>
-						</div>
+						</div> -->
 
+						<button id="butDDInt" style="display:none" class="open-button" onclick="openForm()">Open Form</button>
+
+						<div class="form-popup" id="myForm">
+							<!-- <form action="" class="form-container"> -->
+							<p style="font-size: 1.8em; ">To support our research, may we log the sites you query and the queries you make?  We will not report your identity or store any other information about you.</p>
+
+
+								<!-- <label for="email"><b>Email</b></label>
+								<input type="text" placeholder="Enter Email" name="email" required>
+
+								<label for="psw"><b>Password</b></label>
+								<input type="password" placeholder="Enter Password" name="psw" required> -->
+
+								<!-- <button id="cookieModalConsent" type="button" class="btn btn-success btn-lg btn-block" data-dismiss="modal" onclick="canIntLog('accept')">Accept</button></br>
+								<button id="cookieModalConsent" type="button" class="btn btn-danger btn-lg btn-block" data-dismiss="modal" onclick="canIntLog('decline')">Decline</button> -->
+
+								<button type="submit" class="btn" onclick="canIntLog('accept')">Accept</button>
+								<button type="button" class="btn cancel" onclick="canIntLog('decline')">Decline</button>
+							<!-- </form> -->
+						</div>
 
 
 						<div class="modal" id="loginModal">
@@ -789,6 +807,73 @@
 
 								<style>
 
+								.open-button {
+									background-color: #555;
+									color: white;
+									padding: 16px 20px;
+									border: none;
+									cursor: pointer;
+									opacity: 0.8;
+									position: fixed;
+									/* bottom: 23px; */
+									/* right: 28px; */
+									/* width: 280px; */
+								}
+
+								/* The popup form - hidden by default */
+								.form-popup {
+									border-radius: 15px;
+									display: none;
+									position: fixed;
+									bottom: 20px;
+									right: 20px;
+									border: 1px solid #9b9b9b;
+									z-index: 9;
+									background-color: #c1c1c1;
+									padding: 20px;
+									width:30%;
+									height:28%;
+									/* color:white; */
+								}
+
+								/* Add styles to the form container */
+								/* .form-container {
+									padding: 10px;
+									background-color: #c1c1c1;
+									color:white;
+								} */
+
+								/* Set a style for the submit/login button */
+								.form-popup .btn {
+									background-color: #428bca;
+									color: white;
+									padding: 11px 15px;
+									border: none;
+									cursor: pointer;
+									width: 90px;
+									/* margin-bottom:10px; */
+									opacity: 0.8;
+									font-size: 1.7em;
+								}
+
+								/* Add a red background color to the cancel button */
+								.form-popup .cancel {
+									background-color: #d9534f;
+									margin-left:10px;
+									/* font-weight: bold; */
+								}
+
+								/* Add some hover effects to buttons */
+								.form-popup .btn:hover, .open-button:hover {
+									opacity: 1;
+								}
+
+
+
+
+
+
+
 									#aa {
 								  position: relative;
 								}
@@ -840,7 +925,7 @@
 
 									</div>
 									<div class="" style="display: inline-block;margin-left:100px;"> <!-- -->
-										<label>Results per page "parameter" [if exisit] <a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="The parameter used to set the maximum number of results to (e.g. the parameter that you set the number of results to in YouTube is 'maxResults'). Not all APIs provide this parameter."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label>
+										<label>Results per page "parameter" [if exist] <a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="The parameter used to set the maximum number of results to (e.g. the parameter that you set the number of results to in YouTube is 'maxResults'). Not all APIs provide this parameter."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label>
 										<!-- <p style="font-size:1.5em; margin:0px; padding:0px">The parameter used to set the maximum number of results to (e.g. YouTube search API is maxResults). Not all APIs provide this parameter</p> -->
 										<input style="" type="text" class="form-control" id="result_param" placeholder="(e.g. maxResults)" onchange="urlBlurNoCall()">
 									</div>

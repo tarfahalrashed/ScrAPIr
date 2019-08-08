@@ -266,7 +266,8 @@
 
 						<div class="form-popup" id="myForm">
 						  <!-- <form action="" class="form-container"> -->
-						    <h5>we are logging the actions you are doing in this page accpet or decline</h5>
+						    <!-- <h1>Consent</h1> -->
+								<p style="font-size: 1.8em; ">To support our research, may we log the sites you query and the queries you make?  We will not report your identity or store any other information about you.</p>
 
 						    <!-- <label for="email"><b>Email</b></label>
 						    <input type="text" placeholder="Enter Email" name="email" required>
@@ -298,7 +299,7 @@
 								</br>
 								<form id="form1" class="my-form">
 									<div id="reqParametersContainer" style="">
-										<div id="reqParameters" style="max-height:480px; overflow-y:scroll; overflow-y:auto; overflow-x:auto;"></div>
+										<div id="reqParameters" style="max-height:480px; overflow-y:scroll; overflow-y:auto; overflow-x:auto; font-size:1.1em;"></div>
 
 										</br>
 										<a id="submitQuery" class="button button-mini" onclick="retrieveData()" type="submit"></i>Search </a>
@@ -687,40 +688,45 @@
 
 			/* The popup form - hidden by default */
 			.form-popup {
+				border-radius: 15px;
 			  display: none;
 			  position: fixed;
-			  bottom: 0;
-			  right: 15px;
-			  border: 3px solid #E4F2F8;
+			  bottom: 20px;
+			  right: 20px;
+			  border: 1px solid #9b9b9b;
 			  z-index: 9;
-				background-color: #E4F2F8;
-				padding: 10px;
+				background-color: #c1c1c1;
+				padding: 20px;
+				width:30%;
+				height:28%;
+				/* color:white; */
 			}
 
 			/* Add styles to the form container */
-			.form-container {
-			  /* max-width: 300px; */
+			/* .form-container {
 			  padding: 10px;
-				/* width:100% */
-			  background-color: #E4F2F8;
-			}
+			  background-color: #c1c1c1;
+				color:white;
+			} */
 
 			/* Set a style for the submit/login button */
 			.form-popup .btn {
-			  background-color: #426380;
+			  background-color: #428bca;
 			  color: white;
-			  padding: 16px 20px;
+			  padding: 11px 15px;
 			  border: none;
 			  cursor: pointer;
-			  width: 100px;
+			  width: 90px;
 			  /* margin-bottom:10px; */
-			  opacity: 0.9;
-				font-size: 1.6em;
+			  opacity: 0.8;
+				font-size: 1.7em;
 			}
 
 			/* Add a red background color to the cancel button */
 			.form-popup .cancel {
-			  background-color: #a83b51;
+			  background-color: #d9534f;
+				margin-left:10px;
+				/* font-weight: bold; */
 			}
 
 			/* Add some hover effects to buttons */

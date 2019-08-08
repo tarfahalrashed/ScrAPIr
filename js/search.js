@@ -341,8 +341,8 @@ function isSignedUp(){
         $('#acc').show();
         $('#signout').show();
 
-        $('#consentIntModal').modal('show');
-        // $('#cooki').click();
+        // $('#consentIntModal').modal('show');
+        $('#butDDInt').click();
         // [END_EXCLUDE]
       } else {
 
@@ -1803,7 +1803,7 @@ function retrieveDataX(){
     }
     listP+= "}";
 
-    console.log("listP no: ", listP);
+    // console.log("listP no: ", listP);
 
 
 
@@ -2720,7 +2720,7 @@ function retrieveData(){
     listP+= "}";
 
 
-  console.log("listPYEAH: ",listP);
+  // console.log("listPYEAH: ",listP);
 
 if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no CORS
     $.ajax({
