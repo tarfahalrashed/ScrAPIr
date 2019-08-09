@@ -49,6 +49,15 @@ function registration(){
   });
 }
 
+
+
+function openModal(){
+
+  $('#consentDataModal').modal('show');
+
+}
+
+
 function isSignedUp(){
   firebase.initializeApp(config);
 
@@ -1305,6 +1314,15 @@ function checkButtonClicked(){
 }else{
   var url = window.location.href.split("api=");
   var url_title = url[1].split('_').join(' ');
+
+
+    //logo!
+    //document.getElementById('logoImage').src='images/'+url[1]+'.png'";
+    $("#logo").append('<img id="logoImage" src="images/'+url[1]+'.png" alt="" height="10" width="60" style="margin-left:60%; margin-top:50%" onerror="this.parentNode.removeChild(this);">')
+
+    // $("#logo").append('<h5 style="display: inline-block">'+url_title+'</h5>');
+
+    //console.log("images/"+url[1]+".png");
 
     // retrieve myObj for YouTube from FireBase DB
     registration();
@@ -6182,10 +6200,11 @@ function populateListOfAPIs(){
   firebase.database().ref('/apis/').once('value').then(function(snapshot) {
     snapshot.forEach(function(childSnapshot) { //for each API
       if(childSnapshot.val().title != undefined){
-        //console.log(childSnapshot.val().title);
         var str = childSnapshot.val().title;
         var api_title = str.split(' ').join('_');
+        // if(api_title!="YouTube_API" || api_title!=){
         $("#apis_list").append("<option id="+api_title+">"+childSnapshot.val().title+"</option>");
+        // }
       }
     });
   });
@@ -6205,12 +6224,12 @@ function populateListOfAPIs(){
 
 
 function apiHasBeenChosen(select){
-//alert(select.options[select.selectedIndex].getAttribute("myid"));
-var str = select.options[select.selectedIndex].getAttribute("id");
-var api_title = str.split('_').join(' ');
+  //alert(select.options[select.selectedIndex].getAttribute("myid"));
+  var str = select.options[select.selectedIndex].getAttribute("id");
+  var api_title = str.split('_').join(' ');
 
-console.log("selected: ", api_title);
-window.location.href='data-management.html?api='+str;
+  console.log("selected: ", api_title);
+  window.location.href='data-management.html?api='+str;
 }
 
 

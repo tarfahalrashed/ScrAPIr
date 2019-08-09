@@ -145,41 +145,38 @@
 					<div class="row">
 						<div class="col-9">
 
-						<!-- <div class="modal fade cookieModal" id="consentIntModal" tabindex="-1" role="dialog" aria-labelledby="cookieModalLabel">
-						    <div class="modal-dialog" role="document">
-						        <div class="modal-content">
-
-						            <div class="modal-body">
-						                <h4>For research purpusoes we are recording the steps your taken, no personal information is recoreded. Can we save your actions?</h4>
-						            </div>
-						            <div class="modal-footer">
-													<button id="cookieModalConsent" type="button" class="btn btn-success btn-lg btn-block" data-dismiss="modal" onclick="canIntLog('accept')">Accept</button></br>
-						              <button id="cookieModalConsent" type="button" class="btn btn-danger btn-lg btn-block" data-dismiss="modal" onclick="canIntLog('decline')">Decline</button>
-						            </div>
-						        </div>
-						    </div>
-						</div> -->
+							<div id="consentIntModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display:none; padding-left: 0px;">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-body">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 style=" padding-left:30px; padding-right:30px; padding-top:5px" class="modal-title" id="myModalLabel">Logging Consent</h4>
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+											</div>
+											<div class="modal-body">
+												<p style="font-size: 0.9em; padding-left:30px; padding-right:30px">To support our research, we want to better understand the type of queries people perform on different sites, and the flow people take in this page to integrate a web API. So, if you accept, we will log the websites you query, the queries you make, the returned results, if you successfully integrate the API, and nothing else. We will not log or save any other information about your identity.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
 						<button id="butDDInt" style="display:none" class="open-button" onclick="openForm()">Open Form</button>
 
+
 						<div class="form-popup" id="myForm">
 							<!-- <form action="" class="form-container"> -->
-							<p style="font-size: 1.8em; ">To support our research, may we log the sites you query and the queries you make?  We will not report your identity or store any other information about you.</p>
-
-
-								<!-- <label for="email"><b>Email</b></label>
-								<input type="text" placeholder="Enter Email" name="email" required>
-
-								<label for="psw"><b>Password</b></label>
-								<input type="password" placeholder="Enter Password" name="psw" required> -->
-
-								<!-- <button id="cookieModalConsent" type="button" class="btn btn-success btn-lg btn-block" data-dismiss="modal" onclick="canIntLog('accept')">Accept</button></br>
-								<button id="cookieModalConsent" type="button" class="btn btn-danger btn-lg btn-block" data-dismiss="modal" onclick="canIntLog('decline')">Decline</button> -->
+								<!-- <h1>Consent</h1> -->
+								<p style="font-size: 1.8em; padding:5px; margin:5px">To support our research, may we log the sites you query and the queries you make?  We will not report your identity or store any other information about you.
+								<a data-target="#consentIntModal" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#consentIntModal">More details.</a>
+								</p>
 
 								<button type="submit" class="btn" onclick="canIntLog('accept')">Accept</button>
 								<button type="button" class="btn cancel" onclick="canIntLog('decline')">Decline</button>
 							<!-- </form> -->
 						</div>
+
+
 
 
 						<div class="modal" id="loginModal">
@@ -832,7 +829,7 @@
 									background-color: #c1c1c1;
 									padding: 20px;
 									width:30%;
-									height:28%;
+									height:30%;
 									/* color:white; */
 								}
 
