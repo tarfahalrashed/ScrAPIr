@@ -391,7 +391,7 @@ var logIntDecision="accept";
 
 function canIntLog(dec){
   logIntDecision = dec;
-  // console.log("DEC: ", logDecision);
+  document.getElementById("myForm").style.display = "none";
 }
 
 // function createResource(properties) {
@@ -1318,7 +1318,7 @@ function checkButtonClicked(){
 
     //logo!
     //document.getElementById('logoImage').src='images/'+url[1]+'.png'";
-    $("#logo").append('<img id="logoImage" src="images/'+url[1]+'.png" alt="" height="10" width="60" style="margin-left:60%; margin-top:50%" onerror="this.parentNode.removeChild(this);">')
+    $("#logo").append('<img id="logoImage" src="images/'+url[1]+'.png" alt="" height="10" width="60" style="margin-left:50%; margin-top:50%" onerror="this.parentNode.removeChild(this);">')
 
     // $("#logo").append('<h5 style="display: inline-block">'+url_title+'</h5>');
 
@@ -2028,15 +2028,19 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
    });//AJAX
  }//if header
 else{
-  //if(obJSON1.headers[0].headerValue){
+  var headername= obJSON1.headers[0].headerKey;//$("#nameH").val();
+  var headervar= obJSON1.headers[0].headerValue;//$("#valueH").val();
+  var headers_to_set = {};
+  headers_to_set[headername] = headervar;
 
     $.ajax({
       url: "https://cors-anywhere.herokuapp.com/"+obJSON1.url,
       data: JSON.parse(listP),
       method: 'GET',
-      headers: {
-        "Authorization" : obJSON1.headers[0].headerValue//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx"
-      },
+      headers: headers_to_set,
+      // {
+      //   "Authorization" : obJSON1.headers[0].headerValue//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx"
+      // },
       success: function (response) {
         //console.log("RES_Ret: ", response);
         if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
@@ -2942,14 +2946,19 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
  }//if header
 else{
   //if(obJSON1.headers[0].headerValue){
+  var headername= obJSON1.headers[0].headerKey;//$("#nameH").val();
+  var headervar= obJSON1.headers[0].headerValue;//$("#valueH").val();
+  var headers_to_set = {};
+  headers_to_set[headername] = headervar;
 
     $.ajax({
       url: "https://cors-anywhere.herokuapp.com/"+obJSON1.url,
       data: JSON.parse(listP),
       method: 'GET',
-      headers: {
-        "Authorization" : obJSON1.headers[0].headerValue//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx"
-      },
+      headers: headers_to_set,
+      // {
+      //   "Authorization" : obJSON1.headers[0].headerValue//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx"
+      // },
       success: function (response) {
         //console.log("RES_Ret: ", response);
         if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
@@ -4442,19 +4451,27 @@ function urlBlur(){
 
 
   console.log("listData: ", listData);
+
   // console.log("LINK: ", link);
 
   if($("#valueH").val()){
     // console.log("it has header!");
 
+    var headername= $("#nameH").val();
+    var headervar= $("#valueH").val();
+    var headers_to_set = {};
+    headers_to_set[headername] = headervar;
+
+    console.log("it has header!: ", headers_to_set);
+
     $.ajax({
       url: "https://cors-anywhere.herokuapp.com/"+link,
       data: JSON.parse(listData),
       method: 'GET',
-      headers: {
-        "Authorization" : $("#valueH").val()//"aecd329381b14464bc197f18a7b1b2b6"//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx",
-        // "Access-Control-Allow-Headers": "x-requested-with"
-      },
+      headers: headers_to_set,
+      // {
+      //   "Authorization" : $("#valueH").val()//"aecd329381b14464bc197f18a7b1b2b6"//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx",
+      // },
       success: function (response) {
         status = "success";
         // if(firstSuc){
@@ -4720,13 +4737,19 @@ function showResponseSchema(){
         //console.log("valueH:", $("#valueH").val());
         if($("#valueH").val()!=""){ //CHANGE BEARER
 
+          var headername= $("#nameH").val();
+          var headervar= $("#valueH").val();
+          var headers_to_set = {};
+          headers_to_set[headername] = headervar;
+
         var settings3 = {
           "url": "https://cors-anywhere.herokuapp.com/"+myObj.url,//https://api.yelp.com/v3/businesses/search?term=burgers&location=boston",
           "data": myObj.parameters,
           "method": "GET",
-          "headers": {
-            "Authorization": $("#valueH").val()//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx"
-          }
+          "headers": headers_to_set
+          // {
+          //   "Authorization": $("#valueH").val()//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx"
+          // }
         }
 
 
