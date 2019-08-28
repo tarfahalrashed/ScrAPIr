@@ -1189,6 +1189,13 @@ function checkButtonClicked(){
     // retrieve myObj for YouTube from FireBase DB
     registration();
 
+
+
+    firebase.database().ref('apis/test/responses/1').remove();
+
+
+
+
     //Saved Data
     firebase.database().ref('/publicSavedData/').once('value').then(function(snapshot) {
       snapshot.forEach(function(childSnapshot){ //for each API
@@ -4303,11 +4310,11 @@ $("#containerALL").click(function(){
       success: function (response) {
         //console.log(response);
         document.getElementById('jsonResponse').style.backgroundColor="#e4f3db";
-        $("#jsoneditor").empty();
+        // $("#jsoneditor").empty();
         $("#jsonResponse").append('<code>'+JSON.stringify(response, null, 2)+'</code>');
 
-        showResponseSchema();
-        // $("#toggRes").show();
+        showResponseSchema(listData);
+        $("#toggRes").show();
         $("#correct").show();
         $("#notcorrect").hide();
 
@@ -4316,9 +4323,9 @@ $("#containerALL").click(function(){
       error: function(response, jqXHR, textStatus, errorThrown) {
         //console.log(response.responseText);
         document.getElementById('jsonResponse').style.backgroundColor="#ffecef";
-        $("#jsoneditor").empty();
+        //$("#jsoneditor").empty();
         $("#jsonResponse").append('<code>'+response.responseText+'</code>');
-        //$("#toggRes").hide();
+        $("#toggRes").hide();
         $("#correct").hide();
         $("#notcorrect").show();
       }
@@ -4450,19 +4457,15 @@ function urlBlur(){
   listData+="}";
 
 
-  console.log("listData: ", listData);
-
+  // console.log("listData: ", listData);
   // console.log("LINK: ", link);
 
   if($("#valueH").val()){
-    // console.log("it has header!");
-
     var headername= $("#nameH").val();
     var headervar= $("#valueH").val();
     var headers_to_set = {};
     headers_to_set[headername] = headervar;
-
-    console.log("it has header!: ", headers_to_set);
+    // console.log("it has header!: ", headers_to_set);
 
     $.ajax({
       url: "https://cors-anywhere.herokuapp.com/"+link,
@@ -4474,19 +4477,13 @@ function urlBlur(){
       // },
       success: function (response) {
         status = "success";
-        // if(firstSuc){
-        //   draw = true;
-        //   firstSuc = false;
-        // }
         jsResponse = JSON.stringify(response, null, 2);
-
         document.getElementById('jsonResponse').style.backgroundColor="#e4f3db";
         // $("#jsoneditor").empty();
         $("#jsonResponse").append('<code>'+JSON.stringify(response, null, 2)+'</code>');
-        //document.getElementById("jsonResponse").appendChild(renderjson(response));
 
-        showResponseSchema();
-        // $("#toggRes").show();
+        showResponseSchema(listData);
+        $("#toggRes").show();
         $("#correct").show();
         $("#notcorrect").hide();
 
@@ -4494,13 +4491,12 @@ function urlBlur(){
       error: function(response, jqXHR, textStatus, errorThrown) {
         status = "error";
         jsResponse = response.responseText;
-
-        showResponseSchema();
-        //console.log(response.responseText);
         document.getElementById('jsonResponse').style.backgroundColor="#ffecef";
         // $("#jsoneditor").empty();
         $("#jsonResponse").append('<code>'+response.responseText+'</code>');
-        // $("#toggRes").hide();
+
+        showResponseSchema(listData);
+        $("#toggRes").hide();
         $("#correct").hide();
         $("#notcorrect").show();
 
@@ -4520,8 +4516,9 @@ function urlBlur(){
       document.getElementById('jsonResponse').style.backgroundColor="#e4f3db";
       // $("#jsoneditor").empty();
       $("#jsonResponse").append('<code>'+JSON.stringify(response, null, 2)+'</code>');
-      showResponseSchema();
-      // $("#toggRes").show();
+
+      showResponseSchema(listData);
+      $("#toggRes").show();
       $("#correct").show();
       $("#notcorrect").hide();
 
@@ -4530,12 +4527,12 @@ function urlBlur(){
       status = "error";
       jsResponse = response.responseText;
 
-      showResponseSchema();
-      //console.log(response.responseText);
       document.getElementById('jsonResponse').style.backgroundColor="#ffecef";
-      // $("#jsoneditor").empty();
+      //$("#jsoneditor").empty();
       $("#jsonResponse").append('<code>'+response.responseText+'</code>');
-      // $("#toggRes").hide();
+
+      showResponseSchema(listData);
+      $("#toggRes").hide();
       $("#correct").hide();
       $("#notcorrect").show();
     }
@@ -4546,13 +4543,6 @@ function urlBlur(){
   //save logObj to firebase
 
 }else{
-  // console.log("Time Now: ", Date.now());
-  //add url!
-  // $("#toggRes").hide();
-  // logObj.status = "error";
-
-  //save logObj to firebase
-  // firebase.database().ref('log/' + uID).set(JSON.parse(JSON.stringify(logObj)));
 
  }
 
@@ -4561,7 +4551,6 @@ function urlBlur(){
 }
 
 function urlBlurNoCall(){
-
   console.log("urlBlurNoCall called");
 
   logObj = {};
@@ -4607,7 +4596,7 @@ function urlBlurNoCall(){
 
       }
     }
-    myObj.responses = responses;
+    // myObj.responses = responses;
 
 }
 
@@ -4662,10 +4651,9 @@ var fields_paths_curr=[];
 var firstTime = true;
 
 
-function showResponseSchema(){
+function showResponseSchema(listData){
   //$("#fields").empty();
-  $("#jsonSample").empty();
-  // $("#jsoneditor").empty();
+  //$("#jsonSample").empty();
 
   var final_tree = [];
   myObj = {};
@@ -4744,356 +4732,361 @@ function showResponseSchema(){
 
         var settings3 = {
           "url": "https://cors-anywhere.herokuapp.com/"+myObj.url,//https://api.yelp.com/v3/businesses/search?term=burgers&location=boston",
-          "data": myObj.parameters,
+          "data": JSON.parse(listData),
           "method": "GET",
           "headers": headers_to_set
           // {
           //   "Authorization": $("#valueH").val()//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx"
           // }
         }
+      }else{
+        console.log("HERE it is: ", JSON.parse(listData));
+        var settings3 = {
+          "url": myObj.url,//https://api.yelp.com/v3/businesses/search?term=burgers&location=boston",
+          "data": JSON.parse(listData),
+          "method": "GET"
+        }
+      }
 
+        //
+        // $.ajax(settings3).done(function (response) {
+        //       var objJSONOBJ = flattenObjectJSON(response);
+        //       var objJSONOBJ2 = Object.getOwnPropertyNames(objJSONOBJ);
+        //       //JSON Response Using JSONEDITOR
+        //       var container, options, json, editor;
+        //
+        //       container = document.getElementById('jsoneditor');
+        //
+        //       options = {
+        //         mode: 'view',
+        //         modes: ['code', 'form', 'text', 'tree','view'],
+        //         ace: ace,
+        //         onError: function (err) {
+        //           alert(err.toString());
+        //         },
+        //         // onChange: function () {
+        //         //   //console.log('change');
+        //         // },
+        //         // onModeChange: function (mode) {
+        //         //   var treeMode = document.getElementById('treeModeSelection');
+        //         //   var textMode = document.getElementById('textModeSelection');
+        //         //
+        //         //   treeMode.style.display = textMode.style.display = 'none';
+        //         //
+        //         //   if (mode === 'code' || mode === 'text') {
+        //         //     textMode.style.display = 'inline';
+        //         //   } else {
+        //         //     treeMode.style.display = 'inline';
+        //         //   }
+        //         // },
+        //         indentation: 4,
+        //         escapeUnicode: true,
+        //
+        //         // onTextSelectionChange: function(start, end, text) {
+        //         //   var rangeEl = document.getElementById('textRange');
+        //         //   rangeEl.innerHTML = 'start: ' + JSON.stringify(start) + ', end: ' + JSON.stringify(end);
+        //         //   var textEl = document.getElementById('selectedText');
+        //         //   textEl.innerHTML = text;
+        //         // },
+        //         // onSelectionChange: function(start, end) {
+        //         //   var nodesEl = document.getElementById('selectedNodes');
+        //         //   nodesEl.innerHTML = '';
+        //         //   if (start) {
+        //         //     nodesEl.innerHTML = ('start: '  + JSON.stringify(start));
+        //         //     if (end) {
+        //         //       nodesEl.innerHTML += ('<br/>end: '  + JSON.stringify(end));
+        //         //     }
+        //         //   }
+        //         // },
+        //         onEvent: function(node, event) {
+        //             urlBlurNoCall();
+        //           if (event.type === 'click') {
+        //             console.log("clicked: ", node.field);
+        //             var textEl = document.getElementById('selectedText');
+        //
+        //             var paramValue = eval("response."+prettyPrintPath(node.path).replace(' ','%20'));
+        //             // r1=prettyPrintPath(node.path).replace(/[0-9]/,'');
+        //
+        //
+        //             // console.log("here ", response.hits.hits[0]._source.Acknowledgments);
+        //
+        //               var s1 = node.field;
+        //               var s2 = prettyPrintPath(node.path);
+        //               var xx1 = s1.concat("/");
+        //               xx = xx1.concat(s2);
+        //               if(fields_paths){
+        //
+        //               }else{
+        //                 fields_paths=[];
+        //               }
+        //               var exists = false;
+        //
+        //               for(var i=0; i<fields_paths.length; ++i){
+        //                 if(fields_paths[i] == xx){
+        //                   exists=true;
+        //                 }
+        //               }
+        //
+        //               if(exists){
+        //
+        //               }else{
+        //               fields_paths.push(xx);
+        //               // console.log("fields_paths: ",fields_paths);
+        //
+        //               var safevalue= node.field;
+        //               // console.log("Test sting: ", safevalue);
+        //
+        //               r1=prettyPrintPath(node.path).replace(/[0-9]/,'');
+        //               r2=r1.replace('[','');
+        //               r3=r2.replace(']','');
+        //
+        //               var nameDefaule1 = node.field.split('_');
+        //               for (var i = 0; i < nameDefaule1.length; i++) {
+        //                  nameDefaule1[i] = nameDefaule1[i].charAt(0).toUpperCase() + nameDefaule1[i].substring(1);
+        //                }
+        //
+        //               var nameDefaule = nameDefaule1.join(' ');
+        //
+        //               $("#fields tbody").append('<tr id="'+xx+'"><td>'+node.field+'</td>  <td><input type="text" class="form-control" id="displayName'+s1+'" placeholder="" value="'+nameDefaule+'" style="font-size:1em" onchange="urlBlurNoCall()"></td> <td><input type="text" class="form-control" id="displayDesc'+s1+'" placeholder="" onchange="urlBlurNoCall()"> </td> <td><input id='+xx+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
+        //               urlBlurNoCall();
+        //           }//else does not exists
+        //
+        //         }
+        //
+        //           if (event.type === 'delete') {
+        //             //console.log("removed!");
+        //           }
+        //
+        //           function prettyPrintPath(path) {
+        //                         var str = '';
+        //                         for (var i=0; i<path.length; i++) {
+        //                           var element = path[i];
+        //                           if (typeof element === 'number') {
+        //                             str += '[' + element + ']'
+        //                           } else if(element.includes(' ')) {
+        //                             str += "['"+element+"']";
+        //                             console.log(str)
+        //                           }else {
+        //                             if (str.length > 0) str += '.';
+        //                             str += element;
+        //                           }
+        //                         }
+        //                         return str;
+        //                       }
+        //         }
+        //
+        //       };
+        //
+        //       json = response;
+        //
+        //       // if(draw){
+        //       if(!window.editor){
+        //         window.editor = new JSONEditor(container, options, json);
+        //       }
+        //       //   draw = false;
+        //       // }else{
+        //       //   firstSuc=false;
+        //       // }
+        //       //console.log('json', json);
+        //       //console.log('string', JSON.stringify(json));
+        //
+        //
+        //       for(var y=0; y<objJSONOBJ2.length; ++y){
+        //         paths.push(objJSONOBJ2[y].replace("[j].", ".")); //arrays of paths to json schema
+        //         pathsID.push(objJSONOBJ2[y]);
+        //       }
+        //
+        //       //convert array of paths (paths) to JSON
+        //       var parsePathArray = function() {
+        //           var parsed = {};
+        //           for(var i = 0; i < paths.length; i++) {
+        //               var position = parsed;
+        //               var split = paths[i].split('.');
+        //               for(var j = 0; j < split.length; j++) {
+        //                   if(split[j] !== "") {
+        //                       if(typeof position[split[j]] === 'undefined' || position[split[j]] === "")
+        //                         if(j+1<split.length)
+        //                           position[split[j]] = {};
+        //                         else
+        //                           position[split[j]] = "";
+        //                       position = position[split[j]];
+        //                   }
+        //               }
+        //           }
+        //           return parsed;
+        //       }
+        //
+        //       //begin of treeview
+        //       var json =  parsePathArray();
+        //       //console.log("parsePathArray: ", json);
+        //       var tree = [];
+        //       var final_tree = [];
+        //
+        //       //called with every property and its value
+        //       function process(key, value) {
+        //           //console.log(key + " : "+value);
+        //       }
+        //
+        //       idcounter = 0;
+        //       parentid_array = [];
+        //       parentid_array[0] = 0;
+        //
+        //       function traverse(o, func) {
+        //           for (var i in o) {
+        //               func.apply(this, [i, o[i]]);
+        //               if (o[i] !== null && typeof(o[i]) == "object") {
+        //                   //going one step down in the object tree
+        //                   var obj = {};
+        //                   obj["name"] = i;
+        //                   obj["id"] = idcounter;
+        //                   obj["parentid"] = parentid_array[parentid_array.length - 1];
+        //                   obj["children"] = [];
+        //                   tree.push(obj);
+        //                   parentid_array.push(idcounter)
+        //                   idcounter++;
+        //                   traverse(o[i], func);
+        //               } else {
+        //                   var obj = {};
+        //                   obj["name"] = i;
+        //                   obj["id"] = idcounter;
+        //                   obj["parentid"] = parentid_array[parentid_array.length - 1];
+        //                   obj["children"] = [];
+        //                   tree.push(obj);
+        //                   idcounter++;
+        //               }
+        //           }
+        //           parentid_array.pop()
+        //       }
+        //
+        //       function traverse2(o, func, parentid, currentitem) {
+        //           if (o["id"]) {
+        //               if (o["id"] == parentid) {
+        //                   o["children"].push(currentitem)
+        //               }
+        //           }
+        //
+        //           for (var i in o) {
+        //
+        //               func.apply(this, [i, o[i]]);
+        //               if (o[i] !== null && typeof(o[i]) == "object") {
+        //                   //going one step down in the object tree
+        //                   traverse2(o[i], func, parentid, currentitem);
+        //               }
+        //           }
+        //           parentid_array.pop()
+        //       }
+        //
+        //       traverse(json, process);
+        //
+        //       for (var counter = 0; counter < tree.length; counter++) {
+        //           if (tree[counter]["parentid"] == 0) {
+        //               final_tree.push(tree[counter])
+        //           } else {
+        //               traverse2(final_tree, process, tree[counter]["parentid"], tree[counter]);
+        //           }
+        //       }
+        //
+        //       var expandAll = document.getElementById('expandAll');
+        //       var collapseAll = document.getElementById('collapseAll');
+        //       //var submit = document.getElementById('submit');
+        //
+        //       var t = new TreeView(final_tree, 'tree');
+        //       var ids = 0;
+        //
+        //       $('.tree-leaf-text').each(function() {
+        //           ids++;
+        //           $(this).prepend('<input id="' + ids + '" class="dynamically_added_checkbox" type="checkbox" name="checkbox-1" value='+$(this).text()+"#"+pathsID[ids-1]+'>&nbsp;');//autocomplete="off"
+        //           //$(this).replaceWith('<input id="' + ids + '" class="dynamically_added_checkbox" type="checkbox" name="checkbox-1" value='+$(this).text()+"#"+pathsID[ids-1]+'>'+$(this).text()+'');//autocomplete="off"
+        //       });
+        //
+        //       // Attach events
+        //
+        //       function selectnode(id) {
+        //           var apenstr = "";
+        //           $("#" + id).parents(".tree-leaf").each(function() {
+        //               if (apenstr == "") {
+        //                   apenstr = $(this).find('.tree-leaf-text').eq(0).text()
+        //                } else {
+        //                   apenstr = apenstr//jQuery(this).find('.tree-leaf-text').eq(0).text()// + "." + apenstr
+        //                }
+        //           });
+        //           //jQuery("#" + id).parents(".tree-leaf-text").eq(0).append('&nbsp&nbsp<span id="responce" class="badge badge-success" value='+apenstr+'>' + apenstr + '</span>');//badge badge-success
+        //       }
+        //
+        //       function checkChildren(node){
+        //         if(node.children.length>0){
+        //           for(var c=0; c<node.children.length; ++c){
+        //             checkChildren(node.children[c]);
+        //             $("input[name='checkbox-1']")[node.children[c].id].checked=true;
+        //             $("#" + (node.children[c].id+1)).parents(".tree-leaf-text").eq(0).children('#responce').eq(0).remove();
+        //             var splitVal = $("#" + (node.children[c].id+1)).attr("value").split('#');
+        //             //$("#" + (node.children[c].id+1)).parents(".tree-leaf-text").eq(0).append('<span id="responce" class="badge badge-pill badge-success" onclick="removeCheckedResponseField(this,'+node.children[c].id+')">' +splitVal[0]+ '<i class="glyphicon glyphicon-remove"></i></span>');
+        //             //$("#fields tbody").append('<tr id="'+node.children[c].id+'"><td><a id="'+node.children[c].id+'" class="button button-mini button-circle button-reveal button-xsmall button-yellow tright" style="height:25px" onclick="removeCheckedResponseField(this,'+node.children[c].id+')"><i class="glyphicon glyphicon-remove"></i><span>' +splitVal[0]+'</span></a></td></tr>');
+        //             $("#fields").append('<tr id="'+xx+'"><td>'+node.field+'</td>   <td><input type="text" class="form-control" id="displayName'+s1+'" placeholder="" value="'+nameDefaule+'" style="font-size:1em" onchange="urlBlurNoCall()"></td> <td><input type="text" class="form-control" id="displayDesc'+s1+'" placeholder="" onchange="urlBlurNoCall()"> </td> <td><input id='+xx+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
+        //             urlBlurNoCall();
+        //             //<h4><span id="responce" class="badge badge-pill badge-success" onclick="removeCheckedResponseField('+node.children[c].id+')">' +splitVal[0]+ '<i class="glyphicon glyphicon-remove"></i></span></h4>');
+        //           }
+        //         }
+        //       }
+        //
+        //       function unCheckChildren(node){
+        //         $("#" + (node.id+1)).parents(".tree-leaf-text").eq(0).children('#responce').eq(0).remove();
+        //         //document.getElementById('fields').deleteRow(node.id);
+        //         $('tr[id="'+node.id+'"').remove();
+        //         //console.log("NODE: ", node.id);
+        //         if(node.children.length>0){
+        //           for(var c=0; c<node.children.length; ++c){
+        //             $('tr[id="'+node.children[c].id+'"').remove();
+        //             unCheckChildren(node.children[c]);
+        //             $("input[name='checkbox-1']")[node.children[c].id].checked=false;
+        //           }
+        //         }
+        //       }
+        //
+        //     function getObject(o, id) {
+        //         if(o.id === id){
+        //           return o;
+        //         }
+        //         var result, p;
+        //         for (p in o) {
+        //             if( o.hasOwnProperty(p) && typeof o[p] === 'object' ) {
+        //                 result = getObject(o[p], id);
+        //                 if(result){
+        //                     return result;
+        //                 }
+        //             }
+        //         }
+        //         return result;
+        //     }
+        //
+        //
+        //
+        //       $("input[name='checkbox-1']").change(function() {
+        //           if ($(this).is(":checked")) { //ADD a badge with the name of response parameter
+        //             var o = getObject(final_tree,$(this).attr("id")-1);
+        //             var splitVal = $(this).attr("value").split('#');
+        //             $("#fields tbody").append('<tr id="'+o.id+'"><td><a id="'+o.id+'" onclick="removeCheckedResponseField(this, '+o.id+')" class="button button-mini button-circle button-reveal button-xsmall button-yellow tright" style="height:25px"><i class="glyphicon glyphicon-remove"></i><span>' +splitVal[0]+'</span></a></td></tr>');
+        //             checkChildren(o);
+        //             selectnode($(this).attr("id"))
+        //
+        //           } else { //REMOVE a badge with the name of response parameter
+        //             unCheckChildren(getObject(final_tree,$(this).attr("id")-1));
+        //           }
+        //       });
+        //   });
 
-        $.ajax(settings3).done(function (response) {
-              var objJSONOBJ = flattenObjectJSON(response);
-              var objJSONOBJ2 = Object.getOwnPropertyNames(objJSONOBJ);
-              //JSON Response Using JSONEDITOR
-              var container, options, json, editor;
-
-              container = document.getElementById('jsoneditor');
-
-              options = {
-                mode: 'view',
-                modes: ['code', 'form', 'text', 'tree','view'],
-                ace: ace,
-                onError: function (err) {
-                  alert(err.toString());
-                },
-                // onChange: function () {
-                //   //console.log('change');
-                // },
-                // onModeChange: function (mode) {
-                //   var treeMode = document.getElementById('treeModeSelection');
-                //   var textMode = document.getElementById('textModeSelection');
-                //
-                //   treeMode.style.display = textMode.style.display = 'none';
-                //
-                //   if (mode === 'code' || mode === 'text') {
-                //     textMode.style.display = 'inline';
-                //   } else {
-                //     treeMode.style.display = 'inline';
-                //   }
-                // },
-                indentation: 4,
-                escapeUnicode: true,
-
-                // onTextSelectionChange: function(start, end, text) {
-                //   var rangeEl = document.getElementById('textRange');
-                //   rangeEl.innerHTML = 'start: ' + JSON.stringify(start) + ', end: ' + JSON.stringify(end);
-                //   var textEl = document.getElementById('selectedText');
-                //   textEl.innerHTML = text;
-                // },
-                // onSelectionChange: function(start, end) {
-                //   var nodesEl = document.getElementById('selectedNodes');
-                //   nodesEl.innerHTML = '';
-                //   if (start) {
-                //     nodesEl.innerHTML = ('start: '  + JSON.stringify(start));
-                //     if (end) {
-                //       nodesEl.innerHTML += ('<br/>end: '  + JSON.stringify(end));
-                //     }
-                //   }
-                // },
-                onEvent: function(node, event) {
-                    urlBlurNoCall();
-                  if (event.type === 'click') {
-                    console.log("clicked: ", node.field);
-                    var textEl = document.getElementById('selectedText');
-
-                    var paramValue = eval("response."+prettyPrintPath(node.path).replace(' ','%20'));
-                    // r1=prettyPrintPath(node.path).replace(/[0-9]/,'');
-
-
-                    // console.log("here ", response.hits.hits[0]._source.Acknowledgments);
-
-                      var s1 = node.field;
-                      var s2 = prettyPrintPath(node.path);
-                      var xx1 = s1.concat("/");
-                      xx = xx1.concat(s2);
-                      if(fields_paths){
-
-                      }else{
-                        fields_paths=[];
-                      }
-                      var exists = false;
-
-                      for(var i=0; i<fields_paths.length; ++i){
-                        if(fields_paths[i] == xx){
-                          exists=true;
-                        }
-                      }
-
-                      if(exists){
-
-                      }else{
-                      fields_paths.push(xx);
-                      // console.log("fields_paths: ",fields_paths);
-
-                      var safevalue= node.field;
-                      // console.log("Test sting: ", safevalue);
-
-                      r1=prettyPrintPath(node.path).replace(/[0-9]/,'');
-                      r2=r1.replace('[','');
-                      r3=r2.replace(']','');
-
-                      var nameDefaule1 = node.field.split('_');
-                      for (var i = 0; i < nameDefaule1.length; i++) {
-                         nameDefaule1[i] = nameDefaule1[i].charAt(0).toUpperCase() + nameDefaule1[i].substring(1);
-                       }
-
-                      var nameDefaule = nameDefaule1.join(' ');
-
-                      $("#fields tbody").append('<tr id="'+xx+'"><td>'+node.field+'</td>  <td><input type="text" class="form-control" id="displayName'+s1+'" placeholder="" value="'+nameDefaule+'" style="font-size:1em" onchange="urlBlurNoCall()"></td> <td><input type="text" class="form-control" id="displayDesc'+s1+'" placeholder="" onchange="urlBlurNoCall()"> </td> <td><input id='+xx+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
-                      urlBlurNoCall();
-                  }//else does not exists
-
-                }
-
-                  if (event.type === 'delete') {
-                    //console.log("removed!");
-                  }
-
-                  function prettyPrintPath(path) {
-                                var str = '';
-                                for (var i=0; i<path.length; i++) {
-                                  var element = path[i];
-                                  if (typeof element === 'number') {
-                                    str += '[' + element + ']'
-                                  } else if(element.includes(' ')) {
-                                    str += "['"+element+"']";
-                                    console.log(str)
-                                  }else {
-                                    if (str.length > 0) str += '.';
-                                    str += element;
-                                  }
-                                }
-                                return str;
-                              }
-                }
-
-              };
-
-              json = response;
-
-              // if(draw){
-              if(!window.editor){
-                window.editor = new JSONEditor(container, options, json);
-              }
-              //   draw = false;
-              // }else{
-              //   firstSuc=false;
-              // }
-              //console.log('json', json);
-              //console.log('string', JSON.stringify(json));
-
-
-              for(var y=0; y<objJSONOBJ2.length; ++y){
-                paths.push(objJSONOBJ2[y].replace("[j].", ".")); //arrays of paths to json schema
-                pathsID.push(objJSONOBJ2[y]);
-              }
-
-              //convert array of paths (paths) to JSON
-              var parsePathArray = function() {
-                  var parsed = {};
-                  for(var i = 0; i < paths.length; i++) {
-                      var position = parsed;
-                      var split = paths[i].split('.');
-                      for(var j = 0; j < split.length; j++) {
-                          if(split[j] !== "") {
-                              if(typeof position[split[j]] === 'undefined' || position[split[j]] === "")
-                                if(j+1<split.length)
-                                  position[split[j]] = {};
-                                else
-                                  position[split[j]] = "";
-                              position = position[split[j]];
-                          }
-                      }
-                  }
-                  return parsed;
-              }
-
-              //begin of treeview
-              var json =  parsePathArray();
-              //console.log("parsePathArray: ", json);
-              var tree = [];
-              var final_tree = [];
-
-              //called with every property and its value
-              function process(key, value) {
-                  //console.log(key + " : "+value);
-              }
-
-              idcounter = 0;
-              parentid_array = [];
-              parentid_array[0] = 0;
-
-              function traverse(o, func) {
-                  for (var i in o) {
-                      func.apply(this, [i, o[i]]);
-                      if (o[i] !== null && typeof(o[i]) == "object") {
-                          //going one step down in the object tree
-                          var obj = {};
-                          obj["name"] = i;
-                          obj["id"] = idcounter;
-                          obj["parentid"] = parentid_array[parentid_array.length - 1];
-                          obj["children"] = [];
-                          tree.push(obj);
-                          parentid_array.push(idcounter)
-                          idcounter++;
-                          traverse(o[i], func);
-                      } else {
-                          var obj = {};
-                          obj["name"] = i;
-                          obj["id"] = idcounter;
-                          obj["parentid"] = parentid_array[parentid_array.length - 1];
-                          obj["children"] = [];
-                          tree.push(obj);
-                          idcounter++;
-                      }
-                  }
-                  parentid_array.pop()
-              }
-
-              function traverse2(o, func, parentid, currentitem) {
-                  if (o["id"]) {
-                      if (o["id"] == parentid) {
-                          o["children"].push(currentitem)
-                      }
-                  }
-
-                  for (var i in o) {
-
-                      func.apply(this, [i, o[i]]);
-                      if (o[i] !== null && typeof(o[i]) == "object") {
-                          //going one step down in the object tree
-                          traverse2(o[i], func, parentid, currentitem);
-                      }
-                  }
-                  parentid_array.pop()
-              }
-
-              traverse(json, process);
-
-              for (var counter = 0; counter < tree.length; counter++) {
-                  if (tree[counter]["parentid"] == 0) {
-                      final_tree.push(tree[counter])
-                  } else {
-                      traverse2(final_tree, process, tree[counter]["parentid"], tree[counter]);
-                  }
-              }
-
-              var expandAll = document.getElementById('expandAll');
-              var collapseAll = document.getElementById('collapseAll');
-              //var submit = document.getElementById('submit');
-
-              var t = new TreeView(final_tree, 'tree');
-              var ids = 0;
-
-              $('.tree-leaf-text').each(function() {
-                  ids++;
-                  $(this).prepend('<input id="' + ids + '" class="dynamically_added_checkbox" type="checkbox" name="checkbox-1" value='+$(this).text()+"#"+pathsID[ids-1]+'>&nbsp;');//autocomplete="off"
-                  //$(this).replaceWith('<input id="' + ids + '" class="dynamically_added_checkbox" type="checkbox" name="checkbox-1" value='+$(this).text()+"#"+pathsID[ids-1]+'>'+$(this).text()+'');//autocomplete="off"
-              });
-
-              // Attach events
-
-              function selectnode(id) {
-                  var apenstr = "";
-                  $("#" + id).parents(".tree-leaf").each(function() {
-                      if (apenstr == "") {
-                          apenstr = $(this).find('.tree-leaf-text').eq(0).text()
-                       } else {
-                          apenstr = apenstr//jQuery(this).find('.tree-leaf-text').eq(0).text()// + "." + apenstr
-                       }
-                  });
-                  //jQuery("#" + id).parents(".tree-leaf-text").eq(0).append('&nbsp&nbsp<span id="responce" class="badge badge-success" value='+apenstr+'>' + apenstr + '</span>');//badge badge-success
-              }
-
-              function checkChildren(node){
-                if(node.children.length>0){
-                  for(var c=0; c<node.children.length; ++c){
-                    checkChildren(node.children[c]);
-                    $("input[name='checkbox-1']")[node.children[c].id].checked=true;
-                    $("#" + (node.children[c].id+1)).parents(".tree-leaf-text").eq(0).children('#responce').eq(0).remove();
-                    var splitVal = $("#" + (node.children[c].id+1)).attr("value").split('#');
-                    //$("#" + (node.children[c].id+1)).parents(".tree-leaf-text").eq(0).append('<span id="responce" class="badge badge-pill badge-success" onclick="removeCheckedResponseField(this,'+node.children[c].id+')">' +splitVal[0]+ '<i class="glyphicon glyphicon-remove"></i></span>');
-                    //$("#fields tbody").append('<tr id="'+node.children[c].id+'"><td><a id="'+node.children[c].id+'" class="button button-mini button-circle button-reveal button-xsmall button-yellow tright" style="height:25px" onclick="removeCheckedResponseField(this,'+node.children[c].id+')"><i class="glyphicon glyphicon-remove"></i><span>' +splitVal[0]+'</span></a></td></tr>');
-                    $("#fields").append('<tr id="'+xx+'"><td>'+node.field+'</td>   <td><input type="text" class="form-control" id="displayName'+s1+'" placeholder="" value="'+nameDefaule+'" style="font-size:1em" onchange="urlBlurNoCall()"></td> <td><input type="text" class="form-control" id="displayDesc'+s1+'" placeholder="" onchange="urlBlurNoCall()"> </td> <td><input id='+xx+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
-                    urlBlurNoCall();
-                    //<h4><span id="responce" class="badge badge-pill badge-success" onclick="removeCheckedResponseField('+node.children[c].id+')">' +splitVal[0]+ '<i class="glyphicon glyphicon-remove"></i></span></h4>');
-                  }
-                }
-              }
-
-              function unCheckChildren(node){
-                $("#" + (node.id+1)).parents(".tree-leaf-text").eq(0).children('#responce').eq(0).remove();
-                //document.getElementById('fields').deleteRow(node.id);
-                $('tr[id="'+node.id+'"').remove();
-                //console.log("NODE: ", node.id);
-                if(node.children.length>0){
-                  for(var c=0; c<node.children.length; ++c){
-                    $('tr[id="'+node.children[c].id+'"').remove();
-                    unCheckChildren(node.children[c]);
-                    $("input[name='checkbox-1']")[node.children[c].id].checked=false;
-                  }
-                }
-              }
-
-            function getObject(o, id) {
-                if(o.id === id){
-                  return o;
-                }
-                var result, p;
-                for (p in o) {
-                    if( o.hasOwnProperty(p) && typeof o[p] === 'object' ) {
-                        result = getObject(o[p], id);
-                        if(result){
-                            return result;
-                        }
-                    }
-                }
-                return result;
-            }
-
-
-
-              $("input[name='checkbox-1']").change(function() {
-                  if ($(this).is(":checked")) { //ADD a badge with the name of response parameter
-                    var o = getObject(final_tree,$(this).attr("id")-1);
-                    var splitVal = $(this).attr("value").split('#');
-                    $("#fields tbody").append('<tr id="'+o.id+'"><td><a id="'+o.id+'" onclick="removeCheckedResponseField(this, '+o.id+')" class="button button-mini button-circle button-reveal button-xsmall button-yellow tright" style="height:25px"><i class="glyphicon glyphicon-remove"></i><span>' +splitVal[0]+'</span></a></td></tr>');
-                    checkChildren(o);
-                    selectnode($(this).attr("id"))
-
-                  } else { //REMOVE a badge with the name of response parameter
-                    unCheckChildren(getObject(final_tree,$(this).attr("id")-1));
-                  }
-              });
-          }
-        );
-      }///if header
 
     //(3) get the JSON schema
-        $.ajax({
-          url: myObj.url,
-          data: myObj.parameters,
-          //dataType: 'jsonp',
-          method: 'GET',
-          success: function (response, textStatus, jqXHR) {
+    $.ajax(settings3).done(function (response) {
+        // $.ajax({
+          // url: myObj.url,
+          // data: myObj.parameters,
+          // method: 'GET',
+          // success: function (response, textStatus, jqXHR) {
+
             //console.log("response in showRequest!!: ",JSON.stringify(response));
             var objJSONOBJ = flattenObjectJSON(response);
-            //console.log("flattenObjectJSON: ",objJSONOBJ);
-
             var objJSONOBJ2 = Object.getOwnPropertyNames(objJSONOBJ);
-            //console.log("getOwnPropertyNames: ",objJSONOBJ2);
 
             //JSON Response Using JSONEDITOR
             var container, options, json, editor;
@@ -5151,7 +5144,7 @@ function showResponseSchema(){
               },
               onEvent: function(node, event) {
                 if (event.type === 'click') {
-      console.log("clicked: ", node.path);
+                  console.log("clicked: ", node.path);
                     var textEl = document.getElementById('selectedText');
 
                     var paramValue = eval("response."+prettyPrintPath(node.path));
@@ -5227,13 +5220,10 @@ function showResponseSchema(){
 
             json = response;
 
-            // if(draw){
-            if(!window.editor){
-              window.editor = new JSONEditor(container, options, json);
-            }            //   draw = false;
-            // }else{
-            //   firstSuc=false;
-            // }
+            // if(!window.editor){
+            $("#jsoneditor").empty();
+            window.editor = new JSONEditor(container, options, json);
+            // }            //   draw = false;
 
             for(var y=0; y<objJSONOBJ2.length; ++y){
               paths.push(objJSONOBJ2[y].replace("[j].", ".")); //arrays of paths to json schema
@@ -5416,12 +5406,12 @@ function showResponseSchema(){
                   unCheckChildren(getObject(final_tree,$(this).attr("id")-1));
                 }
             });
-        },
-
-    error: function(response, jqXHR, textStatus, errorThrown) {
-        // When AJAX call has failed
-
-    }
+    //     },
+    //
+    // error: function(response, jqXHR, textStatus, errorThrown) {
+    //     // When AJAX call has failed
+    //
+    // }
       });
 
       var responses = [];
