@@ -346,7 +346,7 @@
 									<div class="col">
 									<p style="font-size:2em; margin:0px; padding:0px"><B><span style="color:red">1.</span> API URL*</B><label><a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="Every web API has a URL that you can use to access its data (e.g. the URL for YouTube search API is 'https://www.googleapis.com/youtube/v3/search')"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label></p>
 									<div style="display:inline">
-										<input style="width:400px; display: inline-block" type="text" class="form-control" id="url" onchange="urlBlur()"  placeholder="e.g. 'https://www.googleapis.com/youtube/v3/search'" required>
+										<input style="width:400px; display: inline-block" type="text" class="form-control" id="url" onchange="urlBlur(); urlChanged();" onkeyup=""  placeholder="e.g. 'https://www.googleapis.com/youtube/v3/search'" required>
 										<!-- <button  style="display: inline-block"class="button button-3d button-small button-rounded button-teal" onclick="getAPIName(document.getElementById('url').value)">Submit</button> -->
 									</div>
 
@@ -1140,14 +1140,6 @@
 							</div>
 					</div>
 
-
-					<!-- <h1>APIs.guru specs reference</h1>
-					    <section id="links">Loading...</section>
-							<div id="linksD"></div>
-
-					    <script type="text/javascript">
-
-					    </script> -->
 
 				</div>
 				<div id="jsonResponse2" class="col-3" style="padding-top:56px">

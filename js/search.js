@@ -4113,7 +4113,7 @@ function clearTable(){
 
 
 function generateTableFromSwagger(url){
-  $("#firstTR").remove();
+  $('#requestTabel tbody').empty();
 
   var data = $('textarea[name=swagger_schema]').val();
   var obj = JSON.parse(data);
@@ -4126,11 +4126,21 @@ function generateTableFromSwagger(url){
     console.log("Description: ", params[i]['description']);
     console.log("Type: ", params[i]['type']);
 
-      // $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" onchange="urlBlurNoCall()" placeholder="" value="'+params[i]['name']+'"></td><td><input class="form-control" type="text" id="value" onchange="urlBlur()" placeholder=""></td><td><input class="form-control" type="text" id="listOfValues" placeholder=""></td><td><div><input id="displayedName" class="form-control" type="text" value="'+params[i]['name']+'"></div></td><td><input class="form-control" type="text" id="desc" value="'+params[i]['description']+'"></td><td><select class="form-control" id="type" style="height:30px" value="'+params[i]['type']+'"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+    if(params[i]['type'] == 'string'){
+      var sub = '<option value="string" selected>String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option>'
+    }else if(params[i]['type'] == 'boolean'){
+      var sub = '<option value="string">String</option><option value="int">Integer</option><option value="boolean" selected>Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option>'
+    }else if(params[i]['type'] == 'integer'){
+      var sub = '<option value="string">String</option><option value="int" selected>Integer</option><option value="boolean">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option>'
+    }else{
+      var sub = '<option value="string" selected>String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option>'
+    }
 
-      $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="Request parameter"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="Parameter default value"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="Value1, Value2, ..."rows="1" onchange="urlBlurNoCall()"></textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()"></td><td><textarea class="form-control" type="text" id="desc" placeholder="" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
+    $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name" value="'+params[i]['name']+'" style="width:85px" onchange="urlBlur()"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" ></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()"></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()">'+params[i]['description']+'</textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()">'+sub+'</select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
 
   }
+
+  $("#toggReq").show();
 
 }
 
@@ -4371,7 +4381,7 @@ var firstSuc = true;
 
 function urlBlur(){
 
-  console.log("urlBlur called");
+  // console.log("urlBlur called");
 
   logObj = {};
   logs = [];
@@ -4551,7 +4561,7 @@ function urlBlur(){
 }
 
 function urlBlurNoCall(){
-  console.log("urlBlurNoCall called");
+  // console.log("urlBlurNoCall called");
 
   logObj = {};
   logs = [];
@@ -4740,7 +4750,7 @@ function showResponseSchema(listData){
           // }
         }
       }else{
-        console.log("HERE it is: ", JSON.parse(listData));
+        // console.log("HERE it is: ", JSON.parse(listData));
         var settings3 = {
           "url": myObj.url,//https://api.yelp.com/v3/businesses/search?term=burgers&location=boston",
           "data": JSON.parse(listData),
@@ -6222,15 +6232,93 @@ function populateListOfAPIs(){
     });
   });
 
-  //test json url
+  //APIs GURU list
 
   // $.ajax({
   //   url: "https://api.apis.guru/v2/list.json",
   //   method: "GET",
   //   success: function (response) {
-  //     // console.log("RESPONSE: ",response);
+  //     console.log("RESPONSE: ",response);
   //   }
   // });
+
+}
+
+
+function urlChanged(){
+  $('#requestTabel tbody').empty();
+
+  var u = $("#url").val().split("https://www.")[1];
+  var uNoPath = u.substring(0, u.lastIndexOf("/") );
+
+  var urlTemplate = '{swaggerJson}';
+  var match = window.location.search.match(/^\?urlTemplate=(.*)$/);
+  if (match)
+    urlTemplate = decodeURIComponent(match[1]);
+  var rootUrl = 'https://api.apis.guru/v2/';
+  var xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    if (xhttp.status != 200)
+      return;
+    var specList = JSON.parse(xhttp.responseText)
+    var links = '';
+    for(var apiId in specList){
+      var api = specList[apiId];
+      for (var version in api.versions) {
+        // var swaggerYaml = api.versions[version].swaggerYamlUrl;
+        var swaggerJson = api.versions[version].swaggerUrl;
+        var specName = swaggerJson.replace(rootUrl + 'specs/', '');
+        var href = urlTemplate.replace('{swaggerJson}', swaggerJson);
+        // links += '<p><a href="'+ href +'" target="_blank">'+ specName +'</a></p>';
+
+         if(href.includes(uNoPath)){
+           console.log("link: ", href);
+
+           $.ajax({
+             url: href,
+             method: "GET",
+             success: function (response) {
+               console.log("RESPONSE: ",response);
+
+               // var data = $('textarea[name=swagger_schema]').val();
+               var obj = response;
+               var tmp = $("#url").val().split("/");
+               var path = "/"+tmp.pop();
+               console.log(obj.paths[path].get.parameters);
+               var params = obj.paths[path].get.parameters;
+               for(var i=0; i<params.length; ++i){
+                 console.log("Name: ", params[i]['name']);
+                 console.log("Description: ", params[i]['description']);
+                 console.log("Type: ", params[i]['type']);
+
+                 if(params[i]['type'] == 'string'){
+                   var sub = '<option value="string" selected>String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option>'
+                 }else if(params[i]['type'] == 'boolean'){
+                   var sub = '<option value="string">String</option><option value="int">Integer</option><option value="boolean" selected>Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option>'
+                 }else if(params[i]['type'] == 'integer'){
+                   var sub = '<option value="string">String</option><option value="int" selected>Integer</option><option value="boolean">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option>'
+                 }else{
+                   var sub = '<option value="string" selected>String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option>'
+                 }
+
+                 $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name" value="'+params[i]['name']+'" style="width:85px" onchange="urlBlur()"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" ></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()"></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()">'+params[i]['description']+'</textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()">'+sub+'</select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
+
+               }
+
+               $("#toggReq").show();
+
+             }
+           });
+
+
+         }
+
+      }
+    }
+    // document.getElementById('links').innerHTML = links;
+  };
+  xhttp.open('GET', rootUrl + 'list.json', true);
+  xhttp.send(null);
 
 }
 
