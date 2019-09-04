@@ -1166,6 +1166,20 @@ var ui;
 function checkButtonClicked(){
 
   ui = create_UUID();
+  //console.log("UI: ", ui);
+
+  cookie_name = ui;
+  //The cookie name is set as Counter_Cookie. If you're going to put this onto other pages to count them, change this with a new name.
+  doCookie();
+
+  function doCookie() {
+    if(document.cookie){
+    }else{
+      document.cookie=cookie_name;
+    }
+  }//function
+
+  //console.log("cookie: ",document.cookie);
 
   //show consent modal
   // $('#consentDataModal').modal('show');
@@ -2668,14 +2682,14 @@ function retrieveData(){
 
   getLogObj = {};
 
-  getLogObj.id = ui;
+  getLogObj.id = document.cookie;
   getLogObj.timestamp = Date.now();
   getLogObj.url = obJSON1.url;
   getLogObj.parameters = param;
   getLogObj.response = res;
   getLogObj.butClicked = "QUERY";
 
-   firebase.database().ref('getLog/' + ui).push(JSON.parse(JSON.stringify(getLogObj)));
+   firebase.database().ref('getLog/' +document.cookie).push(JSON.parse(JSON.stringify(getLogObj)));
    // firebase.database().ref('getLog/').remove();
    // firebase.database().ref('log/').remove();
 
@@ -3846,7 +3860,7 @@ if(logDecision == "accept"){
 
   getLogObj = {};
 
-  getLogObj.id = ui;
+  getLogObj.id = document.cookie;
   getLogObj.timestamp = Date.now();
   getLogObj.url = obJSON1.url;
   getLogObj.parameters = param;
@@ -3854,7 +3868,7 @@ if(logDecision == "accept"){
   getLogObj.butClicked = "SAVE";
   getLogObj.savePublic = isPublic;
 
-  firebase.database().ref('getLog/' + ui).push(JSON.parse(JSON.stringify(getLogObj)));
+  firebase.database().ref('getLog/' +document.cookie).push(JSON.parse(JSON.stringify(getLogObj)));
 }
 
   // console.log("Data Logged: ", getLogObj);
@@ -3886,14 +3900,14 @@ function getCodeClicked(){
 
     getLogObj = {};
 
-    getLogObj.id = ui;
+    getLogObj.id = document.cookie;
     getLogObj.timestamp = Date.now();
     getLogObj.url = obJSON1.url;
     getLogObj.parameters = param;
     getLogObj.response = res;
     getLogObj.butClicked = "CODE";
 
-    firebase.database().ref('getLog/' + ui).push(JSON.parse(JSON.stringify(getLogObj)));
+    firebase.database().ref('getLog/' +document.cookie).push(JSON.parse(JSON.stringify(getLogObj)));
   }
     // console.log("Data Logged: ", getLogObj);
     // save logs code clicked END
@@ -3928,14 +3942,14 @@ function downloadJSON(){
 
     getLogObj = {};
 
-    getLogObj.id = ui;
+    getLogObj.id = document.cookie;
     getLogObj.timestamp = Date.now();
     getLogObj.url = obJSON1.url;
     getLogObj.parameters = param;
     getLogObj.response = res;
     getLogObj.butClicked = "JSON";
 
-    firebase.database().ref('getLog/' + ui).push(JSON.parse(JSON.stringify(getLogObj)));
+    firebase.database().ref('getLog/' +document.cookie).push(JSON.parse(JSON.stringify(getLogObj)));
   }
     // console.log("Data Logged: ", getLogObj);
     // save logs JSON clicked END
@@ -3986,14 +4000,14 @@ function saveLogs(){
 
   getLogObj = {};
 
-  getLogObj.id = ui;
+  getLogObj.id = document.cookie;
   getLogObj.timestamp = Date.now();
   getLogObj.url = obJSON1.url;
   getLogObj.parameters = param;
   getLogObj.response = res;
   getLogObj.butClicked = "CSV";
 
-   firebase.database().ref('getLog/' + ui).push(JSON.parse(JSON.stringify(getLogObj)));
+   firebase.database().ref('getLog/' +document.cookie).push(JSON.parse(JSON.stringify(getLogObj)));
 
   }
   // if(logDecision == "accept"){
@@ -4122,10 +4136,34 @@ function generateTableFromSwagger(url){
   console.log(obj.paths[path].get.parameters);
   var params = obj.paths[path].get.parameters;
   for(var i=0; i<params.length; ++i){
-    console.log("Name: ", params[i]['name']);
-    console.log("Description: ", params[i]['description']);
-    console.log("Type: ", params[i]['type']);
+    // console.log("Name: ", params[i]['name']);
+    // console.log("Description: ", params[i]['description']);
+    // console.log("Type: ", params[i]['type']);
 
+    //list of values
+    var enumSTR = '';
+    var enumSTRfirst = '';
+
+    if(params[i]['enum']){
+      for(var j=0; j< params[i]['enum'].length; ++j){
+        enumSTR+=params[i]['enum'][j];
+        if(j+1 < params[i]['enum'].length){
+          enumSTR+=",";
+        }
+      }
+      enumSTRfirst = params[i]['enum'][0];
+    }else{
+      //nothing
+    }
+
+    //required
+    if(params[i]['required'] == true){
+      var required = '<input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/>';
+    }else{
+       var required = '<input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off"/>'
+    }
+
+    //type
     if(params[i]['type'] == 'string'){
       var sub = '<option value="string" selected>String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option>'
     }else if(params[i]['type'] == 'boolean'){
@@ -4136,7 +4174,7 @@ function generateTableFromSwagger(url){
       var sub = '<option value="string" selected>String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option>'
     }
 
-    $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name" value="'+params[i]['name']+'" style="width:85px" onchange="urlBlur()"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" ></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()"></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()">'+params[i]['description']+'</textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()">'+sub+'</select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
+    $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name" value="'+params[i]['name']+'" style="width:85px" onchange="urlBlur()"></td><td><input class="form-control" type="text" id="value" value="'+enumSTRfirst+'" style="width:85px" onchange="urlBlur()" ></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="" rows="1" onchange="urlBlurNoCall()">'+enumSTR+'</textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()"></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()">'+params[i]['description']+'</textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()">'+sub+'</select></td><td>'+required+'</td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
 
   }
 
@@ -6296,7 +6334,6 @@ function urlChanged(){
                  // console.log("enum: ", en.length);
                  // console.log("enum: ", params[i]['enum']);
 
-
                  //list of values
                  var enumSTR = '';
                  var enumSTRfirst = '';
@@ -6331,7 +6368,7 @@ function urlChanged(){
                    var sub = '<option value="string" selected>String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option>'
                  }
 
-                 $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name" value="'+params[i]['name']+'" style="width:85px" onchange="urlBlur()"></td><td><input class="form-control" type="text" id="value" value="'+enumSTRfirst+'" style="width:85px" onchange="urlBlur()" ></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="" rows="1" onchange="urlBlurNoCall()">'+enumSTR+'</textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()"></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()">'+params[i]['description']+'</textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()">'+sub+'</select></td><td>'+required+'</td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
+                 $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name" value="'+params[i]['name']+'" style="width:85px" onchange="urlBlur()"></td><td><input class="form-control" type="text" id="value" value="'+enumSTRfirst+'" style="width:85px" onchange="urlBlur()" ></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="" rows="1" onchange="urlBlurNoCall()">'+enumSTR+'</textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()" value="'+params[i]['name']+'"></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()">'+params[i]['description']+'</textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()">'+sub+'</select></td><td>'+required+'</td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
 
                }
 
