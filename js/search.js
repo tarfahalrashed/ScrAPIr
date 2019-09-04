@@ -1175,7 +1175,16 @@ function checkButtonClicked(){
   function doCookie() {
     if(document.cookie){
     }else{
-      document.cookie=cookie_name;
+      // Build the expiration date string:
+      // var expiration_date = new Date ();
+      // expiration_date . setYear (expiration_date . getYear () + 1);
+      // expiration_date = expiration_date . toGMTString ();
+      // // Build the set-cookie string:
+      // var cookie_string = "test_cookies = true; path=/; expires=" + expiration_date;
+      // Create/update the cookie:
+      //document . cookie = cookie_string;
+
+      document.cookie = cookie_name + ";expires=Fri, 30 Dec 2022 12:00:00 UTC; ";//cookie_string;
     }
   }//function
 
