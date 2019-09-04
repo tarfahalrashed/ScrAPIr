@@ -4435,29 +4435,31 @@ function urlBlur(){
 
   $("#jsonResponse").empty();
 
-  var first = true;
   var listData="{";
   $('#requestTabel tbody tr').each(function(i, n){
     var $row = $(n);
-    if(first){
+    if(listData=="{"){
       if($row.find('#value:eq(0)').val()){
         if($row.find('#name:eq(0)').val()){
           listData+= JSON.stringify($row.find('#name:eq(0)').val());
           listData+=":";
           listData+= JSON.stringify($row.find('#value:eq(0)').val());
         }
-      }else{}
-      first = false;
-    }else{
-    if($row.find('#value:eq(0)').val()){
-      if($row.find('#name:eq(0)').val()){
-        listData+=", "
-        listData+= JSON.stringify($row.find('#name:eq(0)').val());
-        listData+=":";
-        listData+= JSON.stringify($row.find('#value:eq(0)').val());
+      }else{
+
       }
-    }else{}
-  }
+    }else{
+      if($row.find('#value:eq(0)').val()){
+        if($row.find('#name:eq(0)').val()){
+          listData+="," //FIX THIS COMMA
+          listData+= JSON.stringify($row.find('#name:eq(0)').val());
+          listData+=":";
+          listData+= JSON.stringify($row.find('#value:eq(0)').val());
+        }
+      }else{
+
+      }
+    }
 
   $("#reqParameters").append(""+$row.find('#name:eq(0)').val()+"&nbsp;<a type=''  data-trigger='focus' data-placement='right' title='"+$row.find('#name:eq(0)').val()+"'><span class='glyphicon glyphicon-info-sign' aria-hidden='true'></span></a>")
 
@@ -4467,7 +4469,7 @@ function urlBlur(){
   listData+="}";
 
 
-  // console.log("listData: ", listData);
+  console.log("listData: ", listData);
   // console.log("LINK: ", link);
 
   if($("#valueH").val()){
@@ -6272,14 +6274,13 @@ function urlChanged(){
         // links += '<p><a href="'+ href +'" target="_blank">'+ specName +'</a></p>';
 
          if(href.includes(uNoPath)){
-           console.log("link: ", href);
+           // console.log("link: ", href);
 
            $.ajax({
              url: href,
              method: "GET",
              success: function (response) {
-               console.log("RESPONSE: ",response);
-
+               // console.log("RESPONSE: ",response);
                // var data = $('textarea[name=swagger_schema]').val();
                var obj = response;
                var tmp = $("#url").val().split("/");
@@ -6287,10 +6288,39 @@ function urlChanged(){
                console.log(obj.paths[path].get.parameters);
                var params = obj.paths[path].get.parameters;
                for(var i=0; i<params.length; ++i){
-                 console.log("Name: ", params[i]['name']);
-                 console.log("Description: ", params[i]['description']);
-                 console.log("Type: ", params[i]['type']);
+                 // console.log("Name: ", params[i]['name']);
+                 // console.log("Description: ", params[i]['description']);
+                 // console.log("Type: ", params[i]['type']);
+                 // console.log("isRequired: ", params[i]['required']);
+                 // var en = params[i]['enum'];
+                 // console.log("enum: ", en.length);
+                 // console.log("enum: ", params[i]['enum']);
 
+
+                 //list of values
+                 var enumSTR = '';
+                 var enumSTRfirst = '';
+
+                 if(params[i]['enum']){
+                   for(var j=0; j< params[i]['enum'].length; ++j){
+                     enumSTR+=params[i]['enum'][j];
+                     if(j+1 < params[i]['enum'].length){
+                       enumSTR+=",";
+                     }
+                   }
+                   enumSTRfirst = params[i]['enum'][0];
+                 }else{
+                   //nothing
+                 }
+
+                 //required
+                 if(params[i]['required'] == true){
+                   var required = '<input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/>';
+                 }else{
+                    var required = '<input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off"/>'
+                 }
+
+                 //type
                  if(params[i]['type'] == 'string'){
                    var sub = '<option value="string" selected>String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option>'
                  }else if(params[i]['type'] == 'boolean'){
@@ -6301,7 +6331,7 @@ function urlChanged(){
                    var sub = '<option value="string" selected>String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option>'
                  }
 
-                 $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name" value="'+params[i]['name']+'" style="width:85px" onchange="urlBlur()"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" ></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()"></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()">'+params[i]['description']+'</textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()">'+sub+'</select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
+                 $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name" value="'+params[i]['name']+'" style="width:85px" onchange="urlBlur()"></td><td><input class="form-control" type="text" id="value" value="'+enumSTRfirst+'" style="width:85px" onchange="urlBlur()" ></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="" rows="1" onchange="urlBlurNoCall()">'+enumSTR+'</textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()"></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()">'+params[i]['description']+'</textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()">'+sub+'</select></td><td>'+required+'</td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
 
                }
 
