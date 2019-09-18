@@ -350,8 +350,7 @@ function isSignedUp(){
         $('#acc').show();
         $('#signout').show();
 
-        // $('#consentIntModal').modal('show');
-        $('#butDDInt').click();
+        // $('#butDDInt').click();
         // [END_EXCLUDE]
       } else {
 
@@ -386,8 +385,12 @@ function isSignedUp(){
 
 }
 
-var logDecision="accept";
-var logIntDecision="accept";
+// var logDecision="accept";
+// var logIntDecision="accept";
+
+var logDecision="decline";
+var logIntDecision="decline";
+
 
 function canIntLog(dec){
   logIntDecision = dec;
@@ -808,7 +811,7 @@ function populateTable(data){
         $( "#saveBut" ).remove();
         //$( "#SCRIPT" ).remove();
 
-        $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="saveLogs();DownloadJSON2CSV();return false;"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
+        $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="data:text/csv,'+encodeURIComponent(DownloadJSON2CSV())+'" download = "data.csv"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
         $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" onclick="downloadJSON()" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
         $('<a id="JS" class="button button-mini button-border button-rounded button-green" onclick="getCodeClicked()" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
         $('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-amber dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>').appendTo('#viewButtons2');
@@ -1151,6 +1154,20 @@ function showHideDivPag(t) {
 }
 
 
+function showHideDivOptionalParams(t) {
+    var e = document.getElementById('optionalP');
+    if ( e.style.display != 'none' ) {
+        e.style.display = 'none';
+        t.value="Show Optional Parameters";
+
+    }
+    else {
+        t.value="Hide Optional Parameters";
+        e.style.display = '';
+    }
+}
+
+
 function openForm() {
   document.getElementById("myForm").style.display = "block";
 }
@@ -1191,8 +1208,7 @@ function checkButtonClicked(){
   //console.log("cookie: ",document.cookie);
 
   //show consent modal
-  // $('#consentDataModal').modal('show');
-  $('#butDD').click();
+  // $('#butDD').click();
 
 
   var str = window.location.href;
@@ -1609,10 +1625,10 @@ function populateAccountTables(){
 
   firebase.auth().onAuthStateChanged(function (user) {
     if(user){
-      console.log("USER ID: ",user.uid);
+      // console.log("USER ID: ",user.uid);
       firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
         var displayName = snapshot.val().name;
-        console.log("NAME: ", displayName);
+        // console.log("NAME: ", displayName);
         $("#SignupLogin").html(displayName);
 
         //Dataset Table
@@ -2323,7 +2339,7 @@ else{
           //$( "#saveBut" ).remove();
           //$( "#SCRIPT" ).remove();
 
-          $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="saveLogs();DownloadJSON2CSV();return false;"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
+          $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="data:text/csv,'+encodeURIComponent(DownloadJSON2CSV())+'" download = "data.csv"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
           $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" onclick="downloadJSON()" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
           $('<a id="JS" class="button button-mini button-border button-rounded button-green" onclick="getCodeClicked()" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
           $('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-amber dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>').appendTo('#viewButtons2');
@@ -2681,13 +2697,12 @@ function retrieveData(){
         });
       }
 
-
   for(var i=0; i<obJSON1.parameters.length; ++i){
    param.push({
      name: obJSON1.parameters[i]['name'],
      value: obJSON1.parameters[i]['value']
    });
- }
+  }
 
   getLogObj = {};
 
@@ -2698,10 +2713,9 @@ function retrieveData(){
   getLogObj.response = res;
   getLogObj.butClicked = "QUERY";
 
-   firebase.database().ref('getLog/' +document.cookie).push(JSON.parse(JSON.stringify(getLogObj)));
+   firebase.database().ref('getLog/'+ui).push(JSON.parse(JSON.stringify(getLogObj)));
    // firebase.database().ref('getLog/').remove();
    // firebase.database().ref('log/').remove();
-
   }
   // console.log("Data Logged: ", getLogObj);
   // save logs submit clicked END
@@ -2770,7 +2784,6 @@ function retrieveData(){
       listP+= JSON.stringify(nextPage);
     }
     listP+= "}";
-
 
   // console.log("listPYEAH: ",listP);
 
@@ -3283,7 +3296,7 @@ else{
           $( "#saveBut" ).remove();
           //$( "#SCRIPT" ).remove();
 
-          $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="" onclick="saveLogs();DownloadJSON2CSV();return false;"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
+          $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="data:text/csv,'+encodeURIComponent(DownloadJSON2CSV())+'" download = "data.csv"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
           $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" onclick="downloadJSON()" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
           $('<a id="JS" class="button button-mini button-border button-rounded button-green" onclick="getCodeClicked()" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
 
@@ -3633,86 +3646,11 @@ function flattenObjectJSON(response){
 
   var strObj = JSON.stringify(toReturn);
   var strObj2 = strObj.replace(".[j]", "[j]")
-// console.log("INSER FLATT OBJECT: ",strObj2);
-  return JSON.parse(strObj2);
-}
-
-
-
-/* //OLD
-
-function flattenObjectJSON(response){
-  var toReturn = {};
-
-  for (var i in response) {
-    //if (!response.hasOwnProperty(i))
-      //continue;
-
-    if ((typeof response[i]) == 'object') {
-      //console.log("object: ",response[i]);
-      var flatObject = flattenObjectJSON(response[i]);
-      for (var x in flatObject) {
-        //if (!flatObject.hasOwnProperty(x))
-          //continue;
-        var n = i.split('.');
-        if(!isNaN(Number(n))){
-          toReturn['[j].'+x] = flatObject[x];
-        }else{
-            if(x.startsWith("[j]")){
-                toReturn[i + x] = flatObject[x];
-            }else{
-                toReturn[i + '.' + x] = flatObject[x];
-            }
-        }
-      }
-    } else {
-      toReturn[i] = "";
-    }
-  }
-
-  var strObj = JSON.stringify(toReturn);
-  var strObj2 = strObj.replace(".[j]", "[j]")
 
   return JSON.parse(strObj2);
 }
 
-*/
-/*
-function flattenObjectJSON(response){
-  //console.log("response");
-  var toReturn = {};
 
-  for (var i in response) {
-    //console.log("i: ", i)
-    if (!response.hasOwnProperty(i))
-      continue;
-
-    if ((typeof response[i]) == 'object') {
-      var flatObject = flattenObjectJSON(response[i]);
-      for (var x in flatObject) {
-        if (!flatObject.hasOwnProperty(x))
-          continue;
-        var n = i.split('.');
-        var j = i+1;
-        var n1 = j.split('.');
-        //console.log("PRINT AFTER DOT: ", i.split('.'))
-        if(!isNaN(Number(n))){
-          //console.log("THIS IS A NUMBER!!! ",n);
-          //console.log("PRINT AFTER DOT: ", x)
-          toReturn[x] = flatObject[x]; //toReturn['['+i+'].' + x] = flatObject[x];
-        //}else if(!isNaN(Number(n1))){
-          //toReturn[i+'.' + x] = flatObject[x];
-        }else{
-          toReturn[i + '.' + x] = flatObject[x];
-        }
-      }
-    } else {
-      toReturn[i] = response[i];
-    }
-  }
-  return toReturn;
-}
-*/
 
 var c = 1;
 
@@ -3877,7 +3815,7 @@ if(logDecision == "accept"){
   getLogObj.butClicked = "SAVE";
   getLogObj.savePublic = isPublic;
 
-  firebase.database().ref('getLog/' +document.cookie).push(JSON.parse(JSON.stringify(getLogObj)));
+  firebase.database().ref('getLog/' +ui).push(JSON.parse(JSON.stringify(getLogObj)));
 }
 
   // console.log("Data Logged: ", getLogObj);
@@ -3916,7 +3854,7 @@ function getCodeClicked(){
     getLogObj.response = res;
     getLogObj.butClicked = "CODE";
 
-    firebase.database().ref('getLog/' +document.cookie).push(JSON.parse(JSON.stringify(getLogObj)));
+    firebase.database().ref('getLog/' +ui).push(JSON.parse(JSON.stringify(getLogObj)));
   }
     // console.log("Data Logged: ", getLogObj);
     // save logs code clicked END
@@ -3958,7 +3896,7 @@ function downloadJSON(){
     getLogObj.response = res;
     getLogObj.butClicked = "JSON";
 
-    firebase.database().ref('getLog/' +document.cookie).push(JSON.parse(JSON.stringify(getLogObj)));
+    firebase.database().ref('getLog/'+ui.push(JSON.parse(JSON.stringify(getLogObj))));
   }
     // console.log("Data Logged: ", getLogObj);
     // save logs JSON clicked END
@@ -3966,9 +3904,67 @@ function downloadJSON(){
 }
 
 
+
+function convertArrayOfObjectsToCSV(args) {
+        var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+
+        data = args.data || null;
+        if (data == null || !data.length) {
+            return null;
+        }
+
+        columnDelimiter = args.columnDelimiter || ',';
+        lineDelimiter = args.lineDelimiter || '\n';
+
+        keys = Object.keys(data[0]);
+
+        result = '';
+        result += keys.join(columnDelimiter);
+        result += lineDelimiter;
+
+        data.forEach(function(item) {
+            ctr = 0;
+            keys.forEach(function(key) {
+                if (ctr > 0) result += columnDelimiter;
+
+                result += item[key];
+                ctr++;
+            });
+            result += lineDelimiter;
+        });
+
+        return result;
+    }
+
+    function downloadCSV(args) {
+        var data, filename, link;
+
+        var csv = convertArrayOfObjectsToCSV({
+            data: stockData
+        });
+        if (csv == null) return;
+
+        filename = args.filename || 'export.csv';
+
+        if (!csv.match(/^data:text\/csv/i)) {
+            csv = 'data:text/csv;charset=utf-8,' + csv;
+        }
+        data = encodeURI(csv);
+
+        link = document.createElement('a');
+        link.setAttribute('href', data);
+        link.setAttribute('download', filename);
+        link.click();
+    }
+
+
+
+
 function DownloadJSON2CSV(){
         var array = typeof data != 'object' ? JSON.parse(arrData2) : arrData2;
         var str = '';
+
+        console.log("array: ", array);
 
         for (var i = 0; i < array.length; i++) {
             var line = '';
@@ -3980,8 +3976,14 @@ function DownloadJSON2CSV(){
             line.slice(0,line.Length-1);
             str += line + '\r\n';
         }
-        window.open( "data:text/csv;charset=utf-8," + escape(str))
+
+        console.log("csv: ", str);
+
+        return str;
+
 }
+
+
 
 function saveLogs(){
   console.log("SAVE CSV");
@@ -4016,43 +4018,9 @@ function saveLogs(){
   getLogObj.response = res;
   getLogObj.butClicked = "CSV";
 
-   firebase.database().ref('getLog/' +document.cookie).push(JSON.parse(JSON.stringify(getLogObj)));
+   firebase.database().ref('getLog/' +ui).push(JSON.parse(JSON.stringify(getLogObj)));
 
   }
-  // if(logDecision == "accept"){
-  //
-  //   var res = [];
-  //   var param = [];
-  //
-  //   if($("input[name='checkbox-w']").is(":checked")){
-  //       $("input[name='checkbox-w']:checked").each(function(){
-  //         res.push({
-  //           name: this.id
-  //         });
-  //       });
-  //     }
-  //
-  //
-  //   for(var i=0; i<obJSON1.parameters.length; ++i){
-  //    param.push({
-  //      name: obJSON1.parameters[i]['name'],
-  //      value: obJSON1.parameters[i]['value']
-  //    });
-  //  }
-  //
-  //   getLogObj = {};
-  //
-  //   getLogObj.id = ui;
-  //   getLogObj.timestamp = Date.now();
-  //   getLogObj.url = obJSON1.url;
-  //   getLogObj.parameters = param;
-  //   getLogObj.response = res;
-  //   getLogObj.butClicked = "CSV";
-  //
-  //   firebase.database().ref('getLog/' + ui).push(JSON.parse(JSON.stringify(getLogObj)));
-  // }
-    // console.log("Data Logged: ", getLogObj);
-    // save logs save clicked END
 }
 
 
@@ -4127,6 +4095,12 @@ function clearTable(){
 
   $('#requestTabel tbody').empty();
 
+  if(optionalParam.length>0){
+    for(var i=0; i < optionalParam.length; ++i){
+      $("#optionalP").append('<button id="'+optionalParam[i].name+'" class="button button-mini button-circle button-border button-teal" data-tooltip="'+optionalParam[i].descrip+'" style="text-transform:none; padding: 0 6px; " onclick="addReqRow(this)">'+optionalParam[i].name+'</button>');
+    }
+  }
+
   // $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name" onchange="urlBlur()" placeholder="Request parameter"></td><td><input class="form-control" type="text" id="value" onchange="urlBlur()" placeholder="Parameter default value"></td><td><input class="form-control" type="text" id="listOfValues" placeholder="Value1, Value2, ..."></td><td><input id="displayedName" class="form-control" type="text" placeholder="Name displayed to users"></td><td><input class="form-control" type="text" id="desc" placeholder="Parameter description"></td><td><select class="form-control" id="type" style="height:30px"><option value="string">String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td ><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
 
   $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="Request parameter"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="Parameter default value"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="Value1, Value2, ..."rows="1" onchange="urlBlurNoCall()"></textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()"></td><td><textarea class="form-control" type="text" id="desc" placeholder="" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
@@ -4137,6 +4111,7 @@ function clearTable(){
 
 function generateTableFromSwagger(url){
   $('#requestTabel tbody').empty();
+  $("#optionalP").empty();
 
   var data = $('textarea[name=swagger_schema]').val();
   var obj = JSON.parse(data);
@@ -4164,6 +4139,7 @@ function generateTableFromSwagger(url){
     }else{
       //nothing
     }
+
 
     //required
     if(params[i]['required'] == true){
@@ -4245,8 +4221,36 @@ function addHeaderRow() {
 
 
 function deleteRow(row) {
+
   var i = row.parentNode.parentNode.rowIndex;
   document.getElementById('requestTabel').deleteRow(i);
+
+  var paramName = row.parentNode.parentNode.childNodes[0].childNodes[0].value;
+  console.log("paramName: ", paramName);
+
+
+  if($('#optionalP').is(':empty')) {
+    console.log("optional parameters DO NO exit");
+    //do nothing
+  }else{
+    if(optionalParam.length > 0){
+      for(var i=0; i < optionalParam.length; ++i){
+        if(paramName == optionalParam[i].name){
+          //add it back to list of oprional parameters
+          $("#optionalP").append('<button id="'+optionalParam[i].name+'" class="button button-mini button-circle button-border button-teal" data-tooltip="'+optionalParam[i].descrip+'" style="text-transform:none; padding: 0 6px; " onclick="addReqRow(this)">'+optionalParam[i].name+'</button>');
+        }
+      }
+    }else if(duplicates.length > 0){
+      for(var j=0; j < duplicates.length; ++j){
+        if(paramName == duplicates[j]){
+          //add it back to list of oprional parameters
+          $("#optionalP").append('<button id="'+duplicates[j]+'" class="button button-mini button-circle button-border button-teal" data-tooltip="" style="text-transform:none; padding: 0 6px; " onclick="addReqRow(this)">'+duplicates[j]+'</button>');
+        }
+      }
+    }
+  }
+
+
 }
 
 function deleteHeaderRow(row) {
@@ -4297,102 +4301,98 @@ function deleteRowAccountTableAPIs(row,name) {
   //window.location.href='account.html';
 }
 
-$("#containerALL").click(function(){
-
-    console.log("You knocked?");
-    if($("#url").val()){
-    var arrParamVal = [];
-
-    if($("#url").val().includes('?')){
-      $("#requestTabel tbody").empty();
-      $("#toggReq").show();
-      var parts = $("#url").val().split('?')[1];
-      var link = $("#url").val().split('?')[0];
-      document.getElementById('url').value = link;
-      $("#url").value = link;
-
-      var reqParam = parts.split("&");
-      for(var x=0; x<reqParam.length; ++x){
-        arrParamVal.push(reqParam[x]);
-      }
-
-      for(var x=0; x<arrParamVal.length; ++x){
-        var p = arrParamVal[x].split("=");
-        $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" style="width:85px" onchange="urlBlur()" placeholder="" value="'+p[0]+'"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+p[1]+'"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlurNoCall()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlurNoCall()"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
-      }
-    }else{
-      var link = $("#url").val();
-    }//else
-
-    $("#jsonResponse").empty();
-
-    var first = true;
-    var listData="{";
-    $('#requestTabel tbody tr').each(function(i, n){
-      var $row = $(n);
-      if(first){
-        if($row.find('#value:eq(0)').val()){
-          if($row.find('#name:eq(0)').val()){
-            listData+= JSON.stringify($row.find('#name:eq(0)').val());
-            listData+=":";
-            listData+= JSON.stringify($row.find('#value:eq(0)').val());
-          }
-        }
-        first = false;
-      }else{
-      if($row.find('#value:eq(0)').val()){
-        if($row.find('#name:eq(0)').val()){
-          listData+=", "
-          listData+= JSON.stringify($row.find('#name:eq(0)').val());
-          listData+=":";
-          listData+= JSON.stringify($row.find('#value:eq(0)').val());
-        }
-      }
-    }
-
-    $("#reqParameters").append(""+$row.find('#name:eq(0)').val()+"&nbsp;<a type=''  data-trigger='focus' data-placement='right' title='"+$row.find('#name:eq(0)').val()+"'><span class='glyphicon glyphicon-info-sign' aria-hidden='true'></span></a>")
-
-    });
-
-
-    listData+="}";
-
-    //console.log("listData: ", listData);
-    //console.log("LINK: ", link);
-
-    $.ajax({
-      url: link,
-      data: JSON.parse(listData),
-      method: 'GET',
-      success: function (response) {
-        //console.log(response);
-        document.getElementById('jsonResponse').style.backgroundColor="#e4f3db";
-        // $("#jsoneditor").empty();
-        $("#jsonResponse").append('<code>'+JSON.stringify(response, null, 2)+'</code>');
-
-        showResponseSchema(listData);
-        $("#toggRes").show();
-        $("#correct").show();
-        $("#notcorrect").hide();
-
-        //reviewAPIIntegration();
-      },
-      error: function(response, jqXHR, textStatus, errorThrown) {
-        //console.log(response.responseText);
-        document.getElementById('jsonResponse').style.backgroundColor="#ffecef";
-        //$("#jsoneditor").empty();
-        $("#jsonResponse").append('<code>'+response.responseText+'</code>');
-        $("#toggRes").hide();
-        $("#correct").hide();
-        $("#notcorrect").show();
-      }
-    });
-  }else{
-    //add url!
-    // $("#toggRes").hide();
-    console.log("No URL");
-   }
-  });
+// $("#containerALL").click(function(){
+//
+//     console.log("You knocked?");
+//     if($("#url").val()){
+//     var arrParamVal = [];
+//
+//     if($("#url").val().includes('?')){
+//       $("#requestTabel tbody").empty();
+//       $("#toggReq").show();
+//       var parts = $("#url").val().split('?')[1];
+//       var link = $("#url").val().split('?')[0];
+//       document.getElementById('url').value = link;
+//       $("#url").value = link;
+//
+//       var reqParam = parts.split("&");
+//       for(var x=0; x<reqParam.length; ++x){
+//         arrParamVal.push(reqParam[x]);
+//       }
+//
+//       for(var x=0; x<arrParamVal.length; ++x){
+//         var p = arrParamVal[x].split("=");
+//         $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" style="width:85px" onchange="urlBlur()" placeholder="" value="'+p[0]+'"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+p[1]+'"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlurNoCall()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlurNoCall()"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+//       }
+//     }else{
+//       var link = $("#url").val();
+//     }//else
+//
+//     // $("#jsonResponse").empty();
+//
+//     var first = true;
+//     var listData="{";
+//     $('#requestTabel tbody tr').each(function(i, n){
+//       var $row = $(n);
+//       if(first){
+//         if($row.find('#value:eq(0)').val()){
+//           if($row.find('#name:eq(0)').val()){
+//             listData+= JSON.stringify($row.find('#name:eq(0)').val());
+//             listData+=":";
+//             listData+= JSON.stringify($row.find('#value:eq(0)').val());
+//           }
+//         }
+//         first = false;
+//       }else{
+//       if($row.find('#value:eq(0)').val()){
+//         if($row.find('#name:eq(0)').val()){
+//           listData+=", "
+//           listData+= JSON.stringify($row.find('#name:eq(0)').val());
+//           listData+=":";
+//           listData+= JSON.stringify($row.find('#value:eq(0)').val());
+//         }
+//       }
+//     }
+//
+//     $("#reqParameters").append(""+$row.find('#name:eq(0)').val()+"&nbsp;<a type=''  data-trigger='focus' data-placement='right' title='"+$row.find('#name:eq(0)').val()+"'><span class='glyphicon glyphicon-info-sign' aria-hidden='true'></span></a>")
+//
+//     });
+//
+//
+//     listData+="}";
+//
+//     //console.log("listData: ", listData);
+//     //console.log("LINK: ", link);
+//
+//     $.ajax({
+//       url: link,
+//       data: JSON.parse(listData),
+//       method: 'GET',
+//       success: function (response) {
+//         // document.getElementById('jsonResponse').style.backgroundColor="#e4f3db";
+//         // $("#jsonResponse").append('<code>'+JSON.stringify(response, null, 2)+'</code>');
+//
+//         showResponseSchema(listData);
+//         $("#toggRes").show();
+//         $("#correct").show();
+//         $("#notcorrect").hide();
+//
+//         //reviewAPIIntegration();
+//       },
+//       error: function(response, jqXHR, textStatus, errorThrown) {
+//         // document.getElementById('jsonResponse').style.backgroundColor="#ffecef";
+//         // $("#jsonResponse").append('<code>'+response.responseText+'</code>');
+//         $("#toggRes").hide();
+//         $("#correct").hide();
+//         $("#notcorrect").show();
+//       }
+//     });
+//   }else{
+//     //add url!
+//     // $("#toggRes").hide();
+//     console.log("No URL");
+//    }
+//   });
 
 
 
@@ -4401,22 +4401,15 @@ function urlBlurLog(){
   console.log("save this row: ");
   // console.log("part "+partNum);
 
-  if(document.getElementById("correct").display == "hidden"){
-    console.log("TRUE");
-  }else{
-    console.log("FALSE");
-  }
+  // if(document.getElementById("correct").display == "hidden"){
+  //   console.log("TRUE");
+  // }else{
+  //   console.log("FALSE");
+  // }
 
 
   // console.log("listData: ", listData);
   console.log("LINK: ", $("#url").val());
-
-  // if($("#correct").show())
-
-  // $("#toggRes").show();
-  // $("#correct").show();
-  // $("#notcorrect").hide();
-
 }
 
 var logObj;
@@ -4425,11 +4418,14 @@ var draw = false;
 var logs = [];
 
 var firstSuc = true;
+var hasParameters = false;
+
+var isAuth = false, isReq = false;
+var errorMessageJson="";
+
+var method="GET";
 
 function urlBlur(){
-
-  // console.log("urlBlur called");
-
   logObj = {};
   logs = [];
 
@@ -4449,16 +4445,18 @@ function urlBlur(){
         firebase.database().ref('log/' + uID).push(JSON.parse(JSON.stringify(logObj)));
       });
     }
-  }
+   }
   });
 
 
-
-  if($("#url").val()){
+if($("#url").val()){
 
   var arrParamVal = [];
+  hasParameters = false;
 
   if($("#url").val().includes('?')){
+    hasParameters = true;
+
     $("#requestTabel tbody").empty();
     $("#toggReq").show();
     var parts = $("#url").val().split('?')[1];
@@ -4515,8 +4513,7 @@ function urlBlur(){
 
   listData+="}";
 
-
-  console.log("listData: ", listData);
+  // console.log("listData: ", listData);
   // console.log("LINK: ", link);
 
   if($("#valueH").val()){
@@ -4524,41 +4521,149 @@ function urlBlur(){
     var headervar= $("#valueH").val();
     var headers_to_set = {};
     headers_to_set[headername] = headervar;
-    // console.log("it has header!: ", headers_to_set);
+
+    if($("#method").value == 'POST'){
+      method = 'POST'
+    }else{
+      method = 'GET';
+    }
 
     $.ajax({
       url: "https://cors-anywhere.herokuapp.com/"+link,
       data: JSON.parse(listData),
-      method: 'GET',
+      method: method,
       headers: headers_to_set,
-      // {
-      //   "Authorization" : $("#valueH").val()//"aecd329381b14464bc197f18a7b1b2b6"//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx",
-      // },
       success: function (response) {
         status = "success";
         jsResponse = JSON.stringify(response, null, 2);
-        document.getElementById('jsonResponse').style.backgroundColor="#e4f3db";
-        // $("#jsoneditor").empty();
-        $("#jsonResponse").append('<code>'+JSON.stringify(response, null, 2)+'</code>');
 
         showResponseSchema(listData);
         $("#toggRes").show();
+
+        errorMessageJson = "You've successfully accessed the API!";
+
+        //$("#pDiv").show(); //unhighlight
         $("#correct").show();
         $("#notcorrect").hide();
+        document.getElementById("pValidatetext").innerHTML=errorMessageJson;
+        document.getElementById('pValidatetext').style.color="green";
+        document.getElementById('pDiv').style.borderColor="green";
+        document.getElementById('pDiv').style.backgroundColor="#f2f9ee";
 
+        responseMessage(response, status);
       },
       error: function(response, jqXHR, textStatus, errorThrown) {
+        // console.log(JSON.stringify(response));
         status = "error";
-        jsResponse = response.responseText;
-        document.getElementById('jsonResponse').style.backgroundColor="#ffecef";
-        // $("#jsoneditor").empty();
-        $("#jsonResponse").append('<code>'+response.responseText+'</code>');
+
+        if(response.hasOwnProperty('responseText')){
+          jsResponse = response.responseText;
+        }else{
+          jsResponse = response;
+        }
 
         showResponseSchema(listData);
         $("#toggRes").hide();
-        $("#correct").hide();
-        $("#notcorrect").show();
 
+        var authSubstrings = ['api key','API key', 'key', 'oauth', 'authentication','auth', 'validation'];
+        var reqSubstrings = ['parameter', 'parameters', 'required parameter'];
+
+        var lengthA = authSubstrings.length;
+        var lengthR = reqSubstrings.length;
+
+        while(lengthA--) {
+           if (JSON.stringify(response).indexOf(authSubstrings[lengthA])!=-1){
+             isAuth=true;
+           }
+         }
+         while(lengthR--) {
+           if (JSON.stringify(response).indexOf(reqSubstrings[lengthR])!=-1){
+             isReq=true;
+           }
+        }
+
+        if(isAuth){
+          errorMessageJson = "Error: Missing authentication? Check message below";
+        }else if(isReq){
+          errorMessageJson = "Error: Missing required parameter(s)? Check message below";
+        }else{
+          errorMessageJson = "Error: Missing parameter(s)/authentication? Check message below";
+        }
+
+        var responseJSONChildren;
+
+        if(response.hasOwnProperty('responseJSON')){
+          //get the longest text there and show it as the message
+          responseJSONChildren = flatten(response.responseJSON);
+        }else if(response.hasOwnProperty('responseText')){
+          responseJSONChildren = flatten(response.responseText);
+        }else{//custom message (most likely response.responseText)
+            // Show a custom message?
+        }
+
+          function flatten(obj) {
+          var flattenedObj = {};
+          Object.keys(obj).forEach(function(key){
+              if (typeof obj[key] === 'object') {
+                  $.extend(flattenedObj, flatten(obj[key]));
+              } else {
+                  flattenedObj[key] = obj[key];
+              }
+          });
+          return flattenedObj;
+          }
+
+          var arrayOfValues = [];
+          var x=0;
+          var urlJson;
+
+          for (let [key, value] of Object.entries(responseJSONChildren)) {
+            // console.log(`${key}: ${value}`);
+            if(ValidURL(`${value}`)){
+              urlJson = `${value}`;
+            }else{
+              arrayOfValues[x]=`${value}`;
+              ++x;
+            }
+          }
+
+          function ValidURL(str) {
+            var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+            if(!regex .test(str)) {
+              return false;
+            } else {
+              return true;
+            }
+          }
+
+          var longest = arrayOfValues.reduce(function (a, b) { return a.length > b.length ? a : b; });
+          errorMessageJson ="Error: "+ longest+' '+urlJson;
+
+
+        //$("#pDiv").show(); //unhighlight
+        $("#notcorrect").show();
+        $("#correct").hide();
+        document.getElementById("pValidatetext").innerHTML=createTextLinks_(errorMessageJson);
+        document.getElementById('pValidatetext').style.color="red";
+        document.getElementById('pDiv').style.borderColor="red";
+        document.getElementById('pDiv').style.backgroundColor="#fceff1";
+
+        function createTextLinks_(text) {
+
+          return (text || "").replace(
+            /([^\S]|^)(((https?\:\/\/)|(www\.))(\S+))/gi,
+            function(match, space, url){
+              var hyperlink = url;
+              if (!hyperlink.match('^https?:\/\/')) {
+                hyperlink = 'http://' + hyperlink;
+              }
+              return space + '<a target="_blank" href="' + hyperlink + '">' + url + '</a>';
+            }
+          );
+
+        };
+        // console.log(JSON.stringify(response));
+        responseMessage(response, status);
       }
     });
 
@@ -4567,47 +4672,518 @@ function urlBlur(){
   $.ajax({
     url: link,
     data: JSON.parse(listData),
-    method: 'GET',
+    method: method,
     success: function (response) {
       status = "success";
       jsResponse = JSON.stringify(response, null, 2);
 
-      document.getElementById('jsonResponse').style.backgroundColor="#e4f3db";
-      // $("#jsoneditor").empty();
-      $("#jsonResponse").append('<code>'+JSON.stringify(response, null, 2)+'</code>');
-
       showResponseSchema(listData);
       $("#toggRes").show();
+      errorMessageJson = "Success! Click on result fields below";
+      //You successfully accessed the API!";
+      //$("#pDiv").show(); //unhighlight
       $("#correct").show();
       $("#notcorrect").hide();
+      document.getElementById("pValidatetext").innerHTML=errorMessageJson;
+      document.getElementById('pValidatetext').style.color="green";
+      document.getElementById('pDiv').style.borderColor="green";
+      document.getElementById('pDiv').style.backgroundColor="#f2f9ee";
 
+      responseMessage(response, status);
     },
     error: function(response, jqXHR, textStatus, errorThrown) {
+      // console.log(JSON.stringify(response));
       status = "error";
-      jsResponse = response.responseText;
 
-      document.getElementById('jsonResponse').style.backgroundColor="#ffecef";
-      //$("#jsoneditor").empty();
-      $("#jsonResponse").append('<code>'+response.responseText+'</code>');
+      if(response.hasOwnProperty('responseText')){
+        jsResponse = response.responseText;
+      }else{
+        jsResponse = response;
+      }
 
       showResponseSchema(listData);
       $("#toggRes").hide();
-      $("#correct").hide();
+
+      var authSubstrings = ['api key','API key', 'key', 'oauth', 'authentication','auth', 'validation'];
+      var reqSubstrings = ['parameter', 'parameters', 'required parameter'];
+      var lengthA = authSubstrings.length;
+      var lengthR = reqSubstrings.length;
+
+      while(lengthA--) {
+         if (JSON.stringify(response).indexOf(authSubstrings[lengthA])!=-1) {
+           isAuth=true;
+         }
+       }
+       while(lengthR--) {
+         if (JSON.stringify(response).indexOf(reqSubstrings[lengthR])!=-1) {
+           isReq=true;
+         }
+      }
+
+      if(isAuth){
+        errorMessageJson = "Error: Possibly missing authentication";
+      }else if(isReq){
+        errorMessageJson = "Error: Possibly missing required parameter(s)";
+      }else{
+        errorMessageJson = "Error: Possibly missing parameter(s) and/or authentication";
+      }
+
+      if(response.hasOwnProperty('responseJSON')){
+        //get the longest text there and show it as the message
+        var responseJSONChildren = flatten(response.responseJSON);
+
+        function flatten(obj) {
+        var flattenedObj = {};
+        Object.keys(obj).forEach(function(key){
+            if (typeof obj[key] === 'object') {
+                $.extend(flattenedObj, flatten(obj[key]));
+            } else {
+                flattenedObj[key] = obj[key];
+            }
+        });
+        return flattenedObj;
+        }
+
+        var arrayOfValues = [];
+        var x=0;
+        var urlJson;
+
+        for (let [key, value] of Object.entries(responseJSONChildren)) {
+          // console.log(`${key}: ${value}`);
+          if(ValidURL(`${value}`)){
+            urlJson = `${value}`;
+          }else{
+            arrayOfValues[x]=`${value}`;
+            ++x;
+          }
+        }
+
+        var elm;
+
+        function ValidURL(u){
+          if(!elm){
+            elm = document.createElement('input');
+            elm.setAttribute('type', 'url');
+          }
+          elm.value = u;
+          return elm.validity.valid;
+        }
+
+
+        var longest = arrayOfValues.reduce(function (a, b) { return a.length > b.length ? a : b; });
+
+        if(ContainsValidURL(longest)){
+          errorMessageJson ="Error: "+ longest;
+        }else{
+          errorMessageJson ="Error: "+ longest+' '+urlJson;
+        }
+        //Does the longest string contains links?
+        function ContainsValidURL(str) {
+          var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+          if(!regex.test(str)) {
+            return false;
+          } else {
+            return true;
+          }
+        }
+
+      }else{//custom message (most likely response.responseText)
+        // Show a custom message
+        // console.log("custom")
+      }
+
+      //$("#pDiv").show(); //unhighlight
       $("#notcorrect").show();
+      $("#correct").hide();
+      document.getElementById("pValidatetext").innerHTML=createTextLinks_(errorMessageJson);
+      document.getElementById('pValidatetext').style.color="red";
+      document.getElementById('pDiv').style.borderColor="red";
+      document.getElementById('pDiv').style.backgroundColor="#fceff1";
+
+      function createTextLinks_(text) {
+        return (text || "").replace(
+          /([^\S]|^)(((https?\:\/\/)|(www\.))(\S+))/gi,
+          function(match, space, url){
+            var hyperlink = url;
+            if (!hyperlink.match('^https?:\/\/')) {
+              hyperlink = 'http://' + hyperlink;
+            }
+            return space + '<a target="_blank" href="' + hyperlink + '">' + url + '</a>';
+          }
+        );
+
+      };
+      // console.log(JSON.stringify(response));
+      responseMessage(response, status);
     }
   });
 
   }
 
-  //save logObj to firebase
-
 }else{
 
  }
 
+}
 
+
+// function errorText(link, listData){
+// console.log("errorText function")
+//   $.ajax({
+//     url: link,
+//     data: JSON.parse(listData),
+//     method: 'GET',
+//     crossDomain: true,
+//     contentType: "application/json; charset=utf-8",
+//     dataType: 'jsonp',
+//     success: function (response) {
+//       status = "success";
+//       jsResponse = JSON.stringify(response, null, 2);
+//       // document.getElementById('jsonResponse').style.backgroundColor="#e4f3db";
+//       // $("#jsonResponse").append('<code>'+JSON.stringify(response, null, 2)+'</code>');
+//
+//       showResponseSchema(listData);
+//       $("#toggRes").show();
+//       // $("#correct").show();
+//       // $("#notcorrect").hide();
+//
+//       errorMessageJson = "Success! Click on result fields below";
+//       //You successfully accessed the API!";
+//       $("#pDiv").show();
+//       $("#correct").show();
+//       $("#notcorrect").hide();
+//       document.getElementById("pValidatetext").innerHTML=errorMessageJson;
+//       document.getElementById('pValidatetext').style.color="green";
+//       document.getElementById('pDiv').style.borderColor="green";
+//       document.getElementById('pDiv').style.backgroundColor="#f2f9ee";
+//
+//       responseMessage(response, status);
+//
+//     },
+//     error: function(response, jqXHR, textStatus, errorThrown) {
+//
+//       console.log(JSON.stringify(response));
+//
+//       status = "error";
+//
+//       if(response.hasOwnProperty('responseText')){
+//         jsResponse = response.responseText;
+//       }else{
+//         jsResponse = response;
+//       }
+//
+//       // document.getElementById('jsonResponse').style.backgroundColor="#ffecef";
+//       // $("#jsonResponse").append('<code>'+response.responseText+'</code>');
+//
+//       showResponseSchema(listData);
+//       $("#toggRes").hide();
+//       // $("#correct").hide();
+//       // $("#notcorrect").show();
+//
+//       var authSubstrings = ['api key','API key', 'key', 'oauth', 'authentication','auth', 'validation'];
+//       var reqSubstrings = ['parameter', 'parameters', 'required parameter'];
+//
+//       var lengthA = authSubstrings.length;
+//       var lengthR = reqSubstrings.length;
+//
+//       while(lengthA--) {
+//         // for(var j=0; j<authSubstrings.length)
+//          if (JSON.stringify(response).indexOf(authSubstrings[lengthA])!=-1) {
+//            isAuth=true;
+//          }
+//        }
+//        while(lengthR--) {
+//          if (JSON.stringify(response).indexOf(reqSubstrings[lengthR])!=-1) {
+//            isReq=true;
+//          }
+//       }
+//
+//       if(isAuth){
+//         console.log("needs authentication");
+//         errorMessageJson = "Error: Possibly missing authentication";
+//         // document.getElementById("authSection").scrollIntoView();
+//       }else if(isReq){
+//         console.log("needs parameter");
+//         errorMessageJson = "Error: Possibly missing required parameter(s)";
+//         // document.getElementById("authSection").scrollIntoView();
+//       }else{
+//         errorMessageJson = "Error: Possibly missing parameter(s) and/or authentication";
+//       }
+//
+//       if(response.hasOwnProperty('responseJSON')){
+//         //get the longest text there and show it as the message
+//         var responseJSONChildren = flatten(response.responseJSON);
+//
+//         function flatten(obj) {
+//         var flattenedObj = {};
+//         Object.keys(obj).forEach(function(key){
+//             if (typeof obj[key] === 'object') {
+//                 $.extend(flattenedObj, flatten(obj[key]));
+//             } else {
+//                 flattenedObj[key] = obj[key];
+//             }
+//         });
+//         return flattenedObj;
+//         }
+//
+//         var arrayOfValues = [];
+//         var x=0;
+//         var urlJson;
+//
+//         for (let [key, value] of Object.entries(responseJSONChildren)) {
+//           // console.log(`${key}: ${value}`);
+//           if(ValidURL(`${value}`)){
+//             urlJson = `${value}`;
+//           }else{
+//             arrayOfValues[x]=`${value}`;
+//             ++x;
+//           }
+//         }
+//
+//         var elm;
+//
+//         function ValidURL(u){
+//           if(!elm){
+//             elm = document.createElement('input');
+//             elm.setAttribute('type', 'url');
+//           }
+//           elm.value = u;
+//           return elm.validity.valid;
+//         }
+//
+//
+//         var longest = arrayOfValues.reduce(function (a, b) { return a.length > b.length ? a : b; });
+//
+//         if(ContainsValidURL(longest)){
+//           errorMessageJson ="Error: "+ longest;
+//         }else{
+//           errorMessageJson ="Error: "+ longest+' '+urlJson;
+//         }
+//         //Does the longest string contains links?
+//         function ContainsValidURL(str) {
+//           var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+//           if(!regex.test(str)) {
+//             return false;
+//           } else {
+//             return true;
+//           }
+//         }
+//
+//       }else{//custom message (most likely response.responseText)
+//         // Show a custom message
+//         // console.log("custom")
+//       }
+//
+//       $("#pDiv").show();
+//       $("#notcorrect").show();
+//       $("#correct").hide();
+//       document.getElementById("pValidatetext").innerHTML=createTextLinks_(errorMessageJson);
+//       document.getElementById('pValidatetext').style.color="red";
+//       document.getElementById('pDiv').style.borderColor="red";
+//       document.getElementById('pDiv').style.backgroundColor="#fceff1";
+//
+//       function createTextLinks_(text) {
+//
+//         return (text || "").replace(
+//           /([^\S]|^)(((https?\:\/\/)|(www\.))(\S+))/gi,
+//           function(match, space, url){
+//             var hyperlink = url;
+//             if (!hyperlink.match('^https?:\/\/')) {
+//               hyperlink = 'http://' + hyperlink;
+//             }
+//             return space + '<a target="_blank" href="' + hyperlink + '">' + url + '</a>';
+//           }
+//         );
+//
+//       };
+//       // console.log(JSON.stringify(response));
+//       responseMessage(response, status);
+//     }
+//   });
+//
+// }
+
+
+function responseMessage(response, status){
+ //JSON Response Using JSONEDITOR
+ var container, options, json, editor;
+
+ container = document.getElementById('jsoneditor2');
+
+ options = {
+   mode: 'view',
+   // modes: ['code', 'form', 'text', 'tree','view'],
+   // ace: ace,
+   onError: function (err) {
+     alert(err.toString());
+   },
+   onChange: function () {
+     //console.log('change');
+   },
+   onModeChange: function (mode) {
+     var treeMode = document.getElementById('treeModeSelection');
+     var textMode = document.getElementById('textModeSelection');
+
+     treeMode.style.display = textMode.style.display = 'none';
+
+     if (mode === 'code' || mode === 'text') {
+       textMode.style.display = 'inline';
+     } else {
+       treeMode.style.display = 'inline';
+     }
+   },
+   indentation: 4,
+   escapeUnicode: true,
+
+   onTextSelectionChange: function(start, end, text) {
+     var rangeEl = document.getElementById('textRange');
+     rangeEl.innerHTML = 'start: ' + JSON.stringify(start) + ', end: ' + JSON.stringify(end);
+     var textEl = document.getElementById('selectedText');
+     textEl.innerHTML = text;
+   },
+   onSelectionChange: function(start, end) {
+     var nodesEl = document.getElementById('selectedNodes');
+     nodesEl.innerHTML = '';
+     if (start) {
+       nodesEl.innerHTML = ('start: '  + JSON.stringify(start));
+       if (end) {
+         nodesEl.innerHTML += ('<br/>end: '  + JSON.stringify(end));
+       }
+     }
+   },
+   onEvent: function(node, event) {
+    if(status == "success"){
+
+     if (event.type === 'click') {
+       document.getElementById("toggRes").scrollIntoView();
+       // console.log("clicked: ", node.path);
+         var textEl = document.getElementById('selectedText');
+
+         var paramValue = eval("response."+prettyPrintPath(node.path));
+         // console.log(eval("response."+prettyPrintPath(node.path));
+
+         var s1 = node.field;
+         var s2 = prettyPrintPath(node.path);
+         var xx1 = s1.concat("/");
+         xx = xx1.concat(s2);
+
+         if(fields_paths){
+
+         }else{
+           fields_paths=[];
+         }
+         var exists = false;
+
+         for(var i=0; i<fields_paths.length; ++i){
+           if(fields_paths[i] == xx){
+             exists=true;
+           }
+         }
+
+         if(exists){
+
+         }else{
+         fields_paths.push(xx);
+         //console.log("fields_paths: ",fields_paths);
+
+         var safevalue= node.field;
+         //console.log("Test sting: ", safevalue);
+
+         r1=prettyPrintPath(node.path).replace(/[0-9]/,'');
+         r2=r1.replace('[','');
+         r3=r2.replace(']','');
+
+         var nameDefaule1 = node.field.split('_');
+         for (var i = 0; i < nameDefaule1.length; i++) {
+            nameDefaule1[i] = nameDefaule1[i].charAt(0).toUpperCase() + nameDefaule1[i].substring(1);    ;
+          }
+
+         var nameDefaule = nameDefaule1.join(' ');
+         $("#fields tbody").append('<tr id="'+xx+'"><td>'+node.field+'</td><td><input type="text" class="form-control" id="displayName'+s1+'" placeholder="" value="'+nameDefaule+'" onchange="urlBlurNoCall()" style="font-size:1em"></td> <td><input type="text" class="form-control" id="displayDesc'+s1+'" placeholder="" onchange="urlBlurNoCall()"> </td> <td><input id='+xx+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
+         urlBlurNoCall();
+     }//else does not exists
+
+   }//end og if clicked
+  }
+
+     // if (event.type === 'delete') {
+     //   //console.log("removed!");
+     // }
+
+     function prettyPrintPath(path) {
+                   var str = '';
+                   for (var i=0; i<path.length; i++) {
+                     var element = path[i];
+                     if (typeof element === 'number') {
+                       str += '[' + element + ']'
+                     } else if(element.includes(' ')) {
+                       str += "['"+element+"']";
+                       console.log(str)
+                     }else {
+                       if (str.length > 0) str += '.';
+                       str += element;
+                     }
+                   }
+                   return str;
+                 }
+   }
+
+ };
+
+ $("#jsoneditor2").empty();
+
+ if(status == "success"){
+   json = response;
+   var bgcolor = "#f2f9ee";
+  }else{
+    if(response.hasOwnProperty('responseText')){
+      // if(IsJsonString(response.responseText)){
+      //   json = flatten(JSON.parse(response.responseText));
+      // }else{
+      //   json = flatten(response.responseText);
+      // }
+
+      if(IsJsonString(response.responseText)){
+        json = JSON.parse(response.responseText);
+      }else{
+        json = response.responseText;
+      }
+
+        function IsJsonString(str) {
+            try {
+                JSON.parse(str);
+            } catch (e) {
+                return false;
+            }
+            return true;
+        }
+
+
+        function flatten(obj) {
+        var flattenedObj = {};
+        Object.keys(obj).forEach(function(key){
+            if (typeof obj[key] === 'object') {
+                $.extend(flattenedObj, flatten(obj[key]));
+            } else {
+                flattenedObj[key] = obj[key];
+            }
+        });
+        return flattenedObj;
+        }
+
+    }else{
+      json = response;
+    }
+   var bgcolor = "#fceff1";
+  }
+
+  window.editor = new JSONEditor(container, options, json);
+  document.getElementById('jsoneditor2').style.backgroundColor=bgcolor;
+  window.editor.expandAll();
 
 }
+
+
 
 function urlBlurNoCall(){
   // console.log("urlBlurNoCall called");
@@ -4663,33 +5239,6 @@ function urlBlurNoCall(){
 
 var reqParamsVales=[];
 
-function dataValues(par, val){
-
-}
-
-// function reqBlur(link, value){
-//   function urlBlur(link){
-//     $("#jsonResponse").empty();
-//
-//     console.log("LINK: ", link);
-//     $.ajax({
-//       url: link,
-//       //data: ,
-//       method: 'GET',
-//       success: function (response) {
-//         $("#jsonResponse").append('<code>'+JSON.stringify(response)+'</code>');
-//       },
-//       error: function(response, jqXHR, textStatus, errorThrown) {
-//         //console.log(response.responseText);
-//         $("#jsonResponse").append('<code>'+response.responseText+'</code>');
-//
-//       }
-//     });
-//   }
-// }
-
-
-
 
 //response functions
 function addRowResponse() {
@@ -4703,7 +5252,6 @@ function deleteRowResponse(row) {
 
 
 //retrieve JSON schema for the chosen "clicked on" API
-
 
 var fields_paths=[];
 var fields_paths_curr=[];
@@ -5282,6 +5830,7 @@ function showResponseSchema(listData){
             // if(!window.editor){
             $("#jsoneditor").empty();
             window.editor = new JSONEditor(container, options, json);
+window.editor.expandAll();
             // }            //   draw = false;
 
             for(var y=0; y<objJSONOBJ2.length; ++y){
@@ -5532,6 +6081,8 @@ if(document.getElementById('selectPage').value == "index") {
     $("#indexDiv").show();
     $("#nextDiv").hide();
     $("#offsetDiv").hide();
+
+    $("#space").hide();
   }
 
   // function showOffset(){
@@ -5539,12 +6090,16 @@ if(document.getElementById('selectPage').value == "index") {
     $("#indexDiv").hide();
     $("#nextDiv").hide();
     $("#offsetDiv").show();
+
+    $("#space").hide();
   }
 
   if(document.getElementById('selectPage').value == "nextPrev") {
     $("#indexDiv").hide();
     $("#nextDiv").show();
     $("#offsetDiv").hide();
+
+    $("#space").show();
   }
 
 
@@ -5619,7 +6174,11 @@ function getAPIName(apiName){
 function callFirebase(){
   fields_paths=[];
   // registration();
-  isSignedUp();
+  firebase.initializeApp(config);
+
+  // $('#butDDInt').click();
+  // initApp();
+  // isSignedUp(); //removed for demo
   //callFirebaseForRegistration();
 
   // document.getElementById('url').value = window.localStorage.getItem('link');
@@ -6186,11 +6745,7 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
       //do nothing
     }
       first_time=false;
-    //  }//else{
-    //   firebase.database().ref('apis/' + $("#title").val()).set(JSON.parse(JSON.stringify(myObj)));
-    // }
 
-    // if ($("#fields tbody tr")) {
     var tbody = $("#fields tbody");
 
     if (tbody.children().length == 0) {
@@ -6199,8 +6754,8 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
       $("#previewAPIIntegration").append("<h5 style='color:red'>Go to 'Response Fields' section and choose fields you are intersted in, then click on 'Review' button</h5>")
     }else{
       $("#previewAPIIntegration").empty();
-      $("#previewAPIIntegration").append('<button id="saveAPI" class="button button-3d button-mini button-rounded" onclick="showAPIUI()" style="width:130px; text-align:center;"><span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> Publish API</button>');
-      $("#previewAPIIntegration").append('<button id="cancelAPI" class="button button-3d button-mini button-rounded button-red" onclick="cancelAPI()" style="width:130px; text-align:center;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Cancel</button>');
+      $("#previewAPIIntegration").append('<button id="saveAPI" class="button button-3d button-mini button-rounded" onclick="showAPIUI()" style="width:200px; text-align:center;"><span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> Add API to ScrAPIr</button>');
+      $("#previewAPIIntegration").append('<button id="cancelAPI" class="button button-3d button-mini button-rounded button-red" onclick="cancelAPI()" style="width:200px; text-align:center;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Cancel</button>');
       $("#previewAPIIntegration").append("<div class='box' style='border: 1px solid gray;'><iframe src='data-management-review.html?api="+api_title+"' width = '100%' height= '500px'></iframe><div>");
   }
 }
@@ -6281,22 +6836,37 @@ function populateListOfAPIs(){
     });
   });
 
-  //APIs GURU list
+  // APIs GURU list
 
-  // $.ajax({
-  //   url: "https://api.apis.guru/v2/list.json",
-  //   method: "GET",
-  //   success: function (response) {
-  //     console.log("RESPONSE: ",response);
-  //   }
-  // });
+  // var cnt = 0;
+  //   $.ajax({
+  //     url: "https://api.apis.guru/v2/list.json",
+  //     method: "GET",
+  //     success: function (response) {
+  //       for (var property in response) {
+  //         cnt+=1;
+  //       }
+  //       console.log("RESPONSE: ",cnt);
+  //
+  //     }
+  //   });
 
 }
 
+var optionalParam = [];
 
 function urlChanged(){
-  $('#requestTabel tbody').empty();
+  console.log("urlChanged");
 
+  if(!hasParameters){
+   $('#requestTabel tbody').empty();
+
+  optionalParam = [];
+  $("#optionalP").empty();
+
+  //call github
+  $("#gitButton").click();
+  var urlStr = $("#url").val();
   var u = $("#url").val().split("https://www.")[1];
   var uNoPath = u.substring(0, u.lastIndexOf("/") );
 
@@ -6319,30 +6889,19 @@ function urlChanged(){
         var specName = swaggerJson.replace(rootUrl + 'specs/', '');
         var href = urlTemplate.replace('{swaggerJson}', swaggerJson);
         // links += '<p><a href="'+ href +'" target="_blank">'+ specName +'</a></p>';
-
          if(href.includes(uNoPath)){
-           // console.log("link: ", href);
-
            $.ajax({
              url: href,
              method: "GET",
              success: function (response) {
-               // console.log("RESPONSE: ",response);
-               // var data = $('textarea[name=swagger_schema]').val();
+               optionalParam = [];
+               var firstOptParam = true;
                var obj = response;
                var tmp = $("#url").val().split("/");
                var path = "/"+tmp.pop();
-               console.log(obj.paths[path].get.parameters);
                var params = obj.paths[path].get.parameters;
+               console.log("Parames: ", params);
                for(var i=0; i<params.length; ++i){
-                 // console.log("Name: ", params[i]['name']);
-                 // console.log("Description: ", params[i]['description']);
-                 // console.log("Type: ", params[i]['type']);
-                 // console.log("isRequired: ", params[i]['required']);
-                 // var en = params[i]['enum'];
-                 // console.log("enum: ", en.length);
-                 // console.log("enum: ", params[i]['enum']);
-
                  //list of values
                  var enumSTR = '';
                  var enumSTRfirst = '';
@@ -6359,12 +6918,12 @@ function urlChanged(){
                    //nothing
                  }
 
-                 //required
-                 if(params[i]['required'] == true){
-                   var required = '<input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/>';
-                 }else{
-                    var required = '<input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off"/>'
+                 var maxNumRes = 0;
+                 if(params[i]['maximum']){//if pagination parameter
+                   maxNumRes = params[i]['maximum'];
+                   console.log("max number",params[i]['maximum']);
                  }
+
 
                  //type
                  if(params[i]['type'] == 'string'){
@@ -6377,11 +6936,31 @@ function urlChanged(){
                    var sub = '<option value="string" selected>String</option><option value="int">Integer</option><option value="date-time">Boolean</option><option value="date">Date</option><option value="date-time">DateTime</option>'
                  }
 
-                 $("#requestTabel tbody").append('<tr id="firstTR"><td><input class="form-control" type="text" id="name" value="'+params[i]['name']+'" style="width:85px" onchange="urlBlur()"></td><td><input class="form-control" type="text" id="value" value="'+enumSTRfirst+'" style="width:85px" onchange="urlBlur()" ></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="" rows="1" onchange="urlBlurNoCall()">'+enumSTR+'</textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()" value="'+params[i]['name']+'"></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()">'+params[i]['description']+'</textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()">'+sub+'</select></td><td>'+required+'</td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
+                 //required
+
+                 var isRequired = false;
+                 if(params[i]['required'] == true){
+                   var required = '<input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/>';
+
+                   isRequired = true;
+
+                   // $("#requestTabel tbody").append('<tr id=""><td><input class="form-control" type="text" id="name" value="'+params[i]['name']+'" style="width:85px" onchange="urlBlur()"></td><td><input class="form-control" type="text" id="value" value="'+enumSTRfirst+'" style="width:85px" onchange="urlBlur()" ></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="" rows="1" onchange="urlBlurNoCall()">'+enumSTR+'</textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()" value="'+params[i]['name']+'"></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()">'+params[i]['description']+'</textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()">'+sub+'</select></td><td>'+required+'</td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>');
+
+                 }else{
+                   isRequired = false;
+
+                    var required = '<input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off"/>';
+                 }// else not required
+
+                 optionalParam.push({
+                   name: params[i]['name'],
+                   descrip: params[i]['description'],
+                   isReq: isRequired,
+                   max: maxNumRes,
+                   value: '<tr id="firstTR"><td><input class="form-control" type="text" id="name" value="'+params[i]['name']+'" style="width:85px" onchange="urlBlur()"></td><td><input class="form-control" type="text" id="value" value="'+enumSTRfirst+'" style="width:85px" onchange="urlBlur()" ></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder="" rows="1" onchange="urlBlurNoCall()">'+enumSTR+'</textarea></td><td><input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()" value="'+params[i]['name']+'"></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()">'+params[i]['description']+'</textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()">'+sub+'</select></td><td>'+required+'</td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"/></td></tr>'
+                 });
 
                }
-
-               $("#toggReq").show();
 
              }
            });
@@ -6396,12 +6975,78 @@ function urlChanged(){
   xhttp.open('GET', rootUrl + 'list.json', true);
   xhttp.send(null);
 
+  // console.log("optionalParam: ",optionalParam);
+ }else{
+   $("#pDiv").show();
+   $("#jsoneditor2").show();
+   // document.getElementById("reqDIV").scrollIntoView();
+ }
+}
+
+
+function addReqRow(t){
+
+  if(optionalParam.length > 0){
+    for(var i=0; i < optionalParam.length; ++i){
+      if(t.id == optionalParam[i].name){
+        // console.log("id: ", t.id);
+        // console.log("name: ", optionalParam[i].name);
+        // console.log("vale: ", optionalParam[i].value);
+
+        //remove it from optional parameters list
+        document.getElementById(optionalParam[i].name).remove();
+
+        //add it to request table
+        $("#requestTabel tbody").append(optionalParam[i].value);
+      }
+    }
+  }else if(duplicates.length > 0){
+    for(var x=0; x < duplicates.length; ++x){
+      if(t.id == duplicates[x]){
+        //remove it from optional parameters list
+        document.getElementById(duplicates[x]).remove();
+
+        //add it to request table
+        $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+duplicates[x]+'"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="" value=""></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlurNoCall()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlurNoCall()"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+      }
+    }
+  }
+}
+
+
+function email_check(){
+  console.log("popover!")
+
+  //   $('input[name=nameParam]').parent().removeClass("has-error has-feedback").removeClass("has-success has-feedback");
+  //   $('span.glyphicon').remove();
+  //   var email = $('input[name=nameParam]').val()
+	// if( !isValidEmailAddress( email ) ) {
+  //setup before functions
+  var typingTimer;                //timer identifier
+  var doneTypingInterval = 1000;  //time in ms (5 seconds)
+
+  //on keyup, start the countdown
+  clearTimeout(typingTimer);
+  if ($('input[name=nameParam]').val()) { //if value and exist in apis guru?
+    typingTimer = setTimeout(doneTyping, doneTypingInterval);
+  }
+
+  //user is "finished typing," do something
+  function doneTyping () {
+      //do something
+      $("input[name=nameParam]").popover({content: "<button>BUTTON</button>", placement:'right', title:'Autofill?', container:'body'});
+      $("input[name=nameParam]").popover('show');
+  }
+
+}
+
+function isValidEmailAddress() {
+	return false;
 }
 
 
 
 function apiHasBeenChosen(select){
-  //alert(select.options[select.selectedIndex].getAttribute("myid"));
   var str = select.options[select.selectedIndex].getAttribute("id");
   var api_title = str.split('_').join(' ');
 
@@ -6413,6 +7058,166 @@ function apiHasBeenChosen(select){
 
 
 var tempOb = [];
+var duplicates = [];
+
+function callGitHub2(u){
+
+  var objJSON = [];
+  var pageGit = 5;
+  duplicates = [];
+
+  for(var i=0; i<pageGit; ++i) {
+    var par = {
+      "q" : u,
+      "access_token" : '9b670443489b576acd26c944d064f5d675998b54',
+      "page":i,
+      "per_page" : 100 //maximum results we can get from github
+      }
+
+    var headerAccValue = "application/vnd.github.v3.text-match+json";
+    var headerAuthValue = "";
+
+    var objH = {headerKey:"Accept", headerAccVal:JSON.stringify(headerAccValue), headerAuthVal:JSON.stringify(headerAuthValue)};
+
+    $.ajax({
+      url: "https://api.github.com/search/code",
+      data: par,
+      method: "GET",
+      headers: {
+        "Accept": "application/vnd.github.v3.text-match+json"
+      },
+      success: function (response) {
+        for(var n=0; n<response.items.length; ++n){
+          for(var m=0; m<response.items[n].text_matches.length; ++m){
+            objJSON.push(response.items[n].text_matches[m].fragment);
+          }
+        }
+      }
+    });
+  }
+
+
+  setTimeout(function(){
+    var r = $.Deferred();
+    var c = 0;
+    var arrParamVal = [];
+
+      for(var i=0; i<objJSON.length; ++i){
+        var str= JSON.stringify(objJSON[i], '', 7);
+        if(str.includes(u+"?")){
+          var urls = str.split(u+"?");
+          var reqParameters = urls[1].split(/[^\=\&\dA-Z]/gi);
+          var reqParam = reqParameters[0].split("&");
+          for(var x=0; x<reqParam.length; ++x){
+            arrParamVal.push(reqParam[x].split("=")[0]);
+          }
+        }
+      }
+
+      var map = arrParamVal.reduce(function (p, c) {
+          p[c] = (p[c] || 0) + 1;
+          return p;
+      }, {});
+      duplicates = Object.keys(map).sort(function (a, b) {
+          return map[a] < map[b];
+      });
+
+      var existDup = false;
+      var test=[];
+      var githubNotOpenAPI=[];
+
+      if(optionalParam.length>0){//OpenAPI specification exits
+        $("#optionalP").append('<h5 style=" margin:0px; padding:0px">Add other parameters:</h5>');
+
+        for(var x=0; x<optionalParam.length; ++x){
+          if(optionalParam[x].isReq){
+            $("#requestTabel tbody").append(optionalParam[x].value);
+          }
+        }
+
+
+        for(var x=0; x<optionalParam.length; ++x){
+          for(var j=0; j<5; ++j){
+          if(optionalParam[x].name == duplicates[j] && !optionalParam[x].isReq){
+              $("#requestTabel tbody").append(optionalParam[x].value);
+              existDup = true;
+              break;
+            }else{
+              existDup = false;
+            }
+          }
+
+
+          if(!existDup && !optionalParam[x].isReq){
+              $("#optionalP").append('<button id="'+optionalParam[x]['name']+'" class="button button-mini button-circle button-border button-teal" style="text-transform:none; padding: 0 6px; " data-tooltip="'+optionalParam[x]['descrip']+'" onclick="addReqRow(this)">'+optionalParam[x]['name']+'</button>');
+           }
+        }//for loop
+
+        //add the ones in duplicates but not in optionalParam to request table
+
+        for(var x=0; x<5; ++x){
+          var existInOptional = false;
+          for(var j=0; j<optionalParam.length; ++j){
+            if(duplicates[x] == optionalParam[j].name){
+              existInOptional = true;
+            }
+           }
+           if(!existInOptional){
+             $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+duplicates[x]+'"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="" value=""></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlurNoCall()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlurNoCall()"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+           }
+          }
+
+
+      }else if(duplicates.length>0 && !hasParameters){//only GitHub and no OpenAPI
+        $("#optionalP").append('<h5 style=" margin:0px; padding:0px">Add other parameters:</h5>');
+
+        var j;
+        for(j=0; j<5; ++j){
+          if(duplicates[j]){
+            $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+duplicates[j]+'"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="" value=""></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlurNoCall()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlurNoCall()"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+          }
+        }
+
+        for(var x=j; x<duplicates.length; ++x){
+          $("#optionalP").append('<button id="'+duplicates[x]+'" class="button button-mini button-circle button-border button-teal" style="text-transform:none; padding: 0 6px; " data-tooltip="" onclick="addReqRow(this)">'+duplicates[x]+'</button>');
+        }
+      }else{
+        //do nothing
+      }
+
+      for(var x=0; x<optionalParam.length; ++x){
+        $("#paramList").append('<option id="'+optionalParam[x]['max']+'" value="'+optionalParam[x]['name']+'"/>');
+        $("#pageList").append('<option id="" value="'+optionalParam[x]['name']+'"/>');
+      }
+
+
+
+
+
+    $("#toggReq").show();
+
+    $("#pDiv").show();
+    $("#jsoneditor2").show();
+    // document.getElementById("reqDIV").scrollIntoView();
+
+
+  }, 2500);
+
+}//callGithub2 function
+
+
+function onInputMaxParam() {
+    var val = document.getElementById("result_param").value;
+    var opts = document.getElementById('paramList').childNodes;
+    for (var i = 0; i < opts.length; i++) {
+      if (opts[i].value === val) {
+        document.getElementById('result_max').value = opts[i].id;
+        break;
+      }
+    }
+}
+
+
 
 function callGitHub(u){
   //$("#requestTabel").empty();
