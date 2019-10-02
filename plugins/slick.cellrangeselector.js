@@ -6,9 +6,9 @@
     }
   });
 
+
   function CellRangeSelector(options) {
     var _grid;
-    var _currentlySelectedRange;
     var _canvas;
     var _dragging;
     var _decorator;
@@ -20,9 +20,10 @@
       }
     };
 
+
     function init(grid) {
       options = $.extend(true, {}, _defaults, options);
-      _decorator = options.cellDecorator || new Slick.CellRangeDecorator(grid, options);
+      _decorator = new Slick.CellRangeDecorator(grid, options);
       _grid = grid;
       _canvas = _grid.getCanvasNode();
       _handler
@@ -34,10 +35,6 @@
 
     function destroy() {
       _handler.unsubscribeAll();
-    }
-
-    function getCellDecorator() {
-      return _decorator;
     }
 
     function handleDragInit(e, dd) {
@@ -60,11 +57,11 @@
       _grid.focus();
 
       var start = _grid.getCellFromPoint(
-        dd.startX - $(_canvas).offset().left,
-        dd.startY - $(_canvas).offset().top);
+          dd.startX - $(_canvas).offset().left,
+          dd.startY - $(_canvas).offset().top);
 
       dd.range = {start: start, end: {}};
-      _currentlySelectedRange = dd.range;
+
       return _decorator.show(new Slick.Range(start.row, start.cell));
     }
 
@@ -75,15 +72,14 @@
       e.stopImmediatePropagation();
 
       var end = _grid.getCellFromPoint(
-        e.pageX - $(_canvas).offset().left,
-        e.pageY - $(_canvas).offset().top);
+          e.pageX - $(_canvas).offset().left,
+          e.pageY - $(_canvas).offset().top);
 
       if (!_grid.canCellBeSelected(end.row, end.cell)) {
         return;
       }
 
       dd.range.end = end;
-      _currentlySelectedRange = dd.range;
       _decorator.show(new Slick.Range(dd.range.start.row, dd.range.start.cell, end.row, end.cell));
     }
 
@@ -98,23 +94,17 @@
       _decorator.hide();
       _self.onCellRangeSelected.notify({
         range: new Slick.Range(
-          dd.range.start.row,
-          dd.range.start.cell,
-          dd.range.end.row,
-          dd.range.end.cell
+            dd.range.start.row,
+            dd.range.start.cell,
+            dd.range.end.row,
+            dd.range.end.cell
         )
       });
-    }
-
-    function getCurrentRange() {
-      return _currentlySelectedRange;
     }
 
     $.extend(this, {
       "init": init,
       "destroy": destroy,
-      "getCellDecorator": getCellDecorator,
-      "getCurrentRange": getCurrentRange,
 
       "onBeforeCellRangeSelected": new Slick.Event(),
       "onCellRangeSelected": new Slick.Event()

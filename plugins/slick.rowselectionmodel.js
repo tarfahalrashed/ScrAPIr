@@ -81,8 +81,6 @@
     }
 
     function setSelectedRanges(ranges) {
-      // simple check for: empty selection didn't change, prevent firing onSelectedRangesChanged
-      if ((!_ranges || _ranges.length === 0) && (!ranges || ranges.length === 0)) { return; }
       _ranges = ranges;
       _self.onSelectedRangesChanged.notify(_ranges);
     }
@@ -99,9 +97,7 @@
 
     function handleKeyDown(e) {
       var activeRow = _grid.getActiveCell();
-      if (_grid.getOptions().multiSelect && activeRow 
-      && e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey 
-      && (e.which == Slick.keyCode.UP || e.which == Slick.keyCode.DOWN)) {
+      if (activeRow && e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey && (e.which == 38 || e.which == 40)) {
         var selectedRows = getSelectedRows();
         selectedRows.sort(function (x, y) {
           return x - y
@@ -115,7 +111,7 @@
         var bottom = selectedRows[selectedRows.length - 1];
         var active;
 
-        if (e.which == Slick.keyCode.DOWN) {
+        if (e.which == 40) {
           active = activeRow.row < bottom || top == bottom ? ++bottom : ++top;
         } else {
           active = activeRow.row < bottom ? --bottom : --top;
@@ -123,8 +119,8 @@
 
         if (active >= 0 && active < _grid.getDataLength()) {
           _grid.scrollRowIntoView(active);
-          var tempRanges = rowsToRanges(getRowsRange(top, bottom));
-          setSelectedRanges(tempRanges);
+          _ranges = rowsToRanges(getRowsRange(top, bottom));
+          setSelectedRanges(_ranges);
         }
 
         e.preventDefault();
@@ -168,8 +164,8 @@
         _grid.setActiveCell(cell.row, cell.cell);
       }
 
-      var tempRanges = rowsToRanges(selection);
-      setSelectedRanges(tempRanges);
+      _ranges = rowsToRanges(selection);
+      setSelectedRanges(_ranges);
       e.stopImmediatePropagation();
 
       return true;
