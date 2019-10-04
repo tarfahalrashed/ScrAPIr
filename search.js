@@ -7077,7 +7077,7 @@ function callGitHub2(u){
   for(var i=0; i<pageGit; ++i) {
     var par = {
       "q" : u,
-      "access_token" : '9b670443489b576acd26c944d064f5d675998b54',
+      "access_token" : '',
       "page":i,
       "per_page" : 100 //maximum results we can get from github
       }
@@ -7246,7 +7246,7 @@ function callGitHub(u){
   for(var i=0; i<pageGit; ++i) {
     var par = {
       "q" : u,
-      "access_token" : '9b670443489b576acd26c944d064f5d675998b54',
+      "access_token" : '',
       "page":i,
       "per_page" : 100 //maximum results we can get from github
     }
