@@ -29,23 +29,30 @@ app.get('/', function(req, res) {
 });
 
 
-var port = 8080;
-var server = app.use(express.static(__dirname));
-app.listen(port);
+// Listen to the App Engine-specified port, or 8080 otherwise
+// const PORT = process.env.PORT || 80;
+// app.listen(PORT, () => {
+//   console.log(`Server listening on port ${PORT}...`);
+// });
 
+// var port = 80;
+// var server = app.use(express.static(__dirname));
+// app.listen(port);
+
+app.listen(80, '128.30.2.133')
 
 //writing json description to .json file
-app.post('/writeFileToJson',function(req,res){
+app.post('/specs',function(req,res){
 
   var FileContent=req.body.FileContent;
   var FileName=req.body.FileName;
+
+  // console.log("FileContent: ", FileContent);
   res.send(JSON.parse(FileContent));
-  // console.log( "The file has been uploaded!");
   // var FileContent = JSON.parse(FileContent)
-  // console.log(FileContent);
 
   //Wrting Json file
-  fs.writeFileSync(__dirname + '/specs/'+FileName+'.json', FileContent);
+  fs.writeFileSync(__dirname+'/specs/'+FileName+'.json', FileContent);
 
   // var file = __dirname + '/'+FileName+'.json'
   // // console.log("dir: ", file);

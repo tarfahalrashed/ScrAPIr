@@ -6769,17 +6769,20 @@ function showAPIUI(){
   var str = 'data-management.html?api='+ myObj.title.split(' ').join('_');
 
   //create API desc .json file
-  $.post("http://scrapir.org/writeFileToJson",{FileContent: JSON.stringify(myObj), FileName: myObj.title.split(' ').join('')}, function(data){
-    // console.log("print: ", data);
-  });
-
-  // $.post("http://localhost:8080/writeFileToJson",{FileContent: JSON.stringify(myObj), FileName: myObj.title.split(' ').join('')}, function(data){
+  // $.post("http://scrapir.org/specs",{FileContent: JSON.stringify(myObj), FileName: myObj.title.split(' ').join('')}, function(data){
+  //   console.log("data: ", data);
+  //   console.log("print: ", myObj);
   // });
+
+  $.post("http://128.30.2.133:80/specs",{FileContent: JSON.stringify(myObj), FileName: myObj.title.split(' ').join('')}, function(data){
+      console.log("data: ", data);
+      console.log("print: ", myObj);
+  });
 
   //window.open=('data-management.html?api='+ myObj.title.split(' ').join('_'), '_blank');//api title firebase.database().ref('apis/' + $("#title").val())
   window.open(str, '_blank');
 
-  $('#modalPublish').modal('show');
+  // $('#modalPublish').modal('show');
 
 }
 
@@ -7568,6 +7571,38 @@ function prettierURL(){
   var url = link.split('.html');
   window.history.replaceState( null, null, url[0] );
 }
+
+
+
+
+function populateAPIDesc(){
+
+  //prettierURL();
+  registration();
+  //Files Table
+  firebase.database().ref('apis/').once('value').then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) { //for each saved data
+      if(childSnapshot.val() != undefined){
+        //console.log("VALUE: ", childSnapshot.val().description);
+        // var api_name = childSnapshot.val().apiName;
+        // var file_title = childSnapshot.val().title;
+        // var file_desc = childSnapshot.val().description;
+        // var url = childSnapshot.val().urlCSV;
+        // var link = childSnapshot.val().queryLink;
+        // var urlJ = childSnapshot.val().urlJSON;
+        var urlTitle = childSnapshot.val().title;
+        var name = urlTitle.split(' ').join('');
+        $("#specs_table tbody").append('<tr><td>'+childSnapshot.val().title+'</td><td><a href="http://scrapir.org/specs/'+name+'.json" target="_blank">http://scrapir.org/specs/'+name+'.json</a></td></tr>');
+        // <td><img src="images/eye.png" alt="" width="15px">aa &nbsp;  <img src="images/down.png" alt="" width="15px">aa </td>
+      }else{
+        //////////
+      }
+    });
+  });
+
+}
+
+
 
 function populatePublicSavedDataset(){
 
