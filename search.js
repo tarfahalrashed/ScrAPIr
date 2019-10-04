@@ -21,7 +21,7 @@ var publishedAfter;
 
 // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyBaJakjjAHw0wvBtELAtDLPmhq1piGWwqQ",
+    apiKey: "",
     authDomain: "superapi-52bc2.firebaseapp.com",
     databaseURL: "https://superapi-52bc2.firebaseio.com",
     projectId: "superapi-52bc2",
@@ -7629,27 +7629,7 @@ function populatePublicSavedDataset(){
 
 }
 
-/*
-function requestAPI(url,listP){
-		//YOUTUBE
-		/*var listP = {
-		    "maxResults": "3",
-   			"part": "snippet",
-   		    "q": $('#queryw').val(),
-		   	"key": "AIzaSyBaJakjjAHw0wvBtELAtDLPmhq1piGWwqQ"
-	  	};
 
-	    $.ajax({
-	      url: url,//'https://www.googleapis.com/youtube/v3/search',
-	      data: JSON.parse(listP),
-	      dataType: 'jsonp',
-	      success: function (x) {
-	        console.log(JSON.stringify(x, '', 7));
-          return x;
-	      }
-	    });
-}
-*/
 
 
 
