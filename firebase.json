@@ -1,16 +1,16 @@
 {
   "hosting": {
     "public": "public",
-    "rewrites": [
-      {
-        "source": "/timestamp",
-        "function": "app"
-      }
-    ],
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ]
+  },
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "storage": {
+    "rules": "storage.rules"
   }
 }

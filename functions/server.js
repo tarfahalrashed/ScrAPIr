@@ -24,6 +24,24 @@ app.get('/timestamp', (request,response) => {
   // console.log(request.body);
 });
 
+// app.post('/writeFile',function(req,res){
+//   var FileContent=req.body.FileContent;
+//   var FileName=req.body.FileName;
+//
+//   res.json(JSON.parse(FileContent));
+//   // res.json(req.body);
+//
+//
+//   // var requestedData = req.body;
+//   // console.log("reqData: ", requestedData);
+//   //
+//   // res.status(200).end();
+//
+//   //Wrting Json file
+//   fs.writeFileSync(__dirname+'/specs/'+FileName+'.json', FileContent);
+//
+// })
+
 exports.app = functions.https.onRequest(app);
 
 
@@ -61,20 +79,20 @@ exports.app = functions.https.onRequest(app);
 // // app.use(mw({ option1: '1', option2: '2' }))
 //
 // //writing json description to .json file
-// app.post('/writeFile',function(req,res){
-//   var FileContent=req.body.FileContent;
-//   var FileName=req.body.FileName;
-//
-//   res.json(JSON.parse(FileContent));
-//   // res.json(req.body);
-//
-//
-//   // var requestedData = req.body;
-//   // console.log("reqData: ", requestedData);
-//   //
-//   // res.status(200).end();
-//
-//   //Wrting Json file
-//   fs.writeFileSync(__dirname+'/specs/'+FileName+'.json', FileContent);
-//
-// })
+app.post('/writeFile',function(req,res){
+  var FileContent=req.body.FileContent;
+  var FileName=req.body.FileName;
+
+  res.json(JSON.parse(FileContent));
+  // res.json(req.body);
+
+
+  // var requestedData = req.body;
+  // console.log("reqData: ", requestedData);
+  //
+  // res.status(200).end();
+
+  //Wrting Json file
+  fs.writeFileSync(__dirname+'/specs/'+FileName+'.json', FileContent);
+
+})

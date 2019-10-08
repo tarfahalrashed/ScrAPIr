@@ -6840,7 +6840,7 @@ function populateListOfAPIs(){
   });
 
 
-
+  //
   // $.post("/writeFile",{FileContent: JSON.stringify(myObj), FileName: 'testingDUH'}, function(data){
   //     console.log("data: ", data);
   //     console.log("print: ", myObj);
@@ -6851,9 +6851,9 @@ function populateListOfAPIs(){
   //     if(childSnapshot.val().title != undefined){
   //       var str = childSnapshot.val().title;
   //       var jsonStr = JSON.stringify(childSnapshot.val());
-  //       var api_title = str.split(' ').join('');
+  //       var api_title = str.split(' ').join('X');
   //       if(str == "YouTube API"){
-  //           $.post("/writeFile",{FileContent: jsonStr, FileName: "tt"}, function(data){
+  //           $.post("/writeFile",{FileContent: jsonStr, FileName: api_title}, function(data){
   //             console.log("data: ", data);
   //             console.log("print: ", jsonStr);
   //           });
