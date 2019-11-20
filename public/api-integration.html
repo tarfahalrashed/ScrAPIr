@@ -632,7 +632,7 @@
 							<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">3.</span> Authentication and Header <span style="font-style: italic; font-size:0.9em">(some APIs require authentication and\or header)</span></div>
 							<div id="toggAuth" class="togglec">
 								<div style="display:inline" id="authSection">
-									<h3 style="margin:0px; padding:0px; display: inline-block">Authentication Type <span id="messageQ" style="font-size:0.6em; display:none;  color:red">(Add your key as one of the request parameters above)</span> <span id="messageH" style="font-size:0.6em; display:none; color:red">(Add your key as one of the header parameters below)</span><span id="messageB" style="font-size:0.6em; display:none; color:red">(Add your token\key in the header section below)</span></h3>
+									<h3 style="margin:0px; padding:0px; display: inline-block">Authentication Type: <span id="messageQ" style="font-size:0.6em; display:none;  color:red">(Add your key as one of the request parameters above)</span> <span id="messageH" style="font-size:0.6em; display:none; color:red">(Add your key as one of the header parameters below)</span><span id="messageB" style="font-size:0.6em; display:none; color:red">(Add your token\key in the header section below)</span></h3>
 									<a style="width:100px; display:inline-block; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalDemoAuth" onclick="">Demo</a>
 									<a style="width:100px; text-align:center; display: inline-block" class="button button-mini button-circle button-border button-blue" data-toggle="modal" data-target="#modalExampleAuth" onclick="">Details</a>
 								</div>
@@ -655,23 +655,87 @@
 								</tbody>
 							</table>
 
-						</br></br></br>
+						</br></br>
 
-							<h3 style="margin:0px; padding:0px;">Header Parameters</h3>
+							<table id="apiKeyFieldTable" style="display:none">
+									<thead style="font-size:1.5em">
+										<tr>
+											<th style="">API Key</th>
+											<th>&nbsp;</th>
+											<th style="width:500px">Value</th>
+											<th>&nbsp;</th>
+											<th>&nbsp;</th>
+											<th>Make Public?</th>
+										</tr>
+										</thead>
+											<tbody>
+												<tr>
+													<td>
+														<input list="paramList" class="form-control" type="text" id="nameKey" placeholder="" onchange="urlBlur()" >
+														<datalist id="paramList"></datalist>
+													</td>
+													<td></td>
+													<td>
+														<input class="form-control" type="text" id="valueKey" placeholder="" onchange="urlBlur()" >
+													</td>
+													<td></td>
+													<td></td>
+													<td><input id='isPublic'  value='' class='checkbox-style' name='' type='checkbox' onchange="urlBlurNoCall()" autocomplete='off' checked/></td>
+												</tr>
+										  </tbody>
+								</table>
+
+						<hr>
+
+							<h3 style="margin:0px; padding:0px;">Authentication process:</h3>
+						  </br></br>
+
+							<div id"" style="">
+									<div class="" style="width:500px">
+										<label>Authentication page URL
+											<!-- <a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="The parameter used to set the maximum number of results to (e.g. the parameter that you set the number of results to in YouTube is 'maxResults'). Not all APIs provide this parameter."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a> -->
+										</label>
+										<input  style="" type="text" class="form-control" id="authURL" placeholder="e.g.'https://www.yelp.com/developers/documentation/v3/authentication'" oninput='' onchange="">
+									</div>
+								</br></br>
+
+									<div class="" style="width:500px">
+										<label>Describe the process of getting authenticated
+											<!-- <a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="The parameter used to set the maximum number of results to (e.g. the parameter that you set the number of results to in YouTube is 'maxResults'). Not all APIs provide this parameter."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a> -->
+										</label>
+										<!-- <input style="" type="textarea" class="form-control" id="" placeholder="" oninput='' onchange="urlBlurNoCall()"> -->
+										<textarea class="form-control" type="text" id="authDesc" rows="4" cols="120"></textarea>
+									</div>
+							</div>
+
+
+						</br></br>
+						<hr>
+
+							<h3 style="margin:0px; padding:0px;">Header parameters:</h3>
+							</br>
 							<!-- <p style="font-size:1.7em; margin-bottom:5px;">Some APIs might ask you to add header to acces their data (e.g. In <a href="https://developer.github.com/v3/search/#text-match-metadata" target="_blank">GitHub search code API</a>, you can get the code snippets in search results by adding 'Accept' header as the name and assign it a value of 'application/vnd.github.v3.text-match+json').</p> -->
 								<!-- <input style="display: inline-block; width:300px" class="form-control" type="text" id="nameH" placeholder="header" onchange="urlBlur()" >
 								<input style="display: inline-block; width:300px" class="form-control" type="text" id="valueH" placeholder="value" onchange="urlBlur()" > -->
 
-							<table id="headerTabel" class="table table-bordered table-striped">
+							<table id="headerTabel" class="" style="display:none">
 								<thead style="font-size:1.5em">
 									<tr>
-										<th style="background-color: #fff4f6; width:200px">Name</th>
-										<th style="background-color: #fff4f6;">Value</th>
+										<th style="">Key</th>
+										<th>&nbsp;</th>
+										<th style="width:500px">Value</th>
+										<th>&nbsp;</th>
+										<th>&nbsp;</th>
+										<th>Make Public?</th>
 										<th></th>
+										<!--
+										<th style="width:500px">Name</th>
+										<th style="">Value</th>
+										<th></th> -->
 									</tr>
 								</thead>
 								<tbody>
-								<tr>
+								<!-- <tr>
 									<td>
 										<input class="form-control" type="text" id="nameH" placeholder="" onchange="urlBlur()" >
 									</td>
@@ -681,10 +745,13 @@
 									<td style="width:30px">
 										<input type="image" src="images/del.png" style="width:18px"onclick="deleteHeaderRow(this)"/>
 									</td>
-								</tr>
+								</tr> -->
 							</tbody>
 						</table>
+
 					</br>
+
+
 
 						<a class="button button-mini button-circle button-teal"onclick="addHeaderRow()" style="width:180px; text-align:center; color:white"><i class="glyphicon glyphicon-plus"></i>Add a Header</a>
 
@@ -732,8 +799,7 @@
 							</div>
 						</div>
 
-
-							</div>
+						</div>
 						</div>
 
 

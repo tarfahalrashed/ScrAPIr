@@ -182,10 +182,40 @@
 								</div>
 							</br>
 
-							<div id="reqParametersContainer" style="">
+							<!-- <div id="reqParametersContainer" style="">
 								<div id="reqParameters" style=" overflow-y:scroll; overflow-y:auto; overflow-x:auto;"></div>
 								</br>
 								<a id="submitQuery" class="button button-mini" onclick="retrieveDataX()"></i>Search</a>
+								<a class="button button-mini button-teal button-roundedl" type="reset" value="Reset" onClick="window.location.reload()"></i>Reset</a>
+							</div> -->
+							<div id="reqParametersContainer" style="">
+								<!-- <h5>Filter</h5> -->
+								<div id="reqParameters" style="max-height:330px; overflow-y:scroll; overflow-y:auto; overflow-x:auto; font-size:1.1em;"></div>
+
+							</br>
+
+								<div style="display:inline">
+									<h5 style="display:inline-block; padding:0px; margin:0px">Authentication</h5>
+									<a type="image" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" cursor="pointer" style="display:inline-block; color:#1ABC9C; font-size:1.2em; padding:0px; margin:0px">(How?)</a>
+
+									<div class="dropdown-menu" style="padding:5px; max-width:250px">
+										<form class="px-4 py-3">
+											<div id="descMenu">
+											</div>
+										</form>
+									</div>
+									<!-- <p id="opreq" style="padding:0px; display:inline-block; color:red; font-size:1.2em"></p> -->
+									<!-- <img style="display:inline-block; width:12px; height:12px" src="images/info1.png"> -->
+									<p id="opreq" style="display:inline-block; padding:0px; margin:0px; color:red; font-size:1.2em"></p>
+
+								</div>
+
+
+								<div id="authParameters" style="padding:0px; margin:0px; max-height:200px; max-width:170px; overflow-y:scroll; overflow-y:auto; overflow-x:auto; font-size:1.1em;">
+								</div>
+
+								</br>
+								<a id="submitQuery" class="button button-mini" onclick="retrieveData()" type="submit"></i>Search </a>
 								<a class="button button-mini button-teal button-roundedl" type="reset" value="Reset" onClick="window.location.reload()"></i>Reset</a>
 							</div>
 

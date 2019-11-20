@@ -10946,7 +10946,7 @@ label {
 	letter-spacing: 1px;
 	color: #555;
 	margin-bottom: 10px;
-	cursor: pointer;
+	/* cursor: pointer; */
 }
 
 label.label-muted {

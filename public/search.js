@@ -1420,10 +1420,9 @@ function checkButtonClicked(){
                 if(obJSON1.parameters[i]['required'] == true){
                   // $("#reqParameters").append(""+obJSON1.parameters[i]['displayedName']+"&nbsp;<a type='' data-toggle='tooltip' data-placement='right' title='"+obJSON1.parameters[i]['description']+"'><span class='glyphicon glyphicon-info-sign' aria-hidden='true'></span></a>")
                   $("#reqParameters").append("<a type='' class='' data-toggle='tooltip' data-placement='right' title='"+obJSON1.parameters[i]['description']+"'>"+obJSON1.parameters[i]['displayedName']+"<span style='color:red'>*</span></a>")
-                  }else{
+                }else{
                     $("#reqParameters").append("<a type='' class='' data-toggle='tooltip' data-placement='right' title='"+obJSON1.parameters[i]['description']+"'>"+obJSON1.parameters[i]['displayedName']+"</a>")
-                  }
-                  if(obJSON1.parameters[i]['listOfValues']){
+                }if(obJSON1.parameters[i]['listOfValues']){
                     $("#reqParameters").append("<select class='form-control' id="+obJSON1.parameters[i]['name']+"></select></br>");
                     arr = obJSON1.parameters[i]['listOfValues'].split(',');
                     for(var j=0; j<arr.length; ++j){
@@ -1453,6 +1452,30 @@ function checkButtonClicked(){
                 }
               }
             }
+
+            //if auth url and descreption exist
+
+            $("#descMenu").append('<p style="word-break: break-all ; font-size: 1.2em;">'+obJSON1.authDesc+'</br><a href="'+obJSON1.authURL+'" target="_blank">'+obJSON1.authURL+'</a></p>');
+            if(obJSON1.authIsPublic){
+              var paragraph = document.getElementById("opreq");
+              var text = document.createTextNode(" Optional");
+              paragraph.appendChild(text);
+            }else{
+              var paragraph = document.getElementById("opreq");
+              var text = document.createTextNode(" Required");
+              paragraph.appendChild(text);
+            }
+
+            // $("#authParameters").append('<a type="image" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" cursor="pointer" style="color:#1ABC9C; font-size:1.2em; padding:0px; margin:0px">How?</a>')
+            //if has header
+            // $("#authParameters").append('<a>Key</a>')
+            // $("#authParameters").append('<input style="height:27px" type="text" class="form-control" id="" value=""></input></br>');
+            $("#authParameters").append('</br><a>API Key Value</a>')
+            $("#authParameters").append('<input style="height:27px" type="text" class="form-control" id="apiKeyVal" value=""></input></br>');
+
+            //When click on "submit" button,
+            //check the there values in the header key and value,
+            //If not check if the integrator make their own pubic, if not show a message asking the user to provide one
 
             //[3] Request parameters
             listP1="{";
@@ -1896,6 +1919,14 @@ function retrieveDataX(){
       listP+= ":";
       listP+= JSON.stringify(nextPage);
     }
+
+    if(obJSON1.apiKeyValue){
+      listP+= ","
+      listP+= JSON.stringify(obJSON1.apiKeyName);
+      listP+=":";
+      listP+= JSON.stringify(obJSON1.apiKeyValue);
+    }
+
     listP+= "}";
 
     // console.log("listP no: ", listP);
@@ -2754,6 +2785,8 @@ function retrieveData(){
   // console.log("Data Logged: ", getLogObj);
   // save logs submit clicked END
 
+
+  //START HERE
     var pages;
 
     if($("#numOfResults").val()){
@@ -2817,6 +2850,21 @@ function retrieveData(){
       listP+= ":";
       listP+= JSON.stringify(nextPage);
     }
+
+    if(obJSON1.apiKeyValue){
+      listP+= ","
+      listP+= JSON.stringify(obJSON1.apiKeyName);
+      listP+=":";
+      if($("#apiKeyVal").val()){
+        listP+= $("#apiKeyVal").val();
+      }else{
+        listP+= JSON.stringify(obJSON1.apiKeyValue);
+      }
+    }
+
+    //if header key-value
+    //if()
+
     listP+= "}";
 
   // console.log("listPYEAH: ",listP);
@@ -4204,7 +4252,15 @@ function addRow() {
 
 
 function addHeaderRow() {
-  $("#headerTabel tbody").append('<tr><td><input class="form-control" type="text" id="nameH" placeholder=""></td><td><input class="form-control" type="text" id="valueH" placeholder=""></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteHeaderRow(this)"</td></tr>');
+  $("#headerTabel").show();
+  $("#headerTabel tbody").append('<tr><td><input class="form-control" type="text" id="nameH" placeholder=""></td><td></td><td><input class="form-control" type="text" id="valueH" placeholder=""></td><td></td><td></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteHeaderRow(this)"</td></tr>');
+  urlBlurNoCall();
+}
+
+function addHeaderRowAuth() {
+  $("#headerTabel").show();
+  $("#headerTabel tbody").empty();
+  $("#headerTabel tbody").append('<tr><td><input class="form-control" type="text" id="nameH" placeholder=""></td><td></td><td><input class="form-control" type="text" id="valueH" placeholder=""></td><td></td><td></td><td><input id="isPublic"  class="checkbox-style" name="" type="checkbox" onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteHeaderRow(this)"</td></tr>');
   urlBlurNoCall();
 }
 
@@ -4498,6 +4554,13 @@ if($("#url").val()){
   $("#reqParameters").append(""+$row.find('#name:eq(0)').val()+"&nbsp;<a type=''  data-trigger='focus' data-placement='right' title='"+$row.find('#name:eq(0)').val()+"'><span class='glyphicon glyphicon-info-sign' aria-hidden='true'></span></a>")
 
   });
+
+  if($("#valueKey").val() != ""){
+    listData+= ","
+    listData+= JSON.stringify($("#nameKey").val());
+    listData+=":";
+    listData+= JSON.stringify($("#valueKey").val());
+  }
 
 
   listData+="}";
@@ -5289,6 +5352,15 @@ function showResponseSchema(listData){
 
   myObj.headers = headers;
 
+  //Authentication description
+  myObj.authDesc = $("#authDesc").val();
+  myObj.authURL  = $("#authURL").val();
+  myObj.authIsPublic = $("#isPublic").is(":checked");
+
+  //API key as a parameter
+  myObj.apiKeyName = $("#nameKey").val();
+  myObj.apiKeyValue = $("#valueKey").val();
+
   var parameters = [];
 
         $('#requestTabel tbody tr').each(function(i, n){
@@ -5343,333 +5415,6 @@ function showResponseSchema(listData){
           "method": "GET"
         }
       }
-
-        //
-        // $.ajax(settings3).done(function (response) {
-        //       var objJSONOBJ = flattenObjectJSON(response);
-        //       var objJSONOBJ2 = Object.getOwnPropertyNames(objJSONOBJ);
-        //       //JSON Response Using JSONEDITOR
-        //       var container, options, json, editor;
-        //
-        //       container = document.getElementById('jsoneditor');
-        //
-        //       options = {
-        //         mode: 'view',
-        //         modes: ['code', 'form', 'text', 'tree','view'],
-        //         ace: ace,
-        //         onError: function (err) {
-        //           alert(err.toString());
-        //         },
-        //         // onChange: function () {
-        //         //   //console.log('change');
-        //         // },
-        //         // onModeChange: function (mode) {
-        //         //   var treeMode = document.getElementById('treeModeSelection');
-        //         //   var textMode = document.getElementById('textModeSelection');
-        //         //
-        //         //   treeMode.style.display = textMode.style.display = 'none';
-        //         //
-        //         //   if (mode === 'code' || mode === 'text') {
-        //         //     textMode.style.display = 'inline';
-        //         //   } else {
-        //         //     treeMode.style.display = 'inline';
-        //         //   }
-        //         // },
-        //         indentation: 4,
-        //         escapeUnicode: true,
-        //
-        //         // onTextSelectionChange: function(start, end, text) {
-        //         //   var rangeEl = document.getElementById('textRange');
-        //         //   rangeEl.innerHTML = 'start: ' + JSON.stringify(start) + ', end: ' + JSON.stringify(end);
-        //         //   var textEl = document.getElementById('selectedText');
-        //         //   textEl.innerHTML = text;
-        //         // },
-        //         // onSelectionChange: function(start, end) {
-        //         //   var nodesEl = document.getElementById('selectedNodes');
-        //         //   nodesEl.innerHTML = '';
-        //         //   if (start) {
-        //         //     nodesEl.innerHTML = ('start: '  + JSON.stringify(start));
-        //         //     if (end) {
-        //         //       nodesEl.innerHTML += ('<br/>end: '  + JSON.stringify(end));
-        //         //     }
-        //         //   }
-        //         // },
-        //         onEvent: function(node, event) {
-        //             urlBlurNoCall();
-        //           if (event.type === 'click') {
-        //             console.log("clicked: ", node.field);
-        //             var textEl = document.getElementById('selectedText');
-        //
-        //             var paramValue = eval("response."+prettyPrintPath(node.path).replace(' ','%20'));
-        //             // r1=prettyPrintPath(node.path).replace(/[0-9]/,'');
-        //
-        //
-        //             // console.log("here ", response.hits.hits[0]._source.Acknowledgments);
-        //
-        //               var s1 = node.field;
-        //               var s2 = prettyPrintPath(node.path);
-        //               var xx1 = s1.concat("/");
-        //               xx = xx1.concat(s2);
-        //               if(fields_paths){
-        //
-        //               }else{
-        //                 fields_paths=[];
-        //               }
-        //               var exists = false;
-        //
-        //               for(var i=0; i<fields_paths.length; ++i){
-        //                 if(fields_paths[i] == xx){
-        //                   exists=true;
-        //                 }
-        //               }
-        //
-        //               if(exists){
-        //
-        //               }else{
-        //               fields_paths.push(xx);
-        //               // console.log("fields_paths: ",fields_paths);
-        //
-        //               var safevalue= node.field;
-        //               // console.log("Test sting: ", safevalue);
-        //
-        //               r1=prettyPrintPath(node.path).replace(/[0-9]/,'');
-        //               r2=r1.replace('[','');
-        //               r3=r2.replace(']','');
-        //
-        //               var nameDefaule1 = node.field.split('_');
-        //               for (var i = 0; i < nameDefaule1.length; i++) {
-        //                  nameDefaule1[i] = nameDefaule1[i].charAt(0).toUpperCase() + nameDefaule1[i].substring(1);
-        //                }
-        //
-        //               var nameDefaule = nameDefaule1.join(' ');
-        //
-        //               $("#fields tbody").append('<tr id="'+xx+'"><td>'+node.field+'</td>  <td><input type="text" class="form-control" id="displayName'+s1+'" placeholder="" value="'+nameDefaule+'" style="font-size:1em" onchange="urlBlurNoCall()"></td> <td><input type="text" class="form-control" id="displayDesc'+s1+'" placeholder="" onchange="urlBlurNoCall()"> </td> <td><input id='+xx+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
-        //               urlBlurNoCall();
-        //           }//else does not exists
-        //
-        //         }
-        //
-        //           if (event.type === 'delete') {
-        //             //console.log("removed!");
-        //           }
-        //
-        //           function prettyPrintPath(path) {
-        //                         var str = '';
-        //                         for (var i=0; i<path.length; i++) {
-        //                           var element = path[i];
-        //                           if (typeof element === 'number') {
-        //                             str += '[' + element + ']'
-        //                           } else if(element.includes(' ')) {
-        //                             str += "['"+element+"']";
-        //                             console.log(str)
-        //                           }else {
-        //                             if (str.length > 0) str += '.';
-        //                             str += element;
-        //                           }
-        //                         }
-        //                         return str;
-        //                       }
-        //         }
-        //
-        //       };
-        //
-        //       json = response;
-        //
-        //       // if(draw){
-        //       if(!window.editor){
-        //         window.editor = new JSONEditor(container, options, json);
-        //       }
-        //       //   draw = false;
-        //       // }else{
-        //       //   firstSuc=false;
-        //       // }
-        //       //console.log('json', json);
-        //       //console.log('string', JSON.stringify(json));
-        //
-        //
-        //       for(var y=0; y<objJSONOBJ2.length; ++y){
-        //         paths.push(objJSONOBJ2[y].replace("[j].", ".")); //arrays of paths to json schema
-        //         pathsID.push(objJSONOBJ2[y]);
-        //       }
-        //
-        //       //convert array of paths (paths) to JSON
-        //       var parsePathArray = function() {
-        //           var parsed = {};
-        //           for(var i = 0; i < paths.length; i++) {
-        //               var position = parsed;
-        //               var split = paths[i].split('.');
-        //               for(var j = 0; j < split.length; j++) {
-        //                   if(split[j] !== "") {
-        //                       if(typeof position[split[j]] === 'undefined' || position[split[j]] === "")
-        //                         if(j+1<split.length)
-        //                           position[split[j]] = {};
-        //                         else
-        //                           position[split[j]] = "";
-        //                       position = position[split[j]];
-        //                   }
-        //               }
-        //           }
-        //           return parsed;
-        //       }
-        //
-        //       //begin of treeview
-        //       var json =  parsePathArray();
-        //       //console.log("parsePathArray: ", json);
-        //       var tree = [];
-        //       var final_tree = [];
-        //
-        //       //called with every property and its value
-        //       function process(key, value) {
-        //           //console.log(key + " : "+value);
-        //       }
-        //
-        //       idcounter = 0;
-        //       parentid_array = [];
-        //       parentid_array[0] = 0;
-        //
-        //       function traverse(o, func) {
-        //           for (var i in o) {
-        //               func.apply(this, [i, o[i]]);
-        //               if (o[i] !== null && typeof(o[i]) == "object") {
-        //                   //going one step down in the object tree
-        //                   var obj = {};
-        //                   obj["name"] = i;
-        //                   obj["id"] = idcounter;
-        //                   obj["parentid"] = parentid_array[parentid_array.length - 1];
-        //                   obj["children"] = [];
-        //                   tree.push(obj);
-        //                   parentid_array.push(idcounter)
-        //                   idcounter++;
-        //                   traverse(o[i], func);
-        //               } else {
-        //                   var obj = {};
-        //                   obj["name"] = i;
-        //                   obj["id"] = idcounter;
-        //                   obj["parentid"] = parentid_array[parentid_array.length - 1];
-        //                   obj["children"] = [];
-        //                   tree.push(obj);
-        //                   idcounter++;
-        //               }
-        //           }
-        //           parentid_array.pop()
-        //       }
-        //
-        //       function traverse2(o, func, parentid, currentitem) {
-        //           if (o["id"]) {
-        //               if (o["id"] == parentid) {
-        //                   o["children"].push(currentitem)
-        //               }
-        //           }
-        //
-        //           for (var i in o) {
-        //
-        //               func.apply(this, [i, o[i]]);
-        //               if (o[i] !== null && typeof(o[i]) == "object") {
-        //                   //going one step down in the object tree
-        //                   traverse2(o[i], func, parentid, currentitem);
-        //               }
-        //           }
-        //           parentid_array.pop()
-        //       }
-        //
-        //       traverse(json, process);
-        //
-        //       for (var counter = 0; counter < tree.length; counter++) {
-        //           if (tree[counter]["parentid"] == 0) {
-        //               final_tree.push(tree[counter])
-        //           } else {
-        //               traverse2(final_tree, process, tree[counter]["parentid"], tree[counter]);
-        //           }
-        //       }
-        //
-        //       var expandAll = document.getElementById('expandAll');
-        //       var collapseAll = document.getElementById('collapseAll');
-        //       //var submit = document.getElementById('submit');
-        //
-        //       var t = new TreeView(final_tree, 'tree');
-        //       var ids = 0;
-        //
-        //       $('.tree-leaf-text').each(function() {
-        //           ids++;
-        //           $(this).prepend('<input id="' + ids + '" class="dynamically_added_checkbox" type="checkbox" name="checkbox-1" value='+$(this).text()+"#"+pathsID[ids-1]+'>&nbsp;');//autocomplete="off"
-        //           //$(this).replaceWith('<input id="' + ids + '" class="dynamically_added_checkbox" type="checkbox" name="checkbox-1" value='+$(this).text()+"#"+pathsID[ids-1]+'>'+$(this).text()+'');//autocomplete="off"
-        //       });
-        //
-        //       // Attach events
-        //
-        //       function selectnode(id) {
-        //           var apenstr = "";
-        //           $("#" + id).parents(".tree-leaf").each(function() {
-        //               if (apenstr == "") {
-        //                   apenstr = $(this).find('.tree-leaf-text').eq(0).text()
-        //                } else {
-        //                   apenstr = apenstr//jQuery(this).find('.tree-leaf-text').eq(0).text()// + "." + apenstr
-        //                }
-        //           });
-        //           //jQuery("#" + id).parents(".tree-leaf-text").eq(0).append('&nbsp&nbsp<span id="responce" class="badge badge-success" value='+apenstr+'>' + apenstr + '</span>');//badge badge-success
-        //       }
-        //
-        //       function checkChildren(node){
-        //         if(node.children.length>0){
-        //           for(var c=0; c<node.children.length; ++c){
-        //             checkChildren(node.children[c]);
-        //             $("input[name='checkbox-1']")[node.children[c].id].checked=true;
-        //             $("#" + (node.children[c].id+1)).parents(".tree-leaf-text").eq(0).children('#responce').eq(0).remove();
-        //             var splitVal = $("#" + (node.children[c].id+1)).attr("value").split('#');
-        //             //$("#" + (node.children[c].id+1)).parents(".tree-leaf-text").eq(0).append('<span id="responce" class="badge badge-pill badge-success" onclick="removeCheckedResponseField(this,'+node.children[c].id+')">' +splitVal[0]+ '<i class="glyphicon glyphicon-remove"></i></span>');
-        //             //$("#fields tbody").append('<tr id="'+node.children[c].id+'"><td><a id="'+node.children[c].id+'" class="button button-mini button-circle button-reveal button-xsmall button-yellow tright" style="height:25px" onclick="removeCheckedResponseField(this,'+node.children[c].id+')"><i class="glyphicon glyphicon-remove"></i><span>' +splitVal[0]+'</span></a></td></tr>');
-        //             $("#fields").append('<tr id="'+xx+'"><td>'+node.field+'</td>   <td><input type="text" class="form-control" id="displayName'+s1+'" placeholder="" value="'+nameDefaule+'" style="font-size:1em" onchange="urlBlurNoCall()"></td> <td><input type="text" class="form-control" id="displayDesc'+s1+'" placeholder="" onchange="urlBlurNoCall()"> </td> <td><input id='+xx+' type="image" src="images/del.png" style="width:18px"onclick="printFunc(this)"> </td> </tr>');
-        //             urlBlurNoCall();
-        //             //<h4><span id="responce" class="badge badge-pill badge-success" onclick="removeCheckedResponseField('+node.children[c].id+')">' +splitVal[0]+ '<i class="glyphicon glyphicon-remove"></i></span></h4>');
-        //           }
-        //         }
-        //       }
-        //
-        //       function unCheckChildren(node){
-        //         $("#" + (node.id+1)).parents(".tree-leaf-text").eq(0).children('#responce').eq(0).remove();
-        //         //document.getElementById('fields').deleteRow(node.id);
-        //         $('tr[id="'+node.id+'"').remove();
-        //         //console.log("NODE: ", node.id);
-        //         if(node.children.length>0){
-        //           for(var c=0; c<node.children.length; ++c){
-        //             $('tr[id="'+node.children[c].id+'"').remove();
-        //             unCheckChildren(node.children[c]);
-        //             $("input[name='checkbox-1']")[node.children[c].id].checked=false;
-        //           }
-        //         }
-        //       }
-        //
-        //     function getObject(o, id) {
-        //         if(o.id === id){
-        //           return o;
-        //         }
-        //         var result, p;
-        //         for (p in o) {
-        //             if( o.hasOwnProperty(p) && typeof o[p] === 'object' ) {
-        //                 result = getObject(o[p], id);
-        //                 if(result){
-        //                     return result;
-        //                 }
-        //             }
-        //         }
-        //         return result;
-        //     }
-        //
-        //
-        //
-        //       $("input[name='checkbox-1']").change(function() {
-        //           if ($(this).is(":checked")) { //ADD a badge with the name of response parameter
-        //             var o = getObject(final_tree,$(this).attr("id")-1);
-        //             var splitVal = $(this).attr("value").split('#');
-        //             $("#fields tbody").append('<tr id="'+o.id+'"><td><a id="'+o.id+'" onclick="removeCheckedResponseField(this, '+o.id+')" class="button button-mini button-circle button-reveal button-xsmall button-yellow tright" style="height:25px"><i class="glyphicon glyphicon-remove"></i><span>' +splitVal[0]+'</span></a></td></tr>');
-        //             checkChildren(o);
-        //             selectnode($(this).attr("id"))
-        //
-        //           } else { //REMOVE a badge with the name of response parameter
-        //             unCheckChildren(getObject(final_tree,$(this).attr("id")-1));
-        //           }
-        //       });
-        //   });
 
 
     //(3) get the JSON schema
@@ -5819,7 +5564,7 @@ function showResponseSchema(listData){
             // if(!window.editor){
             $("#jsoneditor").empty();
             window.editor = new JSONEditor(container, options, json);
-window.editor.expandAll();
+            window.editor.expandAll();
             // }            //   draw = false;
 
             for(var y=0; y<objJSONOBJ2.length; ++y){
@@ -6099,6 +5844,7 @@ if(document.getElementById('selectPage').value == "index") {
 function authSelected(){
 
   if(document.getElementById('selectid').value == "bearerToken") {
+      addHeaderRowAuth();
       document.getElementById("nameH").value = "Authorization";
       document.getElementById("nameH").style = "color:red";
       document.getElementById("valueH").value = "Bearer YOUR_TOKEN";
@@ -6106,31 +5852,45 @@ function authSelected(){
       $("#messageB").show();
       $("#messageQ").hide();
       $("#messageH").hide();
-
+      $("#apiKeyFieldTable").hide();
 
   }else if(document.getElementById('selectid').value == "queryAuth"){
-    //document.getElementById("msg").append('<p>Make sure to add your key as one of the request parameters above.</p>');
+    $("#headerTabel tbody").empty();
+    $("#headerTabel").hide();
     $("#messageQ").show();
     $("#messageH").hide();
     $("#messageB").hide();
+    $("#apiKeyFieldTable").show();
     document.getElementById("nameH").value = "";
     document.getElementById("valueH").value = "";
 
   }else if(document.getElementById('selectid').value == "headerAuth"){
+    addHeaderRowAuth();
     $("#messageQ").hide();
     $("#messageH").show();
     $("#messageB").hide();
     document.getElementById("nameH").value = "";
     document.getElementById("valueH").value = "";
-    //document.getElementById("message").value="Make sure to add your key as one of the header parameters below.";
-  }
+    $("#apiKeyFieldTable").hide();
 
-  else{
+  }else if(document.getElementById('selectid').value == "noAuth"){
+    $("#apiKeyFieldTable").hide();
+    $("#headerTabel tbody").empty();
+    $("#headerTabel").hide();
+    $("#messageQ").hide();
+    $("#messageH").hide();
+    $("#messageB").hide();
+    document.getElementById("nameH").value = "";
+    document.getElementById("valueH").value = "";
+
+  }else{
+    addHeaderRowAuth();
     document.getElementById("nameH").value = "";
     document.getElementById("valueH").value = "";
     $("#messageQ").hide();
     $("#messageH").hide();
     $("#messageB").hide();
+    $("#apiKeyFieldTable").hide();
   }
 
   urlBlurNoCall();
@@ -6147,6 +5907,8 @@ function removeCheckedResponseField(row, id){
   }
 
 }
+
+
 
 
 var first_time=true;
@@ -6670,6 +6432,15 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
 
   myObj.headers = headers;
 
+  //Authentication description
+  myObj.authDesc = $("#authDesc").val();
+  myObj.authURL  = $("#authURL").val();
+  myObj.authIsPublic = $("#isPublic").is(":checked");
+
+  //API key as a parameter
+  myObj.apiKeyName = $("#nameKey").val();
+  myObj.apiKeyValue = $("#valueKey").val();
+
   var parameters = [];
 
         $('#requestTabel tbody tr').each(function(i, n){
@@ -6840,6 +6611,23 @@ function populateListOfAPIs(){
   });
 
 
+
+  firebase.database().ref('/config').set(config);
+
+
+  scrAPIr2("https://www.googleapis.com/youtube/v3/search", 200, 'rawJSON'); //format can be rawJSON, formatedJSON, formatedCSV
+  // scrAPIr(api, parameters, response, numResults, format)
+
+  // $.ajax({
+  //   url: "https://superapi-52bc2.firebaseio.com/apis/YouTube API.json",
+  //   method: "GET",
+  //   success: function (response) {
+  //     console.log("RES: ", response);
+  //   }
+  // });
+
+
+
   //
   // $.post("/writeFile",{FileContent: JSON.stringify(myObj), FileName: 'testingDUH'}, function(data){
   //     console.log("data: ", data);
@@ -6862,10 +6650,14 @@ function populateListOfAPIs(){
   //   });
   // });
 
+
 }// end populateListOfAPIs
 
 
 
+function scrAPIr2(api, nRes){
+  scrAPIr(api, nRes);
+}
 
 
 var optionalParam = [];
@@ -7205,16 +6997,11 @@ function callGitHub2(u){
         $("#pageList").append('<option id="" value="'+optionalParam[x]['name']+'"/>');
       }
 
-
-
-
-
     $("#toggReq").show();
 
     $("#pDiv").show();
     $("#jsoneditor2").show();
     // document.getElementById("reqDIV").scrollIntoView();
-
 
   }, 2500);
 
@@ -7233,10 +7020,8 @@ function onInputMaxParam() {
 }
 
 
-
 function callGitHub(u){
   //$("#requestTabel").empty();
-
   //console.log("URL: ", u);
   var objJSON = [];
 
@@ -7245,10 +7030,8 @@ function callGitHub(u){
   //var i = 0;
 
   //getTheNextPageGitHub(pageGit, i)
-
   //function getTheNextPageGitHub(pageGit, i){
     //if(i<pageGit){
-
 
   for(var i=0; i<pageGit; ++i) {
     var par = {
@@ -7592,7 +7375,7 @@ function populateAPIDesc(){
       if(childSnapshot.val() != undefined){
         var urlTitle = childSnapshot.val().title;
         var name = urlTitle.split(' ').join('');
-        $("#specs_table tbody").append('<tr><td><a href="http://scrapir.org/specs/'+name+'.json" target="_blank">'+childSnapshot.val().title+'</a></td><td></td></tr>');
+        $("#specs_table tbody").append('<tr><td><a href="https://superapi-52bc2.firebaseio.com/apis/'+urlTitle+'.json" target="_blank">'+childSnapshot.val().title+'</a></td><td></td></tr>');
       }else{
         //////////
       }
