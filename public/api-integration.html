@@ -665,7 +665,7 @@
 											<th style="width:500px">Value</th>
 											<th>&nbsp;</th>
 											<th>&nbsp;</th>
-											<th>Make Public?</th>
+											<!-- <th>Make Public?</th> -->
 										</tr>
 										</thead>
 											<tbody>
@@ -680,37 +680,44 @@
 													</td>
 													<td></td>
 													<td></td>
-													<td><input id='isPublic'  value='' class='checkbox-style' name='' type='checkbox' onchange="urlBlurNoCall()" autocomplete='off' checked/></td>
+													<!-- <td><input id='isPublic'  value='' class='checkbox-style' name='' type='checkbox' onchange="urlBlurNoCall()" autocomplete='off' checked/></td> -->
 												</tr>
 										  </tbody>
 								</table>
 
+
 						<hr>
 
+						<div id="ifAuthDiv" style="display:none">
 							<h3 style="margin:0px; padding:0px;">Authentication process:</h3>
 						  </br></br>
 
 							<div id"" style="">
+								<div class="" style="width:500px">
+									<label id"askPublic" style="">1) Would you like other people to use your API key/token?</label>
+									<select class="form-control" id="isPublic" style="width:100px" ><option id="no">No</option><option id="yes">Yes</option></select>
+									<!-- <input id='isPublic'  value='' class='checkbox-style' name='' type='checkbox' onchange="urlBlurNoCall()" autocomplete='off' checked/></td> -->
+								</div>
+							</br></br>
+
 									<div class="" style="width:500px">
-										<label>Authentication page URL
-											<!-- <a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="The parameter used to set the maximum number of results to (e.g. the parameter that you set the number of results to in YouTube is 'maxResults'). Not all APIs provide this parameter."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a> -->
-										</label>
-										<input  style="" type="text" class="form-control" id="authURL" placeholder="e.g.'https://www.yelp.com/developers/documentation/v3/authentication'" oninput='' onchange="">
+										<label>2) Share the authentication page URL?</label>
+										<input  style="" type="text" class="form-control" id="authURL" placeholder="" oninput='' onchange="">
 									</div>
 								</br></br>
 
 									<div class="" style="width:500px">
-										<label>Describe the process of getting authenticated
-											<!-- <a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="The parameter used to set the maximum number of results to (e.g. the parameter that you set the number of results to in YouTube is 'maxResults'). Not all APIs provide this parameter."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a> -->
-										</label>
-										<!-- <input style="" type="textarea" class="form-control" id="" placeholder="" oninput='' onchange="urlBlurNoCall()"> -->
+										<label>3) Describe the process of authentication</label>
 										<textarea class="form-control" type="text" id="authDesc" rows="4" cols="120"></textarea>
 									</div>
 							</div>
 
-
 						</br></br>
 						<hr>
+
+						</div>
+
+
 
 							<h3 style="margin:0px; padding:0px;">Header parameters:</h3>
 							</br>
@@ -726,7 +733,7 @@
 										<th style="width:500px">Value</th>
 										<th>&nbsp;</th>
 										<th>&nbsp;</th>
-										<th>Make Public?</th>
+										<!-- <th>Make Public?</th> -->
 										<th></th>
 										<!--
 										<th style="width:500px">Name</th>

@@ -1259,12 +1259,7 @@ function checkButtonClicked(){
     // retrieve myObj for YouTube from FireBase DB
     registration();
 
-
-
     firebase.database().ref('apis/test/responses/1').remove();
-
-
-
 
     //Saved Data
     firebase.database().ref('/publicSavedData/').once('value').then(function(snapshot) {
@@ -1314,8 +1309,6 @@ function checkButtonClicked(){
                   }
               }//if displayedName
             }
-
-
             // <a class="" data-toggle="tooltip" data-placement="right" title="Tooltip on ">Tooltip on right!!!</a>
 
             //[3] Request parameters
@@ -1456,11 +1449,19 @@ function checkButtonClicked(){
             //if auth url and descreption exist
 
             $("#descMenu").append('<p style="word-break: break-all ; font-size: 1.2em;">'+obJSON1.authDesc+'</br><a href="'+obJSON1.authURL+'" target="_blank">'+obJSON1.authURL+'</a></p>');
+
             if(obJSON1.authIsPublic){
+              console.log("PUBLIC")
+              document.getElementById("reqParameters").style.maxHeight = "340px"; //max-height:330px;
+              $("#authDIV").show();
+              $("#authParameters").append('</br><a>API Key Value</a>')
+              $("#authParameters").append('<input style="height:27px" type="text" class="form-control" id="apiKeyVal" value=""></input></br>');
               var paragraph = document.getElementById("opreq");
               var text = document.createTextNode(" Optional");
               paragraph.appendChild(text);
             }else{
+              console.log("NOT PUBLIC")
+              document.getElementById("reqParameters").style.maxHeight = "560px";
               var paragraph = document.getElementById("opreq");
               var text = document.createTextNode(" Required");
               paragraph.appendChild(text);
@@ -1470,8 +1471,7 @@ function checkButtonClicked(){
             //if has header
             // $("#authParameters").append('<a>Key</a>')
             // $("#authParameters").append('<input style="height:27px" type="text" class="form-control" id="" value=""></input></br>');
-            $("#authParameters").append('</br><a>API Key Value</a>')
-            $("#authParameters").append('<input style="height:27px" type="text" class="form-control" id="apiKeyVal" value=""></input></br>');
+
 
             //When click on "submit" button,
             //check the there values in the header key and value,
@@ -1912,7 +1912,7 @@ function retrieveDataX(){
       listP+= ","
       listP+= JSON.stringify(obJSON1.offsetPage);
       listP+= ":";
-      listP+= p*(eval(obJSON1.maxResPerPage));
+      listP+= (p-1)*(eval(obJSON1.maxResPerPage));
     }else if(obJSON1.currPageParam){
       listP+= ","
       listP+= JSON.stringify(obJSON1.currPageParam);
@@ -2843,7 +2843,7 @@ function retrieveData(){
       listP+= ","
       listP+= JSON.stringify(obJSON1.offsetPage);
       listP+= ":";
-      listP+= p*(eval(obJSON1.maxResPerPage));
+      listP+= (p-1)*(eval(obJSON1.maxResPerPage));
     }else if(obJSON1.currPageParam){
       listP+= ","
       listP+= JSON.stringify(obJSON1.currPageParam);
@@ -4260,7 +4260,7 @@ function addHeaderRow() {
 function addHeaderRowAuth() {
   $("#headerTabel").show();
   $("#headerTabel tbody").empty();
-  $("#headerTabel tbody").append('<tr><td><input class="form-control" type="text" id="nameH" placeholder=""></td><td></td><td><input class="form-control" type="text" id="valueH" placeholder=""></td><td></td><td></td><td><input id="isPublic"  class="checkbox-style" name="" type="checkbox" onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteHeaderRow(this)"</td></tr>');
+  $("#headerTabel tbody").append('<tr><td><input class="form-control" type="text" id="nameH" placeholder=""></td><td></td><td><input class="form-control" type="text" id="valueH" placeholder=""></td><td></td><td></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteHeaderRow(this)"</td></tr>');
   urlBlurNoCall();
 }
 
@@ -5355,11 +5355,27 @@ function showResponseSchema(listData){
   //Authentication description
   myObj.authDesc = $("#authDesc").val();
   myObj.authURL  = $("#authURL").val();
-  myObj.authIsPublic = $("#isPublic").is(":checked");
+
+  // console.log("isPublic: ",document.getElementById('isPublic').value)
+  // if(document.getElementById('isPublic').value == "yes") {
+  //   console.log("YES")
+  //   myObj.authIsPublic = true
+  // }else{
+  //   console.log("NO")
+  //   myObj.authIsPublic = false
+  // }
+  // myObj.authIsPublic = $("#isPublic").is(":checked");
 
   //API key as a parameter
   myObj.apiKeyName = $("#nameKey").val();
   myObj.apiKeyValue = $("#valueKey").val();
+
+  console.log("isPublic: ",document.getElementById('isPublic').value)
+  if(document.getElementById('isPublic').value == "Yes") {
+    myObj.authIsPublic = true
+  }else{
+    myObj.authIsPublic = false
+  }
 
   var parameters = [];
 
@@ -5843,6 +5859,12 @@ if(document.getElementById('selectPage').value == "index") {
 
 function authSelected(){
 
+  if(document.getElementById('selectid').value != "noAuth"){
+    $("#ifAuthDiv").show();
+  }else{
+    $("#ifAuthDiv").hide();
+  }
+
   if(document.getElementById('selectid').value == "bearerToken") {
       addHeaderRowAuth();
       document.getElementById("nameH").value = "Authorization";
@@ -5850,14 +5872,14 @@ function authSelected(){
       document.getElementById("valueH").value = "Bearer YOUR_TOKEN";
       document.getElementById("valueH").style = "color:red";
       $("#messageB").show();
-      $("#messageQ").hide();
+      // $("#messageQ").hide();
       $("#messageH").hide();
       $("#apiKeyFieldTable").hide();
 
   }else if(document.getElementById('selectid').value == "queryAuth"){
     $("#headerTabel tbody").empty();
     $("#headerTabel").hide();
-    $("#messageQ").show();
+    // $("#messageQ").show();
     $("#messageH").hide();
     $("#messageB").hide();
     $("#apiKeyFieldTable").show();
@@ -5866,9 +5888,9 @@ function authSelected(){
 
   }else if(document.getElementById('selectid').value == "headerAuth"){
     addHeaderRowAuth();
-    $("#messageQ").hide();
-    $("#messageH").show();
-    $("#messageB").hide();
+    // $("#messageQ").hide();
+    // $("#messageH").show();
+    // $("#messageB").hide();
     document.getElementById("nameH").value = "";
     document.getElementById("valueH").value = "";
     $("#apiKeyFieldTable").hide();
@@ -5877,9 +5899,9 @@ function authSelected(){
     $("#apiKeyFieldTable").hide();
     $("#headerTabel tbody").empty();
     $("#headerTabel").hide();
-    $("#messageQ").hide();
-    $("#messageH").hide();
-    $("#messageB").hide();
+    // $("#messageQ").hide();
+    // $("#messageH").hide();
+    // $("#messageB").hide();
     document.getElementById("nameH").value = "";
     document.getElementById("valueH").value = "";
 
@@ -5887,9 +5909,9 @@ function authSelected(){
     addHeaderRowAuth();
     document.getElementById("nameH").value = "";
     document.getElementById("valueH").value = "";
-    $("#messageQ").hide();
-    $("#messageH").hide();
-    $("#messageB").hide();
+    // $("#messageQ").hide();
+    // $("#messageH").hide();
+    // $("#messageB").hide();
     $("#apiKeyFieldTable").hide();
   }
 
@@ -6435,7 +6457,13 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
   //Authentication description
   myObj.authDesc = $("#authDesc").val();
   myObj.authURL  = $("#authURL").val();
-  myObj.authIsPublic = $("#isPublic").is(":checked");
+
+  if(document.getElementById('isPublic').value == "yes") {
+    myObj.authIsPublic = true
+  }else{
+    myObj.authIsPublic = false
+  }
+  // myObj.authIsPublic = $("#isPublic").is(":checked");
 
   //API key as a parameter
   myObj.apiKeyName = $("#nameKey").val();
@@ -6614,8 +6642,10 @@ function populateListOfAPIs(){
 
   firebase.database().ref('/config').set(config);
 
+  //add this back
+  // scrAPIr2("https://www.googleapis.com/youtube/v3/search", 200, 'rawJSON'); //format can be rawJSON, formatedJSON, formatedCSV
 
-  scrAPIr2("https://www.googleapis.com/youtube/v3/search", 200, 'rawJSON'); //format can be rawJSON, formatedJSON, formatedCSV
+
   // scrAPIr(api, parameters, response, numResults, format)
 
   // $.ajax({
@@ -6654,10 +6684,10 @@ function populateListOfAPIs(){
 }// end populateListOfAPIs
 
 
-
-function scrAPIr2(api, nRes){
-  scrAPIr(api, nRes);
-}
+//add this back
+// function scrAPIr2(api, nRes){
+//   scrAPIr(api, nRes);
+// }
 
 
 var optionalParam = [];

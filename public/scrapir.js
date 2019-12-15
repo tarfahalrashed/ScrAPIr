@@ -2,21 +2,21 @@ var obJSON1, listP;
 //function scrAPIr(api, parameters, response, numRes, format){
 function scrAPIr(apiURL, numOfResults, format){
  // console.log("callFunc");
- console.log("API URl: ", apiURL);
+ // console.log("API URl: ", apiURL);
 
  var apiTitle;
  firebase.database().ref('/apis/').once('value').then(function(snapshot) {
    snapshot.forEach(function(childSnapshot) { //for each API
      if(childSnapshot.val().url == apiURL){
        apiTitle = childSnapshot.val().title;
-       console.log("API name: ", apiTitle);
+       // console.log("API name: ", apiTitle);
 
  //[1] Get the API's description from ScrAPIr
  $.ajax({
    url: 'https://superapi-52bc2.firebaseio.com/apis/'+apiTitle+'.json',
    method: "GET",
    success: function (response) {
-     console.log("RES: ", response);
+     // console.log("RES: ", response);
      obJSON1 = response;
 
 
@@ -28,7 +28,7 @@ function scrAPIr(apiURL, numOfResults, format){
 
      var numRes=numOfResults;
 
-     console.log("obJSON1.maxResPerPage: ", obJSON1.maxResPerPage);
+     // console.log("obJSON1.maxResPerPage: ", obJSON1.maxResPerPage);
 
      if(numRes){
        var pages = Math.ceil(numRes/obJSON1.maxResPerPage);
@@ -91,7 +91,7 @@ function scrAPIr(apiURL, numOfResults, format){
      }
      listP+= "}";
 
-   console.log("listP: ",JSON.parse(listP));
+   // console.log("listP: ",JSON.parse(listP));
 
  if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no CORS
      $.ajax({
@@ -99,7 +99,7 @@ function scrAPIr(apiURL, numOfResults, format){
        data: JSON.parse(listP),
        method: 'GET',
        success: function (response) {
-         console.log("RES API: ", response);
+         // console.log("RES API: ", response);
 
          if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
            for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
