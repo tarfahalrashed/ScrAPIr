@@ -4257,6 +4257,15 @@ function addHeaderRow() {
   urlBlurNoCall();
 }
 
+var stepsCount = 0;
+
+function addStepRow() {
+  ++stepsCount;
+  $("#stepsTabel").show();
+  $("#stepsTabel tbody").append('<tr><td><label>Step '+stepsCount+ '</label></td><td>&nbsp;</td><td><textarea class="form-control" type="text" id="authDesc" rows="1" cols="70"></textarea></td><td>&nbsp;</td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteStepRow(this)"</td></tr></br></br>');
+  // urlBlurNoCall();
+}
+
 function addHeaderRowAuth() {
   $("#headerTabel").show();
   $("#headerTabel tbody").empty();
@@ -4301,6 +4310,11 @@ function deleteRow(row) {
 function deleteHeaderRow(row) {
   var i = row.parentNode.parentNode.rowIndex;
   document.getElementById('headerTabel').deleteRow(i);
+}
+
+function deleteStepRow(row) {
+  var i = row.parentNode.parentNode.rowIndex;
+  document.getElementById('stepsTabel').deleteRow(i);
 }
 
 // function deleteRowAccountTable(row,name) {

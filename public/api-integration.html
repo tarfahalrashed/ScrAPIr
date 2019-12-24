@@ -690,29 +690,45 @@
 
 						<div id="ifAuthDiv" style="display:none">
 							<h3 style="margin:0px; padding:0px;">Authentication process:</h3>
-						  </br></br>
+							<p style="font-size:1.7em; margin-bottom:5px;">Some APIs apply rate limits by token, this single token will rapidly be exhausted by multiple users.</p>
 
-							<div id"" style="">
-								<div class="" style="width:500px">
-									<label id"askPublic" style="">1) Would you like other people to use your API key/token?</label>
-									<select class="form-control" id="isPublic" style="width:100px" ><option id="no">No</option><option id="yes">Yes</option></select>
+						  </br>
+
+							<div id="" style="">
+								<div class="" style="width:500px; display:inline">
+									<label id"askPublic" style="">Would you like other people to use your API key/token?</label>
+									<select class="form-control" id="isPublic" style="width:100px;" ><option id="no">No</option><option id="yes">Yes</option></select>
 									<!-- <input id='isPublic'  value='' class='checkbox-style' name='' type='checkbox' onchange="urlBlurNoCall()" autocomplete='off' checked/></td> -->
 								</div>
-							</br></br>
+							</br></br></br>
+							<p style="font-size:1.7em; margin-bottom:5px;">Please describe how did you get the authentication for this API by answering the next couple of questions:</p>
 
 									<div class="" style="width:500px">
-										<label>2) Share the authentication page URL?</label>
-										<input  style="" type="text" class="form-control" id="authURL" placeholder="" oninput='' onchange="">
+										<label>What is the authentication page URL?</label>
+										<input  style="width:500px" type="text" class="form-control" id="authURL" placeholder="" oninput='' onchange="">
 									</div>
 								</br></br>
 
-									<div class="" style="width:500px">
-										<label>3) Describe the process of authentication</label>
-										<textarea class="form-control" type="text" id="authDesc" rows="4" cols="120"></textarea>
+								<div class="" style="width:1000px">
+										<label>If signing up is neccessary to be authenticated, What is the URL for signup/login page?</label>
+										<input  style="width:500px" type="text" class="form-control" id="authURL" placeholder="" oninput='' onchange="">
+									</div>
+								</br></br>
+
+									<div class="" style="width:1000px">
+										<label>Can you please describe the steps you took to get the authentication?</label>
+										<!-- <textarea class="form-control" type="text" id="authDesc" rows="2" cols="120"></textarea> -->
 									</div>
 							</div>
 
 						</br></br>
+
+						<table id="stepsTabel" class="" style="display:none">
+							<tbody></tbody>
+						</table>
+
+						<a class="button button-mini button-circle button-teal"onclick="addStepRow()" style="width:180px; text-align:center; color:white"><i class="glyphicon glyphicon-plus"></i>Add a Step</a>
+
 						<hr>
 
 						</div>
