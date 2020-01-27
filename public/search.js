@@ -4582,17 +4582,20 @@ if($("#url").val()){
   // console.log("listData: ", listData);
   // console.log("LINK: ", link);
 
+  if($("#method").value == 'POST'){
+    method = 'POST'
+  }else if($("#method").value == 'PUT'){
+    method = 'PUT';
+    //if OAuth "header", automatically fill out the headers key and value with the token
+  }else{
+    method = 'GET';
+  }
+
   if($("#valueH").val()){
     var headername= $("#nameH").val();
     var headervar= $("#valueH").val();
     var headers_to_set = {};
     headers_to_set[headername] = headervar;
-
-    if($("#method").value == 'POST'){
-      method = 'POST'
-    }else{
-      method = 'GET';
-    }
 
     $.ajax({
       url: "https://cors-anywhere.herokuapp.com/"+link,
@@ -5889,6 +5892,7 @@ function authSelected(){
       // $("#messageQ").hide();
       $("#messageH").hide();
       $("#apiKeyFieldTable").hide();
+      $("#oauthTable").hide();
 
   }else if(document.getElementById('selectid').value == "queryAuth"){
     $("#headerTabel tbody").empty();
@@ -5897,6 +5901,7 @@ function authSelected(){
     $("#messageH").hide();
     $("#messageB").hide();
     $("#apiKeyFieldTable").show();
+    $("#oauthTable").hide();
     document.getElementById("nameH").value = "";
     document.getElementById("valueH").value = "";
 
@@ -5908,9 +5913,11 @@ function authSelected(){
     document.getElementById("nameH").value = "";
     document.getElementById("valueH").value = "";
     $("#apiKeyFieldTable").hide();
+    $("#oauthTable").hide();
 
   }else if(document.getElementById('selectid').value == "noAuth"){
     $("#apiKeyFieldTable").hide();
+    $("#oauthTable").hide();
     $("#headerTabel tbody").empty();
     $("#headerTabel").hide();
     // $("#messageQ").hide();
@@ -5919,6 +5926,9 @@ function authSelected(){
     document.getElementById("nameH").value = "";
     document.getElementById("valueH").value = "";
 
+  }else if(document.getElementById('selectid').value == "oauth2"){
+    $("#apiKeyFieldTable").hide();
+    $("#oauthTable").show();
   }else{
     addHeaderRowAuth();
     document.getElementById("nameH").value = "";
@@ -5927,11 +5937,109 @@ function authSelected(){
     // $("#messageH").hide();
     // $("#messageB").hide();
     $("#apiKeyFieldTable").hide();
+    $("#oauthTable").hide();
   }
 
   urlBlurNoCall();
 }
 
+var auth_url,token_url, redirect_url, client_id, client_secret, response_type, scope, grant_type, client_auth;
+  //During API integration, ask users for these things:
+
+  // client_id: "c27b385721adeda6633b003df4417672f305d3033426b891bfaffed1a73b033c",
+  // callback_url: "http://127.0.0.1:8080/api-integration.html"//urn:ietf:wg:oauth:2.0:oob"
+
+// Send the user to the authorize endpoint for login and authorization
+// function authorize() {
+//
+//
+//
+// 	window.open("https://unsplash.com/oauth/authorize?response_type='"+response_type+"'&scope='"+scope+"'&client_id='"+client_id+"'&redirect_uri="+redirect_url);
+//
+//   // window.open("https://unsplash.com/oauth/authorize?response_type=code&scope=write_user&client_id=c27b385721adeda6633b003df4417672f305d3033426b891bfaffed1a73b033c&redirect_uri=http://127.0.0.1:8080/api-integration.html");
+//
+// }
+
+function authorize() {
+
+      auth_url= $("#authURL").val();
+      token_url= $("#tokenURL").val();
+      redirect_url= JSON.parse(JSON.stringify($("#callbackURL").val()));
+      client_id= JSON.parse(JSON.stringify($("#clientId").val()));
+      client_secret= JSON.parse(JSON.stringify($("#clientSec").val()));
+      response_type= JSON.parse(JSON.stringify($("#resType").val()));
+      scope= JSON.parse(JSON.stringify($("#scope").val()));
+      grant_type= JSON.parse(JSON.stringify($("#grantType").val()));
+      client_auth= JSON.parse(JSON.stringify($("#clientAuth").val()));//(bearer header OR client credentials in body)
+
+
+            // var win = window.open("https://unsplash.com/oauth/authorize?response_type=code&scope=write_user&client_id=c27b385721adeda6633b003df4417672f305d3033426b891bfaffed1a73b033c&redirect_uri=http://127.0.0.1:8080/api-integration.html", "windowname1", 'width=800, height=600');
+            var win = window.open(auth_url+"?response_type="+response_type+"&scope="+scope+"&client_id="+client_id+"&redirect_uri="+redirect_url+"", "windowname1", 'width=800, height=600');
+
+            var pollTimer = window.setInterval(function() {
+                try {
+                    console.log(win.document.URL); //here url
+                    console.log("yeah");
+                    if (win.document.URL.indexOf("http://127.0.0.1:8080/api-integration.html") != -1) {
+                        window.clearInterval(pollTimer);
+                        var url =   win.document.URL;
+                        acToken =   gup(url, 'code');
+                        // tokenType = gup(url, 'token_type');
+                        // expiresIn = gup(url, 'expires_in');
+                        win.close();
+
+                        validateToken(acToken);
+                    }
+                } catch(e) {
+                    console.log("nah");
+                }
+            }, 200);
+}
+
+
+function validateToken(token) {
+          console.log("Token: ",token)
+
+          $.ajax({
+        		url: token_url,//"https://unsplash.com/oauth/token",
+        		method: "POST",
+            // data: {client_id: "c27b385721adeda6633b003df4417672f305d3033426b891bfaffed1a73b033c" ,client_secret: "4faa9d89167c955cca2d9c608ff492d08389b1553e87f0791a55178ede5f1fba" ,redirect_uri: "http://127.0.0.1:8080/api-integration.html" ,code: token ,grant_type:"authorization_code"} ,
+            // data: {client_id: client_id ,client_secret: client_secret ,redirect_uri: redirect_url ,code: token ,grant_type:"authorization_code"} ,
+            data: {client_id: $("#clientId").val() ,client_secret: $("#clientSec").val() ,redirect_uri: $("#callbackURL").val() ,code: token ,grant_type:$("#grantType").val()} ,
+        		success: function(response) {
+              console.log("response: ",response);
+              //important to check access token and token type (e.g. bearer)
+              var tok = response.access_token;
+
+              $.ajax({
+                url: "https://api.unsplash.com/me?username=tarfahV",
+                method: "PUT",
+                headers: {
+                  "Authorization" : "Bearer " +tok //this will depend on the API
+                },
+                success: function(response) {
+                  console.log("response: ",response);
+                },
+                error: function(response, jqXHR, textStatus, errorThrown) {
+                  console.log("error: ",response)
+                }
+              });
+
+        		}
+        	});
+
+}
+
+function gup(url, name) {
+  name = name.replace(/[[]/,"\[").replace(/[]]/,"\]");
+  var regexS = "[\?&]"+name+"=([^&#]*)";
+  var regex = new RegExp( regexS );
+  var results = regex.exec( url );
+  if( results == null )
+    return "";
+  else
+    return results[1];
+}
 
 function removeCheckedResponseField(row, id){
   //console.log("ROW: ", row.parentNode.parentNode.rowIndex);

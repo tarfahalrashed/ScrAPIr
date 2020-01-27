@@ -352,9 +352,12 @@
 											  <select class="form-control" id="method" style="height:34px" onchange="">
 										 			<option value="GET">GET</option>
 										 			<option value="POST">POST</option>
+													<option value="PUT">PUT</option>
+													<option value="INSERT">INSERT</option>
+													<option value="DELETE">DELETE</option>
 									 			</select>
 											</div>
-											<input style="width:370px; display: inline-block" type="text" class="form-control" id="url" onchange="urlBlur(); urlChanged();" placeholder="e.g. 'https://www.googleapis.com/youtube/v3/search'" required>
+											<input style="width:350px; display: inline-block" type="text" class="form-control" id="url" onchange="urlBlur(); urlChanged();" placeholder="e.g. 'https://www.googleapis.com/youtube/v3/search'" required>
 										</div>
 
 					         <!-- <div style="display:inline-block">
@@ -647,6 +650,7 @@
 											<option value="headerAuth">API key as a Header</option>
 											<option value="bearerToken">Bearer Token</option>
 											<option value="basicAuth">Basic Auth</option>
+											<option value="oauth2">OAuth 2.0</option>
 											<!-- <option value="oAuth1">OAuth 1.0</option>
 											<option value="oAuth2">OAuth 2.0</option> -->
 										</select>
@@ -684,6 +688,114 @@
 												</tr>
 										  </tbody>
 								</table>
+
+
+								<table id="oauthTable" style="display:none" class="table" width="200px">
+									<!-- //During API integration, ask users for these things:
+										// Authorization url
+										// Token url
+										// client_id
+										// client_secret
+										// redirect_uri
+										// response_type
+										// scope
+										// grant_type
+										// client authentication (bearer header OR client credentials in body) -->
+
+												<tbody>
+													<tr>
+														<td>
+															<label id"" style="">Authorization URL</label>
+														</td>
+														<td>
+															<input class="form-control" type="text" id="authURL" placeholder="" >
+														</td>
+													</tr>
+
+													<tr>
+														<td>
+															<label id"" style="">Access Token URL</label>
+														</td>
+														<td>
+															<input class="form-control" type="text" id="tokenURL" placeholder="" >
+														</td>
+													</tr>
+
+													<tr>
+														<td>
+															<label id"" style="">Callback URL</label>
+														</td>
+														<td>
+															<input class="form-control" type="text" id="callbackURL" placeholder="" >
+														</td>
+													</tr>
+
+													<tr>
+														<td>
+															<label id"" style="">Client ID</label>
+														</td>
+														<td>
+															<input class="form-control" type="text" id="clientId" placeholder="" >
+														</td>
+													</tr>
+
+													<tr>
+														<td>
+															<label id"" style="">Client Secret</label>
+														</td>
+														<td>
+															<input class="form-control" type="text" id="clientSec" placeholder="" >
+														</td>
+													</tr>
+
+													<tr>
+														<td>
+															<label id"" style="">Response Type</label>
+														</td>
+														<td>
+															<input class="form-control" type="text" id="resType" placeholder="" >
+														</td>
+													</tr>
+
+													<tr>
+														<td>
+															<label id"" style="">Scope</label>
+														</td>
+														<td>
+															<input class="form-control" type="text" id="scope" placeholder="" >
+														</td>
+													</tr>
+
+													<tr>
+														<td>
+															<label id"" style="">Grant Type</label>
+														</td>
+														<td>
+															<input class="form-control" type="text" id="grantType" placeholder="" >
+														</td>
+													</tr>
+
+													<tr>
+														<td>
+															<label id"" style="">Client Authentication</label>
+														</td>
+														<td>
+															<select class="form-control" id="clientAuth" style="width:300px;" >
+																<option id="clientAuthHeader">Send as Basic Auth header</option>
+																<option id="clientAuthBody">Send client credentials in body</option>
+															</select>
+														</td>
+													</tr>
+
+													<tr>
+														<td>
+															<button id="" style="display: inline-block; height:31px" class="button button-3d button-small button-rounded button-teal" onclick="authorize()">Authorize</button>
+														</td>
+													</tr>
+
+
+												</tbody>
+									</table>
 
 
 						<hr>
