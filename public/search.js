@@ -31,7 +31,6 @@ var publishedAfter;
 
 function registration(){
   firebase.initializeApp(config);
-
   // firebase.auth().onAuthStateChanged(function (user) {
   //   if(user){
   //     firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
@@ -50,11 +49,8 @@ function registration(){
 }
 
 
-
 function openModal(){
-
   $('#consentDataModal').modal('show');
-
 }
 
 
@@ -1282,6 +1278,8 @@ function checkButtonClicked(){
           url = obJSON1.url;
           //[2] Populate HTML elements from request parameters
             var arr;
+            if(obJSON1.parameters){
+
             for(var i=0; i<obJSON1.parameters.length; ++i){
               //if(obJSON1.parameters[i]['displayed'] == true){
               if(obJSON1.parameters[i]['displayedName']){//if it should be displayed
@@ -1309,9 +1307,12 @@ function checkButtonClicked(){
                   }
               }//if displayedName
             }
+          }
             // <a class="" data-toggle="tooltip" data-placement="right" title="Tooltip on ">Tooltip on right!!!</a>
 
             //[3] Request parameters
+          if(obJSON1.parameters){
+
             listP1="{";
 
             for(var i=0; i<obJSON1.parameters.length; ++i){
@@ -1337,6 +1338,7 @@ function checkButtonClicked(){
             }
 
             }
+
             //listP1+= ",";
 
             if(obJSON1.resPerPageParam){
@@ -1345,6 +1347,8 @@ function checkButtonClicked(){
               listP1+= JSON.stringify(obSavedData.maxResPerPage);
             }
             listP1+= "}";
+          }//end of if(obJSON1.parameters)
+
             //console.log("listP1 SETITEM: ",listP1);
 
             if(obSavedData.maxResPerPage){
@@ -1407,6 +1411,7 @@ function checkButtonClicked(){
           url = obJSON1.url;
           //[2] Populate HTML elements from request parameters
             var arr;
+          if(obJSON1.parameters){
             for(var i=0; i<obJSON1.parameters.length; ++i){
               if(obJSON1.parameters[i]['displayed'] == true){
               //if(obJSON1.parameters[i]['displayedName']){//if it should be displayed
@@ -1445,6 +1450,7 @@ function checkButtonClicked(){
                 }
               }
             }
+          }
 
             //if auth url and descreption exist
 
@@ -1478,6 +1484,7 @@ function checkButtonClicked(){
             //If not check if the integrator make their own pubic, if not show a message asking the user to provide one
 
             //[3] Request parameters
+            if(obJSON1.parameters){
             listP1="{";
             for(var i=0; i<obJSON1.parameters.length; ++i){
               // console.log("first ", obJSON1.parameters[i]['value'])
@@ -1501,9 +1508,6 @@ function checkButtonClicked(){
              }
             }
             }
-
-
-
             //listP1+= ",";
             if(obJSON1.url != "https://www.eventbriteapi.com/v3/events/search"){
 
@@ -1514,6 +1518,7 @@ function checkButtonClicked(){
               }
             }
             listP1+= "}";
+          }//end of if parameters.length
             // console.log("listP1 SETITEM: ",listP1);
             if(obJSON1.maxResPerPage){
               $("#reqParameters").append("<label style='font-size:1em'>Number of results</label>");
@@ -1876,6 +1881,7 @@ function retrieveDataX(){
 
     function getTheNextPage(p, pages, nextPage){
       //console.log("getTheNextPage");
+     if(obJSON1.parameters){
       listP=  "{";
       for(var i=0; i<obJSON1.parameters.length; ++i) {
         if($("#"+obJSON1.parameters[i]['name']).val() || obJSON1.parameters[i]['value']){
@@ -1893,8 +1899,7 @@ function retrieveDataX(){
           listP+= ",";
         }
        }
-
-    }
+      }
 
 
     if(obJSON1.resPerPageParam){
@@ -1919,18 +1924,26 @@ function retrieveDataX(){
       listP+= ":";
       listP+= JSON.stringify(nextPage);
     }
-
     if(obJSON1.apiKeyValue){
       listP+= ","
       listP+= JSON.stringify(obJSON1.apiKeyName);
       listP+=":";
       listP+= JSON.stringify(obJSON1.apiKeyValue);
     }
-
     listP+= "}";
-
-    // console.log("listP no: ", listP);
-
+  }else{
+    if(obJSON1.apiKeyValue){
+      if(obJSON1.parameters){
+        listP+= ","
+      }else{
+        listP+= "{"
+      }
+      listP+= JSON.stringify(obJSON1.apiKeyName);
+      listP+=":";
+      listP+= JSON.stringify(obJSON1.apiKeyValue);
+      listP+= "}";
+    }
+  }
 
 
 if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no CORS
@@ -2038,16 +2051,14 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
                 var arrLength = "response."+this.id.split('[j]')[0];
                 var ln = s.split('[')[0];
 
-                if(j<eval(arrLength).length){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+                if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
                  var id = this.value;
                  if(this.value=="Video URL"){
                    objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
                  }else{
                    var str = (this.checked ? "response."+this.id : 0);
                    //IF ARRAY
-
                    // console.log("check: ", eval("response."+this.id));
-
                    if(str.includes("[i]")){
                      // console.log("Includes [i]: ",str);
                      var i=0;
@@ -2128,7 +2139,14 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
             getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
           }
         }else{
-          populateTable(data);
+          if(data.length>1){
+            console.log("data: ", data);
+            populateListAndTree(data)
+            populateTable(data);
+          }else{
+            populateListAndTree(data)
+            console.log("create something else other than table!")
+          }
         }
 
       }//response
@@ -2247,7 +2265,7 @@ else{
                 var arrLength = "response."+this.id.split('[j]')[0];
                 var ln = s.split('[')[0];
 
-                if(j<eval(arrLength).length){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+                if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
                 var id = this.value;
                 if(this.value=="Video URL"){
                   objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
@@ -2333,7 +2351,14 @@ else{
             getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
           }
         }else{
-          populateTable(data);
+          if(data.length>1){
+            console.log("data: ", data);
+            populateListAndTree(data)
+            populateTable(data);
+          }else{
+            populateListAndTree(data)
+            console.log("create something else other than table!")
+          }
         }
 
       }//response
@@ -2343,6 +2368,113 @@ else{
 
   }//end of getTheNextPage function
 
+
+  function populateListAndTree(data){
+  /***************** List View ******************/
+  for(var j=0; j<arrData2.length; ++j){
+    for(var i=1; i<col.columns.length; ++i){
+      var v = col.columns[i].name;
+      if(typeof arrData2[j][v] == 'string' ){
+      //if(arrData2[j][v].startsWith("http")){//link
+        if(arrData2[j][v].startsWith("http") && arrData2[j][v].includes(".jpg") || arrData2[j][v].includes(".png")){//image
+          $("#myList").append("<label value='' style='font-size:1em; color:teal'>"+col.columns[i].name+": </label>");
+          $("#myList").append("</br><img style='width:200px' src='"+arrData2[j][v]+"'></img></br>");
+        }else if(arrData2[j][v].startsWith("http")){//not image
+          $("#myList").append("<label value='' style='font-size:1em; cursor:pointer; color:teal'>"+col.columns[i].name+": </label>");
+          $("#myList").append("<a style='color:blue' target='_blank' href='"+arrData2[j][v]+"'>"+arrData2[j][v]+"</a></br>");
+        }else{
+          $("#myList").append("<label value='' style='font-size:1em; color:teal; display:inline-block'>"+col.columns[i].name+": </label>");
+          $("#myList").append("<p value='' style='font-size:1em; margin:0px; padding:0px; display:inline-block'>"+arrData2[j][v]+"</p></br>");
+        }
+      }else{
+        $("#myList").append("<label value='' style='font-size:1em; color:teal; display:inline-block'>"+col.columns[i].name+": </label>");
+        $("#myList").append("<p value='' style='font-size:1em; margin:0px; padding:0px; display:inline-block'>"+arrData2[j][v]+"</p></br>");
+      }
+    }
+    $("#myList").append("</br></br></br>");
+  }
+
+  // if(isDataURL(arrData2[j][v])){
+  //   console.log("YES: ", arrData2[j][v]);
+  // }
+  // function isDataURL(s) {
+  //     return !!s.match(isDataURL.regex);
+  // }
+  // isDataURL.regex = /^\s*data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i;
+
+  /***************** Tree View ******************/
+  document.getElementById("myTree").appendChild(renderjson(arrData2));
+  //document.getElementById("myTree").innerHTML = JSONTree.create(response);
+  //Download
+  var data1 = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(arrData2, '', 7));
+
+  $( "#JSON" ).remove();
+  $( "#CSV" ).remove();
+  $( "#JS" ).remove();
+  $( "#saveBut" ).remove();
+  //$( "#SCRIPT" ).remove();
+
+  $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="data:text/csv,'+encodeURIComponent(DownloadJSON2CSV())+'" download = "data.csv"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
+  $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" onclick="downloadJSON()" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
+  $('<a id="JS" class="button button-mini button-border button-rounded button-green" onclick="getCodeClicked()" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
+
+  // $('<button onclick="dang()" id="codeBut" type="button" class="button button-mini button-border button-rounded button-green dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</button>').appendTo('#viewButtons2');
+  $('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-amber dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>').appendTo('#viewButtons2');
+  // $('<button id="SCRIPT" type="button" class="button button-mini button-border button-rounded button-green"  aria-haspopup="true" aria-expanded="false"> <img src="images/java.png" width="15px" height="15px" bottom="5px"> &nbsp;Script </button>').appendTo('#viewButtons2');
+}
+
+
+function populateListAndTree(data){
+  /***************** List View ******************/
+  for(var j=0; j<arrData2.length; ++j){
+    for(var i=1; i<col.columns.length; ++i){
+      var v = col.columns[i].name;
+      if(typeof arrData2[j][v] == 'string' ){
+      //if(arrData2[j][v].startsWith("http")){//link
+        if(arrData2[j][v].startsWith("http") && arrData2[j][v].includes(".jpg") || arrData2[j][v].includes(".png")){//image
+          $("#myList").append("<label value='' style='font-size:1em; color:teal'>"+col.columns[i].name+": </label>");
+          $("#myList").append("</br><img style='width:200px' src='"+arrData2[j][v]+"'></img></br>");
+        }else if(arrData2[j][v].startsWith("http")){//not image
+          $("#myList").append("<label value='' style='font-size:1em; cursor:pointer; color:teal'>"+col.columns[i].name+": </label>");
+          $("#myList").append("<a style='color:blue' target='_blank' href='"+arrData2[j][v]+"'>"+arrData2[j][v]+"</a></br>");
+        }else{
+          $("#myList").append("<label value='' style='font-size:1em; color:teal; display:inline-block'>"+col.columns[i].name+": </label>");
+          $("#myList").append("<p value='' style='font-size:1em; margin:0px; padding:0px; display:inline-block'>"+arrData2[j][v]+"</p></br>");
+        }
+      }else{
+        $("#myList").append("<label value='' style='font-size:1em; color:teal; display:inline-block'>"+col.columns[i].name+": </label>");
+        $("#myList").append("<p value='' style='font-size:1em; margin:0px; padding:0px; display:inline-block'>"+arrData2[j][v]+"</p></br>");
+      }
+    $("#myList").append("</br></br></br>");
+  }
+}
+
+  // if(isDataURL(arrData2[j][v])){
+  //   console.log("YES: ", arrData2[j][v]);
+  // }
+  // function isDataURL(s) {
+  //     return !!s.match(isDataURL.regex);
+  // }
+  // isDataURL.regex = /^\s*data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i;
+
+  /***************** Tree View ******************/
+  document.getElementById("myTree").appendChild(renderjson(arrData2));
+  //document.getElementById("myTree").innerHTML = JSONTree.create(response);
+  //Download
+  var data1 = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(arrData2, '', 7));
+
+  $( "#JSON" ).remove();
+  $( "#CSV" ).remove();
+  $( "#JS" ).remove();
+  //$( "#saveBut" ).remove();
+  //$( "#SCRIPT" ).remove();
+
+  $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="data:text/csv,'+encodeURIComponent(DownloadJSON2CSV())+'" download = "data.csv"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
+  $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" onclick="downloadJSON()" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
+  $('<a id="JS" class="button button-mini button-border button-rounded button-green" onclick="getCodeClicked()" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
+  $('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-amber dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>').appendTo('#viewButtons2');
+
+}
 
   function populateTable(data){
     $("#jsCode").empty();
@@ -2357,54 +2489,6 @@ else{
 
     // console.log("popTable: ", data)
 
-          /***************** List View ******************/
-          for(var j=0; j<arrData2.length; ++j){
-            for(var i=1; i<col.columns.length; ++i){
-              var v = col.columns[i].name;
-              if(typeof arrData2[j][v] == 'string' ){
-              //if(arrData2[j][v].startsWith("http")){//link
-                if(arrData2[j][v].startsWith("http") && arrData2[j][v].includes(".jpg") || arrData2[j][v].includes(".png")){//image
-                  $("#myList").append("<label value='' style='font-size:1em; color:teal'>"+col.columns[i].name+": </label>");
-                  $("#myList").append("</br><img style='width:200px' src='"+arrData2[j][v]+"'></img></br>");
-                }else if(arrData2[j][v].startsWith("http")){//not image
-                  $("#myList").append("<label value='' style='font-size:1em; cursor:pointer; color:teal'>"+col.columns[i].name+": </label>");
-                  $("#myList").append("<a style='color:blue' target='_blank' href='"+arrData2[j][v]+"'>"+arrData2[j][v]+"</a></br>");
-                }else{
-                  $("#myList").append("<label value='' style='font-size:1em; color:teal; display:inline-block'>"+col.columns[i].name+": </label>");
-                  $("#myList").append("<p value='' style='font-size:1em; margin:0px; padding:0px; display:inline-block'>"+arrData2[j][v]+"</p></br>");
-                }
-              }else{
-                $("#myList").append("<label value='' style='font-size:1em; color:teal; display:inline-block'>"+col.columns[i].name+": </label>");
-                $("#myList").append("<p value='' style='font-size:1em; margin:0px; padding:0px; display:inline-block'>"+arrData2[j][v]+"</p></br>");
-              }
-            $("#myList").append("</br></br></br>");
-          }
-        }
-
-          // if(isDataURL(arrData2[j][v])){
-          //   console.log("YES: ", arrData2[j][v]);
-          // }
-          // function isDataURL(s) {
-          //     return !!s.match(isDataURL.regex);
-          // }
-          // isDataURL.regex = /^\s*data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i;
-
-          /***************** Tree View ******************/
-          document.getElementById("myTree").appendChild(renderjson(arrData2));
-          //document.getElementById("myTree").innerHTML = JSONTree.create(response);
-          //Download
-          var data1 = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(arrData2, '', 7));
-
-          $( "#JSON" ).remove();
-          $( "#CSV" ).remove();
-          $( "#JS" ).remove();
-          //$( "#saveBut" ).remove();
-          //$( "#SCRIPT" ).remove();
-
-          $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="data:text/csv,'+encodeURIComponent(DownloadJSON2CSV())+'" download = "data.csv"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
-          $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" onclick="downloadJSON()" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
-          $('<a id="JS" class="button button-mini button-border button-rounded button-green" onclick="getCodeClicked()" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
-          $('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-amber dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>').appendTo('#viewButtons2');
 
           /***************** Table View ******************/
           var loadingIndicator = null;
@@ -2711,6 +2795,8 @@ function codeSnippetSelected(){
 }
 
 var getLogObj;
+var listExist;
+
 
 function retrieveData(){
 
@@ -2762,13 +2848,14 @@ function retrieveData(){
         });
       }
 
+if(obJSON1.parameters){
   for(var i=0; i<obJSON1.parameters.length; ++i){
    param.push({
      name: obJSON1.parameters[i]['name'],
      value: obJSON1.parameters[i]['value']
    });
   }
-
+}
   getLogObj = {};
 
   getLogObj.id = document.cookie;
@@ -2806,6 +2893,7 @@ function retrieveData(){
 
     function getTheNextPage(p, pages, nextPage){
 
+      if(obJSON1.parameters){
       listP=  "{";
       for(var i=0; i<obJSON1.parameters.length; ++i) {
         if($("#"+obJSON1.parameters[i]['name']).val() || obJSON1.parameters[i]['value']){
@@ -2816,8 +2904,6 @@ function retrieveData(){
           }else{
             listP+= JSON.stringify(obJSON1.parameters[i]['value']);
           }
-
-          //console.log("LIST: ",listP);
       }
 
       if(i+1<obJSON1.parameters.length){
@@ -2825,7 +2911,7 @@ function retrieveData(){
         listP+= ",";
       }
      }
-    }
+   }//for loop
 
 
     if(obJSON1.resPerPageParam){
@@ -2862,19 +2948,39 @@ function retrieveData(){
       }
     }
 
-    //if header key-value
-    //if()
-
     listP+= "}";
+    }
 
-  // console.log("listPYEAH: ",listP);
+    if(obJSON1.apiKeyValue){
+      if(obJSON1.parameters){
+        listP+= ","
+      }else{
+        listP+= "{"
+      }
+      listP+= JSON.stringify(obJSON1.apiKeyName);
+      listP+=":";
+      if($("#apiKeyVal").val()){
+        listP+= $("#apiKeyVal").val();
+      }else{
+        listP+= JSON.stringify(obJSON1.apiKeyValue);
+      }
+      listP+= "}";
+    }
 
-if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no CORS
+  console.log("listPYEAH: ",listP);
+  if(listP){
+    listExist=JSON.parse(listP);
+  }else{
+    listExist=""
+  }
+
+if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oauth2) || obJSON1.oauth2[0].authURL=="")){ //no header //no CORS
+  console.log("no header / no oauth");
     $.ajax({
       url: obJSON1.url,
-      data: JSON.parse(listP),
+      data: listExist,
       //dataType: jp,
-      method: 'GET',
+      method: method,
       success: function (response) {
         // console.log("RES_Ret: ", response);
 
@@ -2953,10 +3059,6 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
                  obj.lists=[];
                  obj.lists.push(objData);
               }
-
-              //++j;
-              //++start;
-
           }//while loop
         }else{
         var j=0;
@@ -2973,7 +3075,8 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
                  var arrLength = "response."+this.id.split('[j]')[0];
                  var ln = s.split('[')[0];
 
-                 if(j<eval(arrLength).length){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+                 if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
+                   // || typeof eval(s) === 'undefined' || j==eval(ln).length){
                  var id = this.value;
                  if(this.value=="Video URL"){
                    objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
@@ -2981,7 +3084,6 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
                    var str = (this.checked ? "response."+this.id : 0);
                    //IF ARRAY
                    if(str.includes("[i]")){
-                     //console.log("Includes [i]: ",str);
                      var i=0;
                      var splt =  str.split("[i]");
                      // start if undefined
@@ -3025,7 +3127,6 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
                      objData[id] = (this.checked ? eval("response."+this.id) : 0);
                      //console.log("objData[id]: ", objData[id]);
                    }
-
                  }
                }//if not undefined
              else{
@@ -3047,30 +3148,37 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
       }//else
 
         if(p<pages){
-          // console.log("Data: ", data);
           if(obJSON1.currPageParam){ //nex\prev page
               ++p;
-              // console.log("Next: ", eval("response."+obJSON1.nextPageParam));
               getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
           }else if(obJSON1.offsetPage){//offset page
-            // console.log("offset");
             ++p;
             getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
           }else{//index page
-              // console.log("index");
             ++p;
             getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
           }
         }else{
-          populateTable(data);
+          if(data.length>1){
+            console.log("data: ", data);
+            populateListAndTree(arrData2)
+            populateTable(data);
+          }else{
+            $("#tableV").hide();
+            console.log("data: ", response);
+            console.log("arrData2: ", arrData2);
+            populateListAndTree(response);
+            console.log("create something else other than table!")
+          }
         }
 
       }//response
   //  );//new AJAX
    });//AJAX
  }//if header
-else{
-  //if(obJSON1.headers[0].headerValue){
+else if(obJSON1.headers && obJSON1.headers[0].headerValue){ //if header
+  console.log("if headers")
+
   var headername= obJSON1.headers[0].headerKey;//$("#nameH").val();
   var headervar= obJSON1.headers[0].headerValue;//$("#valueH").val();
   var headers_to_set = {};
@@ -3078,8 +3186,8 @@ else{
 
     $.ajax({
       url: "https://cors-anywhere.herokuapp.com/"+obJSON1.url,
-      data: JSON.parse(listP),
-      method: 'GET',
+      data: listExist,//JSON.parse(listP),
+      method: method,
       headers: headers_to_set,
       // {
       //   "Authorization" : obJSON1.headers[0].headerValue//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx"
@@ -3182,7 +3290,7 @@ else{
             var arrLength = "response."+this.id.split('[j]')[0];
             var ln = s.split('[')[0];
 
-            if(j<eval(arrLength).length){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+            if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
             var id = this.value;
             if(this.value=="Video URL"){
               objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
@@ -3268,16 +3376,286 @@ else{
             getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
           }
         }else{
-          populateTable(data);
+          if(data.length>1){
+            console.log("data: ", data);
+            populateListAndTree(arrData2);
+            populateTable(data);
+          }else{
+            populateListAndTree(response);
+            console.log("create something else other than table!")
+          }
         }
 
       }//response
   //  );//new AJAX
    });//AJAX
  }//else CORS
+ else{ //if oauth
+   console.log("if oauth")
+   authorizeSNAPI();
+
+   $.ajax({
+     url: obJSON1.url,
+     data: listExist,//JSON.parse(listData),//JSON.stringify(eventC),//
+     method: method,
+     headers: {
+       "Authorization" : "Bearer " +tok, //this will depend on the API
+       "Content-Type"  : "application/json"
+     },
+     success: function (response) {
+       console.log("oauth response: ",response);
+       if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
+         for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
+            objData={};
+
+            objData["id"]= start;
+
+            if($("input[name='checkbox-w']").is(":checked")){
+                $("input[name='checkbox-w']:checked").each(function(){
+                 var s = "response."+this.id.split('.')[0];
+                  //console.log("s: ",s);
+                 if(eval(s)){
+                  var id = this.value;
+                  if(this.value=="Video URL"){
+                    objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+                  }else{
+                    var str = (this.checked ? "response."+this.id : 0);
+                    //IF ARRAY
+                    if(str.includes("[i]")){
+                      //console.log("Includes [i]: ",str);
+                      var i=0;
+                      var splt =  str.split("[i]");
+                      // start if undefined
+                      if(eval(splt[0]).length==0){
+                       objData[id]="";
+                     }else{// start if NOT undefined
+                     objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                     for(i=1; i<eval(splt[0]).length; ++i){
+                       objData[id] += ", ";
+                       objData[id] += eval("response."+this.id);
+                     }
+                   }///test undefined
+                     //IF OBJECT and not ARRAY
+                    }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
+                      //console.log("IT IS OBJECT");
+                      var objD = (this.checked ? eval("response."+this.id) : 0);
+                      var objKV = "";
+                      var first = true;
+                      for(var i in objD){
+                       //console.log("Key: ", i);
+                       //console.log("Value: ", objD[i]);
+                       if(!first){
+                         objKV+=", "
+                       }else{
+                         first = false;
+                       }
+                       objKV+=i+": "+objD[i];
+                     }
+                     objData[id]=objKV;
+
+                     for(var i in objD){
+                      //console.log("Key: ", i);
+                      //console.log("Value: ", objD[i]);
+                      objData[i]=objD[i];
+                      //console.log("objData[id]: ", objData[i]);
+                    }
+                    //console.log("objData[id]: ", objData[id]);
+                    //IF NEITHER
+                    }else{
+                      //console.log("Does NOT Include [i]");
+                      objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                      //console.log("objData[id]: ", objData[id]);
+                    }
+
+                  }
+                }//if not undefined
+              else{
+                defined=false;
+              }
+            });//checkbox
+          }//chckbox loop
+
+              if(defined){
+                data.push(objData);
+                obj.lists=[];
+                obj.lists.push(objData);
+             }
+
+             //++j;
+             //++start;
+
+         }//while loop
+       }else{
+       var j=0;
+       while(defined){
+     //for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
+     objData={};
+     ++start;
+     objData["id"]= start;
+     // console.log("J: ",j);
+
+     if($("input[name='checkbox-w']").is(":checked")){
+         $("input[name='checkbox-w']:checked").each(function(){
+           var s = "response."+this.id.split('.')[0];
+           var arrLength = "response."+this.id.split('[j]')[0];
+           var ln = s.split('[')[0];
+
+           console.log("response here: ",response);
+
+           if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+           var id = this.value;
+           if(this.value=="Video URL"){
+             objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+           }else{
+             var str = (this.checked ? "response."+this.id : 0);
+             //IF ARRAY
+             if(str.includes("[i]")){
+               //console.log("Includes [i]: ",str);
+               var i=0;
+               var splt =  str.split("[i]");
+               // start if undefined
+               if(eval(splt[0]).length==0){
+                objData[id]="";
+              }else{// start if NOT undefined
+              objData[id] = (this.checked ? eval("response."+this.id) : 0);
+              for(i=1; i<eval(splt[0]).length; ++i){
+                objData[id] += ", ";
+                objData[id] += eval("response."+this.id);
+              }
+            }///test undefined
+              //IF OBJECT and not ARRAY
+             }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
+               //console.log("IT IS OBJECT");
+               var objD = (this.checked ? eval("response."+this.id) : 0);
+               var objKV = "";
+               var first = true;
+               for(var i in objD){
+                //console.log("Key: ", i);
+                //console.log("Value: ", objD[i]);
+                if(!first){
+                  objKV+=", "
+                }else{
+                  first = false;
+                }
+                objKV+=i+": "+objD[i];
+              }
+              objData[id]=objKV;
+
+              for(var i in objD){
+               //console.log("Key: ", i);
+               //console.log("Value: ", objD[i]);
+               objData[i]=objD[i];
+               //console.log("objData[id]: ", objData[i]);
+             }
+             //console.log("objData[id]: ", objData[id]);
+             //IF NEITHER
+             }else{
+               //console.log("Does NOT Include [i]");
+               objData[id] = (this.checked ? eval("response."+this.id) : 0);
+               //console.log("objData[id]: ", objData[id]);
+             }
+
+           }
+         }//if not undefined
+       else{
+         defined=false;
+       }
+     });//checkbox
+   }//chckbox loop
+
+       if(defined){
+         data.push(objData);
+         obj.lists=[];
+         obj.lists.push(objData);
+      }
+
+      ++j;
+      //++start;
+
+     }//while loop
+   }//else
+
+       if(p<pages){
+         //console.log("Data: ", data);
+         if(obJSON1.currPageParam){ //nex\prev page
+             ++p;
+             getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
+         }else if(obJSON1.offsetPage){//offset page
+           ++p;
+           getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
+         }else{//index page
+           ++p;
+           getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
+         }
+       }else{
+         if(data.length>1){
+           console.log("data: ", data);
+           populateListAndTree(arrData2);
+           populateTable(data);
+         }else{
+           populateListAndTree(response);
+           console.log("create something else other than table!")
+         }
+       }
+
+     }//response
+ //  );//new AJAX
+  });//AJAX
+
+
+
+
+
+ }//else
 
   }//end of getTheNextPage function
 
+
+  function populateListAndTree(arrData3){
+  /***************** List View ******************/
+  for(var j=0; j<arrData2.length; ++j){
+    for(var i=1; i<col.columns.length; ++i){
+      var v = col.columns[i].name;
+      if(typeof arrData2[j][v] == 'string' ){
+      //if(arrData2[j][v].startsWith("http")){//link
+        if(arrData2[j][v].startsWith("http") && arrData2[j][v].includes(".jpg") || arrData2[j][v].includes(".png")){//image
+          $("#myList").append("<label value='' style='font-size:1em; color:teal'>"+col.columns[i].name+": </label>");
+          $("#myList").append("</br><img style='width:200px' src='"+arrData2[j][v]+"'></img></br>");
+        }else if(arrData2[j][v].startsWith("http")){//not image
+          $("#myList").append("<label value='' style='font-size:1em; cursor:pointer; color:teal'>"+col.columns[i].name+": </label>");
+          $("#myList").append("<a style='color:blue' target='_blank' href='"+arrData2[j][v]+"'>"+arrData2[j][v]+"</a></br>");
+        }else{
+          $("#myList").append("<label value='' style='font-size:1em; color:teal; display:inline-block'>"+col.columns[i].name+": </label>");
+          $("#myList").append("<p value='' style='font-size:1em; margin:0px; padding:0px; display:inline-block'>"+arrData2[j][v]+"</p></br>");
+        }
+      }else{
+        $("#myList").append("<label value='' style='font-size:1em; color:teal; display:inline-block'>"+col.columns[i].name+": </label>");
+        $("#myList").append("<p value='' style='font-size:1em; margin:0px; padding:0px; display:inline-block'>"+arrData2[j][v]+"</p></br>");
+      }
+    }
+    $("#myList").append("</br></br></br>");
+  }
+
+  /***************** Tree View ******************/
+  document.getElementById("myTree").appendChild(renderjson(arrData3));
+  //document.getElementById("myTree").innerHTML = JSONTree.create(response);
+  //Download
+  var data1 = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(arrData3, '', 7));
+
+  $( "#JSON" ).remove();
+  $( "#CSV" ).remove();
+  $( "#JS" ).remove();
+  $( "#saveBut" ).remove();
+  //$( "#SCRIPT" ).remove();
+
+  $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="data:text/csv,'+encodeURIComponent(DownloadJSON2CSV())+'" download = "data.csv"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
+  $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" onclick="downloadJSON()" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
+  $('<a id="JS" class="button button-mini button-border button-rounded button-green" onclick="getCodeClicked()" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
+
+  // $('<button onclick="dang()" id="codeBut" type="button" class="button button-mini button-border button-rounded button-green dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</button>').appendTo('#viewButtons2');
+  $('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-amber dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>').appendTo('#viewButtons2');
+  // $('<button id="SCRIPT" type="button" class="button button-mini button-border button-rounded button-green"  aria-haspopup="true" aria-expanded="false"> <img src="images/java.png" width="15px" height="15px" bottom="5px"> &nbsp;Script </button>').appendTo('#viewButtons2');
+}
 
 
   function populateTable(data){
@@ -3292,57 +3670,7 @@ else{
 
     $("#jsCode").append(jsSnippet);
 
-          /***************** List View ******************/
-          for(var j=0; j<arrData2.length; ++j){
-            for(var i=1; i<col.columns.length; ++i){
-              var v = col.columns[i].name;
-              if(typeof arrData2[j][v] == 'string' ){
-              //if(arrData2[j][v].startsWith("http")){//link
-                if(arrData2[j][v].startsWith("http") && arrData2[j][v].includes(".jpg") || arrData2[j][v].includes(".png")){//image
-                  $("#myList").append("<label value='' style='font-size:1em; color:teal'>"+col.columns[i].name+": </label>");
-                  $("#myList").append("</br><img style='width:200px' src='"+arrData2[j][v]+"'></img></br>");
-                }else if(arrData2[j][v].startsWith("http")){//not image
-                  $("#myList").append("<label value='' style='font-size:1em; cursor:pointer; color:teal'>"+col.columns[i].name+": </label>");
-                  $("#myList").append("<a style='color:blue' target='_blank' href='"+arrData2[j][v]+"'>"+arrData2[j][v]+"</a></br>");
-                }else{
-                  $("#myList").append("<label value='' style='font-size:1em; color:teal; display:inline-block'>"+col.columns[i].name+": </label>");
-                  $("#myList").append("<p value='' style='font-size:1em; margin:0px; padding:0px; display:inline-block'>"+arrData2[j][v]+"</p></br>");
-                }
-              }else{
-                $("#myList").append("<label value='' style='font-size:1em; color:teal; display:inline-block'>"+col.columns[i].name+": </label>");
-                $("#myList").append("<p value='' style='font-size:1em; margin:0px; padding:0px; display:inline-block'>"+arrData2[j][v]+"</p></br>");
-              }
-            }
-            $("#myList").append("</br></br></br>");
-          }
 
-          // if(isDataURL(arrData2[j][v])){
-          //   console.log("YES: ", arrData2[j][v]);
-          // }
-          // function isDataURL(s) {
-          //     return !!s.match(isDataURL.regex);
-          // }
-          // isDataURL.regex = /^\s*data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i;
-
-          /***************** Tree View ******************/
-          document.getElementById("myTree").appendChild(renderjson(arrData2));
-          //document.getElementById("myTree").innerHTML = JSONTree.create(response);
-          //Download
-          var data1 = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(arrData2, '', 7));
-
-          $( "#JSON" ).remove();
-          $( "#CSV" ).remove();
-          $( "#JS" ).remove();
-          $( "#saveBut" ).remove();
-          //$( "#SCRIPT" ).remove();
-
-          $('<a id="CSV" class="button button-mini button-border button-rounded button-red" style="" href="data:text/csv,'+encodeURIComponent(DownloadJSON2CSV())+'" download = "data.csv"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>CSV</a>').appendTo('#viewButtons2');
-          $('<a id="JSON" class="button button-mini button-border button-rounded button-blue" style="" onclick="downloadJSON()" href="data:' + data1 + '" download="data.json"><i class="glyphicon glyphicon-download-alt" style="left:2px"></i>JSON</a>').appendTo('#viewButtons2');
-          $('<a id="JS" class="button button-mini button-border button-rounded button-green" onclick="getCodeClicked()" data-toggle="modal" data-target="#modalPaste" href=""><i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</a>').appendTo('#viewButtons2');
-
-          // $('<button onclick="dang()" id="codeBut" type="button" class="button button-mini button-border button-rounded button-green dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-console" style="left:2px"></i>CODE</button>').appendTo('#viewButtons2');
-          $('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-amber dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>').appendTo('#viewButtons2');
-          // $('<button id="SCRIPT" type="button" class="button button-mini button-border button-rounded button-green"  aria-haspopup="true" aria-expanded="false"> <img src="images/java.png" width="15px" height="15px" bottom="5px"> &nbsp;Script </button>').appendTo('#viewButtons2');
           /***************** Table View ******************/
           var loadingIndicator = null;
           var jsonReturn;
@@ -3739,6 +4067,7 @@ function addDataToDB(){
   strQuery+=obJSON1.url
   strQuery+="?"
 
+if(obJSON1.parameters){
   for(var i=0; i<obJSON1.parameters.length; ++i){
     var v;
     strQuery+=obJSON1.parameters[i]['name']
@@ -3766,7 +4095,7 @@ function addDataToDB(){
       value: v
     });
   }
-
+}
   dObj.parameters = parameters;
 
   //maxResPerPage
@@ -3841,12 +4170,16 @@ if(logDecision == "accept"){
     }
 
 
+
+ if(obJSON1.parameters){
+
   for(var i=0; i<obJSON1.parameters.length; ++i){
    param.push({
      name: obJSON1.parameters[i]['name'],
      value: obJSON1.parameters[i]['value']
    });
   }
+}
 
   getLogObj = {};
 
@@ -3881,12 +4214,15 @@ function getCodeClicked(){
       }
 
 
+  if(obJSON1.parameters){
+
     for(var i=0; i<obJSON1.parameters.length; ++i){
      param.push({
        name: obJSON1.parameters[i]['name'],
        value: obJSON1.parameters[i]['value']
      });
     }
+  }
 
     getLogObj = {};
 
@@ -3922,6 +4258,7 @@ function downloadJSON(){
         });
       }
 
+  if(obJSON1.parameters){
 
     for(var i=0; i<obJSON1.parameters.length; ++i){
      param.push({
@@ -3929,6 +4266,7 @@ function downloadJSON(){
        value: obJSON1.parameters[i]['value']
      });
     }
+  }
 
     getLogObj = {};
 
@@ -4039,12 +4377,15 @@ function saveLogs(){
       }
 
 
+  if(obJSON1.parameters){
+
   for(var i=0; i<obJSON1.parameters.length; ++i){
    param.push({
      name: obJSON1.parameters[i]['name'],
      value: obJSON1.parameters[i]['value']
    });
  }
+}
 
   getLogObj = {};
 
@@ -4484,6 +4825,24 @@ var errorMessageJson="";
 
 var method="GET";
 
+
+$("#method").on('change', function() {
+    console.log("change to ", $(this).val());
+
+    if ($(this).val() == 'POST'){
+        method = 'POST'
+    } else if ($(this).val() == 'PUT'){
+        method = 'PUT';
+    }else if ($(this).val() == 'INSERT'){
+        method = 'INSERT';
+    }else if ($(this).val() == 'DELETE'){
+        method = 'DELETE';
+    }else{
+        method="GET";
+    }
+});
+
+
 function urlBlur(){
   logObj = {};
   logs = [];
@@ -4576,22 +4935,12 @@ if($("#url").val()){
     listData+= JSON.stringify($("#valueKey").val());
   }
 
-
   listData+="}";
-
   // console.log("listData: ", listData);
   // console.log("LINK: ", link);
 
-  if($("#method").value == 'POST'){
-    method = 'POST'
-  }else if($("#method").value == 'PUT'){
-    method = 'PUT';
-    //if OAuth "header", automatically fill out the headers key and value with the token
-  }else{
-    method = 'GET';
-  }
+  if($("#valueH").val() && document.getElementById('selectid').value != "oauth2"){
 
-  if($("#valueH").val()){
     var headername= $("#nameH").val();
     var headervar= $("#valueH").val();
     var headers_to_set = {};
@@ -4736,7 +5085,181 @@ if($("#url").val()){
       }
     });
 
-  }else{//does not have header
+  }else if(document.getElementById('selectid').value == "oauth2"){
+    console.log("enter oauth section, token = ", tok);
+    console.log("method = ", method);
+    console.log("data = ",JSON.parse(listData));
+
+    var eventC = {
+      "summary": "Google I/O 2015",
+      "location": "800 Howard St., San Francisco, CA 94103",
+      "description": "A chance to hear more about Google's developer products.",
+      "start": {
+        "date": "2020-02-28"
+      },
+      "end": {
+        "date": "2020-02-29"
+      }
+    };
+
+    // if(method == "POST")
+
+    $.ajax({
+      url: link,
+      data: JSON.parse(listData),//JSON.stringify(eventC),//
+      method: method,
+      headers: {
+        "Authorization" : "Bearer " +tok, //this will depend on the API
+        "Content-Type"  : "application/json"
+      },success: function (response) {
+        console.log("oauth response: ",response)
+        status = "success";
+        jsResponse = JSON.stringify(response, null, 2);
+
+        showResponseSchema(listData);
+        $("#toggRes").show();
+        errorMessageJson = "Success! Click on result fields below";
+        //You successfully accessed the API!";
+        //$("#pDiv").show(); //unhighlight
+        $("#correct").show();
+        $("#notcorrect").hide();
+        document.getElementById("pValidatetext").innerHTML=errorMessageJson;
+        document.getElementById('pValidatetext').style.color="green";
+        document.getElementById('pDiv').style.borderColor="green";
+        document.getElementById('pDiv').style.backgroundColor="#f2f9ee";
+
+        responseMessage(response, status);
+      },
+      error: function(response, jqXHR, textStatus, errorThrown) {
+        console.log(JSON.stringify("oauth error: ", response));
+        status = "error";
+
+        if(response.hasOwnProperty('responseText')){
+          jsResponse = response.responseText;
+        }else{
+          jsResponse = response;
+        }
+
+        showResponseSchema(listData);
+        $("#toggRes").hide();
+
+        var authSubstrings = ['api key','API key', 'key', 'oauth', 'authentication','auth', 'validation'];
+        var reqSubstrings = ['parameter', 'parameters', 'required parameter'];
+        var lengthA = authSubstrings.length;
+        var lengthR = reqSubstrings.length;
+
+        while(lengthA--) {
+           if (JSON.stringify(response).indexOf(authSubstrings[lengthA])!=-1) {
+             isAuth=true;
+           }
+         }
+         while(lengthR--) {
+           if (JSON.stringify(response).indexOf(reqSubstrings[lengthR])!=-1) {
+             isReq=true;
+           }
+        }
+
+        if(isAuth){
+          errorMessageJson = "Error: Possibly missing authentication";
+        }else if(isReq){
+          errorMessageJson = "Error: Possibly missing required parameter(s)";
+        }else{
+          errorMessageJson = "Error: Possibly missing parameter(s) and/or authentication";
+        }
+
+        if(response.hasOwnProperty('responseJSON')){
+          //get the longest text there and show it as the message
+          var responseJSONChildren = flatten(response.responseJSON);
+
+          function flatten(obj) {
+          var flattenedObj = {};
+          Object.keys(obj).forEach(function(key){
+              if (typeof obj[key] === 'object') {
+                  $.extend(flattenedObj, flatten(obj[key]));
+              } else {
+                  flattenedObj[key] = obj[key];
+              }
+          });
+          return flattenedObj;
+          }
+
+          var arrayOfValues = [];
+          var x=0;
+          var urlJson;
+
+          for (let [key, value] of Object.entries(responseJSONChildren)) {
+            // console.log(`${key}: ${value}`);
+            if(ValidURL(`${value}`)){
+              urlJson = `${value}`;
+            }else{
+              arrayOfValues[x]=`${value}`;
+              ++x;
+            }
+          }
+
+          var elm;
+
+          function ValidURL(u){
+            if(!elm){
+              elm = document.createElement('input');
+              elm.setAttribute('type', 'url');
+            }
+            elm.value = u;
+            return elm.validity.valid;
+          }
+
+
+          var longest = arrayOfValues.reduce(function (a, b) { return a.length > b.length ? a : b; });
+
+          if(ContainsValidURL(longest)){
+            errorMessageJson ="Error: "+ longest;
+          }else{
+            errorMessageJson ="Error: "+ longest+' '+urlJson;
+          }
+          //Does the longest string contains links?
+          function ContainsValidURL(str) {
+            var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+            if(!regex.test(str)) {
+              return false;
+            } else {
+              return true;
+            }
+          }
+
+        }else{//custom message (most likely response.responseText)
+          // Show a custom message
+          // console.log("custom")
+        }
+
+        //$("#pDiv").show(); //unhighlight
+        $("#notcorrect").show();
+        $("#correct").hide();
+        document.getElementById("pValidatetext").innerHTML=createTextLinks_(errorMessageJson);
+        document.getElementById('pValidatetext').style.color="red";
+        document.getElementById('pDiv').style.borderColor="red";
+        document.getElementById('pDiv').style.backgroundColor="#fceff1";
+
+        function createTextLinks_(text) {
+          return (text || "").replace(
+            /([^\S]|^)(((https?\:\/\/)|(www\.))(\S+))/gi,
+            function(match, space, url){
+              var hyperlink = url;
+              if (!hyperlink.match('^https?:\/\/')) {
+                hyperlink = 'http://' + hyperlink;
+              }
+              return space + '<a target="_blank" href="' + hyperlink + '">' + url + '</a>';
+            }
+          );
+
+        };
+        // console.log(JSON.stringify(response));
+        responseMessage(response, status);
+      }
+
+    });
+
+
+  }else{//does not have header nor oauth
 
   $.ajax({
     url: link,
@@ -4896,181 +5419,153 @@ if($("#url").val()){
 }
 
 
-// function errorText(link, listData){
-// console.log("errorText function")
-//   $.ajax({
-//     url: link,
-//     data: JSON.parse(listData),
-//     method: 'GET',
-//     crossDomain: true,
-//     contentType: "application/json; charset=utf-8",
-//     dataType: 'jsonp',
-//     success: function (response) {
-//       status = "success";
-//       jsResponse = JSON.stringify(response, null, 2);
-//       // document.getElementById('jsonResponse').style.backgroundColor="#e4f3db";
-//       // $("#jsonResponse").append('<code>'+JSON.stringify(response, null, 2)+'</code>');
-//
-//       showResponseSchema(listData);
-//       $("#toggRes").show();
-//       // $("#correct").show();
-//       // $("#notcorrect").hide();
-//
-//       errorMessageJson = "Success! Click on result fields below";
-//       //You successfully accessed the API!";
-//       $("#pDiv").show();
-//       $("#correct").show();
-//       $("#notcorrect").hide();
-//       document.getElementById("pValidatetext").innerHTML=errorMessageJson;
-//       document.getElementById('pValidatetext').style.color="green";
-//       document.getElementById('pDiv').style.borderColor="green";
-//       document.getElementById('pDiv').style.backgroundColor="#f2f9ee";
-//
-//       responseMessage(response, status);
-//
-//     },
-//     error: function(response, jqXHR, textStatus, errorThrown) {
-//
-//       console.log(JSON.stringify(response));
-//
-//       status = "error";
-//
-//       if(response.hasOwnProperty('responseText')){
-//         jsResponse = response.responseText;
-//       }else{
-//         jsResponse = response;
-//       }
-//
-//       // document.getElementById('jsonResponse').style.backgroundColor="#ffecef";
-//       // $("#jsonResponse").append('<code>'+response.responseText+'</code>');
-//
-//       showResponseSchema(listData);
-//       $("#toggRes").hide();
-//       // $("#correct").hide();
-//       // $("#notcorrect").show();
-//
-//       var authSubstrings = ['api key','API key', 'key', 'oauth', 'authentication','auth', 'validation'];
-//       var reqSubstrings = ['parameter', 'parameters', 'required parameter'];
-//
-//       var lengthA = authSubstrings.length;
-//       var lengthR = reqSubstrings.length;
-//
-//       while(lengthA--) {
-//         // for(var j=0; j<authSubstrings.length)
-//          if (JSON.stringify(response).indexOf(authSubstrings[lengthA])!=-1) {
-//            isAuth=true;
-//          }
-//        }
-//        while(lengthR--) {
-//          if (JSON.stringify(response).indexOf(reqSubstrings[lengthR])!=-1) {
-//            isReq=true;
-//          }
-//       }
-//
-//       if(isAuth){
-//         console.log("needs authentication");
-//         errorMessageJson = "Error: Possibly missing authentication";
-//         // document.getElementById("authSection").scrollIntoView();
-//       }else if(isReq){
-//         console.log("needs parameter");
-//         errorMessageJson = "Error: Possibly missing required parameter(s)";
-//         // document.getElementById("authSection").scrollIntoView();
-//       }else{
-//         errorMessageJson = "Error: Possibly missing parameter(s) and/or authentication";
-//       }
-//
-//       if(response.hasOwnProperty('responseJSON')){
-//         //get the longest text there and show it as the message
-//         var responseJSONChildren = flatten(response.responseJSON);
-//
-//         function flatten(obj) {
-//         var flattenedObj = {};
-//         Object.keys(obj).forEach(function(key){
-//             if (typeof obj[key] === 'object') {
-//                 $.extend(flattenedObj, flatten(obj[key]));
-//             } else {
-//                 flattenedObj[key] = obj[key];
-//             }
-//         });
-//         return flattenedObj;
-//         }
-//
-//         var arrayOfValues = [];
-//         var x=0;
-//         var urlJson;
-//
-//         for (let [key, value] of Object.entries(responseJSONChildren)) {
-//           // console.log(`${key}: ${value}`);
-//           if(ValidURL(`${value}`)){
-//             urlJson = `${value}`;
-//           }else{
-//             arrayOfValues[x]=`${value}`;
-//             ++x;
-//           }
-//         }
-//
-//         var elm;
-//
-//         function ValidURL(u){
-//           if(!elm){
-//             elm = document.createElement('input');
-//             elm.setAttribute('type', 'url');
-//           }
-//           elm.value = u;
-//           return elm.validity.valid;
-//         }
-//
-//
-//         var longest = arrayOfValues.reduce(function (a, b) { return a.length > b.length ? a : b; });
-//
-//         if(ContainsValidURL(longest)){
-//           errorMessageJson ="Error: "+ longest;
-//         }else{
-//           errorMessageJson ="Error: "+ longest+' '+urlJson;
-//         }
-//         //Does the longest string contains links?
-//         function ContainsValidURL(str) {
-//           var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
-//           if(!regex.test(str)) {
-//             return false;
-//           } else {
-//             return true;
-//           }
-//         }
-//
-//       }else{//custom message (most likely response.responseText)
-//         // Show a custom message
-//         // console.log("custom")
-//       }
-//
-//       $("#pDiv").show();
-//       $("#notcorrect").show();
-//       $("#correct").hide();
-//       document.getElementById("pValidatetext").innerHTML=createTextLinks_(errorMessageJson);
-//       document.getElementById('pValidatetext').style.color="red";
-//       document.getElementById('pDiv').style.borderColor="red";
-//       document.getElementById('pDiv').style.backgroundColor="#fceff1";
-//
-//       function createTextLinks_(text) {
-//
-//         return (text || "").replace(
-//           /([^\S]|^)(((https?\:\/\/)|(www\.))(\S+))/gi,
-//           function(match, space, url){
-//             var hyperlink = url;
-//             if (!hyperlink.match('^https?:\/\/')) {
-//               hyperlink = 'http://' + hyperlink;
-//             }
-//             return space + '<a target="_blank" href="' + hyperlink + '">' + url + '</a>';
-//           }
-//         );
-//
-//       };
-//       // console.log(JSON.stringify(response));
-//       responseMessage(response, status);
-//     }
-//   });
-//
-// }
+
+var auth_url,token_url, redirect_url, client_id, client_secret, response_type, scope, grant_type, client_auth, tok;
+
+var redirect_url_ = ['http://127.0.0.1:8080/api-integration.html', 'http://127.0.0.1:8080/data-management.html?api=Unsplash_My_Collections']
+
+function authorizeSNAPI() {
+
+      auth_url= obJSON1.oauth2[0].authURL;
+      token_url= obJSON1.oauth2[0].tokenURL;
+      redirect_url= redirect_url_[1];//obJSON1.oauth2[0].callbackURL;
+      client_id= obJSON1.oauth2[0].clientId;
+      client_secret= obJSON1.oauth2[0].clientSec;
+      response_type= obJSON1.oauth2[0].resType;
+      scope= obJSON1.oauth2[0].scope;
+      grant_type= obJSON1.oauth2[0].grantType;
+      client_auth= obJSON1.oauth2[0].clientAuth;
+
+
+      console.log("auth_url: ",auth_url);
+
+            var win = window.open(auth_url+"?response_type="+JSON.parse(JSON.stringify(response_type))+"&scope="+JSON.parse(JSON.stringify(scope))+"&client_id="+JSON.parse(JSON.stringify(client_id))+"&redirect_uri="+JSON.parse(JSON.stringify(redirect_url))+"", "windowname1", 'width=800, height=600');
+
+            var pollTimer = window.setInterval(function() {
+                try {
+                     console.log(win.document.URL); //here url
+                    // console.log("yeah");
+                    if (win.document.URL.indexOf(redirect_url) != -1) {
+                        window.clearInterval(pollTimer);
+                        var url =   win.document.URL;
+                        acToken =   gup(url, response_type);
+
+                        // tokenType = gup(url, 'token_type');
+                        // expiresIn = gup(url, 'expires_in');
+                        win.close();
+
+                        validateTokenSNAPI(acToken);
+                    }
+                } catch(e) {
+                     // console.log("nah");
+                }
+            }, 200);
+}
+
+
+function authorize() {
+
+  console.log("auth function");
+
+      auth_url= $("#authURL").val();
+      token_url= $("#tokenURL").val();
+      redirect_url= redirect_url_[0]; //$("#callbackURL").val(); //JSON.parse(JSON.stringify($("#callbackURL").val()));
+      client_id= $("#clientId").val(); //JSON.parse(JSON.stringify($("#clientId").val()));
+      client_secret= $("#clientSec").val(); //JSON.parse(JSON.stringify($("#clientSec").val()));
+      response_type= $("#resType").val(); //JSON.parse(JSON.stringify($("#resType").val()));
+      scope= $("#scope").val(); //JSON.parse(JSON.stringify($("#scope").val()));
+      grant_type= $("#grantType").val(); //JSON.parse(JSON.stringify($("#grantType").val()));
+      client_auth= $("#clientAuth").val(); //JSON.parse(JSON.stringify($("#clientAuth").val()));//(bearer header OR client credentials in body)
+
+
+            var win = window.open(auth_url+"?response_type="+JSON.parse(JSON.stringify(response_type))+"&scope="+JSON.parse(JSON.stringify(scope))+"&client_id="+JSON.parse(JSON.stringify(client_id))+"&redirect_uri="+JSON.parse(JSON.stringify(redirect_url))+"", "windowname1", 'width=800, height=600');
+
+            var pollTimer = window.setInterval(function() {
+                try {
+                    console.log(win.document.URL); //here url
+                    // console.log("yeah");
+                    if (win.document.URL.indexOf(redirect_url) != -1) {
+                        window.clearInterval(pollTimer);
+                        var url =   win.document.URL;
+                        acToken =   gup(url, 'code');
+                        // tokenType = gup(url, 'token_type');
+                        // expiresIn = gup(url, 'expires_in');
+                        win.close();
+
+                        validateToken(acToken);
+                    }
+                } catch(e) {
+                    // console.log("nah");
+                }
+            }, 200);
+}
+
+
+
+function validateTokenSNAPI(token) {
+          console.log("Token: ",token)
+          console.log("Token URL: ",token_url)
+
+          $.ajax({
+        		url: token_url,
+        		method: "POST",
+            data: {client_id: client_id ,client_secret: client_secret ,redirect_uri: redirect_url ,code: token ,grant_type:grant_type} ,
+        		success: function(response) {
+              console.log("response: ",response);
+              //important to check access token and token type (e.g. bearer)
+              tok = response.access_token;
+              console.log("tok: ", tok)
+              //removed
+        		},
+            error: function(response, jqXHR, textStatus, errorThrown) {
+              console.log("error: ",response);
+            }
+        	});
+
+        //setTimeout(function(){
+          // urlBlur();
+        //}, 4000);
+
+}
+
+
+function validateToken(token) {
+          console.log("Token: ",token)
+          console.log("Token URL: ",token_url)
+
+          $.ajax({
+        		url: token_url,
+        		method: "POST",
+            data: {client_id: $("#clientId").val() ,client_secret: $("#clientSec").val() ,redirect_uri: redirect_uri ,code: token ,grant_type:$("#grantType").val()} ,
+        		success: function(response) {
+              console.log("response: ",response);
+              //important to check access token and token type (e.g. bearer)
+              tok = response.access_token;
+              console.log("tok: ", tok)
+              //removed
+        		},
+            error: function(response, jqXHR, textStatus, errorThrown) {
+              console.log("error: ",response);
+            }
+        	});
+
+        //setTimeout(function(){
+          urlBlur();
+        //}, 4000);
+
+}
+
+function gup(url, name) {
+  name = name.replace(/[[]/,"\[").replace(/[]]/,"\]");
+  var regexS = "[\?&]"+name+"=([^&#]*)";
+  var regex = new RegExp( regexS );
+  var results = regex.exec( url );
+  if( results == null )
+    return "";
+  else
+    return results[1];
+}
+
 
 
 function responseMessage(response, status){
@@ -5122,15 +5617,15 @@ function responseMessage(response, status){
    },
    onEvent: function(node, event) {
     if(status == "success"){
-
      if (event.type === 'click') {
        document.getElementById("toggRes").scrollIntoView();
        // console.log("clicked: ", node.path);
          var textEl = document.getElementById('selectedText');
+         console.log("node.path: ",node.path);
+         console.log("node: ",node);
 
          var paramValue = eval("response."+prettyPrintPath(node.path));
          // console.log(eval("response."+prettyPrintPath(node.path));
-
          var s1 = node.field;
          var s2 = prettyPrintPath(node.path);
          var xx1 = s1.concat("/");
@@ -5152,19 +5647,18 @@ function responseMessage(response, status){
          if(exists){
 
          }else{
-         fields_paths.push(xx);
-         //console.log("fields_paths: ",fields_paths);
+           fields_paths.push(xx);
+           //console.log("fields_paths: ",fields_paths);
+           var safevalue= node.field;
+           //console.log("Test sting: ", safevalue);
 
-         var safevalue= node.field;
-         //console.log("Test sting: ", safevalue);
+           r1=prettyPrintPath(node.path).replace(/[0-9]/,'');
+           r2=r1.replace('[','');
+           r3=r2.replace(']','');
 
-         r1=prettyPrintPath(node.path).replace(/[0-9]/,'');
-         r2=r1.replace('[','');
-         r3=r2.replace(']','');
-
-         var nameDefaule1 = node.field.split('_');
-         for (var i = 0; i < nameDefaule1.length; i++) {
-            nameDefaule1[i] = nameDefaule1[i].charAt(0).toUpperCase() + nameDefaule1[i].substring(1);    ;
+           var nameDefaule1 = node.field.split('_');
+           for (var i = 0; i < nameDefaule1.length; i++) {
+              nameDefaule1[i] = nameDefaule1[i].charAt(0).toUpperCase() + nameDefaule1[i].substring(1);
           }
 
          var nameDefaule = nameDefaule1.join(' ');
@@ -5175,24 +5669,26 @@ function responseMessage(response, status){
    }//end og if clicked
   }
 
-     // if (event.type === 'delete') {
-     //   //console.log("removed!");
-     // }
-
      function prettyPrintPath(path) {
+       console.log("Path: ",path);
                    var str = '';
                    for (var i=0; i<path.length; i++) {
+                     console.log("Path: ",path[i]);
                      var element = path[i];
                      if (typeof element === 'number') {
-                       str += '[' + element + ']'
+                       if(i!=0){
+                         str += '[' + element + ']'
+                       }
                      } else if(element.includes(' ')) {
                        str += "['"+element+"']";
                        console.log(str)
                      }else {
+                       console.log("str: ",str);
                        if (str.length > 0) str += '.';
                        str += element;
                      }
                    }
+                   console.log("str: ",str);
                    return str;
                  }
    }
@@ -5369,6 +5865,25 @@ function showResponseSchema(listData){
 
   myObj.headers = headers;
 
+  var oauth2 = [];
+
+
+if(document.getElementById('selectid').value == "oauth2"){
+  oauth2.push({
+    authURL:   $("#authURL").val(),
+    tokenURL: $("#tokenURL").val(),
+    callbackURL: redirect_uri,//$("#callbackURL").val(),
+    clientId: $("#clientId").val(),
+    clientSec: $("#clientSec").val(),
+    resType: $("#resType").val(),
+    scope: $("#scope").val(),
+    grantType: $("#grantType").val(),
+    clientAuth: $("#clientAuth").val()
+  });
+}
+
+
+
   //Authentication description
   myObj.authDesc = $("#authDesc").val();
   myObj.authURL  = $("#authURL").val();
@@ -5424,7 +5939,9 @@ function showResponseSchema(listData){
         var output;
 
         //console.log("valueH:", $("#valueH").val());
-        if($("#valueH").val()!=""){ //CHANGE BEARER
+        if($("#valueH").val()!="" && document.getElementById('selectid').value != "oauth2"){ //CHANGE BEARER
+        // if($("#valueH").val() && document.getElementById('selectid').value != "oauth2"){
+
 
           var headername= $("#nameH").val();
           var headervar= $("#valueH").val();
@@ -5434,31 +5951,49 @@ function showResponseSchema(listData){
         var settings3 = {
           "url": "https://cors-anywhere.herokuapp.com/"+myObj.url,//https://api.yelp.com/v3/businesses/search?term=burgers&location=boston",
           "data": JSON.parse(listData),
-          "method": "GET",
+          "method": method,
           "headers": headers_to_set
           // {
           //   "Authorization": $("#valueH").val()//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx"
           // }
         }
-      }else{
+      }else if(document.getElementById('selectid').value == "oauth2"){
+        console.log("X enter oauth section, token = ", tok);
+        console.log("X method = ", method);
+        console.log("X data = ",JSON.parse(listData));
+
+        var eventC = {
+              summary: "Google I/O 2015",
+              location: "800 Howard St., San Francisco, CA 94103",
+              description: "A chance to hear more about Google's developer products.",
+              start: {
+                date: "2020-02-28"
+              },
+              end: {
+                date: "2020-02-29"
+              }
+        };
+
+        var settings3 = {
+          "url": myObj.url,//https://api.yelp.com/v3/businesses/search?term=burgers&location=boston",
+          "data": JSON.parse(listData),//JSON.stringify(eventC),//
+          "method": method,
+          headers: {
+            "Authorization" : "Bearer " +tok //this will depend on the API
+          }
+         }
+        }else{
         // console.log("HERE it is: ", JSON.parse(listData));
         var settings3 = {
           "url": myObj.url,//https://api.yelp.com/v3/businesses/search?term=burgers&location=boston",
           "data": JSON.parse(listData),
-          "method": "GET"
+          "method": method
         }
       }
 
 
     //(3) get the JSON schema
     $.ajax(settings3).done(function (response) {
-        // $.ajax({
-          // url: myObj.url,
-          // data: myObj.parameters,
-          // method: 'GET',
-          // success: function (response, textStatus, jqXHR) {
-
-            //console.log("response in showRequest!!: ",JSON.stringify(response));
             var objJSONOBJ = flattenObjectJSON(response);
             var objJSONOBJ2 = Object.getOwnPropertyNames(objJSONOBJ);
 
@@ -5943,103 +6478,13 @@ function authSelected(){
   urlBlurNoCall();
 }
 
-var auth_url,token_url, redirect_url, client_id, client_secret, response_type, scope, grant_type, client_auth;
-  //During API integration, ask users for these things:
-
-  // client_id: "c27b385721adeda6633b003df4417672f305d3033426b891bfaffed1a73b033c",
-  // callback_url: "http://127.0.0.1:8080/api-integration.html"//urn:ietf:wg:oauth:2.0:oob"
 
 // Send the user to the authorize endpoint for login and authorization
 // function authorize() {
-//
-//
-//
 // 	window.open("https://unsplash.com/oauth/authorize?response_type='"+response_type+"'&scope='"+scope+"'&client_id='"+client_id+"'&redirect_uri="+redirect_url);
-//
-//   // window.open("https://unsplash.com/oauth/authorize?response_type=code&scope=write_user&client_id=c27b385721adeda6633b003df4417672f305d3033426b891bfaffed1a73b033c&redirect_uri=http://127.0.0.1:8080/api-integration.html");
-//
 // }
 
-function authorize() {
 
-      auth_url= $("#authURL").val();
-      token_url= $("#tokenURL").val();
-      redirect_url= JSON.parse(JSON.stringify($("#callbackURL").val()));
-      client_id= JSON.parse(JSON.stringify($("#clientId").val()));
-      client_secret= JSON.parse(JSON.stringify($("#clientSec").val()));
-      response_type= JSON.parse(JSON.stringify($("#resType").val()));
-      scope= JSON.parse(JSON.stringify($("#scope").val()));
-      grant_type= JSON.parse(JSON.stringify($("#grantType").val()));
-      client_auth= JSON.parse(JSON.stringify($("#clientAuth").val()));//(bearer header OR client credentials in body)
-
-
-            // var win = window.open("https://unsplash.com/oauth/authorize?response_type=code&scope=write_user&client_id=c27b385721adeda6633b003df4417672f305d3033426b891bfaffed1a73b033c&redirect_uri=http://127.0.0.1:8080/api-integration.html", "windowname1", 'width=800, height=600');
-            var win = window.open(auth_url+"?response_type="+response_type+"&scope="+scope+"&client_id="+client_id+"&redirect_uri="+redirect_url+"", "windowname1", 'width=800, height=600');
-
-            var pollTimer = window.setInterval(function() {
-                try {
-                    console.log(win.document.URL); //here url
-                    console.log("yeah");
-                    if (win.document.URL.indexOf("http://127.0.0.1:8080/api-integration.html") != -1) {
-                        window.clearInterval(pollTimer);
-                        var url =   win.document.URL;
-                        acToken =   gup(url, 'code');
-                        // tokenType = gup(url, 'token_type');
-                        // expiresIn = gup(url, 'expires_in');
-                        win.close();
-
-                        validateToken(acToken);
-                    }
-                } catch(e) {
-                    console.log("nah");
-                }
-            }, 200);
-}
-
-
-function validateToken(token) {
-          console.log("Token: ",token)
-
-          $.ajax({
-        		url: token_url,//"https://unsplash.com/oauth/token",
-        		method: "POST",
-            // data: {client_id: "c27b385721adeda6633b003df4417672f305d3033426b891bfaffed1a73b033c" ,client_secret: "4faa9d89167c955cca2d9c608ff492d08389b1553e87f0791a55178ede5f1fba" ,redirect_uri: "http://127.0.0.1:8080/api-integration.html" ,code: token ,grant_type:"authorization_code"} ,
-            // data: {client_id: client_id ,client_secret: client_secret ,redirect_uri: redirect_url ,code: token ,grant_type:"authorization_code"} ,
-            data: {client_id: $("#clientId").val() ,client_secret: $("#clientSec").val() ,redirect_uri: $("#callbackURL").val() ,code: token ,grant_type:$("#grantType").val()} ,
-        		success: function(response) {
-              console.log("response: ",response);
-              //important to check access token and token type (e.g. bearer)
-              var tok = response.access_token;
-
-              $.ajax({
-                url: "https://api.unsplash.com/me?username=tarfahV",
-                method: "PUT",
-                headers: {
-                  "Authorization" : "Bearer " +tok //this will depend on the API
-                },
-                success: function(response) {
-                  console.log("response: ",response);
-                },
-                error: function(response, jqXHR, textStatus, errorThrown) {
-                  console.log("error: ",response)
-                }
-              });
-
-        		}
-        	});
-
-}
-
-function gup(url, name) {
-  name = name.replace(/[[]/,"\[").replace(/[]]/,"\]");
-  var regexS = "[\?&]"+name+"=([^&#]*)";
-  var regex = new RegExp( regexS );
-  var results = regex.exec( url );
-  if( results == null )
-    return "";
-  else
-    return results[1];
-}
 
 function removeCheckedResponseField(row, id){
   //console.log("ROW: ", row.parentNode.parentNode.rowIndex);
@@ -6542,6 +6987,7 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
     myObj.title = urlTitle;
   }
 
+  myObj.method=method; //GET, POST, etc
   myObj.version=$("#version").val();
   myObj.description=$("#description").val();
   myObj.type=$("#type").val();
@@ -6575,6 +7021,27 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
       });
 
   myObj.headers = headers;
+
+
+
+  var oauth2 = [];
+
+
+if(document.getElementById('selectid').value == "oauth2"){
+  oauth2.push({
+    authURL:   $("#authURL").val(),
+    tokenURL: $("#tokenURL").val(),
+    callbackURL: redirect_uri,//$("#callbackURL").val(),
+    clientId: $("#clientId").val(),
+    clientSec: $("#clientSec").val(),
+    resType: $("#resType").val(),
+    scope: $("#scope").val(),
+    grantType: $("#grantType").val(),
+    clientAuth: $("#clientAuth").val()
+  });
+}
+
+myObj.oauth2 = oauth2;
 
   //Authentication description
   myObj.authDesc = $("#authDesc").val();
@@ -6621,7 +7088,8 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
         var output;
 
 
-  var responses = [];
+    if(method == "GET"){
+      var responses = [];
       //(4) responses
       for(var j=0; j<fields_paths.length; ++j){
               var f = fields_paths[j].split("/"); //here change
@@ -6640,6 +7108,7 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
               });
 
             }
+          }
 
 
     // console.log("responses: ", myObj);
@@ -6658,7 +7127,7 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
 
     var tbody = $("#fields tbody");
 
-    if (tbody.children().length == 0) {
+    if (tbody.children().length == 0 && method == "GET") {
       console.log("choose fields");
       $("#previewAPIIntegration").empty();
       $("#previewAPIIntegration").append("<h5 style='color:red'>Go to 'Response Fields' section and choose fields you are intersted in, then click on 'Review' button</h5>")

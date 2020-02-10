@@ -3,6 +3,8 @@
 var config, obJSON1, listP;
 var defined = true;
 var data=[], obj =[], allResults = [];
+var apiParams = [];
+var method="GET";
 
 function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
   // console.log("HERE: ", reqParameters)
@@ -26,8 +28,7 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
       method: "GET",
       success: function (response) {
         obJSON1 = response;
-
-    //[2] From description, get maxResPerPage
+       //[2] From description, get maxResPerPage
 
       //START HERE
         var pages, numResults, numRes = numOfResults;
@@ -47,7 +48,7 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
         var p=1;
 
         requestParameters(obJSON1.parameters);
-
+        
         getTheNextPage(p, pages, nextPage);
 
         function getTheNextPage(p, pages, nextPage){
@@ -94,15 +95,20 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
         listP+= "}";
 
     //  console.log("listP: ",JSON.parse(listP));
+    if(obJSON1.method){
+      method = obJSON1.method;
+    }else{
+      method = "GET"
+    }
+
 
     if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no CORS
         $.ajax({
           url: obJSON1.url,
           data: JSON.parse(listP),
-          method: 'GET',
+          method: method,
           success: function (response) {
             // console.log("RES API: ", response);
-
             if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
               for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){
                  objData={};
@@ -184,7 +190,7 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
                      var arrLength = "response."+obJSON1.responses[m].parameter.split('[j]')[0];
                      var ln = s.split('[')[0];
 
-                     if(j<eval(arrLength).length){
+                     if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
                      var id = obJSON1.responses[m].name;
                      if(obJSON1.responses[m].name=="Video URL"){
                        objData[id] = "https://www.youtube.com/watch?v="+eval("response."+obJSON1.responses[m].parameter);
@@ -226,14 +232,12 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
                        }else{
                          objData[id] = eval("response."+obJSON1.responses[m].parameter);
                        }
-
                      }
                    }//if not undefined
                  else{
                    defined=false;
                  }
-            //    });//checkbox //REM
-             }//chckbox loop //REM
+              }//chckbox loop //REM
 
                  if(defined){
                    data.push(objData);
@@ -245,6 +249,9 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
           }//else
 
             if(p<pages){
+              console.log("p: ", p)
+              console.log("pages: ", pages)
+
               if(obJSON1.currPageParam){ //nex\prev page
                   // console.log("nextPage: ", eval("response."+obJSON1.nextPageParam))
                   ++p;
@@ -253,22 +260,31 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
                 // console.log("ofsetPage")
                 ++p;
                 getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
-              }else{//index page
+              }else if(obJSON1.indexPage){//index page
                 // console.log("indexPage")
                 ++p;
                 getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
+              }else{
+
               }
             }else{
-              // populateTable(data);
-              //return json or create csv csv data
-              // console.log("All results: ", data);
+              if(data.length>1){
+                console.log("data: ", data);
+                // populateListAndTree(arrData2)
+                // populateTable(data);
+              }else{
+                // $("#tableV").hide();
+                console.log("data: ", response);
+                // console.log("arrData2: ", arrData2);
+                // populateListAndTree(response);
+                console.log("create something else other than table!")
+              }
             }
 
           }//response
       //  );//new AJAX
        });//AJAX
      }//if header
-
 
     else{
       //if(obJSON1.headers[0].headerValue){
@@ -448,33 +464,18 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
      }
      });
 
-
      }
    });
    });
-} });//end of firebase config
+  } });//end of firebase config
 
-return data;
+  return data;
 
 }//end of functions
 
 
-function scrAPIrRawJSON(){
-
-}
-
-
-function scrAPIrJSON(){
-
-}
-
-function scrAPIrCSV(){
-
-}
-
 
 function requestParameters(reqParams){
-
   // console.log("Parameters: ",reqParams)
 
   params=  "{";
@@ -491,10 +492,9 @@ function requestParameters(reqParams){
   // console.log(params);
 }
 
-function responseFields(){
-
+function haapiDescription(){
+  return obJSON1;
 }
-
 
 function availableAPIsInScrAPIr(){
   var apis_names_urls=[];
