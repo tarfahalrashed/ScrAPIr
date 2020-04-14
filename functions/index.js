@@ -271,9 +271,12 @@ function getJoinedData(apiUrl1, apiUrl2, outParam, inParam){
 
       //Check the other URL
       for(var i=0; i<apiDesc.length; ++i){
-        //var url = apiUrl2.replace("{"+inParam+"}", apiDesc[i][joinedParams]);
+        // if(apiUrl2.includes('{')){
+        //   var url = apiUrl2.replace("{"+inParam+"}", apiDesc[i][outParam]);
+        // }else{
         var url = apiUrl2+'?'+inParam+'='+apiDesc[i][outParam];
-        //console.log("URL: ", url);
+        // }
+        console.log("URL: ", url);
         item = apiDesc[i];
         mergeData(url, item)
       }
@@ -311,7 +314,7 @@ app.get("/joinApis/:names", (req, res, next) => {
   var apiUrl1 = 'https://scrapir.org/api/'+apis_params[0];
   var apiUrl2 = 'https://scrapir.org/api/'+apis_params[1];
 
-  getJoinedData(apiUrl1, apiUrl2, "videoId", "id");
+  getJoinedData(apiUrl1, apiUrl2, "id", "id");
 
   setTimeout(function(){
     res.json(merge);
@@ -431,6 +434,8 @@ app.get("/api/:name", (req, res, next) => {
     var data1 = '';
     var apiTitle;
 
+    var paramInURL;
+
     if(isEmpty(req.query)){ //No parameters passed
         apiParameters= "";
     }else{ //Parameters passed
@@ -489,6 +494,7 @@ app.get("/api/:name", (req, res, next) => {
             getTheNextPage(p, pages, nextPage); 
 
             function getTheNextPage(p, pages, nextPage){
+              
                 //[3] From description, get request parameters OR from the parameters passed in the function
                 if(apiParameters == ""){ //if no parameters were passed
                   listP=  "";
@@ -575,8 +581,21 @@ app.get("/api/:name", (req, res, next) => {
                 var apiData1='';
                 var data2 = '';
 
+                // if(obJSON1.url.includes("{")){
+                //   console.log("shhhhhh")
+                //   console.log("gagagaga: ", eval(obJSON1.parameters[0].name))
+                //   console.log(eval(obJSON1.parameters[0].value))
+
+                //   var u1 = obJSON1.url;
+                //   paramInURL = u1.replace("{"+eval(obJSON1.parameters[0].name)+"}", eval("response."+obJSON1.parameters[0].value)); 
+                //   // "{"+param+"}"
+                //   var urlAPI = paramInURL;//obJSON1.url+"?"+listP;
+                // }else{
+                // }
+
                 var urlAPI = obJSON1.url+"?"+listP;
-                //console.log("URL1: ", urlAPI)
+
+                console.log("URL1: ", urlAPI)
                 if(!obJSON1.headers || obJSON1.headers[0].headerValue==""){
                     var optionsAPI= {
                         method: "GET"

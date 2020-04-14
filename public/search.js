@@ -3170,7 +3170,7 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
             getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
           }
         }else{
-          if(data.length>1){
+          if(data.length>0){
             console.log("data: ", data);
             populateListAndTree(arrData2)
             populateTable(data);
