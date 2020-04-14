@@ -2139,7 +2139,7 @@ if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no C
             getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
           }
         }else{
-          if(data.length>1){
+          if(data.length>0){
             console.log("data: ", data);
             populateListAndTree(data)
             populateTable(data);
@@ -2351,7 +2351,7 @@ else{
             getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
           }
         }else{
-          if(data.length>1){
+          if(data.length>0){
             console.log("data: ", data);
             populateListAndTree(data)
             populateTable(data);
@@ -3387,7 +3387,7 @@ else if(obJSON1.headers && obJSON1.headers[0].headerValue){ //if header
             getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
           }
         }else{
-          if(data.length>1){
+          if(data.length>0){
             console.log("data: ", data);
             populateListAndTree(arrData2);
             populateTable(data);
@@ -3599,7 +3599,7 @@ else if(obJSON1.headers && obJSON1.headers[0].headerValue){ //if header
            getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
          }
        }else{
-         if(data.length>1){
+         if(data.length>0){
            console.log("data: ", data);
            populateListAndTree(arrData2);
            populateTable(data);
