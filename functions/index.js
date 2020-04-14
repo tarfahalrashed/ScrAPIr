@@ -275,15 +275,15 @@ function getJoinedData(apiUrl1, apiUrl2, outParam, inParam){
         var url = apiUrl2+'?'+inParam+'='+apiDesc[i][outParam];
         //console.log("URL: ", url);
         item = apiDesc[i];
-        getDataNow(url, item)
+        mergeData(url, item)
       }
     });
   });
 
 }
 
-function getDataNow(url, item){
-  
+function mergeData(url, item){
+
   https.get(url, res => {
     res.setEncoding("utf8");
     apiDesc2='';
@@ -295,10 +295,9 @@ function getDataNow(url, item){
       console.log("apiDesc[i]: ", item);
       console.log("apiDesc2: ", apiDesc2);
       merge.push(Object.assign({}, item, apiDesc2));
-
-      //console.log(Object.assign({}, apiDesc[i], apiDesc2));
     });
   });
+
 }
 
 //Join APIs
