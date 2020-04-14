@@ -1,26 +1,28 @@
-// import * as myModule from 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js';
-//test
+var s = document.createElement("script");
+s.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js";
+document.head.appendChild(s); 
+
 var config, obJSON1, listP;
 var defined = true;
 var data=[], obj =[], allResults = [];
 var apiParams = [];
 var method="GET";
 
-function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
-  // console.log("HERE: ", reqParameters)
-  $.ajax({
-    url: 'https://superapi-52bc2.firebaseio.com/config.json',
-    method: "GET",
-    success: function (conf) {
-      // config = conf;
-      // firebase.initializeApp(config);
+function scrAPIr(apiTitle, apiParameters, numOfResults){
+  // console.log("apiParameters: ", apiParameters)
+  // $.ajax({
+  //   url: https://superapi-52bc2.firebaseio.com/config.json',
+  //   method: "GET",
+  //   success: function (conf) {
+  //     // config = conf;
+  //     // firebase.initializeApp(config);
 
-    var apiTitle;
-    firebase.database().ref('/apis/').once('value').then(function(snapshot) {
-      snapshot.forEach(function(childSnapshot) { //for each API
-        if(childSnapshot.val().url == apiURL){
-          apiTitle = childSnapshot.val().title;
-        //   console.log("API name: ", apiTitle);
+  //   var apiTitle;
+  //   firebase.database().ref('/apis/').once('value').then(function(snapshot) {
+  //     snapshot.forEach(function(childSnapshot) { //for each API
+  //       if(childSnapshot.val().url == apiURL){
+  //         apiTitle = childSnapshot.val().title;
+  //         // console.log("API name: ", apiTitle);
 
     //[1] Get the API's description from ScrAPIr
     $.ajax({
@@ -28,81 +30,91 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
       method: "GET",
       success: function (response) {
         obJSON1 = response;
-       //[2] From description, get maxResPerPage
-
-      //START HERE
+        
+        //[2] From description, get maxResPerPage
         var pages, numResults, numRes = numOfResults;
 
         if(numRes){
           var pages = Math.ceil(numRes/obJSON1.maxResPerPage);
-          // console.log("pages: ", pages);
           var totalRes = numRes;
           numResults = obJSON1.maxResPerPage;
         }else{
           page=1;
         }
 
-        var start = 0;
-        var next="";
-        var nextPage = "";
-        var p=1;
+        var start = 0, next = "", nextPage = "", p = 1;
 
-        requestParameters(obJSON1.parameters);
-        
         getTheNextPage(p, pages, nextPage);
 
         function getTheNextPage(p, pages, nextPage){
-          // console.log("next")
-          //[3] From description, get request parameters
-          listP=  "{";
-          for(var i=0; i<obJSON1.parameters.length; ++i) {
-            if($("#"+obJSON1.parameters[i]['name']).val() || obJSON1.parameters[i]['value']){
-              listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
-              listP+= ":"
-              listP+= JSON.stringify(obJSON1.parameters[i]['value']);
-            }
+          //[3] From description, get request parameters OR from the parameters passed in the function
+          if(apiParameters == ""){
+            listP=  "{";
+            for(var i=0; i<obJSON1.parameters.length; ++i) {
+              if($("#"+obJSON1.parameters[i]['name']).val() || obJSON1.parameters[i]['value']){
+                listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
+                listP+= ":"
+                listP+= JSON.stringify(obJSON1.parameters[i]['value']);
+              }
 
-            if(i+1<obJSON1.parameters.length){
-              if($("#"+obJSON1.parameters[i+1]['name']).val() || obJSON1.parameters[i+1]['value']) {
-                listP+= ",";
+              if(i+1<obJSON1.parameters.length){
+                if($("#"+obJSON1.parameters[i+1]['name']).val() || obJSON1.parameters[i+1]['value']) {
+                  listP+= ",";
+                }
               }
             }
-         }
+          }else{ //if parameters were passed to the ScrAPIr function
+            var arrParamVal = [];
+            var reqParam = apiParameters.split("&");
+
+            listP=  "{";
+            for(var i=0; i<reqParam.length; ++i) {
+              listP+= JSON.stringify(reqParam[i].split("=")[0]); //check conditions before adding names
+              listP+= ":"
+              listP+= JSON.stringify(reqParam[i].split("=")[1]);
+
+              if(i+1<reqParam.length){
+                if(reqParam[i].split("=")[1]) {
+                  listP+= ",";
+                }
+              }
+            }
+          }
 
 
-        if(obJSON1.resPerPageParam){
-          listP+= ","
-          listP+= JSON.stringify(obJSON1.resPerPageParam);
-          listP+= ":";
-          listP+= JSON.stringify(obJSON1.maxResPerPage);
-        }
-        if(obJSON1.indexPage){
-          listP+= ","
-          listP+= JSON.stringify(obJSON1.indexPage);
-          listP+= ":";
-          listP+= p;
-        }else if(obJSON1.offsetPage){
-          listP+= ","
-          listP+= JSON.stringify(obJSON1.offsetPage);
-          listP+= ":";
-          listP+= (p-1)*(eval(obJSON1.maxResPerPage));
-        }else if(obJSON1.currPageParam){
-          listP+= ","
-          listP+= JSON.stringify(obJSON1.currPageParam);
-          listP+= ":";
-          listP+= JSON.stringify(nextPage);
-        }
-        listP+= "}";
+          if(obJSON1.resPerPageParam){
+            listP+= ","
+            listP+= JSON.stringify(obJSON1.resPerPageParam);
+            listP+= ":";
+            listP+= JSON.stringify(obJSON1.maxResPerPage);
+          }
+          if(obJSON1.indexPage){
+            listP+= ","
+            listP+= JSON.stringify(obJSON1.indexPage);
+            listP+= ":";
+            listP+= p;
+          }else if(obJSON1.offsetPage){
+            listP+= ","
+            listP+= JSON.stringify(obJSON1.offsetPage);
+            listP+= ":";
+            listP+= (p-1)*(eval(obJSON1.maxResPerPage));
+          }else if(obJSON1.currPageParam){
+            listP+= ","
+            listP+= JSON.stringify(obJSON1.currPageParam);
+            listP+= ":";
+            listP+= JSON.stringify(nextPage);
+          }
+          listP+= "}";
 
-    //  console.log("listP: ",JSON.parse(listP));
-    if(obJSON1.method){
-      method = obJSON1.method;
-    }else{
-      method = "GET"
-    }
+          // console.log("listP: ",JSON.parse(listP));
+          if(obJSON1.method){
+            method = obJSON1.method;
+          }else{
+            method = "GET"
+          }
 
 
-    if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no CORS
+      if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no CORS
         $.ajax({
           url: obJSON1.url,
           data: JSON.parse(listP),
@@ -113,19 +125,14 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
               for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){
                  objData={};
                  objData["id"]= start;
-
-                //  if($("input[name='checkbox-w']").is(":checked")){
-                //      $("input[name='checkbox-w']:checked").each(function(){
                     for(var m=0; m < obJSON1.responses.length; ++m){
                       var s = "response."+obJSON1.responses[m].parameter.split('.')[0];
                       if(eval(s)){
                        var id = obJSON1.responses[m].name;//this.value;
                        if(obJSON1.responses[m].name=="Video URL"){
-                         objData[id] = "https://www.youtube.com/watch?v="+eval("response."+this.id);
+                         objData[id] = "https://www.youtube.com/watch?v="+eval("response."+obJSON1.responses[m].parameter);
                        }else{
-                        //  var str = (this.checked ? "response."+this.id : 0);
                         var str = "response."+obJSON1.responses[m].parameter;
-                        //  console.log("Each responses: ", "response."+obJSON1.responses[m].parameter);
                          //IF ARRAY
                          if(str.includes("[i]")){
                            var i=0;
@@ -168,8 +175,8 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
                    else{
                      defined=false;
                    }
-                // });//checkbox //REM
-               }//chckbox loop //REM
+                // });//checkbox 
+               }//chckbox loop
 
                    if(defined){
                      data.push(objData);
@@ -183,8 +190,6 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
                objData={};
                ++start;
                objData["id"]= start;
-            //    if($("input[name='checkbox-w']").is(":checked")){
-                //    $("input[name='checkbox-w']:checked").each(function(){
                 for(var m=0; m < obJSON1.responses.length; ++m){
                      var s = "response."+obJSON1.responses[m].parameter.split('.')[0];
                      var arrLength = "response."+obJSON1.responses[m].parameter.split('[j]')[0];
@@ -237,7 +242,7 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
                  else{
                    defined=false;
                  }
-              }//chckbox loop //REM
+              }//checkbox loop
 
                  if(defined){
                    data.push(objData);
@@ -253,7 +258,6 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
               console.log("pages: ", pages)
 
               if(obJSON1.currPageParam){ //nex\prev page
-                  // console.log("nextPage: ", eval("response."+obJSON1.nextPageParam))
                   ++p;
                   getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
               }else if(obJSON1.offsetPage){//offset page
@@ -269,12 +273,12 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
               }
             }else{
               if(data.length>1){
-                console.log("data: ", data);
+                // console.log("data: ", data);
                 // populateListAndTree(arrData2)
                 // populateTable(data);
               }else{
                 // $("#tableV").hide();
-                console.log("data: ", response);
+                // console.log("data: ", response);
                 // console.log("arrData2: ", arrData2);
                 // populateListAndTree(response);
                 console.log("create something else other than table!")
@@ -310,7 +314,7 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
                       if(eval(s)){
                        var id = obJSON1.responses[m].name;
                        if(obJSON1.responses[m].name=="Video URL"){
-                         objData[id] = "https://www.youtube.com/watch?v="+eval("response."+this.id);
+                         objData[id] = "https://www.youtube.com/watch?v="+eval("response."+obJSON1.responses[m].parameter);
                        }else{
                          var str = "response."+this.id;
                          //IF ARRAY
@@ -381,7 +385,7 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
                 if(j<eval(arrLength).length){
                 var id = obJSON1.responses[m].name;
                 if(obJSON1.responses[m].name=="Video URL"){
-                  objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+                  objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+obJSON1.responses[m].parameter) : 0);
                 }else{
                   var str = (this.checked ? "response."+this.id : 0);
                   //IF ARRAY
@@ -452,22 +456,24 @@ function scrAPIr(apiURL, reqParameters, responseFields, numOfResults){
             }else{
               // populateTable(data);
               //return json or create csv csv data
-                // console.log("All results: ", data);
+              // console.log("All results: ", data);
             }
 
           }//response
        });//AJAX
-     }//else CORS
+      }//else CORS
 
-     }//end of getTheNextPage function
+    }//end of getTheNextPage function
 
-     }
-     });
+   }
+  });
 
-     }
-   });
-   });
-  } });//end of firebase config
+  //    }
+  //  });
+  //  });
+  // } 
+
+// });//end of firebase config
 
   return data;
 
@@ -500,23 +506,35 @@ function availableAPIsInScrAPIr(){
   var apis_names_urls=[];
 
   $.ajax({
-    url: 'https://superapi-52bc2.firebaseio.com/config.json',
+    url: 'https://superapi-52bc2.firebaseio.com/apis.json',
     method: "GET",
     success: function (config) {
-      // config = config;
-      firebase.initializeApp(config);
-      firebase.database().ref('/apis/').once('value').then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-          var ob = {
-            name:childSnapshot.val().title,
-            url:childSnapshot.val().url
-          }
-          apis_names_urls.push(ob);
-        });
-        // console.log("apis: ", apis_names_urls);
-      });
+      for (a in config){
+        var ob = {
+          name: config[a].title,
+          url:  config[a].url,
+          type: config[a].apiType
+        }
+        apis_names_urls.push(ob);
+      } 
+
+      // firebase.initializeApp(config);
+      // firebase.database().ref('/apis/').once('value').then(function(snapshot) {
+      //   snapshot.forEach(function(childSnapshot) {
+      //     var ob = {
+      //       name:childSnapshot.val().title,
+      //       url:childSnapshot.val().url,
+      //       type: childSnapshot.val().apiType
+      //     }
+      //     apis_names_urls.push(ob);
+        // });
+      //console.log("apis: ", apis_names_urls);
+      // });
     }
   });
 
   return apis_names_urls;
 }
+
+
+

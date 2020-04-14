@@ -1,16 +1,38 @@
 {
   "hosting": {
     "public": "public",
+    "rewrites": [{
+      "source": "**",
+      "function": "app"
+    }],
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ]
+    ],
+    "headers": [{
+      "source" : "**",
+      "headers" : [ {
+        "key" : "Access-Control-Allow-Origin",
+        "value" : "*"
+      }]
+    }]
   },
   "database": {
     "rules": "database.rules.json"
   },
   "storage": {
     "rules": "storage.rules"
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "database": {
+      "port": 9000
+    },
+    "hosting": {
+      "port": 5000
+    }
   }
 }

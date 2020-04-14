@@ -568,14 +568,14 @@
 									<table id="requestTabel" class="table table-bordered table-striped">
 										<thead style="font-size:1.5em">
 											<tr>
-												<th style="">Name*</th>
-												<th style=";">Value*</th>
-												<th style=";">Allowed Values</th>
-												<th style="">Displayed Name</th>
-												<th style="">Description</th>
-												<th style="">Type</th>
-												<th style="">Required</th>
-												<th style="">Displayed</th>
+												<th>Name*</th>
+												<th>Value*</th>
+												<th>Allowed Values</th>
+												<th>Displayed Name</th>
+												<th>Description</th>
+												<th>Type</th>
+												<th>Required</th>
+												<th>Displayed</th>
 												<th></th>
 											</tr>
 										</thead>
@@ -664,7 +664,7 @@
 							<table id="apiKeyFieldTable" style="display:none">
 									<thead style="font-size:1.5em">
 										<tr>
-											<th style="">API Key</th>
+											<th>API Key</th>
 											<th>&nbsp;</th>
 											<th style="width:500px">Value</th>
 											<th>&nbsp;</th>
@@ -705,7 +705,7 @@
 												<tbody>
 													<tr>
 														<td>
-															<label id"" style="">Authorization URL</label>
+															<label >Authorization URL</label>
 														</td>
 														<td>
 															<input class="form-control" type="text" id="authURL" placeholder="" >
@@ -714,25 +714,25 @@
 
 													<tr>
 														<td>
-															<label id"" style="">Access Token URL</label>
+															<label >Access Token URL</label>
 														</td>
 														<td>
 															<input class="form-control" type="text" id="tokenURL" placeholder="" >
 														</td>
 													</tr>
 
-													<!-- <tr>
+													<tr>
 														<td>
-															<label id"" style="">Callback URL</label>
+															<label >Callback URL</label>
 														</td>
 														<td>
 															<input class="form-control" type="text" id="callbackURL" placeholder="" >
 														</td>
-													</tr> -->
+													</tr>
 
 													<tr>
 														<td>
-															<label id"" style="">Client ID</label>
+															<label >Client ID</label>
 														</td>
 														<td>
 															<input class="form-control" type="text" id="clientId" placeholder="" >
@@ -741,7 +741,7 @@
 
 													<tr>
 														<td>
-															<label id"" style="">Client Secret</label>
+															<label >Client Secret</label>
 														</td>
 														<td>
 															<input class="form-control" type="text" id="clientSec" placeholder="" >
@@ -750,7 +750,7 @@
 
 													<tr>
 														<td>
-															<label id"" style="">Response Type</label>
+															<label >Response Type</label>
 														</td>
 														<td>
 															<input class="form-control" type="text" id="resType" placeholder="" >
@@ -759,7 +759,7 @@
 
 													<tr>
 														<td>
-															<label id"" style="">Scope</label>
+															<label >Scope</label>
 														</td>
 														<td>
 															<input class="form-control" type="text" id="scope" placeholder="" >
@@ -768,7 +768,7 @@
 
 													<tr>
 														<td>
-															<label id"" style="">Grant Type</label>
+															<label >Grant Type</label>
 														</td>
 														<td>
 															<input class="form-control" type="text" id="grantType" placeholder="" >
@@ -777,7 +777,7 @@
 
 													<tr>
 														<td>
-															<label id"" style="">Client Authentication</label>
+															<label >Client Authentication</label>
 														</td>
 														<td>
 															<select class="form-control" id="clientAuth" style="width:300px;" >
@@ -789,7 +789,7 @@
 
 													<tr>
 														<td>
-															<button id="" style="display: inline-block; height:31px" class="button button-3d button-small button-rounded button-teal" onclick="authorize()">Authorize</button>
+															<button style="display: inline-block; height:31px" class="button button-3d button-small button-rounded button-teal" onclick="authorize()">Authorize</button>
 														</td>
 													</tr>
 
@@ -806,9 +806,9 @@
 
 						  </br>
 
-							<div id="" style="">
+							<div >
 								<div class="" style="width:500px; display:inline">
-									<label id"askPublic" style="">Would you like other people to use your API key/token?</label>
+									<label id="askPublic" >Would you like other people to use your API key/token?</label>
 									<select class="form-control" id="isPublic" style="width:100px;" ><option id="no">No</option><option id="yes">Yes</option></select>
 									<!-- <input id='isPublic'  value='' class='checkbox-style' name='' type='checkbox' onchange="urlBlurNoCall()" autocomplete='off' checked/></td> -->
 								</div>
@@ -856,7 +856,7 @@
 							<table id="headerTabel" class="" style="display:none">
 								<thead style="font-size:1.5em">
 									<tr>
-										<th style="">Key</th>
+										<th>Key</th>
 										<th>&nbsp;</th>
 										<th style="width:500px">Value</th>
 										<th>&nbsp;</th>
@@ -865,7 +865,7 @@
 										<th></th>
 										<!--
 										<th style="width:500px">Name</th>
-										<th style="">Value</th>
+										<th>Value</th>
 										<th></th> -->
 									</tr>
 								</thead>
@@ -948,7 +948,7 @@
 							</div>
 						</br></br>
 							<div class="row">
-								<!-- <div class="col" style="" > -->
+								<!-- <div class="col"  > -->
 								<!-- <h4 style=" margin:0px; padding:0px">Selected Fields</h4> -->
 								<p style=" margin:0px; padding:0px; font-size:1.7em">Please click on the fields you're interested in adding from the right pane
 									<img src="images/finger_red.png" width="30px" heigth="30px">
@@ -1048,12 +1048,12 @@
 								</div> -->
 
 								<!-- <div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 500px;"> -->
-								<form style="" autocomplete="on">
+								<form  autocomplete="on">
 									<div>
 										<div class="" style="display: inline-block;">
 											<label>Results per page "parameter" [if exist] <a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="The parameter used to set the maximum number of results to (e.g. the parameter that you set the number of results to in YouTube is 'maxResults'). Not all APIs provide this parameter."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label>
 											<!-- <p style="font-size:1.5em; margin:0px; padding:0px">The parameter used to set the maximum number of results to (e.g. YouTube search API is maxResults). Not all APIs provide this parameter</p> -->
-											<input list="paramList" style="" type="text" class="form-control" id="result_param" placeholder="(e.g. maxResults)" oninput='onInputMaxParam()' onchange="urlBlurNoCall()">
+											<input list="paramList"  type="text" class="form-control" id="result_param" placeholder="(e.g. maxResults)" oninput='onInputMaxParam()' onchange="urlBlurNoCall()">
 
 											<!-- <input type="text" id="txtAutoComplete" />-->
 											<!--your input textbox-->
@@ -1104,7 +1104,7 @@
 							</div>
 
 							<div class="" style="display: inline-block; margin-left: 83px;">
-								<div id="indexDiv" class="" id="" style="display:none; ">
+								<div id="indexDiv" class="" style="display:none; ">
 												<label>Index [parameter name]*</label>
 												<input type="text"  class="form-control"  list="pageList" id="index_param" placeholder="(e.g. page)" style="width:335px"  onchange="urlBlurNoCall()">
 												<datalist id="pageList">
@@ -1112,7 +1112,7 @@
 												</datalist>
 								</div>
 
-								<div id="offsetDiv" class="" id="" style="">
+								<div id="offsetDiv" class="" >
 												<label>Offset [parameter name]*</label>
 												<input type="text"  class="form-control"  list="pageList" id="offset_param" placeholder="(e.g. offset)" style="width:335px"  onchange="urlBlurNoCall()">
 												<datalist id="pageList">
@@ -1120,7 +1120,7 @@
 												</datalist>
 								</div>
 
-								<div id="nextDiv" class="" id="" style="display:none;">
+								<div id="nextDiv" class="" style="display:none;">
 									<div class="form-group" style=" display=none;">
 										<label>Current Page [parameter name]*</label>
 										<input type="text" class="form-control" list="pageList" id="cur_page_param" placeholder="(e.g. pageToken)" style="width:334px"  onchange="urlBlurNoCall()">
@@ -1213,7 +1213,7 @@
 											<div style="display:inline">
 												<p style="font-size:1.7em; display: inline-block"> To review and publish your API integration, please click on </p>
 												<!-- <button style="color:black; width:80px; text-align:center; display: inline-block; text:white" class="button button-3d button-small button-rounded button-teal" onclick="reviewAPIIntegration()">Review</button></h3> -->
-												<button  id="" style="display: inline-block; height:31px"class="button button-3d button-small button-rounded button-teal" onclick="reviewAPIIntegration()">Review</button>
+												<button  style="display: inline-block; height:31px"class="button button-3d button-small button-rounded button-teal" onclick="reviewAPIIntegration()">Review</button>
 												<!-- <p style="font-size:1.7em; display: inline-block"> Everytime you make changes you need to click on the Review button</p> -->
 												<!-- <p style="font-size:1.7em; display: inline-block">clikc on review to refresh the view whenever you make changes</p> -->
 											</div>
@@ -1298,7 +1298,7 @@
 
 				</div>
 				<div id="jsonResponse2" class="col-3" style="padding-top:60px">
-					<div id="errorImage" style="">
+					<div id="errorImage" >
 
 						<p id="pDiv" style="overflow-wrap: break-word; word-wrap: break-word; display:none; font-size:1.8em; font-weight: normal; margin:0px; padding:8px; border-radius: 10px; border-style: solid; border-width: thin; width: 380px;" >
 							<img id="correct" src="images/correct.png" alt="" height="20" width="20" style="display:none;">
@@ -1678,7 +1678,7 @@
 		}
 
 			.req{
-				bgcolor: red;
+				background-color: red;
 			}
 
 			.dis{

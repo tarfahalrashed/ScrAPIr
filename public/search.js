@@ -2356,6 +2356,17 @@ else{
             populateListAndTree(data)
             populateTable(data);
           }else{
+            arrData2=[];     
+            console.log("data: ", response);
+            for(var r=0; r<obJSON1.responses.length; ++r){
+              var str = "response."+obJSON1.responses[r].parameter;
+              if(str.includes("[j]")){
+                str = str.replace('j', '0');
+              }
+              console.log(eval(str));
+              arrData2.push(eval(str));
+            }
+
             populateListAndTree(data)
             console.log("create something else other than table!")
           }
@@ -5422,13 +5433,13 @@ if($("#url").val()){
 
 var auth_url,token_url, redirect_url, client_id, client_secret, response_type, scope, grant_type, client_auth, tok;
 
-var redirect_url_ = ['http://127.0.0.1:8080/api-integration.html', 'http://127.0.0.1:8080/data-management.html?api=Unsplash_My_Collections']
+var redirect_url_ = ['http://127.0.0.1:8080/api-integration.html', 'http://127.0.0.1:8080/data-management.html?api=Unsplash_My_Collections', 'https://scrapir.org/data-management.html?api=Unsplash_My_Collections']
 
 function authorizeSNAPI() {
 
       auth_url= obJSON1.oauth2[0].authURL;
       token_url= obJSON1.oauth2[0].tokenURL;
-      redirect_url= redirect_url_[1];//obJSON1.oauth2[0].callbackURL;
+      redirect_url= obJSON1.oauth2[0].callbackURL;
       client_id= obJSON1.oauth2[0].clientId;
       client_secret= obJSON1.oauth2[0].clientSec;
       response_type= obJSON1.oauth2[0].resType;
@@ -5469,7 +5480,7 @@ function authorize() {
 
       auth_url= $("#authURL").val();
       token_url= $("#tokenURL").val();
-      redirect_url= redirect_url_[0]; //$("#callbackURL").val(); //JSON.parse(JSON.stringify($("#callbackURL").val()));
+      redirect_url= $("#callbackURL").val(); //JSON.parse(JSON.stringify($("#callbackURL").val()));
       client_id= $("#clientId").val(); //JSON.parse(JSON.stringify($("#clientId").val()));
       client_secret= $("#clientSec").val(); //JSON.parse(JSON.stringify($("#clientSec").val()));
       response_type= $("#resType").val(); //JSON.parse(JSON.stringify($("#resType").val()));
@@ -5483,7 +5494,6 @@ function authorize() {
             var pollTimer = window.setInterval(function() {
                 try {
                     console.log(win.document.URL); //here url
-                    // console.log("yeah");
                     if (win.document.URL.indexOf(redirect_url) != -1) {
                         window.clearInterval(pollTimer);
                         var url =   win.document.URL;
@@ -5495,7 +5505,6 @@ function authorize() {
                         validateToken(acToken);
                     }
                 } catch(e) {
-                    // console.log("nah");
                 }
             }, 200);
 }
@@ -5523,7 +5532,7 @@ function validateTokenSNAPI(token) {
         	});
 
         //setTimeout(function(){
-          // urlBlur();
+           urlBlur();
         //}, 4000);
 
 }
@@ -5872,7 +5881,7 @@ if(document.getElementById('selectid').value == "oauth2"){
   oauth2.push({
     authURL:   $("#authURL").val(),
     tokenURL: $("#tokenURL").val(),
-    callbackURL: redirect_uri,//$("#callbackURL").val(),
+    callbackURL: $("#callbackURL").val(),
     clientId: $("#clientId").val(),
     clientSec: $("#clientSec").val(),
     resType: $("#resType").val(),
@@ -7031,7 +7040,7 @@ if(document.getElementById('selectid').value == "oauth2"){
   oauth2.push({
     authURL:   $("#authURL").val(),
     tokenURL: $("#tokenURL").val(),
-    callbackURL: redirect_uri,//$("#callbackURL").val(),
+    callbackURL: $("#callbackURL").val(),
     clientId: $("#clientId").val(),
     clientSec: $("#clientSec").val(),
     resType: $("#resType").val(),
@@ -7497,7 +7506,7 @@ function callGitHub2(u){
   for(var i=0; i<pageGit; ++i) {
     var par = {
       "q" : u,
-      "access_token" : '9b670443489b576acd26c944d064f5d675998b54',
+      // "access_token" : '9b670443489b576acd26c944d064f5d675998b54',
       "page":i,
       "per_page" : 100 //maximum results we can get from github
       }
@@ -7512,7 +7521,8 @@ function callGitHub2(u){
       data: par,
       method: "GET",
       headers: {
-        "Accept": "application/vnd.github.v3.text-match+json"
+        "Accept": "application/vnd.github.v3.text-match+json",
+        "Authorization": "token 9b670443489b576acd26c944d064f5d675998b54"
       },
       success: function (response) {
         for(var n=0; n<response.items.length; ++n){
