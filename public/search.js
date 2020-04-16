@@ -1818,8 +1818,8 @@ var numResults = 0;
 var objData={};
 var defined=true;
 var countResults = 0;
-
-
+var pages;
+var totalRes;
 
 
 function retrieveDataX(){
@@ -1856,13 +1856,13 @@ function retrieveDataX(){
       });
   }
 
-    var pages;
+    //var pages;
     // if(!obJSON1.maxResPerPage){
     //   page = 1;
     // }else{
     if($("#numOfResults").val()){
-    var pages = Math.ceil($("#numOfResults").val()/obJSON1.maxResPerPage); //# of pages = (# of results entered by the user \ # of results returned by the API)
-    var totalRes = $("#numOfResults").val();
+    pages = Math.ceil($("#numOfResults").val()/obJSON1.maxResPerPage); //# of pages = (# of results entered by the user \ # of results returned by the API)
+    totalRes = $("#numOfResults").val();
     // console.log("totalRes: ", totalRes);
     // console.log("number of pages: ", pages);
     numResults = obJSON1.maxResPerPage;
@@ -2807,7 +2807,11 @@ function codeSnippetSelected(){
 
 var getLogObj;
 var listExist;
-
+var start;
+var next;
+var nextPage;
+var p;
+var pages,totalRes;
 
 function retrieveData(){
 
@@ -2885,20 +2889,19 @@ if(obJSON1.parameters){
 
 
   //START HERE
-    var pages;
 
     if($("#numOfResults").val()){
-      var pages = Math.ceil($("#numOfResults").val()/obJSON1.maxResPerPage);
-      var totalRes = $("#numOfResults").val();
+      pages = Math.ceil($("#numOfResults").val()/obJSON1.maxResPerPage);
+      totalRes = $("#numOfResults").val();
       numResults = obJSON1.maxResPerPage;
     }else{
       page=1;
     }
 
-    var start = 0;
-    var next="";
-    var nextPage = "";
-    var p=1;
+    start = 0;
+    next="";
+    nextPage = "";
+    p=1;
 
     getTheNextPage(p, pages, nextPage);
 
@@ -3405,216 +3408,7 @@ else if(obJSON1.headers && obJSON1.headers[0].headerValue){ //if header
    console.log("if oauth")
    authorizeSNAPI();
 
-   $.ajax({
-     url: obJSON1.url,
-     data: listExist,//JSON.parse(listData),//JSON.stringify(eventC),//
-     method: method,
-     headers: {
-       "Authorization" : "Bearer " +tok, //this will depend on the API
-       "Content-Type"  : "application/json"
-     },
-     success: function (response) {
-       console.log("oauth response: ",response);
-       if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
-         for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
-            objData={};
-
-            objData["id"]= start;
-
-            if($("input[name='checkbox-w']").is(":checked")){
-                $("input[name='checkbox-w']:checked").each(function(){
-                 var s = "response."+this.id.split('.')[0];
-                  //console.log("s: ",s);
-                 if(eval(s)){
-                  var id = this.value;
-                  if(this.value=="Video URL"){
-                    objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
-                  }else{
-                    var str = (this.checked ? "response."+this.id : 0);
-                    //IF ARRAY
-                    if(str.includes("[i]")){
-                      //console.log("Includes [i]: ",str);
-                      var i=0;
-                      var splt =  str.split("[i]");
-                      // start if undefined
-                      if(eval(splt[0]).length==0){
-                       objData[id]="";
-                     }else{// start if NOT undefined
-                     objData[id] = (this.checked ? eval("response."+this.id) : 0);
-                     for(i=1; i<eval(splt[0]).length; ++i){
-                       objData[id] += ", ";
-                       objData[id] += eval("response."+this.id);
-                     }
-                   }///test undefined
-                     //IF OBJECT and not ARRAY
-                    }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
-                      //console.log("IT IS OBJECT");
-                      var objD = (this.checked ? eval("response."+this.id) : 0);
-                      var objKV = "";
-                      var first = true;
-                      for(var i in objD){
-                       //console.log("Key: ", i);
-                       //console.log("Value: ", objD[i]);
-                       if(!first){
-                         objKV+=", "
-                       }else{
-                         first = false;
-                       }
-                       objKV+=i+": "+objD[i];
-                     }
-                     objData[id]=objKV;
-
-                     for(var i in objD){
-                      //console.log("Key: ", i);
-                      //console.log("Value: ", objD[i]);
-                      objData[i]=objD[i];
-                      //console.log("objData[id]: ", objData[i]);
-                    }
-                    //console.log("objData[id]: ", objData[id]);
-                    //IF NEITHER
-                    }else{
-                      //console.log("Does NOT Include [i]");
-                      objData[id] = (this.checked ? eval("response."+this.id) : 0);
-                      //console.log("objData[id]: ", objData[id]);
-                    }
-
-                  }
-                }//if not undefined
-              else{
-                defined=false;
-              }
-            });//checkbox
-          }//chckbox loop
-
-              if(defined){
-                data.push(objData);
-                obj.lists=[];
-                obj.lists.push(objData);
-             }
-
-             //++j;
-             //++start;
-
-         }//while loop
-       }else{
-       var j=0;
-       while(defined){
-     //for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
-     objData={};
-     ++start;
-     objData["id"]= start;
-     // console.log("J: ",j);
-
-     if($("input[name='checkbox-w']").is(":checked")){
-         $("input[name='checkbox-w']:checked").each(function(){
-           var s = "response."+this.id.split('.')[0];
-           var arrLength = "response."+this.id.split('[j]')[0];
-           var ln = s.split('[')[0];
-
-           console.log("response here: ",response);
-
-           if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
-           var id = this.value;
-           if(this.value=="Video URL"){
-             objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
-           }else{
-             var str = (this.checked ? "response."+this.id : 0);
-             //IF ARRAY
-             if(str.includes("[i]")){
-               //console.log("Includes [i]: ",str);
-               var i=0;
-               var splt =  str.split("[i]");
-               // start if undefined
-               if(eval(splt[0]).length==0){
-                objData[id]="";
-              }else{// start if NOT undefined
-              objData[id] = (this.checked ? eval("response."+this.id) : 0);
-              for(i=1; i<eval(splt[0]).length; ++i){
-                objData[id] += ", ";
-                objData[id] += eval("response."+this.id);
-              }
-            }///test undefined
-              //IF OBJECT and not ARRAY
-             }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
-               //console.log("IT IS OBJECT");
-               var objD = (this.checked ? eval("response."+this.id) : 0);
-               var objKV = "";
-               var first = true;
-               for(var i in objD){
-                //console.log("Key: ", i);
-                //console.log("Value: ", objD[i]);
-                if(!first){
-                  objKV+=", "
-                }else{
-                  first = false;
-                }
-                objKV+=i+": "+objD[i];
-              }
-              objData[id]=objKV;
-
-              for(var i in objD){
-               //console.log("Key: ", i);
-               //console.log("Value: ", objD[i]);
-               objData[i]=objD[i];
-               //console.log("objData[id]: ", objData[i]);
-             }
-             //console.log("objData[id]: ", objData[id]);
-             //IF NEITHER
-             }else{
-               //console.log("Does NOT Include [i]");
-               objData[id] = (this.checked ? eval("response."+this.id) : 0);
-               //console.log("objData[id]: ", objData[id]);
-             }
-
-           }
-         }//if not undefined
-       else{
-         defined=false;
-       }
-     });//checkbox
-   }//chckbox loop
-
-       if(defined){
-         data.push(objData);
-         obj.lists=[];
-         obj.lists.push(objData);
-      }
-
-      ++j;
-      //++start;
-
-     }//while loop
-   }//else
-
-       if(p<pages){
-         //console.log("Data: ", data);
-         if(obJSON1.currPageParam){ //nex\prev page
-             ++p;
-             getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
-         }else if(obJSON1.offsetPage){//offset page
-           ++p;
-           getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
-         }else{//index page
-           ++p;
-           getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
-         }
-       }else{
-         if(data.length>0){
-           console.log("data: ", data);
-           populateListAndTree(arrData2);
-           populateTable(data);
-         }else{
-           populateListAndTree(response);
-           console.log("create something else other than table!")
-         }
-       }
-
-     }//response
- //  );//new AJAX
-  });//AJAX
-
-
-
+///THERE
 
 
  }//else
@@ -3622,7 +3416,13 @@ else if(obJSON1.headers && obJSON1.headers[0].headerValue){ //if header
   }//end of getTheNextPage function
 
 
-  function populateListAndTree(arrData3){
+  
+
+      arrData2 = data;
+
+}//end of retrieveData function
+
+function populateListAndTree(arrData3){
   /***************** List View ******************/
   for(var j=0; j<arrData2.length; ++j){
     for(var i=1; i<col.columns.length; ++i){
@@ -3964,12 +3764,6 @@ else if(obJSON1.headers && obJSON1.headers[0].headerValue){ //if header
           })
 
         }//end of populateTable function
-
-      arrData2 = data;
-
-}//end of retrieveData function
-
-
 
 function create_UUID(){
     var dt = new Date().getTime();
@@ -4855,6 +4649,7 @@ $("#method").on('change', function() {
 
 
 function urlBlur(){
+  console.log("urlBlur() is called!");
   logObj = {};
   logs = [];
 
@@ -5447,30 +5242,265 @@ function authorizeSNAPI() {
       grant_type= obJSON1.oauth2[0].grantType;
       client_auth= obJSON1.oauth2[0].clientAuth;
 
+      var win = window.open(auth_url+"?response_type="+JSON.parse(JSON.stringify(response_type))+"&scope="+JSON.parse(JSON.stringify(scope))+"&client_id="+JSON.parse(JSON.stringify(client_id))+"&redirect_uri="+JSON.parse(JSON.stringify(redirect_url))+"", "windowname1", 'width=800, height=600');
 
-      console.log("auth_url: ",auth_url);
+      var pollTimer = window.setInterval(function() {
+        try {
+          console.log("win.document.URL", win.document.URL); 
+          if (win.document.URL.indexOf(redirect_url) != -1) {
+            window.clearInterval(pollTimer);
+            var url= win.document.URL;
+            acToken= gup(url, response_type);
+            // tokenType = gup(url, 'token_type');
+            // expiresIn = gup(url, 'expires_in');
+            win.close();
 
-            var win = window.open(auth_url+"?response_type="+JSON.parse(JSON.stringify(response_type))+"&scope="+JSON.parse(JSON.stringify(scope))+"&client_id="+JSON.parse(JSON.stringify(client_id))+"&redirect_uri="+JSON.parse(JSON.stringify(redirect_url))+"", "windowname1", 'width=800, height=600');
+            validateTokenSNAPI(acToken);
+          }
+        } catch(e) {
+          console.log("oauth is not working correctly!");
+        }
+      }, 200);
+}
 
-            var pollTimer = window.setInterval(function() {
-                try {
-                     console.log(win.document.URL); //here url
-                    // console.log("yeah");
-                    if (win.document.URL.indexOf(redirect_url) != -1) {
-                        window.clearInterval(pollTimer);
-                        var url =   win.document.URL;
-                        acToken =   gup(url, response_type);
+function validateTokenSNAPI(token) {
+  console.log("Token: ",token)
+  console.log("Token URL: ",token_url)
 
-                        // tokenType = gup(url, 'token_type');
-                        // expiresIn = gup(url, 'expires_in');
-                        win.close();
+  $.ajax({
+    url: token_url,
+    method: "POST",
+    data: {client_id: client_id ,client_secret: client_secret ,redirect_uri: redirect_url ,code: token ,grant_type:grant_type} ,
+    success: function(response) {
+      console.log("response: ",response);
+      //important to check access token and token type (e.g. bearer)
+      tok = response.access_token;
+      console.log("tok: ", tok)
+      getIT();
+      //removed
+    },
+    error: function(response, jqXHR, textStatus, errorThrown) {
+      console.log("error: ",response);
+    }
+  });
 
-                        validateTokenSNAPI(acToken);
+//setTimeout(function(){
+   urlBlur();
+//}, 4000);
+
+}
+
+
+
+function getIT(){
+  console.log("getIT called")
+  $.ajax({
+    url: obJSON1.url,
+    data: listExist,//JSON.parse(listData),//JSON.stringify(eventC),//
+    method: method,
+    headers: {
+      "Authorization" : "Bearer " +tok, //this will depend on the API
+      "Content-Type"  : "application/json"
+    },
+    success: function (response) {
+      console.log("oauth response: ",response);
+      if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
+        for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
+           objData={};
+
+           objData["id"]= start;
+
+           if($("input[name='checkbox-w']").is(":checked")){
+               $("input[name='checkbox-w']:checked").each(function(){
+                var s = "response."+this.id.split('.')[0];
+                 //console.log("s: ",s);
+                if(eval(s)){
+                 var id = this.value;
+                 if(this.value=="Video URL"){
+                   objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+                 }else{
+                   var str = (this.checked ? "response."+this.id : 0);
+                   //IF ARRAY
+                   if(str.includes("[i]")){
+                     //console.log("Includes [i]: ",str);
+                     var i=0;
+                     var splt =  str.split("[i]");
+                     // start if undefined
+                     if(eval(splt[0]).length==0){
+                      objData[id]="";
+                    }else{// start if NOT undefined
+                    objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                    for(i=1; i<eval(splt[0]).length; ++i){
+                      objData[id] += ", ";
+                      objData[id] += eval("response."+this.id);
                     }
-                } catch(e) {
-                     // console.log("nah");
-                }
-            }, 200);
+                  }///test undefined
+                    //IF OBJECT and not ARRAY
+                   }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
+                     //console.log("IT IS OBJECT");
+                     var objD = (this.checked ? eval("response."+this.id) : 0);
+                     var objKV = "";
+                     var first = true;
+                     for(var i in objD){
+                      //console.log("Key: ", i);
+                      //console.log("Value: ", objD[i]);
+                      if(!first){
+                        objKV+=", "
+                      }else{
+                        first = false;
+                      }
+                      objKV+=i+": "+objD[i];
+                    }
+                    objData[id]=objKV;
+
+                    for(var i in objD){
+                     //console.log("Key: ", i);
+                     //console.log("Value: ", objD[i]);
+                     objData[i]=objD[i];
+                     //console.log("objData[id]: ", objData[i]);
+                   }
+                   //console.log("objData[id]: ", objData[id]);
+                   //IF NEITHER
+                   }else{
+                     //console.log("Does NOT Include [i]");
+                     objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                     //console.log("objData[id]: ", objData[id]);
+                   }
+
+                 }
+               }//if not undefined
+             else{
+               defined=false;
+             }
+           });//checkbox
+         }//chckbox loop
+
+             if(defined){
+               data.push(objData);
+               obj.lists=[];
+               obj.lists.push(objData);
+            }
+
+            //++j;
+            //++start;
+
+        }//while loop
+      }else{
+      var j=0;
+      while(defined){
+    //for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
+    objData={};
+    ++start;
+    objData["id"]= start;
+    // console.log("J: ",j);
+
+    if($("input[name='checkbox-w']").is(":checked")){
+        $("input[name='checkbox-w']:checked").each(function(){
+          var s = "response."+this.id.split('.')[0];
+          var arrLength = "response."+this.id.split('[j]')[0];
+          var ln = s.split('[')[0];
+
+          console.log("response here: ",response);
+
+          if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+          var id = this.value;
+          if(this.value=="Video URL"){
+            objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+          }else{
+            var str = (this.checked ? "response."+this.id : 0);
+            //IF ARRAY
+            if(str.includes("[i]")){
+              //console.log("Includes [i]: ",str);
+              var i=0;
+              var splt =  str.split("[i]");
+              // start if undefined
+              if(eval(splt[0]).length==0){
+               objData[id]="";
+             }else{// start if NOT undefined
+             objData[id] = (this.checked ? eval("response."+this.id) : 0);
+             for(i=1; i<eval(splt[0]).length; ++i){
+               objData[id] += ", ";
+               objData[id] += eval("response."+this.id);
+             }
+           }///test undefined
+             //IF OBJECT and not ARRAY
+            }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
+              //console.log("IT IS OBJECT");
+              var objD = (this.checked ? eval("response."+this.id) : 0);
+              var objKV = "";
+              var first = true;
+              for(var i in objD){
+               //console.log("Key: ", i);
+               //console.log("Value: ", objD[i]);
+               if(!first){
+                 objKV+=", "
+               }else{
+                 first = false;
+               }
+               objKV+=i+": "+objD[i];
+             }
+             objData[id]=objKV;
+
+             for(var i in objD){
+              //console.log("Key: ", i);
+              //console.log("Value: ", objD[i]);
+              objData[i]=objD[i];
+              //console.log("objData[id]: ", objData[i]);
+            }
+            //console.log("objData[id]: ", objData[id]);
+            //IF NEITHER
+            }else{
+              //console.log("Does NOT Include [i]");
+              objData[id] = (this.checked ? eval("response."+this.id) : 0);
+              //console.log("objData[id]: ", objData[id]);
+            }
+
+          }
+        }//if not undefined
+      else{
+        defined=false;
+      }
+    });//checkbox
+  }//chckbox loop
+
+      if(defined){
+        data.push(objData);
+        obj.lists=[];
+        obj.lists.push(objData);
+     }
+
+     ++j;
+     //++start;
+
+    }//while loop
+  }//else
+
+      if(p<pages){
+        //console.log("Data: ", data);
+        if(obJSON1.currPageParam){ //nex\prev page
+            ++p;
+            getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
+        }else if(obJSON1.offsetPage){//offset page
+          ++p;
+          getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
+        }else{//index page
+          ++p;
+          getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
+        }
+      }else{
+        if(data.length>0){
+          console.log("data: ", data);
+          populateListAndTree(arrData2);
+          populateTable(data);
+        }else{
+          populateListAndTree(response);
+          console.log("create something else other than table!")
+        }
+      }
+
+    }//response
+//  );//new AJAX
+ });//AJAX
 }
 
 
@@ -5511,31 +5541,7 @@ function authorize() {
 
 
 
-function validateTokenSNAPI(token) {
-          console.log("Token: ",token)
-          console.log("Token URL: ",token_url)
 
-          $.ajax({
-        		url: token_url,
-        		method: "POST",
-            data: {client_id: client_id ,client_secret: client_secret ,redirect_uri: redirect_url ,code: token ,grant_type:grant_type} ,
-        		success: function(response) {
-              console.log("response: ",response);
-              //important to check access token and token type (e.g. bearer)
-              tok = response.access_token;
-              console.log("tok: ", tok)
-              //removed
-        		},
-            error: function(response, jqXHR, textStatus, errorThrown) {
-              console.log("error: ",response);
-            }
-        	});
-
-        //setTimeout(function(){
-           urlBlur();
-        //}, 4000);
-
-}
 
 
 function validateToken(token) {

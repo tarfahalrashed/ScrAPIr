@@ -9,8 +9,7 @@ var $ = require('jquery');
 
 //var popup = require('popups');
 //var async = require('async');
-var querystring = require('querystring');
-var request = require('request');
+//var request = require('request');
 // var passport = require('passport'), OAuth2Strategy = require('passport-oauth').OAuth2Strategy;  
 // var scrapir = require("./scrapir.js")
 
@@ -32,22 +31,20 @@ app.get('/oauth', (req, res) => {
   console.log("req.query: ", req.query)
   requestToken = req.query.code
   console.log("requestToken: ", requestToken)
+  axios
+  .post('https://api.dailymotion.com/oauth/token', {
+    client_id: clientID,
+    client_secret: clientSecret,
+    code: requestToken,
+    grant_type: grant_type
+  })
+  .then(res => {
+    console.log(`statusCode: ${res.statusCode}`)
+    console.log(res)
 
-
-   var jsonDataObj = {'grant_type': 'authorization_code', 'client_id': 'e30bfeb6ad6c4e849a97', 'client_secret': 'c6730d4d6a6fa22033196aeb21093a7f9f81d862', 'redirect_uri':'http://localhost:5000/oauth', 'code': requestToken};
-   jsonDataObj = querystring.stringify(jsonDataObj); 
-
-  request.post({
-    url:     'https://api.dailymotion.com/oauth/token',
-    headers: {'Content-Type' : 'application/x-www-form-urlencoded'},
-    body:  jsonDataObj  //"grant_type= 'authorization_code', client_id= 'e30bfeb6ad6c4e849a97', client_secret= 'c6730d4d6a6fa22033196aeb21093a7f9f81d862', redirect_uri='http://localhost:5000/oauth', code="+requestToken+""
-  }, function(error, response, body){
-    var bod = JSON.parse(body)
-    console.log(bod.access_token);
-    console.log(response);
 
     var headerKey= "Authorization"; //obJSON1.headers[0].headerKey;
-    var headerVal= "Bearer " +bod.access_token; //obJSON1.headers[0].headerValue;
+    var headerVal= "Bearer " +requestToken; //obJSON1.headers[0].headerValue;
     var headers_to_set = {};
     headers_to_set[headerKey] = headerVal;
 
@@ -55,9 +52,9 @@ app.get('/oauth', (req, res) => {
     
     var optionsAPI= {
         method: "GET",
-        headers: {"Authorization": "Bearer " +bod.access_token}//headers_to_set
+        headers: {"Authorization": "Bearer " +requestToken}//headers_to_set
     };
-    var apiData1='', apiData2='';
+    var apiData1, apiData2;
 
     https.get('https://api.dailymotion.com/me/favorites', optionsAPI, res => {
       res.setEncoding("utf8");
@@ -70,11 +67,128 @@ app.get('/oauth', (req, res) => {
       });
     });
 
-  });
+    res.redirect(`/oauth.html?access_token=${requestToken}`)
+  })
+  .catch(error => {
+    console.error(error)
+  })
 
+  // axios.post('https://api.dailymotion.com/oauth/token', {
+  //   client_id: clientID,
+  //   client_secret: clientSecret,
+  //   code: requestToken,
+  //   grant_type: grant_type
+  // })
+  // .then(function (response) {
+  //   console.log(response);
+  //   res.redirect(`/oauth.html?access_token=${requestToken}`)
+
+  // })
+  // .catch(function (error) {
+  //   console.log(error);
+  // });
+
+
+  // axios({
+  //   method: 'post',
+  //   url: '/user/12345',
+  //   data: {
+  //     firstName: 'Fred',
+  //     lastName: 'Flintstone'
+  //   }
+  // });
+
+  axios({
+    // make a POST request
+    method: 'post',
+    // to the Github authentication API, with the client ID, client secret
+    // and request token
+    //url: `https://api.dailymotion.com/oauth/token?client_id=${clientID}&client_secret=${clientSecret}&code=${requestToken}&grant_type=${grant_type}`,
+    url: `https://api.dailymotion.com/oauth/token`,
+    //?client_id=${clientID}&client_secret=${clientSecret}&code=${requestToken}&grant_type=${grant_type}
+
+    data: {
+      grant_type: 'authorization_code',
+      client_id: clientID,
+      client_secret: clientSecret,
+      redirect_uri:'http://localhost:5000/oaut',
+      code: requestToken
+
+      // client_id: clientID,
+      // client_secret: clientSecret,
+      // code: requestToken,
+      // grant_type: grant_type
+    },
+    //data: {client_id: client_id ,client_secret: client_secret ,redirect_uri: redirect_url ,code: token ,grant_type:grant_type} ,
+
+    // Set the content type header, so that we get the response in JSOn
+    headers: {
+         'accept': 'application/json',
+         'content-type': 'application/x-www-url-formencoded'
+    }
+  }).then((response) => {
+    // Once we get the response, extract the access token from
+    // the response body
+    accessToken = response.data.access_token
+    console.log("response: ", response.data);
+    // getIT();
+    //res.json(accessToken);
+    // redirect the user to the welcome page, along with the access token
+
+    var headerKey= "Authorization"; //obJSON1.headers[0].headerKey;
+    var headerVal= "Bearer " +requestToken; //obJSON1.headers[0].headerValue;
+    var headers_to_set = {};
+    headers_to_set[headerKey] = headerVal;
+
+    console.log("header: ", headers_to_set);
+    
+    var optionsAPI= {
+        method: "GET",
+        headers: {"Authorization": "Bearer " +requestToken}//headers_to_set
+    };
+    var apiData1, apiData2;
+
+    https.get('https://api.dailymotion.com/me/favorites', optionsAPI, res => {
+      res.setEncoding("utf8");
+      res.on("data", data2 => {
+        apiData1 += data2;
+      });
+      res.on("end", () => {
+        apiData2 = apiData1;
+        console.log("apiData1: ",apiData2);
+      });
+    });
+
+    res.redirect(`/oauth.html?code=${requestToken}`)
+  });
 });
 
 
+
+function getIT(){
+  console.log("getIT called")
+  console.log("accessToken!: ",accessToken);
+    var headerKey= "Authorization"; //obJSON1.headers[0].headerKey;
+    var headerVal= "Bearer " +accessToken; //obJSON1.headers[0].headerValue;
+    var headers_to_set = {};
+    headers_to_set[headerKey] = headerVal;
+    
+    var optionsAPI= {
+        method: "GET",
+        headers: headers_to_set
+    };
+    var apiData1;
+
+    https.get('https://api.github.com/users/tarfahalrashed', optionsAPI, res => {//HERE
+      res.setEncoding("utf8");
+      res.on("data", data2 => {
+        apiData1 += data2;
+      });
+      res.on("end", () => {
+        console.log("apiData1: ",apiData1);
+      });
+    });
+}
 
 
 //***************************** GET endpoints *****************************//
@@ -873,6 +987,69 @@ app.get("/api/:name", (req, res, next) => {
   });
 });
 
+
+
+// function test(){
+//   console.log("TEST IS WORKING!")
+// }
+
+
+// var auth_url,token_url, redirect_url, client_id, client_secret, response_type, scope, grant_type, client_auth, tok;
+
+// function Authorize(){
+
+//   console.log("Authorize() id clalled");
+
+//   auth_url= obJSON1.oauth2[0].authURL;
+//   token_url= obJSON1.oauth2[0].tokenURL;
+//   redirect_url= obJSON1.oauth2[0].callbackURL;
+//   client_id= obJSON1.oauth2[0].clientId;
+//   client_secret= obJSON1.oauth2[0].clientSec;
+//   response_type= obJSON1.oauth2[0].resType;
+//   scope= obJSON1.oauth2[0].scope;
+//   grant_type= obJSON1.oauth2[0].grantType;
+//   client_auth= obJSON1.oauth2[0].clientAuth;
+
+//   console.log("auth_url: ",auth_url);
+
+//   var win = window.open(auth_url+"?response_type="+JSON.parse(JSON.stringify(response_type))+"&scope="+JSON.parse(JSON.stringify(scope))+"&client_id="+JSON.parse(JSON.stringify(client_id))+"&redirect_uri="+JSON.parse(JSON.stringify(redirect_url))+"", "windowname1", 'width=800, height=600');
+//   var pollTimer = window.setInterval(function() {
+//     try {
+//       console.log(win.document.URL); //here url
+//       console.log("yeah");
+//       if (win.document.URL.indexOf(redirect_url) != -1) {
+//         window.clearInterval(pollTimer);
+//         var url =   win.document.URL;
+//         acToken =   gup(url, response_type);
+//         // tokenType = gup(url, 'token_type');
+//         // expiresIn = gup(url, 'expires_in');
+//         win.close();
+//         validateTokenSNAPI(acToken);
+//       }
+//     } catch(e) {
+//       console.log("nah");
+//     }
+//   }, 200);
+// }
+
+
+// function validateToken(token) {
+//   console.log("Token: ",token)
+//   console.log("Token URL: ",token_url)
+
+//   https.get(token_url, {client_id: client_id ,client_secret: client_secret ,redirect_uri: redirect_uri ,code: token ,grant_type: grant_type}, res => {
+//     res.setEncoding("utf8");
+//     res.on("data", data => {
+//       apiDesc += data;
+//     });
+//     res.on("end", () => {
+//       apiDesc = JSON.parse(apiDesc);
+//       console.log("response: ",apiDesc);
+//       tok = apiDesc.access_token;
+//       console.log("tok: ", tok);
+//     });
+//   });
+// }
 
 
 
