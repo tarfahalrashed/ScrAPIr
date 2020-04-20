@@ -37917,7 +37917,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				// domField.className = 'jsoneditor-field';
 
 				//start Tarfah's edits
-				if(this.type == 'object'|| (this.type == 'array' && (this.field!="authors" && this.field!="categories"))){
+				if((this.type == 'array' && (this.field!="authors" && this.field!="categories"))){
 		      domField.className = 'jsoneditor-readonly';
 				}else{
 					domField.className = 'jsoneditor-field';

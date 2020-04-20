@@ -1127,7 +1127,7 @@ function populateTable(data){
 
 
 var myObj;
-var listP, listP1;
+var listP='', listP1='';
 var obJSON;
 var obJSON1;
 var obSavedData;
@@ -1245,13 +1245,8 @@ function checkButtonClicked(){
     var url_title1 = url[1].split('_').join(' ');
     var url_title_only = url_title1.split("/#");
     var url_title = url_title_only[0];
-    var url_fileName = url_title_only[1].split('_').join(' ');//url_title_only[1];
+    var url_fileName = url_title_only[1].split('_').join(' ');
 
-    // var link = window.location.href;
-    // var url1 = link.replace('.html','');
-    // var url2 = url1.replace('/#','/');
-    // var url3 = url2.replace('?api=','/api=');
-    // window.history.replaceState( null, null, url3 );
     // retrieve myObj for YouTube from FireBase DB
     registration();
 
@@ -1457,7 +1452,7 @@ function checkButtonClicked(){
             $("#descMenu").append('<p style="word-break: break-all ; font-size: 1.2em;">'+obJSON1.authDesc+'</br><a href="'+obJSON1.authURL+'" target="_blank">'+obJSON1.authURL+'</a></p>');
 
             if(obJSON1.authIsPublic){
-              console.log("PUBLIC")
+              //console.log("PUBLIC")
               document.getElementById("reqParameters").style.maxHeight = "340px"; //max-height:330px;
               $("#authDIV").show();
               $("#authParameters").append('</br><a>API Key Value</a>')
@@ -1466,7 +1461,7 @@ function checkButtonClicked(){
               var text = document.createTextNode(" Optional");
               paragraph.appendChild(text);
             }else{
-              console.log("NOT PUBLIC")
+              //console.log("NOT PUBLIC")
               document.getElementById("reqParameters").style.maxHeight = "560px";
               var paragraph = document.getElementById("opreq");
               var text = document.createTextNode(" Required");
@@ -1539,12 +1534,9 @@ function checkButtonClicked(){
               var nameF = obJSON1.responses[i]['displayedName'];
             }
             //change to checkbox-style-1-label checkbox-small
-            //$("#resParameters").append("<div><input id="+par+" value="+nameF+" class='checkbox-style' name='checkbox-w' type='checkbox'  onchange='fieldHasBeenSelected(this)' autocomplete='off' checked><a type='' class='checkbox-style-3-label' data-toggle='tooltip' data-placement='right' title='"+descF+"'>"+nameF+"</a></div>");
-            //$("#resParameters").append("<div><input id="+par+" value="+nameD+" class='checkbox-style' name='checkbox-w' type='checkbox'  onchange='fieldHasBeenSelected(this)' autocomplete='off' checked><label for="+par+" class='checkbox-style-3-label'>"+nameD+"</label></div>");
-
             $("#resParameters").append("<div><input id='"+par+"' value='"+nameF+"' class='checkbox-style' name='checkbox-w' type='checkbox'  onchange='fieldHasBeenSelected(this, this.value)' autocomplete='off' checked/><label for="+par+" class='checkbox-style-3-label' data-toggle='tooltip' data-placement='right' title='"+descF+"'>"+nameF+"</label></div>");
-
           }
+          retrieveData();
         }
       });
     });
@@ -2814,7 +2806,6 @@ var p;
 var pages,totalRes;
 
 function retrieveData(){
-
   defined=true;
   $('#myTree').empty();
   $('#myList').empty();
@@ -2981,7 +2972,7 @@ if(obJSON1.parameters){
       listP+= "}";
     }
 
-  console.log("listPYEAH: ",listP);
+  // console.log("listPYEAH: ",listP);
   if(listP){
     listExist=JSON.parse(listP);
   }else{
@@ -3007,7 +2998,7 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
              if($("input[name='checkbox-w']").is(":checked")){
                  $("input[name='checkbox-w']:checked").each(function(){
                   var s = "response."+this.id.split('.')[0];
-                   //console.log("s: ",s);
+                  //console.log("s: ",s);
                   if(eval(s)){
                    var id = this.value;
                    if(this.value=="Video URL"){
@@ -3085,67 +3076,129 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
 
            if($("input[name='checkbox-w']").is(":checked")){
                $("input[name='checkbox-w']:checked").each(function(){
+                 if(this.id.includes('[j]')){
+                  //console.log("this.id,,,,: ",this.id);
+
                  var s = "response."+this.id.split('.')[0];
                  var arrLength = "response."+this.id.split('[j]')[0];
-                 var ln = s.split('[')[0];
-
+                                  if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
+                                  var id = this.value;
+                                  if(this.value=="Video URL"){
+                                    objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+                                  }else{
+                                    var str = (this.checked ? "response."+this.id : 0);
+                                    //IF ARRAY
+                                    if(str.includes("[i]")){
+                                      var i=0;
+                                      var splt =  str.split("[i]");
+                                      // start if undefined
+                                      if(eval(splt[0]).length==0){
+                                       objData[id]="";
+                                     }else{// start if NOT undefined
+                                     objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                                     for(i=1; i<eval(splt[0]).length; ++i){
+                                       objData[id] += ", ";
+                                       objData[id] += eval("response."+this.id);
+                                     }
+                                   }///test undefined
+                                     //IF OBJECT and not ARRAY
+                                    }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
+                                      //console.log("IT IS OBJECT");
+                                      var objD = (this.checked ? eval("response."+this.id) : 0);
+                                      var objKV = "";
+                                      var first = true;
+                                      for(var i in objD){
+                                       //console.log("Key: ", i);
+                                       //console.log("Value: ", objD[i]);
+                                       if(!first){
+                                         objKV+=", "
+                                       }else{
+                                         first = false;
+                                       }
+                                       objKV+=i+": "+objD[i];
+                                     }
+                                     objData[id]=objKV;
+                 
+                                     for(var i in objD){
+                                      //console.log("Key: ", i);
+                                      //console.log("Value: ", objD[i]);
+                                      objData[i]=objD[i];
+                                      //console.log("objData[id]: ", objData[i]);
+                                    }
+                                    //console.log("objData[id]: ", objData[id]);
+                                    //IF NEITHER
+                                    }else{
+                                      //console.log("Does NOT Include [i]");
+                                      objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                                      //console.log("objData[id]: ", objData[id]);
+                                    }
+                                  }
+                                }//if not undefined
+                              else{
+                                defined=false;
+                              }
+                 }else{ ///NORMAL ARRAY
+                  console.log("else!!!!!!!!!")
+                  var arrLength = "response";
                  if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
-                   // || typeof eval(s) === 'undefined' || j==eval(ln).length){
-                 var id = this.value;
-                 if(this.value=="Video URL"){
-                   objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
-                 }else{
-                   var str = (this.checked ? "response."+this.id : 0);
-                   //IF ARRAY
-                   if(str.includes("[i]")){
-                     var i=0;
-                     var splt =  str.split("[i]");
-                     // start if undefined
-                     if(eval(splt[0]).length==0){
-                      objData[id]="";
-                    }else{// start if NOT undefined
-                    objData[id] = (this.checked ? eval("response."+this.id) : 0);
-                    for(i=1; i<eval(splt[0]).length; ++i){
-                      objData[id] += ", ";
-                      objData[id] += eval("response."+this.id);
-                    }
-                  }///test undefined
-                    //IF OBJECT and not ARRAY
-                   }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
-                     //console.log("IT IS OBJECT");
-                     var objD = (this.checked ? eval("response."+this.id) : 0);
-                     var objKV = "";
-                     var first = true;
-                     for(var i in objD){
-                      //console.log("Key: ", i);
-                      //console.log("Value: ", objD[i]);
-                      if(!first){
-                        objKV+=", "
-                      }else{
-                        first = false;
-                      }
-                      objKV+=i+": "+objD[i];
-                    }
-                    objData[id]=objKV;
-
+                  console.log("this.id: ",this.id);
+                var id = this.value;
+                if(this.value=="Video URL"){
+                  objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+                }else{
+                  var str = (this.checked ? "response[j]."+this.id : 0);
+                  //IF ARRAY
+                  if(str.includes("[i]")){
+                    var i=0;
+                    var splt =  str.split("[i]");
+                    // start if undefined
+                    if(eval(splt[0]).length==0){
+                     objData[id]="";
+                   }else{// start if NOT undefined
+                   objData[id] = (this.checked ? eval("response[j]."+this.id) : 0);
+                   for(i=1; i<eval(splt[0]).length; ++i){
+                     objData[id] += ", ";
+                     objData[id] += eval("response[j]."+this.id);
+                   }
+                 }///test undefined
+                   //IF OBJECT and not ARRAY
+                  }else if(eval("response[j]."+this.id) instanceof Object && !(eval("response[j]."+this.id) instanceof Array)){
+                    //console.log("IT IS OBJECT");
+                    var objD = (this.checked ? eval("response[j]."+this.id) : 0);
+                    var objKV = "";
+                    var first = true;
                     for(var i in objD){
                      //console.log("Key: ", i);
                      //console.log("Value: ", objD[i]);
-                     objData[i]=objD[i];
-                     //console.log("objData[id]: ", objData[i]);
+                     if(!first){
+                       objKV+=", "
+                     }else{
+                       first = false;
+                     }
+                     objKV+=i+": "+objD[i];
                    }
-                   //console.log("objData[id]: ", objData[id]);
-                   //IF NEITHER
-                   }else{
-                     //console.log("Does NOT Include [i]");
-                     objData[id] = (this.checked ? eval("response."+this.id) : 0);
-                     //console.log("objData[id]: ", objData[id]);
-                   }
+                   objData[id]=objKV;
+
+                   for(var i in objD){
+                    //console.log("Key: ", i);
+                    //console.log("Value: ", objD[i]);
+                    objData[i]=objD[i];
+                    //console.log("objData[id]: ", objData[i]);
+                  }
+                  //console.log("objData[id]: ", objData[id]);
+                  //IF NEITHER
+                  }else{
+                    //console.log("Does NOT Include [i]");
+                    objData[id] = (this.checked ? eval("response[j]."+this.id) : 0);
+                    //console.log("objData[id]: ", objData[id]);
+                  }
+                }
+              }//if not undefined
+            else{
+              defined=false;
+            }
                  }
-               }//if not undefined
-             else{
-               defined=false;
-             }
+  
            });//checkbox
          }//chckbox loop
 
@@ -3178,10 +3231,11 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
             populateListAndTree(arrData2)
             populateTable(data);
           }else{
-            $("#tableV").hide();
+            //$("#tableV").hide();
             console.log("data: ", response);
             console.log("arrData2: ", arrData2);
             populateListAndTree(response);
+            populateTable(data);
             console.log("create something else other than table!")
           }
         }
@@ -3193,21 +3247,31 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
 else if(obJSON1.headers && obJSON1.headers[0].headerValue){ //if header
   console.log("if headers")
 
-  var headername= obJSON1.headers[0].headerKey;//$("#nameH").val();
-  var headervar= obJSON1.headers[0].headerValue;//$("#valueH").val();
-  var headers_to_set = {};
-  headers_to_set[headername] = headervar;
+  $.ajax({
+    url: "/apiClean/"+obJSON1.title,
+    // data: listExist,//JSON.parse(listP),
+    method: method,
+    // headers: headers_to_set,
+    success: function (response) {
+      console.log("TEST response: ", response);
+  //   }
+  //   });
 
-    $.ajax({
-      url: "https://cors-anywhere.herokuapp.com/"+obJSON1.url,
-      data: listExist,//JSON.parse(listP),
-      method: method,
-      headers: headers_to_set,
-      // {
-      //   "Authorization" : obJSON1.headers[0].headerValue//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx"
-      // },
-      success: function (response) {
-        //console.log("RES_Ret: ", response);
+  // var headername= obJSON1.headers[0].headerKey;//$("#nameH").val();
+  // var headervar= obJSON1.headers[0].headerValue;//$("#valueH").val();
+  // var headers_to_set = {};
+  // headers_to_set[headername] = headervar;
+ 
+  //   $.ajax({
+  //     url: "https://cors-anywhere.herokuapp.com/"+obJSON1.url,
+  //     data: listExist,//JSON.parse(listP),
+  //     method: method,
+  //     headers: headers_to_set,
+  //     // {
+  //     //   "Authorization" : obJSON1.headers[0].headerValue//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx"
+  //     // },
+  //     success: function (response) {
+  //     console.log("RES_Ret: ", response);
         if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
           for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
              objData={};
@@ -3216,8 +3280,9 @@ else if(obJSON1.headers && obJSON1.headers[0].headerValue){ //if header
 
              if($("input[name='checkbox-w']").is(":checked")){
                  $("input[name='checkbox-w']:checked").each(function(){
+                  //  console.log("this.id: ", this.id);
                   var s = "response."+this.id.split('.')[0];
-                   //console.log("s: ",s);
+                  // console.log("s: ",s);
                   if(eval(s)){
                    var id = this.value;
                    if(this.value=="Video URL"){
@@ -4649,7 +4714,7 @@ $("#method").on('change', function() {
 
 
 function urlBlur(){
-  console.log("urlBlur() is called!");
+  // console.log("urlBlur() is called!");
   logObj = {};
   logs = [];
 
@@ -4743,21 +4808,28 @@ if($("#url").val()){
 
   listData+="}";
   // console.log("listData: ", listData);
-  // console.log("LINK: ", link);
 
   if($("#valueH").val() && document.getElementById('selectid').value != "oauth2"){
 
-    var headername= $("#nameH").val();
-    var headervar= $("#valueH").val();
-    var headers_to_set = {};
-    headers_to_set[headername] = headervar;
-
     $.ajax({
-      url: "https://cors-anywhere.herokuapp.com/"+link,
-      data: JSON.parse(listData),
+      url: "/apiClean/"+obJSON1.title,
+      // data: listExist,//JSON.parse(listP),
       method: method,
-      headers: headers_to_set,
+      // headers: headers_to_set,
       success: function (response) {
+        console.log("TEST response: ", response);
+
+    // var headername= $("#nameH").val();
+    // var headervar= $("#valueH").val();
+    // var headers_to_set = {};
+    // headers_to_set[headername] = headervar;
+
+    // $.ajax({
+    //   url: "https://cors-anywhere.herokuapp.com/"+link,
+    //   data: JSON.parse(listData),
+    //   method: method,
+    //   headers: headers_to_set,
+    //   success: function (response) {
         status = "success";
         jsResponse = JSON.stringify(response, null, 2);
 
@@ -4896,17 +4968,17 @@ if($("#url").val()){
     console.log("method = ", method);
     console.log("data = ",JSON.parse(listData));
 
-    var eventC = {
-      "summary": "Google I/O 2015",
-      "location": "800 Howard St., San Francisco, CA 94103",
-      "description": "A chance to hear more about Google's developer products.",
-      "start": {
-        "date": "2020-02-28"
-      },
-      "end": {
-        "date": "2020-02-29"
-      }
-    };
+    // var eventC = {
+    //   "summary": "Google I/O 2015",
+    //   "location": "800 Howard St., San Francisco, CA 94103",
+    //   "description": "A chance to hear more about Google's developer products.",
+    //   "start": {
+    //     "date": "2020-02-28"
+    //   },
+    //   "end": {
+    //     "date": "2020-02-29"
+    //   }
+    // };
 
     // if(method == "POST")
 
@@ -5066,6 +5138,15 @@ if($("#url").val()){
 
 
   }else{//does not have header nor oauth
+    // console.log("HERE")
+      //(3) get the JSON schema
+    // $.ajax({
+    //   url: "/test/"+encodeURIComponent(link+"?"+listData),
+    //   // data: listExist,//JSON.parse(listP),
+    //   method: method,
+    //   // headers: headers_to_set,
+    //   success: function (response) {
+    //     console.log("TEST response: ", response);
 
   $.ajax({
     url: link,
@@ -5636,8 +5717,8 @@ function responseMessage(response, status){
        document.getElementById("toggRes").scrollIntoView();
        // console.log("clicked: ", node.path);
          var textEl = document.getElementById('selectedText');
-         console.log("node.path: ",node.path);
-         console.log("node: ",node);
+        //  console.log("node.path: ",node.path);
+        //  console.log("node: ",node);
 
          var paramValue = eval("response."+prettyPrintPath(node.path));
          // console.log(eval("response."+prettyPrintPath(node.path));
@@ -5684,11 +5765,16 @@ function responseMessage(response, status){
    }//end og if clicked
   }
 
-     function prettyPrintPath(path) {
-       console.log("Path: ",path);
+      function hasNumbers(t){
+        var regex = /\d/g;
+        return regex.test(t);
+      } 
+
+      function prettyPrintPath(path) {
+        // console.log("Path: ",path);
                    var str = '';
                    for (var i=0; i<path.length; i++) {
-                     console.log("Path: ",path[i]);
+                    //  console.log("Path: ",path[i]);
                      var element = path[i];
                      if (typeof element === 'number') {
                        if(i!=0){
@@ -5696,14 +5782,27 @@ function responseMessage(response, status){
                        }
                      } else if(element.includes(' ')) {
                        str += "['"+element+"']";
-                       console.log(str)
+                      //  console.log(str)
                      }else {
-                       console.log("str: ",str);
-                       if (str.length > 0) str += '.';
-                       str += element;
+                      //  console.log("str: ",str);
+                       
+                       if (str.length > 0){
+                         if(hasNumbers(element)){
+                          str += '['+element+']';
+                         }else{
+                          str += '.';
+                          str += element;
+                         }
+                       }else{
+                        str += element;
+                       }
+                       
+
+                      //  if (str.length > 0)str += '.';
+                      //  str += element;
                      }
                    }
-                   console.log("str: ",str);
+                  //  console.log("str: ",str);
                    return str;
                  }
    }
@@ -5903,21 +6002,11 @@ if(document.getElementById('selectid').value == "oauth2"){
   myObj.authDesc = $("#authDesc").val();
   myObj.authURL  = $("#authURL").val();
 
-  // console.log("isPublic: ",document.getElementById('isPublic').value)
-  // if(document.getElementById('isPublic').value == "yes") {
-  //   console.log("YES")
-  //   myObj.authIsPublic = true
-  // }else{
-  //   console.log("NO")
-  //   myObj.authIsPublic = false
-  // }
-  // myObj.authIsPublic = $("#isPublic").is(":checked");
-
   //API key as a parameter
   myObj.apiKeyName = $("#nameKey").val();
   myObj.apiKeyValue = $("#valueKey").val();
 
-  console.log("isPublic: ",document.getElementById('isPublic').value)
+  // console.log("isPublic: ",document.getElementById('isPublic').value)
   if(document.getElementById('isPublic').value == "Yes") {
     myObj.authIsPublic = true
   }else{
@@ -5955,59 +6044,35 @@ if(document.getElementById('selectid').value == "oauth2"){
 
         //console.log("valueH:", $("#valueH").val());
         if($("#valueH").val()!="" && document.getElementById('selectid').value != "oauth2"){ //CHANGE BEARER
-        // if($("#valueH").val() && document.getElementById('selectid').value != "oauth2"){
-
-
           var headername= $("#nameH").val();
           var headervar= $("#valueH").val();
           var headers_to_set = {};
           headers_to_set[headername] = headervar;
 
+          var settings3 = {
+            "url": "https://cors-anywhere.herokuapp.com/"+myObj.url,//https://api.yelp.com/v3/businesses/search?term=burgers&location=boston",
+            "data": JSON.parse(listData),
+            "method": method,
+            "headers": headers_to_set
+          }
+      }else if(document.getElementById('selectid').value == "oauth2"){
         var settings3 = {
-          "url": "https://cors-anywhere.herokuapp.com/"+myObj.url,//https://api.yelp.com/v3/businesses/search?term=burgers&location=boston",
+          "url": myObj.url,
           "data": JSON.parse(listData),
           "method": method,
-          "headers": headers_to_set
-          // {
-          //   "Authorization": $("#valueH").val()//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx"
-          // }
-        }
-      }else if(document.getElementById('selectid').value == "oauth2"){
-        console.log("X enter oauth section, token = ", tok);
-        console.log("X method = ", method);
-        console.log("X data = ",JSON.parse(listData));
-
-        var eventC = {
-              summary: "Google I/O 2015",
-              location: "800 Howard St., San Francisco, CA 94103",
-              description: "A chance to hear more about Google's developer products.",
-              start: {
-                date: "2020-02-28"
-              },
-              end: {
-                date: "2020-02-29"
-              }
-        };
-
-        var settings3 = {
-          "url": myObj.url,//https://api.yelp.com/v3/businesses/search?term=burgers&location=boston",
-          "data": JSON.parse(listData),//JSON.stringify(eventC),//
-          "method": method,
           headers: {
-            "Authorization" : "Bearer " +tok //this will depend on the API
+            "Authorization" : "Bearer " +tok 
           }
          }
         }else{
-        // console.log("HERE it is: ", JSON.parse(listData));
         var settings3 = {
-          "url": myObj.url,//https://api.yelp.com/v3/businesses/search?term=burgers&location=boston",
+          "url": myObj.url,
           "data": JSON.parse(listData),
           "method": method
         }
       }
 
 
-    //(3) get the JSON schema
     $.ajax(settings3).done(function (response) {
             var objJSONOBJ = flattenObjectJSON(response);
             var objJSONOBJ2 = Object.getOwnPropertyNames(objJSONOBJ);
@@ -7299,7 +7364,7 @@ function populateListOfAPIs(){
 var optionalParam = [];
 
 function urlChanged(){
-  console.log("urlChanged");
+  // console.log("urlChanged");
 
   if(!hasParameters){
    $('#requestTabel tbody').empty();
@@ -8046,6 +8111,29 @@ function populatePublicSavedDataset(){
     });
   });
 
+}
+
+
+function covid19APIs(){
+    registration();
+    //Covid-19 Table
+    // firebase.database().ref('apis/').once('value').then(function(snapshot) {
+    //   snapshot.forEach(function(childSnapshot) { //for each saved data
+    //     if(childSnapshot.val() != undefined){
+    //       console.log("VALUE: ", childSnapshot.val().description);
+    //       var api_name = childSnapshot.val().apiName;
+    //       //var file_title = childSnapshot.val().title;
+    //       var api_desc = childSnapshot.val().description;
+    //       //var url = childSnapshot.val().urlCSV;
+    //       //var link = childSnapshot.val().queryLink;
+    //       //var urlJ = childSnapshot.val().urlJSON;
+    //       $("#public_data_table tbody").append('<tr><td>'+file_title+'</td><td>'+file_desc+'</td><td style="min-width:150px">'+api_name+'</td><td style="text-align:center; background-color:#f4f9fa"><a href='+url+' download="'+file_desc+'.csv" data-placement="right" title="Download dataset in CSV format"><img src="images/csv-file.png" width="28px"></a> </td><td style="text-align:center; background-color:#f4f9fa"> <a href="data:'+ urlJ +'" download="'+file_desc+'.json" data-toggle="tooltip" data-placement="right" title="Download dataset in JSON format"><img src="images/json-file.png" width="25px"></a> </td><td style="text-align:center; background-color:#f4f9fa"> <a href="data-management.html?api='+api_name.replace(/ /g, "_")+'/#'+file_title.split(' ').join('_')+'" target="_blank" data-toggle="tooltip" data-placement="right" title="Edit this dataset"><img src="images/edit.png" width="25px"></a> </td><td style="text-align:center; background-color:#f4f9fa"> <a target="_blank" rel="noopener noreferrer" href="'+link+'" data-placement="right" title="Query URL: '+link+'"><img src="images/link.png" style="top:20px; width:18px" ></a> </td> </tr>');
+    //       // <td><img src="images/eye.png" alt="" width="15px">aa &nbsp;  <img src="images/down.png" alt="" width="15px">aa </td>
+    //     }else{
+    //       //////////
+    //     }
+    //   });
+    // });
 }
 
 /*

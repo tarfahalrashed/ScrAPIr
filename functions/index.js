@@ -6,27 +6,18 @@ var app = express();
 var http = require('http');
 var https = require('https');
 var $ = require('jquery');
+var querystring = require('querystring');
+var request = require('request');
+var open = require('open');
+var path = require('path');
+var fs  = require('fs');
 
 //var popup = require('popups');
 //var async = require('async');
-var querystring = require('querystring');
-var request = require('request');
 // var passport = require('passport'), OAuth2Strategy = require('passport-oauth').OAuth2Strategy;  
 // var scrapir = require("./scrapir.js")
-
 // var Window = require('window');
 // var window = new Window();
-
-var open = require('open');
-
-
-app.use(express.static(__dirname + '/public'))
-
-// Import the axios library, to make HTTP requests
-
-var clientID = 'e30bfeb6ad6c4e849a97';//'c56789ff1ca6c64816ed'
-var clientSecret = 'c6730d4d6a6fa22033196aeb21093a7f9f81d862';//'a23c250cb34dd6a9a5a8896f6fc174f50f50333d'
-var grant_type = 'authorization_code';
 
 var requestToken, redirect_uri, passedToken;
 
@@ -39,18 +30,193 @@ app.get('/oauth', (req, res) => {
   requestToken = req.query.code
   console.log("requestToken: ", requestToken)
 
-  //GENERALIZE  
-  var jsonDataObj = {'grant_type': 'authorization_code', 'client_id': 'e30bfeb6ad6c4e849a97', 'client_secret': 'c6730d4d6a6fa22033196aeb21093a7f9f81d862', 'redirect_uri':'http://localhost:5000/oauth', 'code': requestToken};
+  var jsonDataObj = {'grant_type': grant_type, 'client_id': client_id, 'client_secret': client_secret, 'redirect_uri':redirect_url, 'code': requestToken};
   jsonDataObj = querystring.stringify(jsonDataObj); 
 
   request.post({
-    url: 'https://api.dailymotion.com/oauth/token', //GENERALIZE
+    url: token_url, 
     headers: {'Content-Type' : 'application/x-www-form-urlencoded'},
     body: jsonDataObj
   }, function(error, response, body){
     passedToken = JSON.parse(body);
-    getDataFromOauth(passedToken.access_token);
+    //getDataFromOauth(passedToken.access_token);
     //console.log(response);
+    var tok = passedToken.access_token;
+
+    console.log("getDataFromOauth");
+    console.log("tok: ", tok);
+    //[2] pass the token as a header to the optionsAPI
+    var optionsAPI= {
+      method: "GET",
+      headers: {"Authorization": "Bearer " +tok}
+    };
+  
+    https.get(urlAPI, optionsAPI, res => {//HERE
+      res.setEncoding("utf8");
+      res.on("data", data2 => {
+          apiData1 += data2;
+      });
+      res.on("end", () => {
+          response = JSON.parse(apiData1);
+          //console.log("RES API: ", response);
+          if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
+              for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){
+                 objData={};
+                 objData["id"]= start;
+                    for(var m=0; m < obJSON1.responses.length; ++m){
+                      var s = "response."+obJSON1.responses[m].parameter.split('.')[0];
+                      if(eval(s)){
+                       var id = obJSON1.responses[m].name;//this.value;
+                      //  if(obJSON1.responses[m].name=="Video URL"){
+                      //    objData[id] = "https://www.youtube.com/watch?v="+eval("response."+obJSON1.responses[m].parameter);
+                      //  }else{
+                        var str = "response."+obJSON1.responses[m].parameter;
+                         //IF ARRAY
+                         if(str.includes("[i]")){
+                           var i=0;
+                           var splt =  str.split("[i]");
+                           // start if undefined
+                           if(eval(splt[0]).length==0){
+                            objData[id]="";
+                          }else{// start if NOT undefined
+                          objData[id] = eval("response."+obJSON1.responses[m].parameter);
+                          for(i=1; i<eval(splt[0]).length; ++i){
+                            objData[id] += ", ";
+                            objData[id] += eval("response."+obJSON1.responses[m].parameter);
+                          }
+                        }///test undefined
+                          //IF OBJECT and not ARRAY
+                         }else if(eval("response."+obJSON1.responses[m].parameter) instanceof Object && !(eval("response."+obJSON1.responses[m].parameter) instanceof Array)){
+                           //console.log("IT IS OBJECT");
+                           var objD = eval("response."+obJSON1.responses[m].parameter);
+                           var objKV = "";
+                           var first = true;
+                           for(var i in objD){
+                            if(!first){
+                              objKV+=", "
+                            }else{
+                              first = false;
+                            }
+                            objKV+=i+": "+objD[i];
+                          }
+                          objData[id]=objKV;
+  
+                          for(var i in objD){
+                           objData[i]=objD[i];
+                         }
+                         //IF NEITHER
+                         }else{
+                           objData[id] = eval("response."+obJSON1.responses[m].parameter);
+                         }
+                      // } if Video URL
+                     }//if not undefined
+                   else{
+                     defined=false;
+                   }
+                // });//checkbox 
+               }//chckbox loop
+  
+                   if(defined){
+                     data.push(objData);
+                     obj.lists=[];
+                     obj.lists.push(objData);
+                  }
+              }//while loop
+            }else{
+            var j=0;
+            while(defined){
+               objData={};
+               ++start;
+               objData["id"]= start;
+                for(var m=0; m < obJSON1.responses.length; ++m){
+                     var s = "response."+obJSON1.responses[m].parameter.split('.')[0];
+                     var arrLength = "response."+obJSON1.responses[m].parameter.split('[j]')[0];
+                     var ln = s.split('[')[0];
+  
+                     if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
+                     var id = obJSON1.responses[m].name;
+                       var str = "response."+obJSON1.responses[m].parameter;
+                       //IF ARRAY
+                       if(str.includes("[i]")){
+                         var i=0;
+                         var splt =  str.split("[i]");
+                         // start if undefined
+                         if(eval(splt[0]).length==0){
+                          objData[id]="";
+                        }else{// start if NOT undefined
+                        objData[id] = eval("response."+obJSON1.responses[m].parameter);
+                        for(i=1; i<eval(splt[0]).length; ++i){
+                          objData[id] += ", ";
+                          objData[id] += eval("response."+obJSON1.responses[m].parameter);
+                        }
+                      }///test undefined
+                        //IF OBJECT and not ARRAY
+                       }else if(eval("response."+obJSON1.responses[m].parameter) instanceof Object && !(eval("response."+obJSON1.responses[m].parameter) instanceof Array)){
+                         var objD = eval("response."+obJSON1.responses[m].parameter);
+                         var objKV = "";
+                         var first = true;
+                         for(var i in objD){
+                          if(!first){
+                            objKV+=", "
+                          }else{
+                            first = false;
+                          }
+                          objKV+=i+": "+objD[i];
+                        }
+                        objData[id]=objKV;
+  
+                        for(var i in objD){
+                         objData[i]=objD[i];
+                       }
+                       //IF NEITHER
+                       }else{
+                         objData[id] = eval("response."+obJSON1.responses[m].parameter);
+                       }
+                   }//if not undefined
+                 else{
+                   defined=false;
+                 }
+              }//checkbox loop
+  
+                 if(defined){
+                   data.push(objData);
+                   obj.lists=[];
+                   obj.lists.push(objData);
+                }
+                ++j;
+            }//while loop
+          }//else
+  
+            if(p<pages){
+              if(obJSON1.currPageParam){ //nex\prev page
+                  ++p;
+                  getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
+              }else if(obJSON1.offsetPage){//offset page
+                ++p;
+                getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
+              }else if(obJSON1.indexPage){//index page
+                ++p;
+                getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
+              }else{
+  
+              }
+            }else{
+              if(data.length>1){
+
+              }else{
+                for(var r=0; r<obJSON1.responses.length; ++r){
+                  var id = obJSON1.responses[r].name;
+                  var str = "response."+obJSON1.responses[r].parameter;
+                  if(str.includes("[j]")){
+                    str = str.replace('j', '0');
+                  }
+                  dataObj[id]= eval(str);
+                }
+              }
+            }
+            console.log("data: ", data);
+        }); //res
+      });
 
     // var optionsAPI= {
     //     method: "GET",
@@ -71,8 +237,10 @@ app.get('/oauth', (req, res) => {
 
   });
 
+  setTimeout(function(){
+    res.json(data);
+  }, 8000); 
 });
-
 
 
 
@@ -407,6 +575,7 @@ app.get("/specs/:name/url", (req, res, next) => {
 });
 
 
+
 //--------------------- [/api] endpoints ---------------------//
 
 var config, obJSON1, listP, dataObj = {};
@@ -620,10 +789,11 @@ app.get("/api/:name", (req, res, next) => {
                     if ( err ) throw err;    
                   });
 
-                          
+                  oauth();
         
           
                 }else{//if header
+                  console.log("if header index.js")
                     var headerKey= obJSON1.headers[0].headerKey;
                     var headerVal= obJSON1.headers[0].headerValue;
                     var headers_to_set = {};
@@ -841,216 +1011,278 @@ app.get("/api/:name", (req, res, next) => {
           res.json(dataObj);
         }
         
-    }, 8000);  
+    }, 1000);  
 
   });
 });
 
 
 
-function getDataFromOauth(tok){ 
-  console.log("getDataFromOauth");
-  console.log(tok);
-  //[2] pass the token as a header to the optionsAPI
-  var optionsAPI= {
-    method: "GET",
-    headers: {"Authorization": "Bearer " +tok}
-  };
 
-  https.get(urlAPI, optionsAPI, res => {//HERE
-    res.setEncoding("utf8");
-    res.on("data", data2 => {
-        apiData1 += data2;
+
+app.get("/apiClean/:name", (req, res, next) => {
+  dataObj = {};
+  cors(req, res, () => {
+
+    //if URL contains {id}, then get the value from the parameter id=374829365
+
+    //console.log("Number of Results: ", req.query.scpNumResults)
+    defined = true;
+    data=[], obj =[], allResults = [];
+    apiParams = [];
+    method="GET";
+    apiParameters="";
+
+    apiData='';
+    data1 = '';
+    apiTitle;
+
+    paramInURL;
+
+    if(isEmpty(req.query)){ //No parameters passed
+        apiParameters= "";
+    }else{ //Parameters passed
+        apiParameters= req.query;
+    }
+
+    function isEmpty(obj) {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
+    }
+    apiTitle = req.params.name.split('?')[0]
+
+    //[1] Get the API's description from ScrAPIr
+    var urlDesc = 'https://superapi-52bc2.firebaseio.com/apis/'+apiTitle+'.json';
+    var optionsDesc = {
+        method: "GET"
+    };
+
+    https.get(urlDesc, optionsDesc, res => {
+        res.setEncoding("utf8");
+        res.on("data", data1 => {
+            apiData += data1;
+        });
+        res.on("end", () => {
+            obJSON1 = JSON.parse(apiData);
+            method = obJSON1.method;
+
+            //[2] From description, get maxResPerPage
+            if(req.query.scpNumResults){
+                numRes = req.query.scpNumResults;
+            }else{
+                numRes = obJSON1.maxResPerPage;
+            }
+
+            if(numRes){
+                pages = Math.ceil(numRes/obJSON1.maxResPerPage);
+                totalRes = numRes;
+                numResults = obJSON1.maxResPerPage;
+                console.log("numResults: ",obJSON1.maxResPerPage)
+            }else{
+                page=1;
+            }
+
+            start = 0;
+            next = "";
+            nextPage = "";
+            p = 1;
+
+            getTheNextPage(p, pages, nextPage); 
+
+            function getTheNextPage(p, pages, nextPage){
+              
+                //[3] From description, get request parameters OR from the parameters passed in the function
+                if(apiParameters == ""){ //if no parameters were passed
+                  listP=  "";
+                  for(var i=0; i<obJSON1.parameters.length; ++i) {
+                    if(obJSON1.parameters[i]['value']){
+                      listP+= obJSON1.parameters[i]['name']; //check conditions before adding names
+                      listP+= "="
+                      listP+= obJSON1.parameters[i]['value'];
+                    }
+      
+                    if(i+1<obJSON1.parameters.length){
+                      if(obJSON1.parameters[i+1]['value']) {
+                        listP+= "&";
+                      }
+                    }
+                  }
+                }else{ //if parameters were passed
+
+                  listP=  "";
+                  for(var i=0; i<obJSON1.parameters.length; ++i) {
+                    var value = getKeyByValue(apiParameters, obJSON1.parameters[i]['name']); 
+                    //console.log("VALUE: ", value);
+                    if(value){
+                      listP+= obJSON1.parameters[i]['name']; //check conditions before adding names
+                      listP+= "="
+                      listP+= value;
+                    }else{
+                    if(obJSON1.parameters[i]['value']){
+                      listP+= obJSON1.parameters[i]['name']; //check conditions before adding names
+                      listP+= "="
+                      listP+= obJSON1.parameters[i]['value'];
+                    }
+                    }
+      
+                    if(i+1<obJSON1.parameters.length){
+                      if(obJSON1.parameters[i+1]['value']) {
+                        listP+= "&";
+                      }
+                    }
+                  }
+
+                    function getKeyByValue(object, key) { 
+                      for (var prop in object) { 
+                          if (object.hasOwnProperty(prop)) { 
+                              if (prop === key) 
+                              return object[prop]; 
+                          } 
+                      } 
+                  } 
+                }
+      
+                if(obJSON1.resPerPageParam){
+                  listP+= "&"
+                  listP+= obJSON1.resPerPageParam;
+                  listP+= "=";
+                  listP+= obJSON1.maxResPerPage;
+                }
+                if(obJSON1.indexPage){
+                  listP+= "&"
+                  listP+= obJSON1.indexPage;
+                  listP+= "=";
+                  listP+= p;
+                }else if(obJSON1.offsetPage){
+                  listP+= "&"
+                  listP+= obJSON1.offsetPage;
+                  listP+= "=";
+                  listP+= (p-1)*(eval(obJSON1.maxResPerPage));
+                }else if(obJSON1.currPageParam){
+                  listP+= "&"
+                  listP+= obJSON1.currPageParam;
+                  listP+= "=";
+                  listP+= nextPage;
+                }
+                listP+= "";
+      
+                console.log("listP: ",JSON.stringify(listP));
+
+                if(obJSON1.method){
+                  method = obJSON1.method;
+                }else{
+                  method = "GET"
+                }
+      
+                var apiData1='', data2 = '';
+                urlAPI = obJSON1.url+"?"+listP;
+
+                console.log("URL1: ", urlAPI)
+                if((!obJSON1.headers || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oauth2) || obJSON1.oauth2[0].authURL=="") ){
+                  console.log("no headrer/no oauth")
+                    var optionsAPI= {
+                        method: "GET"
+                    };
+                }else if((obJSON1.oauth2) && obJSON1.oauth2[0].authURL!=""){
+                  console.log("OAUTH")
+                  auth_url= obJSON1.oauth2[0].authURL;
+                  token_url= obJSON1.oauth2[0].tokenURL;
+                  redirect_url= obJSON1.oauth2[0].callbackURL;
+                  client_id= obJSON1.oauth2[0].clientId;
+                  client_secret= obJSON1.oauth2[0].clientSec;
+                  response_type= obJSON1.oauth2[0].resType;
+                  scope= obJSON1.oauth2[0].scope;
+                  grant_type= obJSON1.oauth2[0].grantType;
+                  client_auth= obJSON1.oauth2[0].clientAuth;
+
+                  //console.log("redirect_url: ",redirect_url);
+
+                  //[1] Popup window of auth url
+
+                  open(auth_url+"?response_type="+JSON.parse(JSON.stringify(response_type))+"&scope="+JSON.parse(JSON.stringify(scope))+"&client_id="+JSON.parse(JSON.stringify(client_id))+"&redirect_uri="+JSON.parse(JSON.stringify(redirect_url)), function (err) {
+                    if ( err ) throw err;    
+                  });
+
+                  oauth();
+        
+          
+                }else{//if header
+                  console.log("if header index.js")
+                    var headerKey= obJSON1.headers[0].headerKey;
+                    var headerVal= obJSON1.headers[0].headerValue;
+                    var headers_to_set = {};
+                    headers_to_set[headerKey] = headerVal;
+                    
+                    var optionsAPI= {
+                        method: "GET",
+                        headers: headers_to_set
+                    };
+                }
+                
+                https.get(urlAPI, optionsAPI, res => {//HERE
+                    res.setEncoding("utf8");
+                    res.on("data", data2 => {
+                        apiData1 += data2;
+                    });
+                    res.on("end", () => {
+                        response = JSON.parse(apiData1);
+                        console.log("RES API INDEX.JS: ", response);
+
+                    });
+                });
+                
+            }//end of getTheNextPage function
+
+        });
     });
-    res.on("end", () => {
-        response = JSON.parse(apiData1);
-        // apiData1 = JSON.parse(apiData1);
-         console.log("RES API: ", response);
 
-        ///start HERE
-        if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
-            for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){
-               objData={};
-               objData["id"]= start;
-                  for(var m=0; m < obJSON1.responses.length; ++m){
-                    var s = "response."+obJSON1.responses[m].parameter.split('.')[0];
-                    if(eval(s)){
-                     var id = obJSON1.responses[m].displayedName;//name;//this.value;
-                    //  if(obJSON1.responses[m].name=="Video URL"){
-                    //    objData[id] = "https://www.youtube.com/watch?v="+eval("response."+obJSON1.responses[m].parameter);
-                    //  }else{
-                      var str = "response."+obJSON1.responses[m].parameter;
-                       //IF ARRAY
-                       if(str.includes("[i]")){
-                         var i=0;
-                         var splt =  str.split("[i]");
-                         // start if undefined
-                         if(eval(splt[0]).length==0){
-                          objData[id]="";
-                        }else{// start if NOT undefined
-                        objData[id] = eval("response."+obJSON1.responses[m].parameter);
-                        for(i=1; i<eval(splt[0]).length; ++i){
-                          objData[id] += ", ";
-                          objData[id] += eval("response."+obJSON1.responses[m].parameter);
-                        }
-                      }///test undefined
-                        //IF OBJECT and not ARRAY
-                       }else if(eval("response."+obJSON1.responses[m].parameter) instanceof Object && !(eval("response."+obJSON1.responses[m].parameter) instanceof Array)){
-                         //console.log("IT IS OBJECT");
-                         var objD = eval("response."+obJSON1.responses[m].parameter);
-                         var objKV = "";
-                         var first = true;
-                         for(var i in objD){
-                          if(!first){
-                            objKV+=", "
-                          }else{
-                            first = false;
-                          }
-                          objKV+=i+": "+objD[i];
-                        }
-                        objData[id]=objKV;
+    setTimeout(function(){
+        // if(Object.keys(dataObj).length === 0 && dataObj.constructor === Object){
+        //   res.json(data);
+        // }else{
+          console.log(dataObj);
+          res.json(response);
+        // }
+        
+    }, 1000);  
 
-                        for(var i in objD){
-                         objData[i]=objD[i];
-                       }
-                       //IF NEITHER
-                       }else{
-                         objData[id] = eval("response."+obJSON1.responses[m].parameter);
-                       }
-                    // } if Video URL
-                   }//if not undefined
-                 else{
-                   defined=false;
-                 }
-              // });//checkbox 
-             }//chckbox loop
+  });
+});
 
-                 if(defined){
-                   data.push(objData);
-                   obj.lists=[];
-                   obj.lists.push(objData);
-                }
-            }//while loop
-          }else{
-          var j=0;
-          while(defined){
-             objData={};
-             ++start;
-             objData["id"]= start;
-              for(var m=0; m < obJSON1.responses.length; ++m){
-                   var s = "response."+obJSON1.responses[m].parameter.split('.')[0];
-                   var arrLength = "response."+obJSON1.responses[m].parameter.split('[j]')[0];
-                   var ln = s.split('[')[0];
 
-                   if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
-                   var id = obJSON1.responses[m].displayedName;//name;
-                  //  if(obJSON1.responses[m].name=="Video URL"){
-                  //    objData[id] = "https://www.youtube.com/watch?v="+eval("response."+obJSON1.responses[m].parameter);
-                  //  }else{
-                     var str = "response."+obJSON1.responses[m].parameter;
-                     //IF ARRAY
-                     if(str.includes("[i]")){
-                       var i=0;
-                       var splt =  str.split("[i]");
-                       // start if undefined
-                       if(eval(splt[0]).length==0){
-                        objData[id]="";
-                      }else{// start if NOT undefined
-                      objData[id] = eval("response."+obJSON1.responses[m].parameter);
-                      for(i=1; i<eval(splt[0]).length; ++i){
-                        objData[id] += ", ";
-                        objData[id] += eval("response."+obJSON1.responses[m].parameter);
-                      }
-                    }///test undefined
-                      //IF OBJECT and not ARRAY
-                     }else if(eval("response."+obJSON1.responses[m].parameter) instanceof Object && !(eval("response."+obJSON1.responses[m].parameter) instanceof Array)){
-                       var objD = eval("response."+obJSON1.responses[m].parameter);
-                       var objKV = "";
-                       var first = true;
-                       for(var i in objD){
-                        if(!first){
-                          objKV+=", "
-                        }else{
-                          first = false;
-                        }
-                        objKV+=i+": "+objD[i];
-                      }
-                      objData[id]=objKV;
 
-                      for(var i in objD){
-                       objData[i]=objD[i];
-                     }
-                     //IF NEITHER
-                     }else{
-                       objData[id] = eval("response."+obJSON1.responses[m].parameter);
-                     }
-                   //} if Video URL
-                 }//if not undefined
-               else{
-                 defined=false;
-               }
-            }//checkbox loop
 
-               if(defined){
-                 data.push(objData);
-                 obj.lists=[];
-                 obj.lists.push(objData);
-              }
-              ++j;
-          }//while loop
-        }//else
+// app.get("/test/:url", (req, res, next) => {
+//   //var obJSON1='', apiData='';
+//   console.log(req.params.url)
+//   // var url = req.params.url.split('?')[0];
+//   // var params = req.params.url.split('?')[1];
 
-          if(p<pages){
-            // console.log("p: ", p)
-            // console.log("pages: ", pages)
-
-            if(obJSON1.currPageParam){ //nex\prev page
-                ++p;
-                getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
-            }else if(obJSON1.offsetPage){//offset page
-              // console.log("ofsetPage")
-              ++p;
-              getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
-            }else if(obJSON1.indexPage){//index page
-              // console.log("indexPage")
-              ++p;
-              getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
-            }else{
-
-            }
-          }else{
-            if(data.length>1){
-              // console.log("data: ", data);
-              // populateListAndTree(arrData2)
-              // populateTable(data);
-            }else{
-              // $("#tableV").hide();
-              //console.log("data: ", response); //RAW JSON
-              for(var r=0; r<obJSON1.responses.length; ++r){
-                var id = obJSON1.responses[r].displayedName;//name;
-                var str = "response."+obJSON1.responses[r].parameter;
-                if(str.includes("[j]")){
-                  str = str.replace('j', '0');
-                }
-                dataObj[id]= eval(str);
-                //console.log(eval(str));
-              }
-              // console.log("arrData2: ", arrData2);
-              // populateListAndTree(response);
-              //console.log("create something else other than table!")
-            }
-          }
-
-          //console.log("dataObj: ", dataObj);
-          console.log("data: ", data);
-          //res.json(data);
-      }); //res
+//   //console.log("url: ", url)
+//   //console.log("params: ", params)
   
-    });
-    
-}
+
+//   https.get(req.params.url, res => {
+//     res.setEncoding("utf8");
+//     res.on("data", data1 => {
+//         apiData += data1;
+//     });
+//     res.on("end", () => {
+//         obJSON1 = JSON.parse(apiData);
+//         console.log(obJSON1)
+//     });
+//   });
 
 
+//   setTimeout(function(){
+
+//         console.log(obJSON1);
+//         res.json(obJSON1);
+//   }, 1000);  
+// });
 
 
 exports.app = functions.https.onRequest(app);

@@ -58,7 +58,7 @@
 					============================================= -->
 					<nav id="primary-menu">
 						<ul>
-							<li class="current"><a href="index.html">Home</a>
+							<li class="current"><a href="index">Home</a>
 							</li>
 							<li class="mega-menu"><a href="#about">About</a>
 							</li>
@@ -74,6 +74,9 @@
 							</li>
 							<li class="mega-menu"><a href="api-integration.html" >Integrate</a>
 							</li>
+							<li class="mega-menu"><a href="covid-19.html" style="color:red">COVID-19</a>
+							</li>
+
 							<li class="mega-menu"><a href="#contact">Contact</a>
 							</li>
 
@@ -510,20 +513,7 @@
 					<div class="row clearfix">
 						<div class="container text-center">
 							<div class="row" style="margin-left:60px; margin-right:60px">
-								<!-- <div class="col-sm" style="position: relative;">
-									<button id="youtubeDemo" type="button" class="btn btn-Light" style="background-color:#dad6d6; border-color:#dad6d6; width:280px; height:290px; font-size:2.8em; " onclick="window.location.href='data-management.html?api=NYT_Article_Search/#US_elections_news_articles_published_in_January_2019'">U.S. Elections</br>News Articles</br>Published in</br>January 2019</button>
-									<img src="images/n.png" style="width:35px; display: block; position: absolute; right:60px; top:20px"/>
-								</div> -->
-
-								<!-- <div class="col-sm" style="position: relative;">
-									<button type="button" class="btn btn-info" style="background-color:#ea885d; border-color:#ea885d; width:280px; height:290px;  font-size:2.8em" onclick="window.location.href='data-management.html?api=Reddit/#Hottest_AskReddit_posts'">The Hottest</br>100 AskReddit </br>Subreddit Posts</button>
-									<img src="images/reddit-icon.png" style="width:55px; display: block; position: absolute; right:60px; top:15px" />
-								</div>
-
-								<div class="col-sm" style="position: relative;">
-									<button type="button" class="btn btn-Primary" style="background-color:#90c7e1; border-color:#90c7e1; width:280px; height:290px;  font-size:2.8em" onclick="window.location.href='data-management.html?api=Google_Books/#Newst_ebooks_about_human_history'">Newst Ebooks </br> About Human </br>History</button>
-									<img src="images/g_books.png" style="width:50px; display: block; position: absolute; right:60px; top:15px" />
-								</div> -->
+					
 							</div>
 						</div>
 					</div>
@@ -533,10 +523,7 @@
 		</div>
 	</div> <!-- end of DEMOS-->
 
-
-
-
-				
+					
 				<!-- CONTACT -->
 
 				<div id="contact" style="background-color:#DDD">
@@ -567,41 +554,6 @@
 				</div>
 				<!-- </br></br></br></br> -->
 			<!-- End of CONTACT-->
-
-
-
-
-				<!-- <h1>APIs.guru specs reference</h1>
-				<section id="links">Loading...</section> -->
-				<!-- <script type="text/javascript">
-					var urlTemplate = '{swaggerJson}';
-					var match = window.location.search.match(/^\?urlTemplate=(.*)$/);
-					if (match)
-						urlTemplate = decodeURIComponent(match[1]);
-					var rootUrl = 'https://api.apis.guru/v2/';
-					var xhttp = new XMLHttpRequest();
-					xhttp.onload = function() {
-						if (xhttp.status != 200)
-							return;
-						var specList = JSON.parse(xhttp.responseText)
-						var links = '';
-						for(var apiId in specList){
-							var api = specList[apiId];
-							for (var version in api.versions) {
-								// var swaggerYaml = api.versions[version].swaggerYamlUrl;
-								var swaggerJson = api.versions[version].swaggerUrl;
-								var specName = swaggerJson.replace(rootUrl + 'specs/', '');
-								var href = urlTemplate.replace('{swaggerJson}', swaggerJson);
-								// links += '<p><a href="'+ href +'" target="_blank">'+ specName +'</a></p>';
-								if(href.includes("youtube"))
-							  console.log("link: ", href);
-							}
-						}
-						document.getElementById('links').innerHTML = links;
-					};
-					xhttp.open('GET', rootUrl + 'list.json', true);
-					xhttp.send(null);
-				</script> -->
 
 				<div id="copyrights">
 

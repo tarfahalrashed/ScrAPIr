@@ -5,6 +5,7 @@
       "source": "**",
       "function": "app"
     }],
+    "cleanUrls": true,
     "ignore": [
       "firebase.json",
       "**/.*",

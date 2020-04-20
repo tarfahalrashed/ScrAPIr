@@ -14,15 +14,21 @@ var request = require('request');
 // var passport = require('passport'), OAuth2Strategy = require('passport-oauth').OAuth2Strategy;  
 // var scrapir = require("./scrapir.js")
 
+// var Window = require('window');
+// var window = new Window();
+
+var open = require('open');
+
+
 app.use(express.static(__dirname + '/public'))
 
 // Import the axios library, to make HTTP requests
 
-var clientID = 'e30bfeb6ad6c4e849a97';//'c56789ff1ca6c64816ed'
-var clientSecret = 'c6730d4d6a6fa22033196aeb21093a7f9f81d862';//'a23c250cb34dd6a9a5a8896f6fc174f50f50333d'
-var grant_type = 'authorization_code';
+// var clientID = 'e30bfeb6ad6c4e849a97';//'c56789ff1ca6c64816ed'
+// var clientSecret = 'c6730d4d6a6fa22033196aeb21093a7f9f81d862';//'a23c250cb34dd6a9a5a8896f6fc174f50f50333d'
+// var grant_type = 'authorization_code';
 
-var requestToken, redirect_uri;
+var requestToken, redirect_uri, passedToken;
 
 // Declare the redirect route
 app.get('/oauth', (req, res) => {
@@ -33,6 +39,18 @@ app.get('/oauth', (req, res) => {
   requestToken = req.query.code
   console.log("requestToken: ", requestToken)
 
+
+  // auth_url= obJSON1.oauth2[0].authURL;
+  // token_url= obJSON1.oauth2[0].tokenURL;
+                  // redirect_url= obJSON1.oauth2[0].callbackURL;
+                  // client_id= obJSON1.oauth2[0].clientId;
+                  // client_secret= obJSON1.oauth2[0].clientSec;
+                  // response_type= obJSON1.oauth2[0].resType;
+                  // scope= obJSON1.oauth2[0].scope;
+                  // grant_type= obJSON1.oauth2[0].grantType;
+                  // client_auth= obJSON1.oauth2[0].clientAuth;
+
+
   //GENERALIZE  
   var jsonDataObj = {'grant_type': 'authorization_code', 'client_id': 'e30bfeb6ad6c4e849a97', 'client_secret': 'c6730d4d6a6fa22033196aeb21093a7f9f81d862', 'redirect_uri':'http://localhost:5000/oauth', 'code': requestToken};
   jsonDataObj = querystring.stringify(jsonDataObj); 
@@ -42,36 +60,208 @@ app.get('/oauth', (req, res) => {
     headers: {'Content-Type' : 'application/x-www-form-urlencoded'},
     body: jsonDataObj
   }, function(error, response, body){
-    var bod = JSON.parse(body)
-    console.log(bod.access_token);
-    console.log(response);
+    passedToken = JSON.parse(body);
+    //getDataFromOauth(passedToken.access_token);
+    //console.log(response);
+    var tok = passedToken.access_token;
 
-    // var headerKey= "Authorization"; 
-    // var headerVal= "Bearer " +bod.access_token;
-    // var headers_to_set = {};
-    // headers_to_set[headerKey] = headerVal;
-
-    //console.log("header: ", headers_to_set);
-    
+    console.log("getDataFromOauth");
+    console.log("tok: ", tok);
+    //[2] pass the token as a header to the optionsAPI
     var optionsAPI= {
-        method: "GET",
-        headers: {"Authorization": "Bearer " +bod.access_token}
+      method: "GET",
+      headers: {"Authorization": "Bearer " +tok}
     };
-    var apiData1='', apiData2='';
-
-    https.get('https://api.dailymotion.com/me/favorites', optionsAPI, res => { //GENERALIZE
+  
+    https.get(urlAPI, optionsAPI, res => {//HERE
       res.setEncoding("utf8");
       res.on("data", data2 => {
-        apiData1 += data2;
+          apiData1 += data2;
       });
       res.on("end", () => {
-        apiData2 = apiData1;
-        console.log("apiData1: ",apiData2);
+          response = JSON.parse(apiData1);
+          //console.log("RES API: ", response);
+          if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
+              for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){
+                 objData={};
+                 objData["id"]= start;
+                    for(var m=0; m < obJSON1.responses.length; ++m){
+                      var s = "response."+obJSON1.responses[m].parameter.split('.')[0];
+                      if(eval(s)){
+                       var id = obJSON1.responses[m].displayedName;//name;//this.value;
+                      //  if(obJSON1.responses[m].name=="Video URL"){
+                      //    objData[id] = "https://www.youtube.com/watch?v="+eval("response."+obJSON1.responses[m].parameter);
+                      //  }else{
+                        var str = "response."+obJSON1.responses[m].parameter;
+                         //IF ARRAY
+                         if(str.includes("[i]")){
+                           var i=0;
+                           var splt =  str.split("[i]");
+                           // start if undefined
+                           if(eval(splt[0]).length==0){
+                            objData[id]="";
+                          }else{// start if NOT undefined
+                          objData[id] = eval("response."+obJSON1.responses[m].parameter);
+                          for(i=1; i<eval(splt[0]).length; ++i){
+                            objData[id] += ", ";
+                            objData[id] += eval("response."+obJSON1.responses[m].parameter);
+                          }
+                        }///test undefined
+                          //IF OBJECT and not ARRAY
+                         }else if(eval("response."+obJSON1.responses[m].parameter) instanceof Object && !(eval("response."+obJSON1.responses[m].parameter) instanceof Array)){
+                           //console.log("IT IS OBJECT");
+                           var objD = eval("response."+obJSON1.responses[m].parameter);
+                           var objKV = "";
+                           var first = true;
+                           for(var i in objD){
+                            if(!first){
+                              objKV+=", "
+                            }else{
+                              first = false;
+                            }
+                            objKV+=i+": "+objD[i];
+                          }
+                          objData[id]=objKV;
+  
+                          for(var i in objD){
+                           objData[i]=objD[i];
+                         }
+                         //IF NEITHER
+                         }else{
+                           objData[id] = eval("response."+obJSON1.responses[m].parameter);
+                         }
+                      // } if Video URL
+                     }//if not undefined
+                   else{
+                     defined=false;
+                   }
+                // });//checkbox 
+               }//chckbox loop
+  
+                   if(defined){
+                     data.push(objData);
+                     obj.lists=[];
+                     obj.lists.push(objData);
+                  }
+              }//while loop
+            }else{
+            var j=0;
+            while(defined){
+               objData={};
+               ++start;
+               objData["id"]= start;
+                for(var m=0; m < obJSON1.responses.length; ++m){
+                     var s = "response."+obJSON1.responses[m].parameter.split('.')[0];
+                     var arrLength = "response."+obJSON1.responses[m].parameter.split('[j]')[0];
+                     var ln = s.split('[')[0];
+  
+                     if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
+                     var id = obJSON1.responses[m].displayedName;//name;
+                       var str = "response."+obJSON1.responses[m].parameter;
+                       //IF ARRAY
+                       if(str.includes("[i]")){
+                         var i=0;
+                         var splt =  str.split("[i]");
+                         // start if undefined
+                         if(eval(splt[0]).length==0){
+                          objData[id]="";
+                        }else{// start if NOT undefined
+                        objData[id] = eval("response."+obJSON1.responses[m].parameter);
+                        for(i=1; i<eval(splt[0]).length; ++i){
+                          objData[id] += ", ";
+                          objData[id] += eval("response."+obJSON1.responses[m].parameter);
+                        }
+                      }///test undefined
+                        //IF OBJECT and not ARRAY
+                       }else if(eval("response."+obJSON1.responses[m].parameter) instanceof Object && !(eval("response."+obJSON1.responses[m].parameter) instanceof Array)){
+                         var objD = eval("response."+obJSON1.responses[m].parameter);
+                         var objKV = "";
+                         var first = true;
+                         for(var i in objD){
+                          if(!first){
+                            objKV+=", "
+                          }else{
+                            first = false;
+                          }
+                          objKV+=i+": "+objD[i];
+                        }
+                        objData[id]=objKV;
+  
+                        for(var i in objD){
+                         objData[i]=objD[i];
+                       }
+                       //IF NEITHER
+                       }else{
+                         objData[id] = eval("response."+obJSON1.responses[m].parameter);
+                       }
+                   }//if not undefined
+                 else{
+                   defined=false;
+                 }
+              }//checkbox loop
+  
+                 if(defined){
+                   data.push(objData);
+                   obj.lists=[];
+                   obj.lists.push(objData);
+                }
+                ++j;
+            }//while loop
+          }//else
+  
+            if(p<pages){
+              if(obJSON1.currPageParam){ //nex\prev page
+                  ++p;
+                  getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
+              }else if(obJSON1.offsetPage){//offset page
+                ++p;
+                getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
+              }else if(obJSON1.indexPage){//index page
+                ++p;
+                getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
+              }else{
+  
+              }
+            }else{
+              if(data.length>1){
+
+              }else{
+                for(var r=0; r<obJSON1.responses.length; ++r){
+                  var id = obJSON1.responses[r].displayedName;//name;
+                  var str = "response."+obJSON1.responses[r].parameter;
+                  if(str.includes("[j]")){
+                    str = str.replace('j', '0');
+                  }
+                  dataObj[id]= eval(str);
+                }
+              }
+            }
+            console.log("data: ", data);
+        }); //res
       });
-    });
+
+    // var optionsAPI= {
+    //     method: "GET",
+    //     headers: {"Authorization": "Bearer " +bod.access_token}
+    // };
+    // var apiData1='', apiData2='';
+
+    // https.get('https://api.dailymotion.com/me/favorites', optionsAPI, res => { //GENERALIZE
+    //   res.setEncoding("utf8");
+    //   res.on("data", data2 => {
+    //     apiData1 += data2;
+    //   });
+    //   res.on("end", () => {
+    //     apiData2 = apiData1;
+    //     console.log("apiData1: ",apiData2);
+    //   });
+    // });
 
   });
 
+  setTimeout(function(){
+    res.json(data);
+  }, 8000); 
 });
 
 
@@ -412,7 +602,11 @@ app.get("/specs/:name/url", (req, res, next) => {
 
 var config, obJSON1, listP, dataObj = {};
 var auth_url,token_url, redirect_url, client_id, client_secret, response_type, scope, grant_type, client_auth, tok;
-var pages, numResults;
+var urlAPI, pages, numResults, apiData1='';
+var start, next, nextPage, p, pages, totalRes;
+
+
+var defined, data=[], obj =[], allResults = [], apiParams = [], method="GET", apiParameters="", apiData='', data1 = '', apiTitle, paramInURL;
 
 app.get("/api/:name", (req, res, next) => {
   dataObj = {};
@@ -421,18 +615,17 @@ app.get("/api/:name", (req, res, next) => {
     //if URL contains {id}, then get the value from the parameter id=374829365
 
     //console.log("Number of Results: ", req.query.scpNumResults)
-    var defined = true;
-    var data=[], obj =[], allResults = [];
-    var apiParams = [];
-    var method="GET";
-    var apiParameters="";
+    defined = true;
+    data=[], obj =[], allResults = [];
+    apiParams = [];
+    method="GET";
+    apiParameters="";
 
-    var apiData='';
-    var apiData1='';
-    var data1 = '';
-    var apiTitle;
+    apiData='';
+    data1 = '';
+    apiTitle;
 
-    var paramInURL;
+    paramInURL;
 
     if(isEmpty(req.query)){ //No parameters passed
         apiParameters= "";
@@ -472,21 +665,18 @@ app.get("/api/:name", (req, res, next) => {
             }
 
             if(numRes){
-                var pages = Math.ceil(numRes/obJSON1.maxResPerPage);
-                var totalRes = numRes;
+                pages = Math.ceil(numRes/obJSON1.maxResPerPage);
+                totalRes = numRes;
                 numResults = obJSON1.maxResPerPage;
                 console.log("numResults: ",obJSON1.maxResPerPage)
             }else{
                 page=1;
             }
 
-            var start = 0, next = "", nextPage = "", p = 1;
-
-            // if((!obJSON1.oauth2) || obJSON1.oauth2[0].authURL==""){
-            //   console.log("NO OAUTH");
-            // }else{
-            //   console.log("YES OAUTH")
-            // }
+            start = 0;
+            next = "";
+            nextPage = "";
+            p = 1;
 
             getTheNextPage(p, pages, nextPage); 
 
@@ -590,7 +780,7 @@ app.get("/api/:name", (req, res, next) => {
                 // }else{
                 // }
 
-                var urlAPI = obJSON1.url+"?"+listP;
+                urlAPI = obJSON1.url+"?"+listP;
 
                 console.log("URL1: ", urlAPI)
                 if((!obJSON1.headers || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oauth2) || obJSON1.oauth2[0].authURL=="") ){
@@ -612,43 +802,18 @@ app.get("/api/:name", (req, res, next) => {
 
                   //console.log("redirect_url: ",redirect_url);
 
-                  //get
-                  //var win='';
-                  //var urlOauth = auth_url+'?client_id='+client_id+'&redirect_uri=http://localhost:5000/oauth'
+                  //[1] Popup window of auth url
+                  //var win = window.open(auth_url?+"?response_type="+response_type+'&scope='+scope+'&client_id='+client_id+'&redirect_uri='+redirect_url+', 'windowname1', 'width=800, height=600');
+                    //auth_url+"?response_type="+JSON.parse(JSON.stringify(response_type))+"&scope="+JSON.parse(JSON.stringify(scope))+"&client_id="+JSON.parse(JSON.stringify(client_id))+"&redirect_uri="+JSON.parse(JSON.stringify(redirect_url))+"", "windowname1", 'width=800, height=600');
 
-                  //var urlOauth = auth_url+"?response_type="+JSON.parse(JSON.stringify(response_type))+"&scope="+JSON.parse(JSON.stringify(scope))+"&client_id="+JSON.parse(JSON.stringify(client_id))+"&redirect_uri="+JSON.parse(JSON.stringify(redirect_url));
-                  //var urlOauth = auth_url+"?response_type="+response_type+"&scope="+scope+"&client_id="+client_id+"&redirect_uri="+redirect_url;
 
-                  https.get(urlOauth, res => {
-                    res.setEncoding("utf8");
-                    res.on("data", data2 => {
-                        win += data2;
-                    });
-                    res.on("end", () => {
-                        //response = JSON.parse(d);
-                        //console.log("response::: ",d);
-                    });
+                  open(auth_url+"?response_type="+JSON.parse(JSON.stringify(response_type))+"&scope="+JSON.parse(JSON.stringify(scope))+"&client_id="+JSON.parse(JSON.stringify(client_id))+"&redirect_uri="+JSON.parse(JSON.stringify(redirect_url)), function (err) {
+                    if ( err ) throw err;    
                   });
-                  
 
-                  //var win = window.open(auth_url+"?response_type="+JSON.parse(JSON.stringify(response_type))+"&scope="+JSON.parse(JSON.stringify(scope))+"&client_id="+JSON.parse(JSON.stringify(client_id))+"&redirect_uri="+JSON.parse(JSON.stringify(redirect_url))+"", "windowname1", 'width=800, height=600');
-
-                  // popup.alert({
-                  //     content: 'Hello!'
-                  // });
-                  // "Authorization" : "Bearer " +tok, //this will depend on the API
-                  // "Content-Type"  : "application/json"
-
-                  // var headerKey= "Authorization";//obJSON1.headers[0].headerKey;
-                  // var headerVal= obJSON1.headers[0].headerValue;
-                  // var headers_to_set = {};
-                  // headers_to_set[headerKey] = headerVal;
-                    
-                  // var optionsAPI= {
-                  //   method: "GET",
-                  //   headers: headers_to_set
-                  // };
-
+                          
+        
+          
                 }else{//if header
                     var headerKey= obJSON1.headers[0].headerKey;
                     var headerVal= obJSON1.headers[0].headerValue;
@@ -668,8 +833,7 @@ app.get("/api/:name", (req, res, next) => {
                     });
                     res.on("end", () => {
                         response = JSON.parse(apiData1);
-                        // apiData1 = JSON.parse(apiData1);
-                        // console.log("RES API: ", response);
+                         //console.log("RES API: ", response);
 
                         ///start HERE
                         if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
@@ -873,6 +1037,14 @@ app.get("/api/:name", (req, res, next) => {
   });
 });
 
+
+
+function getDataFromOauth(tok){ //passedToken.access_token
+
+
+
+    
+}
 
 
 
