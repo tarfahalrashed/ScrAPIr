@@ -32,6 +32,7 @@
     "fs": "0.0.1-security",
     "http": "0.0.0",
     "http-proxy": "^1.18.0",
+    "https-proxy-agent": "^5.0.0",
     "jquery": "^3.4.1",
     "open": "^7.0.3",
     "passport-oauth": "^1.0.0",
