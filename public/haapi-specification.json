@@ -1,0 +1,43 @@
+{
+	"title": "",
+	"url": "",
+	"method": "",
+	"parameters": [{
+		"name": "",
+		"type": "",
+		"value": "",
+		"description": "",
+		"displayed": true,
+		"displayedName": "",
+		"listOfValues": ""
+	}],
+	"responses": [{
+		"description": "",
+		"displayedName": "",
+		"name": "",
+		"parameter": ""
+	}],
+	"apiKeyName": "",
+	"apiKeyValue": "",
+	"authIsPublic": false,
+	"oauth2": [{
+		"authURL": "",
+		"callbackURL": "",
+		"clientAuth": "",
+		"clientId": "",
+		"clientSec": "",
+		"grantType": "",
+		"resType": "",
+		"scope": "",
+		"tokenURL": ""
+	}],
+	"indexPage": "",
+    "maxResPerPage": "",
+    "currPageParam": "",
+	"nextPageParam": "",
+	"resPerPageParam": "",
+	"headers": [{
+		"headerKey": "",
+		"headerValue": ""
+	}]
+}
