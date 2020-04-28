@@ -12,6 +12,9 @@ var open = require('open');
 var path = require('path');
 var fs  = require('fs');
 
+// let cache = apicache.middleware;
+// app.use(cache('5 minutes'));
+
 //var popup = require('popups');
 //var async = require('async');
 // var passport = require('passport'), OAuth2Strategy = require('passport-oauth').OAuth2Strategy;  
@@ -67,9 +70,10 @@ app.get('/oauth', (req, res) => {
                       var s = "response."+obJSON1.responses[m].parameter.split('.')[0];
                       if(eval(s)){
                        var id = obJSON1.responses[m].name;//this.value;
-                      //  if(obJSON1.responses[m].name=="Video URL"){
-                      //    objData[id] = "https://www.youtube.com/watch?v="+eval("response."+obJSON1.responses[m].parameter);
-                      //  }else{
+                       //if(obJSON1.responses[m].name=="Video URL"){
+                       if(obJSON1.responses[m].displayedName=="videoId"){
+                         objData[id] = "https://www.youtube.com/embed/"+eval("response."+obJSON1.responses[m].parameter);
+                       }else{
                         var str = "response."+obJSON1.responses[m].parameter;
                          //IF ARRAY
                          if(str.includes("[i]")){
@@ -108,7 +112,7 @@ app.get('/oauth', (req, res) => {
                          }else{
                            objData[id] = eval("response."+obJSON1.responses[m].parameter);
                          }
-                      // } if Video URL
+                       } //if Video URL
                      }//if not undefined
                    else{
                      defined=false;
@@ -587,6 +591,10 @@ var start, next, nextPage, p, pages, totalRes;
 var defined, data=[], obj =[], allResults = [], apiParams = [], method="GET", apiParameters="", apiData='', data1 = '', apiTitle, paramInURL;
 
 app.get("/api/:name", (req, res, next) => {
+  console.log("req.query: ", req.query);
+
+  tok = req.query.tokenAPI;
+
   dataObj = {};
   cors(req, res, () => {
 
@@ -655,51 +663,73 @@ app.get("/api/:name", (req, res, next) => {
             next = "";
             nextPage = "";
             p = 1;
+            var link = obJSON1.url;
 
             getTheNextPage(p, pages, nextPage); 
 
             function getTheNextPage(p, pages, nextPage){
-              
+              console.log("NEXT PAGE")
+
                 //[3] From description, get request parameters OR from the parameters passed in the function
                 if(apiParameters == ""){ //if no parameters were passed
+                  console.log("NO PARAMS")
+                 if(obJSON1.parameters){
                   listP=  "";
-                  for(var i=0; i<obJSON1.parameters.length; ++i) {
+                  parsLength = obJSON1.parameters.length;
+                  for(var i=0; i<parsLength; ++i) {
                     if(obJSON1.parameters[i]['value']){
-                      listP+= obJSON1.parameters[i]['name']; //check conditions before adding names
-                      listP+= "="
-                      listP+= obJSON1.parameters[i]['value'];
+                      if(link.includes('{'+obJSON1.parameters[i]['name']+'}')){
+                        parsLength= parsLength-1;
+                        link=link.replace('{'+obJSON1.parameters[i]['name']+'}', obJSON1.parameters[i]['value']);
+                      }else{
+                        listP+= obJSON1.parameters[i]['name']; //check conditions before adding names
+                        listP+= "="
+                        listP+= obJSON1.parameters[i]['value'];
+                      }
                     }
       
-                    if(i+1<obJSON1.parameters.length){
+                    if(i+1<parsLength){
                       if(obJSON1.parameters[i+1]['value']) {
                         listP+= "&";
                       }
                     }
-                  }
-                }else{ //if parameters were passed
-
+                  //}
+                 }//for loop
+                }
+              }else{ //if parameters were passed
+                console.log("passed!1");
+                 if(obJSON1.parameters){
                   listP=  "";
-                  for(var i=0; i<obJSON1.parameters.length; ++i) {
+                  parsLength = obJSON1.parameters.length;
+                  for(var i=0; i<parsLength; ++i) {
+                    console.log("passed!2");
                     var value = getKeyByValue(apiParameters, obJSON1.parameters[i]['name']); 
-                    //console.log("VALUE: ", value);
+                    console.log("value: ", value)
+                    //if(value || (obJSON1.parameters[i]['value'])){
+                      if(link.includes('{'+obJSON1.parameters[i]['name']+'}')){
+                        parsLength= parsLength-1;
+                        link=link.replace('{'+obJSON1.parameters[i]['name']+'}', value);
+                      }else{
+                      
                     if(value){
-                      listP+= obJSON1.parameters[i]['name']; //check conditions before adding names
+                      listP+= obJSON1.parameters[i]['name']; 
                       listP+= "="
                       listP+= value;
                     }else{
                     if(obJSON1.parameters[i]['value']){
-                      listP+= obJSON1.parameters[i]['name']; //check conditions before adding names
+                      listP+= obJSON1.parameters[i]['name']; 
                       listP+= "="
                       listP+= obJSON1.parameters[i]['value'];
                     }
                     }
-      
-                    if(i+1<obJSON1.parameters.length){
+                   }
+                 // }
+                    if(i+1<parsLength){
                       if(obJSON1.parameters[i+1]['value']) {
                         listP+= "&";
                       }
                     }
-                  }
+                  }//for loop
 
                     function getKeyByValue(object, key) { 
                       for (var prop in object) { 
@@ -708,27 +738,40 @@ app.get("/api/:name", (req, res, next) => {
                               return object[prop]; 
                           } 
                       } 
-                  } 
+                    } // end of getKeyByValue function
+                 }
                 }
+                
       
                 if(obJSON1.resPerPageParam){
-                  listP+= "&"
+                  if(listP.charAt(1)){
+                    listP+= "&"
+                  }
                   listP+= obJSON1.resPerPageParam;
                   listP+= "=";
                   listP+= obJSON1.maxResPerPage;
                 }
                 if(obJSON1.indexPage){
-                  listP+= "&"
+                  if(listP.charAt(1)){
+                    listP+= "&"
+                  }
+                  //listP+= "&"
                   listP+= obJSON1.indexPage;
                   listP+= "=";
                   listP+= p;
                 }else if(obJSON1.offsetPage){
-                  listP+= "&"
+                  if(listP.charAt(1)){
+                    listP+= "&"
+                  }
+                  //listP+= "&"
                   listP+= obJSON1.offsetPage;
                   listP+= "=";
                   listP+= (p-1)*(eval(obJSON1.maxResPerPage));
                 }else if(obJSON1.currPageParam){
-                  listP+= "&"
+                  if(listP.charAt(1)){
+                    listP+= "&"
+                  }
+                  //listP+= "&"
                   listP+= obJSON1.currPageParam;
                   listP+= "=";
                   listP+= nextPage;
@@ -746,51 +789,39 @@ app.get("/api/:name", (req, res, next) => {
                 var apiData1='';
                 var data2 = '';
 
-                // if(obJSON1.url.includes("{")){
-                //   console.log("shhhhhh")
-                //   console.log("gagagaga: ", eval(obJSON1.parameters[0].name))
-                //   console.log(eval(obJSON1.parameters[0].value))
+                urlAPI = link+"?"+listP;
 
-                //   var u1 = obJSON1.url;
-                //   paramInURL = u1.replace("{"+eval(obJSON1.parameters[0].name)+"}", eval("response."+obJSON1.parameters[0].value)); 
-                //   // "{"+param+"}"
-                //   var urlAPI = paramInURL;//obJSON1.url+"?"+listP;
-                // }else{
-                // }
+                function getKeyByValue(object, key) { 
+                  for (var prop in object) { 
+                      if (object.hasOwnProperty(prop)) { 
+                          if (prop === key) 
+                          return object[prop]; 
+                      } 
+                  } 
+                } 
 
-                urlAPI = obJSON1.url+"?"+listP;
 
                 console.log("URL1: ", urlAPI)
+
                 if((!obJSON1.headers || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oauth2) || obJSON1.oauth2[0].authURL=="") ){
                   console.log("no headrer/no oauth")
                     var optionsAPI= {
-                        method: "GET"
+                        method: obJSON1.method//"GET"
                     };
                 }else if((obJSON1.oauth2) && obJSON1.oauth2[0].authURL!=""){
-                  console.log("OAUTH")
-                  auth_url= obJSON1.oauth2[0].authURL;
-                  token_url= obJSON1.oauth2[0].tokenURL;
-                  redirect_url= obJSON1.oauth2[0].callbackURL;
-                  client_id= obJSON1.oauth2[0].clientId;
-                  client_secret= obJSON1.oauth2[0].clientSec;
-                  response_type= obJSON1.oauth2[0].resType;
-                  scope= obJSON1.oauth2[0].scope;
-                  grant_type= obJSON1.oauth2[0].grantType;
-                  client_auth= obJSON1.oauth2[0].clientAuth;
 
-                  //console.log("redirect_url: ",redirect_url);
+                  console.log("if oauth index.js: ", tok);
+                  var headerKey= "Authorization"; //obJSON1.headers[0].headerKey;
+                  var headerVal= "Bearer " +tok; //obJSON1.headers[0].headerValue;
+                  var headers_to_set = {};
+                  headers_to_set[headerKey] = headerVal;
+                  
+                  console.log("if oauth index.js: ", headers_to_set);
 
-                  //[1] Popup window of auth url
-                  //var win = window.open(auth_url?+"?response_type="+response_type+'&scope='+scope+'&client_id='+client_id+'&redirect_uri='+redirect_url+', 'windowname1', 'width=800, height=600');
-                    //auth_url+"?response_type="+JSON.parse(JSON.stringify(response_type))+"&scope="+JSON.parse(JSON.stringify(scope))+"&client_id="+JSON.parse(JSON.stringify(client_id))+"&redirect_uri="+JSON.parse(JSON.stringify(redirect_url))+"", "windowname1", 'width=800, height=600');
-
-
-                  open(auth_url+"?response_type="+JSON.parse(JSON.stringify(response_type))+"&scope="+JSON.parse(JSON.stringify(scope))+"&client_id="+JSON.parse(JSON.stringify(client_id))+"&redirect_uri="+JSON.parse(JSON.stringify(redirect_url)), function (err) {
-                    if ( err ) throw err;    
-                  });
-
-                  oauth();
-        
+                  var optionsAPI= {
+                      method: obJSON1.method,
+                      headers: headers_to_set
+                  };        
           
                 }else{//if header
                   console.log("if header index.js")
@@ -800,7 +831,7 @@ app.get("/api/:name", (req, res, next) => {
                     headers_to_set[headerKey] = headerVal;
                     
                     var optionsAPI= {
-                        method: "GET",
+                        method: obJSON1.method,//"GET",
                         headers: headers_to_set
                     };
                 }
@@ -812,10 +843,11 @@ app.get("/api/:name", (req, res, next) => {
                     });
                     res.on("end", () => {
                         response = JSON.parse(apiData1);
-                         //console.log("RES API: ", response);
+                        //console.log("RES API: ", response);
 
                         ///start HERE
                         if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
+                          console.log("FIRST if")
                             for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){
                                objData={};
                                objData["id"]= start;
@@ -823,9 +855,9 @@ app.get("/api/:name", (req, res, next) => {
                                     var s = "response."+obJSON1.responses[m].parameter.split('.')[0];
                                     if(eval(s)){
                                      var id = obJSON1.responses[m].displayedName;//name;//this.value;
-                                    //  if(obJSON1.responses[m].name=="Video URL"){
-                                    //    objData[id] = "https://www.youtube.com/watch?v="+eval("response."+obJSON1.responses[m].parameter);
-                                    //  }else{
+                                     if(obJSON1.responses[m].displayedName=="videoId"){
+                                       objData[id] = "https://www.youtube.com/embed/"+eval("response."+obJSON1.responses[m].parameter);
+                                     }else{
                                       var str = "response."+obJSON1.responses[m].parameter;
                                        //IF ARRAY
                                        if(str.includes("[i]")){
@@ -864,14 +896,14 @@ app.get("/api/:name", (req, res, next) => {
                                        }else{
                                          objData[id] = eval("response."+obJSON1.responses[m].parameter);
                                        }
-                                    // } if Video URL
+                                    } //if Video URL
                                    }//if not undefined
                                  else{
                                    defined=false;
                                  }
                               // });//checkbox 
                              }//chckbox loop
-              
+                                console.log("objData: ", objData);
                                  if(defined){
                                    data.push(objData);
                                    obj.lists=[];
@@ -879,6 +911,7 @@ app.get("/api/:name", (req, res, next) => {
                                 }
                             }//while loop
                           }else{
+                          console.log("SECOND if")
                           var j=0;
                           while(defined){
                              objData={};
@@ -891,9 +924,10 @@ app.get("/api/:name", (req, res, next) => {
               
                                    if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
                                    var id = obJSON1.responses[m].displayedName;//name;
-                                  //  if(obJSON1.responses[m].name=="Video URL"){
-                                  //    objData[id] = "https://www.youtube.com/watch?v="+eval("response."+obJSON1.responses[m].parameter);
-                                  //  }else{
+                                   if(obJSON1.responses[m].displayedName=="videoId"){
+                                   //if(obJSON1.responses[m].name=="Video URL"){
+                                     objData[id] = "https://www.youtube.com/embed/"+eval("response."+obJSON1.responses[m].parameter);
+                                   }else{
                                      var str = "response."+obJSON1.responses[m].parameter;
                                      //IF ARRAY
                                      if(str.includes("[i]")){
@@ -931,7 +965,7 @@ app.get("/api/:name", (req, res, next) => {
                                      }else{
                                        objData[id] = eval("response."+obJSON1.responses[m].parameter);
                                      }
-                                   //} if Video URL
+                                   } //if Video URL
                                  }//if not undefined
                                else{
                                  defined=false;
@@ -998,13 +1032,14 @@ app.get("/api/:name", (req, res, next) => {
           //   console.log("YES OAUTH");
           //   Authorize();
 
-          // }
+          //}
 
-        });
+  });
     });
 
     setTimeout(function(){
         if(Object.keys(dataObj).length === 0 && dataObj.constructor === Object){
+          console.log(data);
           res.json(data);
         }else{
           console.log(dataObj);

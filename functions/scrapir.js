@@ -538,7 +538,7 @@ function getData(){
       console.log("error: ",response);
     }
   });//AJAX
-  console.log("outside data: ", data);
+  // console.log("outside data: ", data);
   return data;
 }
 

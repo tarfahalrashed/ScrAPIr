@@ -19,7 +19,8 @@
 
 	<link rel="stylesheet" href="css/responsive.css" type="text/css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="css/treeview.min.css"/>
+    <!-- <link rel="stylesheet" href="css/treeview.min.css" type="text/css" /> -->
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
 
 	<!-- load the minimalist version of JSONEditor, which doesn't have Ace embedded -->
@@ -43,7 +44,7 @@
 	<title>Covid-19 Data Resources</title>
 
     <style>
-    
+
         .process-steps li { 
             pointer-events: none; 
         }
@@ -180,12 +181,25 @@
 
         a{
             line-height: 25px;
+            font-size: 1.2em;
+
         }
+
         #dataSource-card{
             padding-bottom:20px
-            /* align-content: space-around;
-            justify-content: space-between;         */
-}
+        }
+
+        #listAPI {
+        list-style: none;
+        margin-left: 0;
+        padding-left: 1em;
+        text-indent: -0.7em;
+        }
+
+        #listAPI li:before {
+        content: "- ";
+        }
+
     </style>
 
 </head>
@@ -286,19 +300,19 @@
                             </div>
                             <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                                 <h5 class="card-title"></h5>
-                                <ul style="list-style-position: inside;">
+                                <ul id="listAPI" style="list-style-position: inside;">
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=John_Hopkins_CSSE_Data" target="_blank">Data from the John Hopkins CSSE Data Repository</a>
+                                        <a id="" href="data-management.html?api=John_Hopkins_CSSE_Data" target="_blank">Data from the John Hopkins CSSE Data Repository</a>
                                     </li>
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=Novel_COVID_API_Countries" target="_blank">Countries that has COVID-19</a>
+                                        <a id="" href="data-management.html?api=Novel_COVID_API_Countries" target="_blank">Countries that has COVID-19</a>
                                     </li>
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=Novel_COVID_API_States" target="_blank">USA States that has COVID-19</a>
+                                        <a id="" href="data-management.html?api=Novel_COVID_API_States" target="_blank">USA States that has COVID-19</a>
                                     </li>     
                                 </ul>
                             </div>
-                            <div class="card-footer text-muted">
+                            <div class="card-footer text-muted" style="height: auto;">
                                 <div style="float: left;">
                                     <a role="button" href="https://corona.lmao.ninja/" target="_blank" class="btn btn-primary btn-sm" >Site</a>
                                     <a role="button" href="https://corona.lmao.ninja/docs/" target="_blank" class="btn btn-success btn-sm" >API</a>
@@ -307,7 +321,6 @@
                                 <div style="float: right;">
                                      <a href="https://twitter.com/covidapi" target="_blank" class="fa fa-twitter"></a>
                                     <a href="https://github.com/NovelCOVID/API" target="_blank" class="fa fa-github"></a>
-                                    <!-- <a href="https://www.youtube.com/user/CDCStreamingHealth" target="_blank" class="fa fa-youtube"></a> -->
                                 </div>
                             </div>
                         </div>
@@ -321,18 +334,18 @@
                             </div>
                             <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                                 <h5 class="card-title"></h5>
-                                <ul style="list-style-position: inside;">
+                                <ul id="listAPI" style="list-style-position: inside;">
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=CDC" target="_blank">CDC Online Newsroom</a>
+                                        <a id="" href="data-management.html?api=CDC" target="_blank">CDC online newsroom</a>
                                     </li> 
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=CDC_Coronavirus_Disease" target="_blank">Coronavirus Disease 2019 (COVID-19) Situation Update</a>
+                                        <a id="" href="data-management.html?api=CDC_Coronavirus_Disease" target="_blank">COVID-19 situation update</a>
                                     </li> 
+                                    <!-- <li>
+                                        <a id="" href="data-management.html?api=CDC_2019_Novel_Coronavirus" target="_blank">2019 Novel Coronavirus</a>
+                                    </li>  -->
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=CDC_2019_Novel_Coronavirus" target="_blank">2019 Novel Coronavirus</a>
-                                    </li> 
-                                    <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=YouTube_API/#CDC_streaming_Health" target="_blank">YouTube CDC Sreaming Health</a>
+                                        <a id="" href="data-management.html?api=YouTube_API/#CDC_streaming_Health" target="_blank">YouTube CDC sreaming health</a>
                                     </li>  
                                 </ul>
                             </div>
@@ -350,42 +363,35 @@
                         </div>
                     </div>
 
-
-                <div class="col" id="dataSource-card" data-role="dataSource">
-                    <div class="card text-center" style="width: 32rem; height: auto;" >
-                        <div class="card-header">
-                            <h4>CoronaTab</h4>
-                        </div>
-                        <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                            <h5 class="card-title"></h5>
-                            <ul style="list-style-position: inside;">
-                                <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=CoronaTab_Places" target="_blank">Latest available data for all countries in the world.</a>
-                                </li> 
-                                <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=CoronaTab_USA_Stats" target="_blank">United States Corona virus daily stats.</a>
-                                </li> 
-                                <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=CoronaTab_China_Stats" target="_blank">China Corona virus daily stats.</a>
-                                </li> 
-                            </ul>
-                        </div>
-                        <div class="card-footer text-muted">
-                            <div style="float: left;">
-                                <a role="button" href="https://coronatab.app/en" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                <a role="button" href="https://github.com/PotentialWeb/CoronaTab/wiki/RESTful-API-documentation" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                <a role="button" href="https://coronatab.app/en/dashboard" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a>
+                    <div class="col" id="dataSource-card" data-role="dataSource">
+                        <div class="card text-center" style="width: 32rem; height: auto;" >
+                            <div class="card-header">
+                                <h4>Elsevier Datasearch</h4>
                             </div>
-                            <div style="float: right;">
-                                <!-- <a href="https://twitter.com/covid19indiaorg" target="_blank" class="fa fa-twitter"></a>-->
-                                <a href="https://github.com/PotentialWeb/CoronaTab" target="_blank" class="fa fa-github"></a>
-                                <!-- <a href="https://www.youtube.com/user/CDCStreamingHealth" target="_blank" class="fa fa-youtube"></a> -->
+                            <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                <h5 class="card-title"></h5>
+                                <ul id="listAPI" style="list-style-position: inside;">
+                                    <li>
+                                        <a id="" href="data-management.html?api=Elsevier_Datasearch" target="_blank">This API gives you access to an ever growing corpus of datasets from thousands of sources</a>
+                                    </li> 
+                                </ul>
+                            </div>
+                            <div class="card-footer text-muted">
+                                <div style="float: left;">
+                                    <a role="button" href="https://datasearch.elsevier.com" target="_blank" class="btn btn-primary btn-sm" >Site</a>
+                                    <a role="button" href="https://datasearch.elsevier.com/api/docs#/search/search_1" target="_blank" class="btn btn-success btn-sm" >API</a>
+                                    <!-- <a role="button" href="https://www.covid19india.org/" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a> -->
+                                </div>
+                                <div style="float: right;">
+                                    <!-- <a href="https://twitter.com/covid19indiaorg" target="_blank" class="fa fa-twitter"></a>
+                                    <a href="https://github.com/covid19india" target="_blank" class="fa fa-github"></a> -->
+                                    <!-- <a href="https://www.youtube.com/user/CDCStreamingHealth" target="_blank" class="fa fa-youtube"></a> -->
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                    
+               
                     <div class="col" id="dataSource-card" data-role="dataSource">
                         <div class="card text-center" style="width: 32rem; height: auto;" >
                             <div class="card-header">
@@ -393,15 +399,15 @@
                             </div>
                             <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                             <h5 class="card-title"></h5>
-                            <ul style="list-style-position: inside;">
+                            <ul id="listAPI" style="list-style-position: inside;">
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=Finnhub_COVID-19_States" target="_blank">Get updates on the number of COVID-19 cases in the US. Data is sourced from CDC and reputable sources</a>
+                                    <a id="" href="data-management.html?api=Finnhub_COVID-19_States" target="_blank">Get updates on the number of COVID-19 cases in the US (CDC data source)</a>
                                 </li>
+                                <!-- <li>
+                                    <a id="" href="data-management.html?api=Finnhub_COVID-19_Economic_Code" target="_blank">List codes of supported economic data</a>
+                                </li> -->
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=Finnhub_COVID-19_Economic_Code" target="_blank">List codes of supported economic data</a>
-                                </li>
-                                <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=Finnhub_COVID-19_Economic_Calendar" target="_blank">Get recent and coming economic releases</a>
+                                    <a id="" href="data-management.html?api=Finnhub_COVID-19_Economic_Calendar" target="_blank">Get recent and coming economic releases</a>
                                 </li>
                             </ul>
                             </div>
@@ -427,30 +433,30 @@
                             </div>
                             <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                                 <h5 class="card-title"></h5>
-                                <ul style="list-style-position: inside;">
+                                <ul id="listAPI" style="list-style-position: inside;">
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=COVID_Tracking_Daily_By_State" target="_blank">States Historical Data</a>
+                                        <a id="" href="data-management.html?api=COVID_Tracking_Daily_By_State" target="_blank">States Historical Data</a>
                                     </li>
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=COVID_Tracking_States_Current" target="_blank">States Current Values</a>
+                                        <a id="" href="data-management.html?api=COVID_Tracking_States_Current" target="_blank">States Current Values</a>
                                     </li>
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=COVID_Tracking_States_Information" target="_blank">States Information</a>
+                                        <a id="" href="data-management.html?api=COVID_Tracking_States_Information" target="_blank">States Information</a>
                                     </li>
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=COVID_Tracking_US_Current_Values" target="_blank">US Current Values</a>
+                                        <a id="" href="data-management.html?api=COVID_Tracking_US_Current_Values" target="_blank">US Current Values</a>
                                     </li>
                                     <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=COVID_Tracking_Tracker_URLs" target="_blank">States Tracker URLs</a>
+                                    <a id="" href="data-management.html?api=COVID_Tracking_Tracker_URLs" target="_blank">States Tracker URLs</a>
                                     </li>
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=COVID_Tracking_In_the_Press" target="_blank">In the Press</a>
+                                        <a id="" href="data-management.html?api=COVID_Tracking_In_the_Press" target="_blank">In the Press</a>
                                     </li>
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=COVID_Tracking_CDC_Reported_Tests" target="_blank">CDC Reported Tests</a>
+                                        <a id="" href="data-management.html?api=COVID_Tracking_CDC_Reported_Tests" target="_blank">CDC Reported Tests</a>
                                     </li>
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=COVID_Tracking_In_the_Press" target="_blank">In the Press</a>
+                                        <a id="" href="data-management.html?api=COVID_Tracking_In_the_Press" target="_blank">In the Press</a>
                                     </li>
                                 </ul>   
                             </div>
@@ -475,18 +481,18 @@
                         </div>
                         <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                             <h5 class="card-title"></h5>
-                            <ul style="list-style-position: inside;">
+                            <ul id="listAPI" style="list-style-position: inside;">
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=COVID_Japan_Prefectures" target="_blank">COVID-19 information of each prefecture in Japan</a>
+                                    <a id="" href="data-management.html?api=COVID_Japan_Prefectures" target="_blank">COVID-19 information of each prefecture in Japan</a>
                                 </li>     
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=COVID-19_Japan_Positives" target="_blank">COVID-19 information of positive cases in Japan</a>
+                                    <a id="" href="data-management.html?api=COVID-19_Japan_Positives" target="_blank">COVID-19 information of positive cases in Japan</a>
                                 </li>   
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=COVID_Japan_Total_Prediction" target="_blank">Predict the number of positives and deaths for the next 30 days</a>
+                                    <a id="" href="data-management.html?api=COVID_Japan_Total_Prediction" target="_blank">Predict the number of positives and deaths for the next 30 days</a>
                                 </li>   
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=COVID_Japan_Total_History" target="_blank">COVID-19 total history</a>
+                                    <a id="" href="data-management.html?api=COVID_Japan_Total_History" target="_blank">COVID-19 total history</a>
                                 </li>   
                             </ul>
                         </div>
@@ -519,12 +525,12 @@
                         </div>
                         <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                             <h5 class="card-title"></h5>
-                            <ul style="list-style-position: inside;">
+                            <ul id="listAPI" style="list-style-position: inside;">
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=COVID-19_Report_API_Latest" target="_blank">COVID-19 global timeline data (Johns Hopkins University CSSE)</a>
+                                    <a id="" href="data-management.html?api=COVID-19_Report_API_Latest" target="_blank">COVID-19 global timeline data (Johns Hopkins University CSSE)</a>
                                 </li>
                                 <!-- <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=COVID-19_Report_API_Timeseries" target="_blank">COVID-19 all countries data</a>
+                                    <a id="" href="data-management.html?api=COVID-19_Report_API_Timeseries" target="_blank">COVID-19 all countries data</a>
                                 </li> -->
                             </ul>
                         </div>
@@ -553,12 +559,12 @@
                             </div>
                             <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                                 <h5 class="card-title"></h5>
-                                <ul style="list-style-position: inside;">
+                                <ul id="listAPI" style="list-style-position: inside;">
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=Coronavirus_Tracker_Country_Statistics" target="_blank">Country Statistics API</a>
+                                        <a id="" href="data-management.html?api=Coronavirus_Tracker_Country_Statistics" target="_blank">Country Statistics API</a>
                                     </li>
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=Coronavirus_Tracker_Full_Timeline" target="_blank">Full Timeline API</a>
+                                        <a id="" href="data-management.html?api=Coronavirus_Tracker_Full_Timeline" target="_blank">Full Timeline API</a>
                                     </li>     
                                 </ul>
                             </div>
@@ -586,30 +592,38 @@
                     <div class="col" id="dataSource-card" data-role="dataSource">
                         <div class="card text-center" style="width: 32rem; height: auto;" >
                             <div class="card-header">
-                                <h4>Elsevier Datasearch</h4>
+                                <h4>CoronaTab</h4>
                             </div>
                             <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                                 <h5 class="card-title"></h5>
-                                <ul style="list-style-position: inside;">
+                                <ul id="listAPI" style="list-style-position: inside;">
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=Elsevier_Datasearch" target="_blank">This API gives you access to an ever growing corpus of datasets from thousands of sources</a>
+                                        <a id="" href="data-management.html?api=CoronaTab_Places" target="_blank">Latest available data for all countries in the world</a>
+                                    </li> 
+                                    <li>
+                                        <a id="" href="data-management.html?api=CoronaTab_USA_Stats" target="_blank">US Corona virus daily stats</a>
+                                    </li> 
+                                    <li>
+                                        <a id="" href="data-management.html?api=CoronaTab_China_Stats" target="_blank">China Corona virus daily stats</a>
                                     </li> 
                                 </ul>
                             </div>
                             <div class="card-footer text-muted">
                                 <div style="float: left;">
-                                    <a role="button" href="https://datasearch.elsevier.com" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                    <a role="button" href="https://datasearch.elsevier.com/api/docs#/search/search_1" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                    <!-- <a role="button" href="https://www.covid19india.org/" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a> -->
+                                    <a role="button" href="https://coronatab.app/en" target="_blank" class="btn btn-primary btn-sm" >Site</a>
+                                    <a role="button" href="https://github.com/PotentialWeb/CoronaTab/wiki/RESTful-API-documentation" target="_blank" class="btn btn-success btn-sm" >API</a>
+                                    <a role="button" href="https://coronatab.app/en/dashboard" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a>
                                 </div>
                                 <div style="float: right;">
-                                    <!-- <a href="https://twitter.com/covid19indiaorg" target="_blank" class="fa fa-twitter"></a>
-                                    <a href="https://github.com/covid19india" target="_blank" class="fa fa-github"></a> -->
+                                    <!-- <a href="https://twitter.com/covid19indiaorg" target="_blank" class="fa fa-twitter"></a>-->
+                                    <a href="https://github.com/PotentialWeb/CoronaTab" target="_blank" class="fa fa-github"></a>
                                     <!-- <a href="https://www.youtube.com/user/CDCStreamingHealth" target="_blank" class="fa fa-youtube"></a> -->
                                 </div>
                             </div>
                         </div>
                     </div>
+    
+                        
 
 
                     <div class="col" id="dataSource-card" data-role="dataSource">
@@ -619,9 +633,9 @@
                             </div>
                             <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                                 <h5 class="card-title"></h5>
-                                <ul style="list-style-position: inside;">
+                                <ul id="listAPI" style="list-style-position: inside;">
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=YouTube_API/#ECDC_Channel" target="_blank">ECDC YouTube Channel</a>
+                                        <a id="" href="data-management.html?api=YouTube_API/#ECDC_Channel" target="_blank">ECDC YouTube Channel</a>
                                     </li>     
                                 </ul>
                             </div>
@@ -647,9 +661,9 @@
                             </div>
                             <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                                 <h5 class="card-title"></h5>
-                                <ul style="list-style-position: inside;">
+                                <ul id="listAPI" style="list-style-position: inside;">
                                     <li>
-                                        <a id="" href="https://scrapir.org/data-management.html?api=COVID_Tracking_Daily_By_State" target="_blank">Bing COVID-19 Tracker Data</a>
+                                        <a id="" href="data-management.html?api=COVID_Tracking_Daily_By_State" target="_blank">Bing COVID-19 Tracker Data</a>
                                     </li>    
                                 </ul>
                             </div>
@@ -676,9 +690,9 @@
                         </div>
                         <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                             <h5 class="card-title"></h5>
-                            <ul style="list-style-position: inside;">
+                            <ul id="listAPI" style="list-style-position: inside;">
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=Coronavirus_COVID19_API_Summary" target="_blank">States Historical Data</a>
+                                    <a id="" href="data-management.html?api=Coronavirus_COVID19_API_Summary" target="_blank">States Historical Data</a>
                                 </li>
                             </ul>
                         </div>
@@ -705,12 +719,12 @@
                         </div>
                         <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                             <h5 class="card-title"></h5>
-                            <ul style="list-style-position: inside;">
+                            <ul id="listAPI" style="list-style-position: inside;">
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=Mathdroid_COVID-19_Confirmed_Cases" target="_blank">Global cases per region sorted by confirmed cases</a>
+                                    <a id="" href="data-management.html?api=Mathdroid_COVID-19_Confirmed_Cases" target="_blank">Global cases per region sorted by confirmed cases</a>
                                 </li>
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=Mathdroid_COVID-19_Daily_Update" target="_blank">Global cases per day</a>
+                                    <a id="" href="data-management.html?api=Mathdroid_COVID-19_Daily_Update" target="_blank">Global cases per day</a>
                                 </li>
                             </ul>
                         </div>
@@ -739,9 +753,9 @@
                         </div>
                         <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                             <h5 class="card-title"></h5>
-                            <ul style="list-style-position: inside;">
+                            <ul id="listAPI" style="list-style-position: inside;">
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=Health_Promotion_Bureau_COVID-19" target="_blank">The current real time situation of the COVID-19 patients reported in Sri Lanka</a>
+                                    <a id="" href="data-management.html?api=Health_Promotion_Bureau_COVID-19" target="_blank">The current real time situation of the COVID-19 patients reported in Sri Lanka</a>
                                 </li>
                             </ul>
                         </div>
@@ -769,9 +783,9 @@
                         </div>
                         <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                             <h5 class="card-title"></h5>
-                            <ul style="list-style-position: inside;">
+                            <ul id="listAPI" style="list-style-position: inside;">
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=Covid_Health_Hotline_Finder" target="_blank">Access The New York Times' COVID-19 case/death data</a>
+                                    <a id="" href="data-management.html?api=Covid_Health_Hotline_Finder" target="_blank">Access The New York Times' COVID-19 case/death data</a>
                                 </li>
                             </ul>
                         </div>
@@ -798,12 +812,12 @@
                         </div>
                         <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                             <h5 class="card-title"></h5>
-                            <ul style="list-style-position: inside;">
+                            <ul id="listAPI" style="list-style-position: inside;">
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=About_Corona_Global_Timeline" target="_blank">COVID-19 global timeline data</a>
+                                    <a id="" href="data-management.html?api=About_Corona_Global_Timeline" target="_blank">COVID-19 global timeline data</a>
                                 </li>
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=About_Corona_All_Countries" target="_blank">COVID-19 all countries data</a>
+                                    <a id="" href="data-management.html?api=About_Corona_All_Countries" target="_blank">COVID-19 all countries data</a>
                                 </li>
                             </ul>
                         </div>
@@ -830,15 +844,15 @@
                         </div>
                         <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                             <h5 class="card-title"></h5>
-                            <ul style="list-style-position: inside;">
+                            <ul id="listAPI" style="list-style-position: inside;">
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=COVID19-India_Stats" target="_blank">National time series, statewise stats and test counts</a>
+                                    <a id="" href="data-management.html?api=COVID19-India_Stats" target="_blank">National time series, statewise stats and test counts</a>
                                 </li> 
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=COVID19-India_Travel_History" target="_blank">Travel history</a>
+                                    <a id="" href="data-management.html?api=COVID19-India_Travel_History" target="_blank">Travel history</a>
                                 </li> 
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=COVID19-India_Deaths_and_Recoveries" target="_blank">Deaths and Recoveries</a>
+                                    <a id="" href="data-management.html?api=COVID19-India_Deaths_and_Recoveries" target="_blank">Deaths and Recoveries</a>
                                 </li> 
 
                             </ul>
@@ -866,27 +880,27 @@
                         </div>
                         <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                             <h5 class="card-title"></h5>
-                            <ul style="list-style-position: inside;">
+                            <ul id="listAPI" style="list-style-position: inside;">
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=COVID-19_All_Reports" target="_blank">Global confirmed cases/deaths data provided by the worldometers website</a>
+                                    <a id="" href="data-management.html?api=COVID-19_All_Reports" target="_blank">Global confirmed cases/deaths data provided by the worldometers website</a>
                                 </li>
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=COVID-19_All_Cases_In_America" target="_blank">Number of cases in the Americas</a>
+                                    <a id="" href="data-management.html?api=COVID-19_All_Cases_In_America" target="_blank">The Americas COVID-19 cases</a>
                                 </li>
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=COVID-19_All_Cases_in_Europe" target="_blank">Situation update for the EU and UK</a>
+                                    <a id="" href="data-management.html?api=COVID-19_All_Cases_in_Europe" target="_blank">EU and UK COVID-19 cases</a>
                                 </li>
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=COVID-19_Australia_Cases" target="_blank">Austrailia COVID-19 cases by states</a>
+                                    <a id="" href="data-management.html?api=COVID-19_Australia_Cases" target="_blank">Austrailia COVID-19 cases</a>
                                 </li>
                                 <!-- <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=COVID-19_Brazil_Cases" target="_blank">Brazil Coronavirus (COVID-2019) cases by region</a>
+                                    <a id="" href="data-management.html?api=COVID-19_Brazil_Cases" target="_blank">Brazil Coronavirus (COVID-2019) cases by region</a>
                                 </li>
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=COVID-19_Canada_Cases" target="_blank">Canada Coronavirus (COVID-2019) cases by Provinces And Health Region</a>
+                                    <a id="" href="data-management.html?api=COVID-19_Canada_Cases" target="_blank">Canada Coronavirus (COVID-2019) cases by Provinces And Health Region</a>
                                 </li> -->
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=WHO_COVID-19_Situation_Report" target="_blank">Data by WHO from national authorities</a>
+                                    <a id="" href="data-management.html?api=WHO_COVID-19_Situation_Report" target="_blank">Data by WHO from national authorities</a>
                                 </li>
                                 
                             </ul>
@@ -916,9 +930,9 @@
                         </div>
                         <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                             <h5 class="card-title"></h5>
-                            <ul style="list-style-position: inside;">
+                            <ul id="listAPI" style="list-style-position: inside;">
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=Covid_Health_Hotline_Finder" target="_blank">Access The New York Times' COVID-19 case/death data</a>
+                                    <a id="" href="data-management.html?api=Covid_Health_Hotline_Finder" target="_blank">Access The New York Times' COVID-19 case/death data</a>
                                 </li>
                             </ul>
                         </div>
@@ -942,9 +956,9 @@
                         </div>
                         <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
                             <h5 class="card-title"></h5>
-                            <ul style="list-style-position: inside;">
+                            <ul id="listAPI" style="list-style-position: inside;">
                                 <li>
-                                    <a id="" href="https://scrapir.org/data-management.html?api=Health_Promotion_Bureau_COVID-19" target="_blank">Get latest report about world coronavirus situation</a>
+                                    <a id="" href="data-management.html?api=Health_Promotion_Bureau_COVID-19" target="_blank">Get latest report about world coronavirus situation</a>
                                 </li>
                             </ul>
                         </div>
@@ -1034,7 +1048,8 @@
 
 	<!-- Footer Scripts
 	============================================= -->
-	<script src="js/functions.js"></script>
+    <script src="js/functions.js"></script>
+    
 
 </body>
 </html>

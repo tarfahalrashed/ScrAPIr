@@ -1219,24 +1219,13 @@ function checkButtonClicked(){
   function doCookie() {
     if(document.cookie){
     }else{
-      // Build the expiration date string:
-      // var expiration_date = new Date ();
-      // expiration_date . setYear (expiration_date . getYear () + 1);
-      // expiration_date = expiration_date . toGMTString ();
-      // // Build the set-cookie string:
-      // var cookie_string = "test_cookies = true; path=/; expires=" + expiration_date;
-      // Create/update the cookie:
-      //document . cookie = cookie_string;
-
       document.cookie = cookie_name + ";expires=Fri, 30 Dec 2022 12:00:00 UTC; ";//cookie_string;
     }
   }//function
 
-  //console.log("cookie: ",document.cookie);
 
   //show consent modal
   $('#butDD').click();
-
 
   var str = window.location.href;
 
@@ -1273,6 +1262,7 @@ function checkButtonClicked(){
           url = obJSON1.url;
           //[2] Populate HTML elements from request parameters
             var arr;
+
             if(obJSON1.parameters){
 
             for(var i=0; i<obJSON1.parameters.length; ++i){
@@ -1307,9 +1297,7 @@ function checkButtonClicked(){
 
             //[3] Request parameters
           if(obJSON1.parameters){
-
             listP1="{";
-
             for(var i=0; i<obJSON1.parameters.length; ++i){
               console.log("second ", obJSON1.parameters[i]['value'])
 
@@ -1343,6 +1331,7 @@ function checkButtonClicked(){
             }
             listP1+= "}";
           }//end of if(obJSON1.parameters)
+         
 
             //console.log("listP1 SETITEM: ",listP1);
 
@@ -1387,7 +1376,7 @@ function checkButtonClicked(){
 
     //logo!
     //document.getElementById('logoImage').src='images/'+url[1]+'.png'";
-    $("#logo").append('<img id="logoImage" src="images/'+url[1]+'.png" alt="" height="10" width="60" style="margin-left:50%; margin-top:50%" onerror="this.parentNode.removeChild(this);">')
+    // $("#logo").append('<img id="logoImage" src="images/'+url[1]+'.png" alt="" height="10" width="60" style="margin-left:50%; margin-top:50%" onerror="this.parentNode.removeChild(this);">')
 
     // $("#logo").append('<h5 style="display: inline-block">'+url_title+'</h5>');
 
@@ -1407,6 +1396,10 @@ function checkButtonClicked(){
           //[2] Populate HTML elements from request parameters
             var arr;
           if(obJSON1.parameters){
+            $("#reqCol").show();
+            $("#submitQuery").show();
+            $("#resetQuery").show();
+
             for(var i=0; i<obJSON1.parameters.length; ++i){
               if(obJSON1.parameters[i]['displayed'] == true){
               //if(obJSON1.parameters[i]['displayedName']){//if it should be displayed
@@ -1445,6 +1438,9 @@ function checkButtonClicked(){
                 }
               }
             }
+          }else{
+            // console.log("NO Param");
+           
           }
 
             //if auth url and descreption exist
@@ -2893,15 +2889,26 @@ if(obJSON1.parameters){
     next="";
     nextPage = "";
     p=1;
+    var link = obJSON1.url;
 
     getTheNextPage(p, pages, nextPage);
 
     function getTheNextPage(p, pages, nextPage){
 
       if(obJSON1.parameters){
+        var paramLength= obJSON1.parameters.length;
       listP=  "{";
-      for(var i=0; i<obJSON1.parameters.length; ++i) {
+      for(var i=0; i<paramLength; ++i) {
         if($("#"+obJSON1.parameters[i]['name']).val() || obJSON1.parameters[i]['value']){
+
+          if(link.includes('{'+JSON.parse(JSON.stringify(obJSON1.parameters[i]['name']))+'}')){
+            paramLength= paramLength-1;
+            if(obJSON1.parameters[i]['displayedName']){ //displayedName
+              link=link.replace('{'+JSON.parse(JSON.stringify(obJSON1.parameters[i]['name']))+'}', JSON.parse(JSON.stringify($("#"+obJSON1.parameters[i]['name']).val())));
+            }else{
+              link=link.replace('{'+JSON.parse(JSON.stringify(obJSON1.parameters[i]['name']))+'}', JSON.parse(JSON.stringify(obJSON1.parameters[i]['value'])));
+            }
+          }else{
           listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
           listP+= ":"
           if(obJSON1.parameters[i]['displayedName']){ //displayedName
@@ -2909,34 +2916,47 @@ if(obJSON1.parameters){
           }else{
             listP+= JSON.stringify(obJSON1.parameters[i]['value']);
           }
+        }//new if
       }
+      console.log("paramLength: ",paramLength);
 
-      if(i+1<obJSON1.parameters.length){
-      if($("#"+obJSON1.parameters[i+1]['name']).val() || obJSON1.parameters[i+1]['value']) {
-        listP+= ",";
+      if(i+1<paramLength){
+        if($("#"+obJSON1.parameters[i+1]['name']).val() || obJSON1.parameters[i+1]['value']) {
+          listP+= ",";
+        }
       }
-     }
    }//for loop
 
 
     if(obJSON1.resPerPageParam){
-      listP+= ","
+      if(listP.charAt(1)){
+        listP+= ","
+      }
       listP+= JSON.stringify(obJSON1.resPerPageParam);
       listP+= ":";
       listP+= JSON.stringify(obJSON1.maxResPerPage);
     }
     if(obJSON1.indexPage){
-      listP+= ","
+      if(listP.charAt(1)){
+        listP+= ","
+      }
+      //listP+= ","
       listP+= JSON.stringify(obJSON1.indexPage);
       listP+= ":";
       listP+= p;
     }else if(obJSON1.offsetPage){
-      listP+= ","
+      if(listP.charAt(1)){
+        listP+= ","
+      }
+      //listP+= ","
       listP+= JSON.stringify(obJSON1.offsetPage);
       listP+= ":";
       listP+= (p-1)*(eval(obJSON1.maxResPerPage));
     }else if(obJSON1.currPageParam){
-      listP+= ","
+      if(listP.charAt(1)){
+        listP+= ","
+      }
+      //listP+= ","
       listP+= JSON.stringify(obJSON1.currPageParam);
       listP+= ":";
       listP+= JSON.stringify(nextPage);
@@ -2972,7 +2992,7 @@ if(obJSON1.parameters){
       listP+= "}";
     }
 
-  // console.log("listPYEAH: ",listP);
+  console.log("listPYEAH: ",listP);
   if(listP){
     listExist=JSON.parse(listP);
   }else{
@@ -2980,9 +3000,9 @@ if(obJSON1.parameters){
   }
 
 if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oauth2) || obJSON1.oauth2[0].authURL=="")){ //no header //no CORS
-  console.log("no header / no oauth");
+  // console.log("no header / no oauth");
     $.ajax({
-      url: obJSON1.url,
+      url: link,
       data: listExist,
       //dataType: jp,
       method: method,
@@ -3138,10 +3158,9 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
                                 defined=false;
                               }
                  }else{ ///NORMAL ARRAY
-                  console.log("else!!!!!!!!!")
                   var arrLength = "response";
                  if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
-                  console.log("this.id: ",this.id);
+                  // console.log("this.id: ",this.id);
                 var id = this.value;
                 if(this.value=="Video URL"){
                   objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
@@ -3227,16 +3246,16 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
           }
         }else{
           if(data.length>0){
-            console.log("data: ", data);
+            // console.log("data: ", data);
             populateListAndTree(arrData2)
             populateTable(data);
           }else{
             //$("#tableV").hide();
-            console.log("data: ", response);
-            console.log("arrData2: ", arrData2);
+            // console.log("data: ", response);
+            // console.log("arrData2: ", arrData2);
             populateListAndTree(response);
             populateTable(data);
-            console.log("create something else other than table!")
+            // console.log("create something else other than table!")
           }
         }
 
@@ -3245,7 +3264,7 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
    });//AJAX
  }//if header
 else if(obJSON1.headers && obJSON1.headers[0].headerValue){ //if header
-  console.log("if headers")
+  // console.log("if headers")
 
   $.ajax({
     url: "/apiClean/"+obJSON1.title,
@@ -4769,18 +4788,23 @@ if($("#url").val()){
 
   $("#jsonResponse").empty();
 
+
   var listData="{";
   $('#requestTabel tbody tr').each(function(i, n){
     var $row = $(n);
+
     if(listData=="{"){
       if($row.find('#value:eq(0)').val()){
+        if(link.includes('{'+JSON.parse(JSON.stringify($row.find('#name:eq(0)').val()))+'}')){
+          link=link.replace('{'+JSON.parse(JSON.stringify($row.find('#name:eq(0)').val()))+'}', JSON.parse(JSON.stringify($row.find('#value:eq(0)').val())));
+        }else{
         if($row.find('#name:eq(0)').val()){
           listData+= JSON.stringify($row.find('#name:eq(0)').val());
           listData+=":";
           listData+= JSON.stringify($row.find('#value:eq(0)').val());
         }
+       }//new if
       }else{
-
       }
     }else{
       if($row.find('#value:eq(0)').val()){
@@ -4968,28 +4992,15 @@ if($("#url").val()){
     console.log("method = ", method);
     console.log("data = ",JSON.parse(listData));
 
-    // var eventC = {
-    //   "summary": "Google I/O 2015",
-    //   "location": "800 Howard St., San Francisco, CA 94103",
-    //   "description": "A chance to hear more about Google's developer products.",
-    //   "start": {
-    //     "date": "2020-02-28"
-    //   },
-    //   "end": {
-    //     "date": "2020-02-29"
-    //   }
-    // };
-
-    // if(method == "POST")
-
     $.ajax({
       url: link,
-      data: JSON.parse(listData),//JSON.stringify(eventC),//
+      data: JSON.parse(listData),
       method: method,
       headers: {
         "Authorization" : "Bearer " +tok, //this will depend on the API
         "Content-Type"  : "application/json"
-      },success: function (response) {
+      },
+      success: function (response) {
         console.log("oauth response: ",response)
         status = "success";
         jsResponse = JSON.stringify(response, null, 2);
@@ -5584,6 +5595,7 @@ function getIT(){
  });//AJAX
 }
 
+var auth_url,token_url, redirect_url, client_id, client_secret, response_type, scope, grant_type, client_auth, tok;
 
 function authorize() {
 
@@ -5616,6 +5628,7 @@ function authorize() {
                         validateToken(acToken);
                     }
                 } catch(e) {
+                  console.log("error in oauth")
                 }
             }, 200);
 }
@@ -5632,23 +5645,19 @@ function validateToken(token) {
           $.ajax({
         		url: token_url,
         		method: "POST",
-            data: {client_id: $("#clientId").val() ,client_secret: $("#clientSec").val() ,redirect_uri: redirect_uri ,code: token ,grant_type:$("#grantType").val()} ,
+            data: {client_id: client_id ,client_secret: client_secret ,redirect_uri: redirect_url ,code: token ,grant_type:grant_type},
+              // client_id: $("#clientId").val() ,client_secret: $("#clientSec").val() ,redirect_uri: $("#callbackURL").val() ,code: token ,grant_type:$("#grantType").val()} ,
         		success: function(response) {
               console.log("response: ",response);
               //important to check access token and token type (e.g. bearer)
               tok = response.access_token;
               console.log("tok: ", tok)
-              //removed
+              urlBlur();
         		},
             error: function(response, jqXHR, textStatus, errorThrown) {
               console.log("error: ",response);
             }
         	});
-
-        //setTimeout(function(){
-          urlBlur();
-        //}, 4000);
-
 }
 
 function gup(url, name) {
@@ -6712,10 +6721,7 @@ function callFirebase(){
       }
     });
 
-
   }
-
-
 
 }
 
