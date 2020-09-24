@@ -24,7 +24,7 @@
   "dependencies": {
     "@google-cloud/storage": "^3.0.0",
     "apac": "^3.0.2",
-    "apollo-server": "^2.13.1",
+    "apollo-server": "^2.14.2",
     "apollo-server-express": "^2.13.1",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
