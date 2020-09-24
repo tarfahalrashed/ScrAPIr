@@ -10,6 +10,18 @@ var method="GET";
 
 var start = 0, next = "", nextPage = "", p = 1, totalRes, pages, numResults, numRes;
 
+window.onload = function() {
+
+  $.ajax({
+    url: 'https://superapi-52bc2.firebaseio.com/apis.json',
+    method: "GET",
+    success: function (response) {
+      console.log("data: ",response);
+    }
+  });
+
+};
+
 function scrAPIr(apiTitle, apiParameters, numOfResults){
    console.log("apiTitle: ", apiTitle)
     //[1] Get the API's description from ScrAPIr

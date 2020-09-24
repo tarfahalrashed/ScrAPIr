@@ -2802,12 +2802,12 @@ var p;
 var pages,totalRes;
 
 function retrieveData(){
-  defined=true;
-  $('#myTree').empty();
-  $('#myList').empty();
 
+  defined=true;
   obJSON2 = {};
   data = [];
+  $('#myTree').empty();
+  $('#myList').empty();
 
   //publishedAfter = new Date($("input[name=afterDate]").val());
   //publishedBefore = new Date($("input[name=beforeDate]").val());
@@ -2819,10 +2819,7 @@ function retrieveData(){
   $("#viewButtons").show();
   $("#groupByFilter").show();
   $("#txtSearch").show();
-  //$("#searchTable").show();
 
-  //col.columns.push(checkboxSelector.getColumnDefinition());
-  //col.columns.push({id: 'i', name:'', field: '', behavior: 'selectAndMove', selectable: false, resizable: false, cssClass: 'cell-reorder dnd', width: 25, editor: Slick.Editors.Text, formatter:false, sortable: false});
   col = {};
   columns = [];
   col.columns = columns;
@@ -2834,7 +2831,6 @@ function retrieveData(){
         col.columns.push({id: this.id, name: this.value, field: this.value, editor: Slick.Editors.Text, sortable: true});
       });
   }
-
 
   // save logs submit clicked START
   if(logDecision == "accept"){
@@ -2871,8 +2867,6 @@ if(obJSON1.parameters){
    // firebase.database().ref('getLog/').remove();
    // firebase.database().ref('log/').remove();
   }
-  // console.log("Data Logged: ", getLogObj);
-  // save logs submit clicked END
 
 
   //START HERE
@@ -2883,6 +2877,8 @@ if(obJSON1.parameters){
       numResults = obJSON1.maxResPerPage;
     }else{
       page=1;
+      totalRes = 1;
+      numResults = 1;
     }
 
     start = 0;
@@ -3007,12 +3003,11 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
       //dataType: jp,
       method: method,
       success: function (response) {
-        // console.log("RES_Ret: ", response);
-
+        //console.log("RES_Ret: ", response);
         if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
           for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
-             objData={};
-
+            console.log("INSIDE"); 
+            objData={};
              objData["id"]= start;
 
              if($("input[name='checkbox-w']").is(":checked")){
@@ -3092,7 +3087,7 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
            objData={};
            ++start;
            objData["id"]= start;
-           // console.log("J: ",j);
+           console.log("J: ",j);
 
            if($("input[name='checkbox-w']").is(":checked")){
                $("input[name='checkbox-w']:checked").each(function(){
@@ -3235,8 +3230,8 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
 
         if(p<pages){
           if(obJSON1.currPageParam){ //nex\prev page
-              ++p;
-              getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
+            ++p;
+            getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
           }else if(obJSON1.offsetPage){//offset page
             ++p;
             getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
@@ -3245,11 +3240,19 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
             getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
           }
         }else{
-          if(data.length>0){
+          if(data.length<2){
             // console.log("data: ", data);
+            $("#myGrid").hide();
+            $("#tableV").hide();
+            $("#listV").click();
+
             populateListAndTree(arrData2)
-            populateTable(data);
-          }else{
+            //populateTable(data);
+          }
+          // else if(data.length==1){
+          //   populateListAndTree(response);
+          //}
+          else{
             //$("#tableV").hide();
             // console.log("data: ", response);
             // console.log("arrData2: ", arrData2);
@@ -3499,10 +3502,7 @@ else if(obJSON1.headers && obJSON1.headers[0].headerValue){ //if header
 
   }//end of getTheNextPage function
 
-
-  
-
-      arrData2 = data;
+  arrData2 = data;
 
 }//end of retrieveData function
 
@@ -3551,7 +3551,6 @@ function populateListAndTree(arrData3){
   $('<button id="saveBut" type="button" class="button button-mini button-border button-rounded button-amber dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-floppy-disk" style="left:2px"></i>SAVE </button>').appendTo('#viewButtons2');
   // $('<button id="SCRIPT" type="button" class="button button-mini button-border button-rounded button-green"  aria-haspopup="true" aria-expanded="false"> <img src="images/java.png" width="15px" height="15px" bottom="5px"> &nbsp;Script </button>').appendTo('#viewButtons2');
 }
-
 
   function populateTable(data){
 
@@ -4377,6 +4376,7 @@ function clearTable(){
 
 
 function generateTableFromSwagger(url){
+  console.log("URL: ", url)
   $('#requestTabel tbody').empty();
   $("#optionalP").empty();
 
@@ -4387,9 +4387,9 @@ function generateTableFromSwagger(url){
   console.log(obj.paths[path].get.parameters);
   var params = obj.paths[path].get.parameters;
   for(var i=0; i<params.length; ++i){
-    // console.log("Name: ", params[i]['name']);
-    // console.log("Description: ", params[i]['description']);
-    // console.log("Type: ", params[i]['type']);
+    console.log("Name: ", params[i]['name']);
+    console.log("Description: ", params[i]['description']);
+    console.log("Type: ", params[i]['type']);
 
     //list of values
     var enumSTR = '';
@@ -4438,6 +4438,8 @@ function generateTable() {
   $("#firstTR").remove();
   var data = $('textarea[name=excel_data]').val();
 
+  console.log("DATA!: ", data)
+
   var rows = data.split("\n");
 
   //var table = $('<table />');
@@ -4459,7 +4461,7 @@ function generateTable() {
       //var row = $('<tr />');
       //for(var x in cells) {
           // row.append('<td><input class="form-control" type="text" id="name" placeholder="" value="'+cells[x]+'"></td>');
-          $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" style="width:85px" onchange="urlBlur()" placeholder="" value="'+cells[0]+'"></td><td><input class="form-control" type="text" id="value" style="width:85px" onchange="urlBlur()" placeholder=""></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlurNoCall()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" value="'+cells[0]+'" onchange="urlBlurNoCall()" ></div></td><td><textarea class="form-control" type="text" id="desc" value="'+d+'" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
+      $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name" style="width:85px" onchange="urlBlur()" placeholder="" value="'+cells[0]+'"></td><td><input class="form-control" type="text" id="value" style="width:85px" onchange="urlBlur()" placeholder=""></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlurNoCall()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" value="'+cells[0]+'" onchange="urlBlurNoCall()" ></div></td><td><textarea class="form-control" type="text" id="desc" value="'+d+'" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
 
 
 
@@ -4510,7 +4512,7 @@ function deleteRow(row) {
   document.getElementById('requestTabel').deleteRow(i);
 
   var paramName = row.parentNode.parentNode.childNodes[0].childNodes[0].value;
-  console.log("paramName: ", paramName);
+  //console.log("paramName: ", paramName);
 
 
   if($('#optionalP').is(':empty')) {
@@ -4758,10 +4760,13 @@ function urlBlur(){
 
 
 if($("#url").val()){
-
   var arrParamVal = [];
   hasParameters = false;
 
+  // if($("#url").val().includes('/?')){ //? not for parameters
+  //   var link = $("#url").val();
+
+  // }else if($("#url").val().includes('?')){
   if($("#url").val().includes('?')){
     hasParameters = true;
 
@@ -4782,7 +4787,7 @@ if($("#url").val()){
       var p = arrParamVal[x].split("=");
       $("#requestTabel tbody").append('<tr><td><input class="form-control" type="text" id="name"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+p[0]+'"></td><td><input class="form-control" type="text" id="value"  style="width:85px" onchange="urlBlur()" placeholder="" value="'+p[1]+'"></td><td><textarea class="form-control" type="text" id="listOfValues" placeholder=""rows="1" onchange="urlBlurNoCall()"></textarea></td><td><div><input id="displayedName" class="form-control" type="text" onchange="urlBlurNoCall()"></div></td><td><textarea class="form-control" type="text" id="desc" rows="1" onchange="urlBlurNoCall()"></textarea></td><td><select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()"><option value="string">String</option><option value="int">Integer</option><option value="date">Date</option><option value="date-time">DateTime</option></select></td><td><input id="required"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input id="displayed"  value="" class="checkbox-style" name="" type="checkbox"  onchange="urlBlurNoCall()" autocomplete="off" checked/></td><td><input type="image" src="images/del.png" style="width:18px"onclick="deleteRow(this)"</td></tr>');
     }
-  }else{
+   }else{
     var link = $("#url").val();
   }//else
 
@@ -4835,25 +4840,25 @@ if($("#url").val()){
 
   if($("#valueH").val() && document.getElementById('selectid').value != "oauth2"){
 
-    $.ajax({
-      url: "/apiClean/"+obJSON1.title,
-      // data: listExist,//JSON.parse(listP),
-      method: method,
-      // headers: headers_to_set,
-      success: function (response) {
-        console.log("TEST response: ", response);
+    // $.ajax({
+    //   url: "/apiClean/"+obJSON1.title,
+    //   // data: listExist,//JSON.parse(listP),
+    //   method: method,
+    //   // headers: headers_to_set,
+    //   success: function (response) {
+    //     console.log("TEST response: ", response);
 
     // var headername= $("#nameH").val();
     // var headervar= $("#valueH").val();
     // var headers_to_set = {};
     // headers_to_set[headername] = headervar;
 
-    // $.ajax({
-    //   url: "https://cors-anywhere.herokuapp.com/"+link,
-    //   data: JSON.parse(listData),
-    //   method: method,
-    //   headers: headers_to_set,
-    //   success: function (response) {
+    $.ajax({
+      url: "https://cors-anywhere.herokuapp.com/"+link,
+      data: JSON.parse(listData),
+      method: method,
+      headers: headers_to_set,
+      success: function (response) {
         status = "success";
         jsResponse = JSON.stringify(response, null, 2);
 
@@ -5159,11 +5164,16 @@ if($("#url").val()){
     //   success: function (response) {
     //     console.log("TEST response: ", response);
 
+    // $.ajax({
+    // url: "/callAPI/"+encodeURIComponent(link+"?"+listData),
+    // method: method,
+
   $.ajax({
     url: link,
     data: JSON.parse(listData),
     method: method,
     success: function (response) {
+      console.log("TEST response: ", response);
       status = "success";
       jsResponse = JSON.stringify(response, null, 2);
 
@@ -7297,7 +7307,9 @@ function submitRequestSchema(){
 
 
 
-function populateListOfAPIs(){
+/************************* Create ScrAPIr Functions ************************/
+
+function populateAPIsToFunction(){
 
   registration();
 
@@ -7306,15 +7318,214 @@ function populateListOfAPIs(){
       if(childSnapshot.val().title != undefined){
         var str = childSnapshot.val().title;
         var api_title = str.split(' ').join('_');
-        // if(api_title!="YouTube_API" || api_title!=){
-        $("#apis_list").append("<option id="+api_title+">"+childSnapshot.val().title+"</option>");
-        //new added
-
-        // }
+        $("#functionAPIsList").append("<option id="+api_title+">"+childSnapshot.val().title+"</option>");
       }
     });
   });
 
+}
+
+
+function showAPIDescription(){
+  var val = document.getElementById("myInput").value;
+  console.log('val: ', document.getElementById("myInput").value);
+
+  //show name
+  // document.getElementById("apiName").innerHTML=val;
+
+  firebase.database().ref('/apis/').once('value').then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) { //for each API
+      if(childSnapshot.val().title == val){
+      // if(childSnapshot.val().title != undefined){
+        // document.getElementById("apiURL").innerHTML=childSnapshot.val().url;
+        if(childSnapshot.val().parameters){
+          // $("#res").show();
+          // $("#par").show();
+      
+          for(var i=0; i<childSnapshot.val().parameters.length; ++i){
+            $("#params tbody").append('<tr><td><code>'+childSnapshot.val().parameters[i].name+'</code></td><td>'+childSnapshot.val().parameters[i].description+'</td></tr>');
+            $("#funcParMulti").append('<option><code>'+childSnapshot.val().parameters[i].name+'</code></option>');
+          }
+
+          for(var i=0; i<childSnapshot.val().responses.length; ++i){
+            $("#responses tbody").append('<tr><td><code>'+childSnapshot.val().responses[i].displayedName+'</code></td><td>'+childSnapshot.val().responses[i].description+'</td></tr>');
+            $("#funcResMulti").append('<option style="">'+childSnapshot.val().responses[i].displayedName+'</option>');
+          }
+        }
+
+      }
+    });
+  });   
+}
+
+
+function createFunction(){
+  var apiName = document.getElementById("myInput").value;
+
+  if(document.getElementById("funcName").value.includes(' ')){
+    var name = document.getElementById("funcName").value;
+    var nameConcatUpperCase = name.replace(/\w+/g, function(txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1);
+    }).replace(/\s/g, '');
+    var funcName = nameConcatUpperCase.charAt(0).toLowerCase() + nameConcatUpperCase.slice(1);
+  }else{
+    var funcName = document.getElementById("funcName").value;
+  }
+
+  //var funcName = document.getElementById("funcName").value;
+  var resObj, parameters= [], responses= [];
+
+  if(funcName){//if function name was added
+    $("#errorMessage").hide();
+    $.ajax({
+      url: 'https://superapi-52bc2.firebaseio.com/apis/'+apiName+'.json',
+      method: "GET",
+      success: function (response) {
+        //Inherent the API descreption
+        resObj= response;
+        var parValues = $('#funcParMulti').val();
+        var resValues = $('#funcResMulti').val();
+        
+        //Change the API original parameters to the chosen ones
+        if(resObj.parameters){
+          for(var j=0; j<resObj.parameters.length; ++j){
+            for(var i=0; i<parValues.length; ++i){
+              if(parValues[i]==resObj.parameters[j].name){
+                if(resObj.parameters[j].required){
+                  var req = resObj.parameters[j].required
+                }else{
+                  var req = false
+                }
+                parameters.push({
+                  name:          resObj.parameters[j].name,
+                  value:         resObj.parameters[j].value,
+                  listOfValues:  resObj.parameters[j].listOfValues,
+                  displayedName: resObj.parameters[j].displayedName,
+                  description:   resObj.parameters[j].description,
+                  type:          resObj.parameters[j].type,
+                  displayed:     resObj.parameters[j].displayed,
+                  required:      req
+                });
+              }
+            }
+          }
+        }
+        resObj.parameters = parameters;
+
+        //Change the API original responses to the chosen ones
+        if(resObj.responses){
+          for(var j=0; j<resObj.responses.length; ++j){
+            for(var i=0; i<resValues.length; ++i){
+              if(resValues[i]==resObj.responses[j].displayedName){
+                responses.push({
+                  name:          resObj.responses[j].name,
+                  displayedName: resObj.responses[j].displayedName,
+                  description:   resObj.responses[j].description,
+                  parameter:     resObj.responses[j].parameter
+                });
+              }
+            }
+          }
+        }
+        resObj.responses = responses;
+
+        //save function in fiebase DB
+        firebase.database().ref('functions/' + funcName).set(resObj);
+      }
+    });
+
+  }else{
+    $("#errorMessage").show();
+  }
+
+}
+
+
+function viewFunction(){
+  $("#codeDiv").show();
+
+  if(document.getElementById("funcName").value.includes(' ')){
+    var name = document.getElementById("funcName").value;
+    var nameConcatUpperCase = name.replace(/\w+/g, function(txt) {
+      // uppercase first letter and add rest unchanged
+      return txt.charAt(0).toUpperCase() + txt.substr(1);
+    }).replace(/\s/g, '');
+    var funcName = nameConcatUpperCase.charAt(0).toLowerCase() + nameConcatUpperCase.slice(1);
+  }else{
+    var funcName = document.getElementById("funcName").value;
+  }
+
+  var parValues = $('#funcParMulti').val();
+  var code=funcName+'(';
+  for(var i=0; i<parValues.length; ++i){
+    code+= parValues[i];
+    if(i+1<parValues.length){
+      code+=', ';
+    }
+  }
+  code+=')';
+
+  console.log("Code: ", code);
+  document.getElementById('codeSnippet').innerText= code;
+  // getBooksTitles(q, orderBy)
+  var block = document.getElementById('codeSnippet')
+  Prism.highlightElement(block);
+}
+
+
+function populateListOfAPIs(){
+
+  // fetch('/graphql', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'Accept': 'application/json',
+  //   },
+  //   body: JSON.stringify({query: "{videos {title channel}}"})
+  // })
+  //   .then(r => r.json())
+  //   .then(data => console.log('data returned:', data));
+
+  ////////////////////////
+
+  registration();
+
+  firebase.database().ref('/apis/').once('value').then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) { //for each API
+      if(childSnapshot.val().title != undefined){
+        var str = childSnapshot.val().title;
+        var api_title = str.split(' ').join('_');
+        $("#apis_list").append("<option id="+api_title+">"+childSnapshot.val().title+"</option>");
+      }
+    });
+  });
+
+
+
+  // firebase.database().ref('/hotdogs/').set({
+  //   "hebrew_national" : {
+  //     "isKosher" : true,
+  //     "location" : "New York City",
+  //     "name" : "Hebrew National",
+  //     "style" : "Kosher Beef",
+  //     "website" : "https://www.hebrewnational.com"
+  //   },
+  //   "oscar" : {
+  //     "isKosher" : false,
+  //     "location" : "Chicago",
+  //     "name" : "Oscar Mayer",
+  //     "style" : "Ballpark",
+  //     "website" : "http://www.oscarmayer.com/"
+  //   },
+  //   "wa_beans" : {
+  //     "isKosher" : false,
+  //     "location" : "Bangor",
+  //     "name" : "W.A. Bean",
+  //     "style" : "Maine Red Snapper",
+  //     "website" : "https://www.beansmeats.com"
+  //   }
+  //   //some more user data
+  // });
 
 
   firebase.database().ref('/config').set(config);
@@ -7414,7 +7625,7 @@ function urlChanged(){
                var tmp = $("#url").val().split("/");
                var path = "/"+tmp.pop();
                var params = obj.paths[path].get.parameters;
-               console.log("Parames: ", params);
+               //console.log("Parames: ", params);
                for(var i=0; i<params.length; ++i){
                  //list of values
                  var enumSTR = '';
@@ -7583,7 +7794,7 @@ function callGitHub2(u){
   for(var i=0; i<pageGit; ++i) {
     var par = {
       "q" : u,
-      // "access_token" : '9b670443489b576acd26c944d064f5d675998b54',
+      // "access_token" : ' ',
       "page":i,
       "per_page" : 100 //maximum results we can get from github
       }
@@ -7599,7 +7810,7 @@ function callGitHub2(u){
       method: "GET",
       headers: {
         "Accept": "application/vnd.github.v3.text-match+json",
-        "Authorization": "token 9b670443489b576acd26c944d064f5d675998b54"
+        "Authorization": "token 7297e92888bc1509558a0285056e4b2e840a7a84"
       },
       success: function (response) {
         for(var n=0; n<response.items.length; ++n){
@@ -7744,7 +7955,7 @@ function callGitHub(u){
   for(var i=0; i<pageGit; ++i) {
     var par = {
       "q" : u,
-      "access_token" : '9b670443489b576acd26c944d064f5d675998b54',
+      //"access_token" : ' ',
       "page":i,
       "per_page" : 100 //maximum results we can get from github
     }
@@ -7759,8 +7970,10 @@ function callGitHub(u){
       data: par,
       method: "GET",
       headers: {
-        "Accept": "application/vnd.github.v3.text-match+json"
+        "Accept": "application/vnd.github.v3.text-match+json",
+        "Authorization": "token 7297e92888bc1509558a0285056e4b2e840a7a84"
       },
+
       success: function (response) {
         console.log("RESPONSE: ",response);
         for(var n=0; n<response.items.length; ++n){
