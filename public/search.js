@@ -7325,6 +7325,95 @@ function populateAPIsToFunction(){
 
 }
 
+function saveScrAPIrOpenAPI(){
+  ob = '{"swagger": "2.0", "info": { "description": "ScrAPIr", "version": "", "title": "ScrAPIr", "license": { "name": "", "url": "https://scrapir.org/"}},"host": "scrapir.org/api", "basePath": "/", "schemes": ["https"],"paths": {}}'
+//        "/NewsAPI": {
+//           "get": {
+//              "operationId": "NewsAPI",
+//              "produces": [
+//                 "application/json"
+//              ],
+//              "parameters":[
+//                  {
+//                      "name":"q",
+//                      "in":"query",
+//                      "description":"",
+//                      "required":true,
+//                      "type":"string",
+//                      "format":""
+//                  }
+//              ],
+//              "responses": {
+//                 "200": {
+//                    "description": "successful operation"
+//                 }
+//              }
+//           }
+//        }
+//     }
+//  }'
+
+registration();
+
+obj = JSON.parse(ob)
+
+// firebase.database().ref('openapi/').set(obj)
+
+firebase.database().ref('/apis/').once('value').then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) { //for each API
+      parameters = []
+      listValues=[]
+      if(childSnapshot.val().parameters){
+      for(var i=0 ; i<childSnapshot.val().parameters.length ; ++i){
+  
+        if(listValues)
+        listValues
+
+        if(childSnapshot.val().parameters[i].listOfValues==""){
+          parameters.push({
+            name:          childSnapshot.val().parameters[i].name,
+            description:   childSnapshot.val().parameters[i].description,
+            type:          childSnapshot.val().parameters[i].type,
+            required:      childSnapshot.val().parameters[i].required,
+            in :           "query"
+          });
+        }else{
+          values = childSnapshot.val().parameters[i].listOfValues.split(',')
+          for(j=0; j<values.length; j++){
+            listValues.push(values[j])
+          }
+          parameters.push({
+            name:          childSnapshot.val().parameters[i].name,
+            description:   childSnapshot.val().parameters[i].description,
+            type:          childSnapshot.val().parameters[i].type,
+            required:      childSnapshot.val().parameters[i].required,
+            in :           "query",
+            enum:  listValues
+          });
+        }
+
+      }
+    }
+
+
+      var str = "/"+childSnapshot.val().title
+      firebase.database().ref('/openapi/paths/'+str+'/get').set({
+        "operationId": childSnapshot.val().title,
+             "produces": [
+                "application/json"
+             ],
+             "parameters": parameters,
+             "responses": {
+              "200": {
+                "description": "successful operation"
+              }
+            }
+      });
+
+    });
+  })
+
+}
 
 function showAPIDescription(){
   var val = document.getElementById("myInput").value;
@@ -8335,24 +8424,7 @@ function populatePublicSavedDataset(){
 
 function covid19APIs(){
     registration();
-    //Covid-19 Table
-    // firebase.database().ref('apis/').once('value').then(function(snapshot) {
-    //   snapshot.forEach(function(childSnapshot) { //for each saved data
-    //     if(childSnapshot.val() != undefined){
-    //       console.log("VALUE: ", childSnapshot.val().description);
-    //       var api_name = childSnapshot.val().apiName;
-    //       //var file_title = childSnapshot.val().title;
-    //       var api_desc = childSnapshot.val().description;
-    //       //var url = childSnapshot.val().urlCSV;
-    //       //var link = childSnapshot.val().queryLink;
-    //       //var urlJ = childSnapshot.val().urlJSON;
-    //       $("#public_data_table tbody").append('<tr><td>'+file_title+'</td><td>'+file_desc+'</td><td style="min-width:150px">'+api_name+'</td><td style="text-align:center; background-color:#f4f9fa"><a href='+url+' download="'+file_desc+'.csv" data-placement="right" title="Download dataset in CSV format"><img src="images/csv-file.png" width="28px"></a> </td><td style="text-align:center; background-color:#f4f9fa"> <a href="data:'+ urlJ +'" download="'+file_desc+'.json" data-toggle="tooltip" data-placement="right" title="Download dataset in JSON format"><img src="images/json-file.png" width="25px"></a> </td><td style="text-align:center; background-color:#f4f9fa"> <a href="data-management.html?api='+api_name.replace(/ /g, "_")+'/#'+file_title.split(' ').join('_')+'" target="_blank" data-toggle="tooltip" data-placement="right" title="Edit this dataset"><img src="images/edit.png" width="25px"></a> </td><td style="text-align:center; background-color:#f4f9fa"> <a target="_blank" rel="noopener noreferrer" href="'+link+'" data-placement="right" title="Query URL: '+link+'"><img src="images/link.png" style="top:20px; width:18px" ></a> </td> </tr>');
-    //       // <td><img src="images/eye.png" alt="" width="15px">aa &nbsp;  <img src="images/down.png" alt="" width="15px">aa </td>
-    //     }else{
-    //       //////////
-    //     }
-    //   });
-    // });
+    
 }
 
 /*
@@ -8482,3 +8554,5 @@ function makeCorsRequest() {
 
   xhr.send();
 }
+
+

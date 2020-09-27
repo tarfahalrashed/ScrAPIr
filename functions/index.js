@@ -19,6 +19,8 @@ var app = express();
 const fetch = require('node-fetch')
 const { ApolloServer, gql } = require('apollo-server-express');
 
+// Automatically allow cross-origin requests
+
 //Construct a schema, using GraphQL schema language
 // const typeDefs = gql`
 
@@ -698,6 +700,29 @@ app.get("/specs/:name/url", (req, res, next) => {
 });
 
 
+app.get("/testR/:name", (req, res, next) => {
+
+  var apiDesc='';
+  var data = '';
+  var url = 'https://newsapi.org/v2/everything?q=bitcoin&apiKey=c6d2a2a682d64e9c84beb9d9eccad970&sortBy=relevancy&pageSize=100&page=1';
+
+  https.get(url, res => {
+      res.setEncoding("utf8");
+      res.on("data", data => {
+          apiDesc += data;
+      });
+      res.on("end", () => {
+          apiDesc = JSON.parse(apiDesc);
+      });
+  });
+
+  setTimeout(function(){
+      res.json(apiDesc);
+  }, 1000);  
+
+});
+// 
+
 
 //--------------------- [/api] endpoints ---------------------//
 
@@ -708,6 +733,7 @@ var start, next, nextPage, p, pages, totalRes;
 
 
 var defined, data=[], obj =[], allResults = [], apiParams = [], method="GET", apiParameters="", apiData='', data1 = '', apiTitle, paramInURL;
+
 app.get("/api/:name", (req, res, next) => {
   // console.log("req.query: ", req.query);
 
@@ -1864,6 +1890,7 @@ app.get("/apiClean/:name", (req, res, next) => {
 
   });
 });
+
 
 
 
