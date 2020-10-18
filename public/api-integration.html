@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="css/examples.css" type="text/css"/>
  <link rel="stylesheet" href="controls/slick.columnpicker.css" type="text/css"/>
 
-  	 <link href="dist/jsoneditor.css" rel="stylesheet" type="text/css">
+  	<link href="dist/jsoneditor.css" rel="stylesheet" type="text/css">
     <script src="dist/jsoneditor.js"></script>
 
 	<!-- Stylesheets
@@ -47,10 +47,6 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
 
-	<!-- load the minimalist version of JSONEditor, which doesn't have Ace embedded -->
-	<!-- <link href="dist/jsoneditor.css" rel="stylesheet" type="text/css">
-	<link href="dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
- -->
 
 
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
@@ -348,7 +344,6 @@
 									<p style="font-size:2em; margin:0px; padding:0px"><B><span style="color:red">1.</span> API URL*</B><label><a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="Every web API has a URL that you can use to access its data (e.g. the URL for YouTube search API is 'https://www.googleapis.com/youtube/v3/search')"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label></p>
 
 									<div style="display:inline">
-
 										<div class="input-group divcenter">
 											<div class="input-group-prepend">
 											  <select class="form-control" id="method" style="height:34px" onchange="">
@@ -361,18 +356,6 @@
 											</div>
 											<input style="width:350px; display: inline-block" type="text" class="form-control" id="url" onchange="urlBlur(); urlChanged();" placeholder="e.g. 'https://www.googleapis.com/youtube/v3/search'" required>
 										</div>
-
-					         <!-- <div style="display:inline-block">
-										 <select class="form-control" id="type" style="height:34px" onchange="urlBlurNoCall()">
-				 							<option value="string">GET</option>
-				 							<option value="int">POST</option>
-				 						</select>
-										</div>
-										<div style="display:inline-block">
-											<input style="width:370px; display: inline-block" type="text" class="form-control" id="url" onchange="urlBlur(); urlChanged();" placeholder="e.g. 'https://www.googleapis.com/youtube/v3/search'" required>
-					          </div> -->
-
-										<!-- <input style="width:400px; display: inline-block" type="text" class="form-control" id="url" onchange="urlBlur(); urlChanged();" placeholder="e.g. 'https://www.googleapis.com/youtube/v3/search'" required> -->
 									</div>
 
 									<!-- Modal -->
@@ -441,32 +424,6 @@
 										</div>
 
 										</br></br>
-
-										<!-- <div id ="reqExp" style="display:none;">
-											<p style="font-size:1.5em; margin:0px; padding:0px;display:inline-block">
-											- <B>Name</B>: The name of the parameter as sepcified in the API documentation. (e.g. in NYT Article Search API q=Trump, q is the parameter name)</br>
-											- <B>Value</B>: A value that you can assign to the parameter (e.g. in NYT Article Search API q=Trump, Trump is the value we assigned to the parameter 'q'). NOTE: Some parameters need to be assigned specifc values (e.g. sort parameters can have one of the three values: newest, oldest, or relevance)</br>
-											- <B>Allowed Values</B>: Some parameters can be assigned one of several values (e.g. 'sort' parameters can have one of the three values: newest, oldest, or relevance), so we can just add newest,oldest,relevance to the Allowed Values field</br>
-											- <B>Displayed Name [optional]</B>: You can assign this parameter a name, and this name will be displayed to people.</br>
-											- <B>Descreption [optional]</B>: You can describe this parameter here</br>
-											- <B>Type [optional]</B>: The type fo the parameter</br>
-											- <B>Displayed?</B>: If you don't want this parameter to be displayed in the page, just uncheck this</br>
-											<p>
-											<p style="font-size:1.5em; display:inline-block"><span style="color:red">*With some APIs, you need to assign values to parameters</span></p>
-
-										</div> -->
-
-
-										<!-- <a style="width:100px; text-align:center" class="button button-mini button-circle button-border button-pink" onclick="callGitHub(document.getElementById('url').value)">GitHub</a>
-										<a style="width:100px; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalPaste" onclick="">Table</a>
-										<a style="width:100px; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalSwagger" onclick="">Swagger</a> -->
-									<!-- </div> -->
-										<!-- (1) Get the mostly used parameters on GitHub "it takes time to populate the table" <a class="button button-mini button-circle button-border button-red" onclick="callGitHub(document.getElementById('url').value)">GitHub</a></br>
-										(2) Copy the request parameters' table from the documentation page, if such table exists, and paste it here <a class="button button-mini button-circle button-border button-red" data-toggle="modal" data-target="#modalPaste" onclick="">Table</a></br>
-										(3) If you have the Open API(Swagger) JSON specifiction of this API, you can copy and paste it here. Check <a href"https://apis.guru/browse-apis/" target="_blank">here</a> for the API specifiction. <a class="button button-mini button-circle button-border button-red" data-toggle="modal" data-target="#modalSwagger" onclick="">OpenAPI/Swagger</a> </br>
-										Make sure to add the <B>"required"</B> parameters. If you do not want the parameter to be displayed <B>uncheck "displayed?"</B></p> -->
-
-									<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Launch modal</button> -->
 
 
 									<!-- Modal -->

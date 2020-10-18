@@ -7327,73 +7327,80 @@ function populateAPIsToFunction(){
 
 function saveScrAPIrOpenAPI(){
   ob = '{"swagger": "2.0", "info": { "description": "ScrAPIr", "version": "", "title": "ScrAPIr", "license": { "name": "", "url": "https://scrapir.org/"}},"host": "scrapir.org/api", "basePath": "/", "schemes": ["https"],"paths": {}}'
-//        "/NewsAPI": {
-//           "get": {
-//              "operationId": "NewsAPI",
-//              "produces": [
-//                 "application/json"
-//              ],
-//              "parameters":[
-//                  {
-//                      "name":"q",
-//                      "in":"query",
-//                      "description":"",
-//                      "required":true,
-//                      "type":"string",
-//                      "format":""
-//                  }
-//              ],
-//              "responses": {
-//                 "200": {
-//                    "description": "successful operation"
-//                 }
-//              }
-//           }
-//        }
-//     }
-//  }'
+  var keyName, keyValue, keyIn;
 
-registration();
+  registration();
 
-obj = JSON.parse(ob)
+  obj = JSON.parse(ob)
 
-// firebase.database().ref('openapi/').set(obj)
+  // firebase.database().ref('openapi/').set(obj)
 
-firebase.database().ref('/apis/').once('value').then(function(snapshot) {
+  firebase.database().ref('/apis/').once('value').then(function(snapshot) {
     snapshot.forEach(function(childSnapshot) { //for each API
-      parameters = []
-      listValues=[]
-      if(childSnapshot.val().parameters){
-      for(var i=0 ; i<childSnapshot.val().parameters.length ; ++i){
-  
-        if(listValues)
-        listValues
+      if((childSnapshot.val().method=='GET' || !childSnapshot.val().method) &&  !childSnapshot.val().title.includes('-')){
+      parameters = [], keyName="", keyValue="", keyIn="";
 
+      
+      if(childSnapshot.val().parameters){
+
+      for(var i=0 ; i<childSnapshot.val().parameters.length ; ++i){
+        if(childSnapshot.val().parameters[i].required){
+          required =  childSnapshot.val().parameters[i].required
+        }else{
+          required = true
+        }
+
+        if(childSnapshot.val().parameters[i].displayedName){
         if(childSnapshot.val().parameters[i].listOfValues==""){
+          // console.log("parameters: ", childSnapshot.val().parameters[i].name)
           parameters.push({
-            name:          childSnapshot.val().parameters[i].name,
+            name:          childSnapshot.val().parameters[i].displayedName,
             description:   childSnapshot.val().parameters[i].description,
             type:          childSnapshot.val().parameters[i].type,
-            required:      childSnapshot.val().parameters[i].required,
+            required:      required,
             in :           "query"
           });
         }else{
+          listValues=[]
           values = childSnapshot.val().parameters[i].listOfValues.split(',')
           for(j=0; j<values.length; j++){
             listValues.push(values[j])
           }
           parameters.push({
-            name:          childSnapshot.val().parameters[i].name,
+            name:          childSnapshot.val().parameters[i].displayedName,
             description:   childSnapshot.val().parameters[i].description,
             type:          childSnapshot.val().parameters[i].type,
-            required:      childSnapshot.val().parameters[i].required,
+            required:      required,
             in :           "query",
             enum:  listValues
           });
         }
-
+       }
       }
+
+      //add "Key" as the auth parameter
+      if(childSnapshot.val().auth.keyName!=""){ //if this API requires authentication
+        parameters.push({
+          name:          'API Key',
+          description:   "The value of the API key (whether in query or header)",
+          type:          "string",
+          required:      false,
+          in :           "query"
+        });
+      }
+
+      //add "Number of Results" as the pagination parameter
+      parameters.push({
+        name:          'Number of Results',
+        description:   "The number of results returned by the API",
+        type:          "integer",
+        required:      true,
+        in :           "query"
+      });
+
     }
+
+
 
 
       var str = "/"+childSnapshot.val().title
@@ -7409,11 +7416,85 @@ firebase.database().ref('/apis/').once('value').then(function(snapshot) {
               }
             }
       });
-
+      }//new if
     });
   })
 
 }
+
+function testAddingAuth(){
+
+  console.log("called")
+  registration();
+
+  var authValue=[], keyName, keyValue, keyIn;
+
+  // firebase.database().ref('/apis/').once('value').then(function(snapshot) {
+  //   snapshot.forEach(function(childSnapshot) { //for each API
+  //     firebase.database().ref('apis/'+childSnapshot.val().title+'/auth').remove()
+  //   });
+  // });
+
+  firebase.database().ref('/apis/').once('value').then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) { //for each API
+      keyName="", keyValue="", keyIn="";
+      if(childSnapshot.val().headers && childSnapshot.val().headers[0].headerKey!=""){
+        keyName = childSnapshot.val().headers[0].headerKey
+        keyValue = childSnapshot.val().headers[0].headerValue
+        keyIn  = "header"
+      }else if(childSnapshot.val().parameters){
+        for(var i=0; i<childSnapshot.val().parameters.length; ++i){
+          if(((childSnapshot.val().parameters[i].displayed==false && childSnapshot.val().parameters[i].displayed) || childSnapshot.val().parameters[i].displayedName=="") && childSnapshot.val().parameters[i].name.includes('key')){
+            keyName = childSnapshot.val().parameters[i].name
+            keyValue = childSnapshot.val().parameters[i].value
+            keyIn  = "query"
+          }else{
+            ///
+          }
+        }      
+          
+      }else{
+        //
+      }
+
+      authValue.push({
+        "name": childSnapshot.val().title,
+        "auth":{
+          "keyName": keyName,
+          "keyValue": keyValue,
+          "in": keyIn,
+          "isPublic": true
+        }
+      })
+
+    });
+  });
+
+
+  setTimeout(function(){
+
+  // console.log("authValue: ", authValue)
+
+  firebase.database().ref('/apis/').once('value').then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) { //for each API
+      for(var i=0; i<authValue.length; ++i){
+        // console.log("authValue.name: ",authValue[i].name)
+        if(authValue[i].name == childSnapshot.val().title){
+          // console.log("each: ", authValue[i].auth)
+          firebase.database().ref('apis/'+childSnapshot.val().title+'/auth').set(authValue[i].auth);
+        }
+      }
+
+    });
+  });
+
+}, 2000); 
+
+}
+
+
+
+
 
 function showAPIDescription(){
   var val = document.getElementById("myInput").value;
