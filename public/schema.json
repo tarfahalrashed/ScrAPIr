@@ -1,0 +1,31 @@
+{
+    "name": "VideosWithComments",
+    "schema": {
+        "VideoObject":{
+            "name": "string",
+            "description":"string",
+            "datePublished": "date", 
+            "url": "string",
+            "Comment":{
+                "author": "string",
+                "text":"string"
+            }
+        },
+        "methods":[
+            {
+                "methodName": "getVideos()",
+                "methodType": "VideoObject",
+                "input":["q", "sort"],
+                "output":"VideoObject"
+            }
+        ]
+
+    },
+    "implementation":[
+        {
+   
+
+        }
+    ]
+    
+}
