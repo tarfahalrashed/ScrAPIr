@@ -650,10 +650,13 @@ app.get("/multi", (req, res, next) => {
   // console.log("sites: ",req.query.sites)
   var sites=req.query.sites;
   var splitSites= sites.split(',');
-  var apiSites=[]
+  var apiSites=[];
+
+  var params=req.query.params;
+  console.log("PARAM: ", params) //keywords:cats
 
   for(var i=0; i<splitSites.length; ++i){
-    apiSites.push('http://localhost:5000/class/'+req.query.type+'?sites='+splitSites[i])
+    apiSites.push('https://scrapir.org/class/'+req.query.type+'?sites='+splitSites[i]+'&params='+params)
   }
   
   var urls = apiSites;
@@ -2780,12 +2783,16 @@ app.get("/class/:name", (req, res, next) => {
 
   console.log("req.query: ", req.query.sites);
   var site = req.query.sites;
-  console.log("SITE: ", site)
-
+  // console.log("SITE: ", site)
   sites=[];
   sites = site.split(',');
 
-  var apiData1='';
+  var params=req.query.params;//keywords:cats
+  params = params.split(':').join('=');
+  params = params.split(',').join('&');
+
+  console.log("PARAM API: ", params)
+
 
     var url = 'https://superapi-52bc2.firebaseio.com/functions/'+site+'/'+req.params.name+'.json';
 
@@ -2800,7 +2807,7 @@ app.get("/class/:name", (req, res, next) => {
       res.on("end", () => {
           apiDesc1 = JSON.parse(apiDesc1);
           curretnApiEnd =apiDesc1;
-          console.log("apiDesc1: ",curretnApiEnd )
+          console.log("apiDesc1: ",curretnApiEnd)
       
   defined = true;
     // data=[]
@@ -2826,8 +2833,6 @@ app.get("/class/:name", (req, res, next) => {
     // console.log("Number of Results: ", req.query['Number of Results'])
     // console.log("API Key: ", req.query['API Key'])
 
-    
-
     // if(isEmpty(req.query)){ //No parameters passed
         apiParameters= "";
     // }else{ //Parameters passed
@@ -2842,6 +2847,7 @@ app.get("/class/:name", (req, res, next) => {
     //     return true;
     // }
     apiTitle = curretnApiEnd.apiEndpoint;//apiDesc.apiEndpoint//req.params.name.split('?')[0]
+    var pars = curretnApiEnd.parameters;//apiDesc.apiEndpoint//req.params.name.split('?')[0]
 
     console.log("apiTitle!: ", apiTitle)
 
@@ -2902,7 +2908,7 @@ app.get("/class/:name", (req, res, next) => {
                       }else{
                         listP+= obJSON1.parameters[i]['name']; //check conditions before adding names
                         listP+= "="
-                        listP+= obJSON1.parameters[i]['value'];
+                        listP+= getParamValue(params, pars, obJSON1.parameters[i]['name'], obJSON1.parameters[i]['value']);
                       }
                     }
       
@@ -3088,7 +3094,7 @@ app.get("/class/:name", (req, res, next) => {
                     res.on("end", () => {
                         response = JSON.parse(apiData1);
                         // console.log("RES API: ", response);
-                        console.log("Fields!: ", req.query.fields)
+                        // console.log("Fields!: ", req.query.fields)
 
                         ///start HERE
                         if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
@@ -3333,16 +3339,47 @@ function getValue(fields, displayedName){
     // console.log("FIELDS X: ",fields[x].field)
     if(displayedName == fields[x].field){
       exists = true;
-      id = fields[x].property;//name;//this.value;
+      id = fields[x].property;
     }
   }
 
   if(!exists){
-    id = displayedName;//name;//this.value;
+    id = displayedName;
   }
 
   // console.log("ID: ", id)
   return id;
+}
+
+// getParamValue(params, obJSON1.parameters[i]['name'], obJSON1.parameters[i]['value']);
+
+function getParamValue(params, pars, name, defaultValue){
+  exists=false;
+  var value="";
+  var allParams = params.split('&');
+  //allParams is the parameters sent to /class
+  for(var x=0; x<allParams.length; ++x){
+    var p = allParams[x].split('=')[0];
+    var v = allParams[x].split('=')[1];
+
+    //pars is the parameters under the /functions schema
+    for(var i=0; i<pars.length; ++i){
+      if(p==pars[i].input){
+        if(pars[i].param == name){
+          exists = true;
+          value = v;
+          // console.log("PAR: ", p)
+          // console.log("VALUE: ", value)
+        }
+      }
+    }
+  }
+
+  if(!exists){
+    value = defaultValue;
+  }
+
+  return value;
 }
 
 
