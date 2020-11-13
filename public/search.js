@@ -3556,16 +3556,16 @@ function populateListAndTree(arrData3){
 }
 
   function populateTable(data){
-    console.log("THIS DATA: ", data)
+    // console.log("THIS DATA: ", data)
 
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], {
-      type: "text/plain"
-    }));
-    a.setAttribute("download", "data.json");
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    // const a = document.createElement("a");
+    // a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], {
+    //   type: "text/plain"
+    // }));
+    // a.setAttribute("download", "data.json");
+    // document.body.appendChild(a);
+    // a.click();
+    // document.body.removeChild(a);
 
     $("#jsCode").empty();
 
