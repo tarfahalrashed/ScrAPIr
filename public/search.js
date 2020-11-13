@@ -770,6 +770,7 @@ populateTable(data);
 function populateTable(data){
   $("#jsCode").empty();
 
+  console.log("THIS DATA: ", data)
   //pagination + response fields + headers
 
   jsSnippet= '<code class="language-javascript">$.ajax({</br>&nbsp;&nbsp;&nbsp;url: "'+obJSON1.url+'",</br>&nbsp;&nbsp;&nbsp;data:'+JSON.parse(JSON.stringify(listP))+',</br>&nbsp;&nbsp;&nbsp;method: "GET",</br>&nbsp;&nbsp;&nbsp;success: function (response) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response);</br>&nbsp;&nbsp;&nbsp;},</br>&nbsp;&nbsp;&nbsp;error: function(response, jqXHR, textStatus, errorThrown) {</br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(response.textStatus);</br>&nbsp;&nbsp;}</br>});</code>';
@@ -2476,6 +2477,8 @@ function populateListAndTree(data){
 }
 
   function populateTable(data){
+      console.log("THIS DATA: ", data)
+
     $("#jsCode").empty();
 
     //pagination + response fields + headers
@@ -3553,6 +3556,16 @@ function populateListAndTree(arrData3){
 }
 
   function populateTable(data){
+    console.log("THIS DATA: ", data)
+
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], {
+      type: "text/plain"
+    }));
+    a.setAttribute("download", "data.json");
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 
     $("#jsCode").empty();
 
