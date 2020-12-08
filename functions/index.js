@@ -1394,6 +1394,8 @@ app.get("/api/:name", (req, res, next) => {
   // console.log("req.query: ", req.query);
 
   tok = req.query.tokenAPI;
+  console.log("req.query.tokenAPI: ", req.query.tokenAPI);
+
 
   dataObj = {};
   cors(req, res, () => {
@@ -1517,9 +1519,9 @@ app.get("/api/:name", (req, res, next) => {
                   listP=  "";
                   parsLength = obJSON1.parameters.length;
                   for(var i=0; i<parsLength; ++i) {
-                    // console.log("passed!2");
+                    console.log("passed!2");
                     var value = getKeyByValue(apiParameters, obJSON1.parameters[i]['displayedName']); 
-                    // console.log("value: ", value)
+                    console.log("value: ", value)
                     //if(value || (obJSON1.parameters[i]['value'])){
                       if(link.includes('{'+obJSON1.parameters[i]['displayedName']+'}')){
                         parsLength= parsLength-1;
@@ -1545,7 +1547,8 @@ app.get("/api/:name", (req, res, next) => {
                       }
                  // }
                     if(i+1<parsLength){
-                      if(obJSON1.parameters[i+1]['value']) {
+                      if(obJSON1.parameters[i+1]['value'] && !(link.includes('{'))) {
+                        //here now
                         listP+= "&";
                       }
                     }
@@ -1671,8 +1674,8 @@ app.get("/api/:name", (req, res, next) => {
                     });
                     res.on("end", () => {
                         response = JSON.parse(apiData1);
-                        //console.log("RES API: ", response);
-
+                        // console.log("RES API: ", response);
+                     if(obJSON1.responses){
                         ///start HERE
                         if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
                           console.log("FIRST if2")
@@ -1680,6 +1683,7 @@ app.get("/api/:name", (req, res, next) => {
                                objData={};
                                //objData["id"]= start;
                                   for(var m=0; m < obJSON1.responses.length; ++m){
+                                    if(obJSON1.responses[m].parameter.includes('[j]')){
                                     var s = "response."+obJSON1.responses[m].parameter.split('.')[0];
                                     if(eval(s)){
                                      var id = obJSON1.responses[m].displayedName;//name;//this.value;
@@ -1731,6 +1735,61 @@ app.get("/api/:name", (req, res, next) => {
                                    defined=false;
                                  }
                               // });//checkbox 
+                                }else{
+                                  var s = "response[j]."+obJSON1.responses[m].parameter;
+                                  var arrLength = "response"//+obJSON1.responses[m].parameter;
+                                  var ln = s//.split('[')[0];
+                                  // console.log("arrLength: ", arrLength)
+                                  if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
+                                  var id = obJSON1.responses[m].displayedName;//name;
+                                  if(obJSON1.responses[m].displayedName=="videoId"){
+                                  //if(obJSON1.responses[m].name=="Video URL"){
+                                    objData[id] = eval("response[j]."+obJSON1.responses[m].parameter);
+                                  }else{
+                                    var str = "response[j]."+obJSON1.responses[m].parameter;
+                                    //IF ARRAY
+                                    if(str.includes("[i]")){
+                                      var i=0;
+                                      var splt =  str.split("[i]");
+                                      // start if undefined
+                                      if(eval(splt[0]).length==0){
+                                       objData[id]="";
+                                     }else{// start if NOT undefined
+                                     objData[id] = eval("response."+obJSON1.responses[m].parameter);
+                                     for(i=1; i<eval(splt[0]).length; ++i){
+                                       objData[id] += ", ";
+                                       objData[id] += eval("response."+obJSON1.responses[m].parameter);
+                                     }
+                                      }///test undefined
+                                     //IF OBJECT and not ARRAY
+                                    }else if(eval("response[j]."+obJSON1.responses[m].parameter) instanceof Object && !(eval("response[j]."+obJSON1.responses[m].parameter) instanceof Array)){
+                                      var objD = eval("response[j]."+obJSON1.responses[m].parameter);
+                                      var objKV = "";
+                                      var first = true;
+                                      for(var i in objD){
+                                       if(!first){
+                                         objKV+=", "
+                                       }else{
+                                         first = false;
+                                       }
+                                       objKV+=i+": "+objD[i];
+                                     }
+                                     objData[id]=objKV;
+             
+                                     for(var i in objD){
+                                      objData[i]=objD[i];
+                                    }
+                                    
+                                    //IF NEITHER
+                                    }else{
+                                      objData[id] = eval("response[j]."+obJSON1.responses[m].parameter);
+                                    }
+                                  } //if Video URL
+                                }//if not undefined
+                              else{
+                                defined=false;
+                              }
+                                }
                              }//chckbox loop
                                 // console.log("objData: ", objData);
                                  if(defined){
@@ -1746,11 +1805,16 @@ app.get("/api/:name", (req, res, next) => {
                              objData={};
                              ++start;
                              //objData["id"]= start;
-                              for(var m=0; m < obJSON1.responses.length; ++m){
+                             console.log(obJSON1.responses)
+                             
+                             
+                            for(var m=0; m < obJSON1.responses.length; ++m){
+                              console.log("CHECKKKKK: ", obJSON1.responses[m])
+                              if(obJSON1.responses[m].parameter.includes('[j]')){
                                    var s = "response."+obJSON1.responses[m].parameter.split('.')[0];
                                    var arrLength = "response."+obJSON1.responses[m].parameter.split('[j]')[0];
                                    var ln = s.split('[')[0];
-              
+                                console.log("arrLength: ", arrLength)
                                    if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
                                    var id = obJSON1.responses[m].displayedName;//name;
                                    if(obJSON1.responses[m].displayedName=="videoId"){
@@ -1799,8 +1863,66 @@ app.get("/api/:name", (req, res, next) => {
                                else{
                                  defined=false;
                                }
+                              }else{//NORMAL ARRAY
+                                var s = "response[j]."+obJSON1.responses[m].parameter;
+                                var arrLength = "response"//+obJSON1.responses[m].parameter;
+                                var ln = s//.split('[')[0];
+                                //console.log("arrLength: ", arrLength)
+                                if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
+                                  console.log(eval(arrLength))
+                                var id = obJSON1.responses[m].displayedName;//name;
+                                if(obJSON1.responses[m].displayedName=="videoId"){
+                                //if(obJSON1.responses[m].name=="Video URL"){
+                                  objData[id] = eval("response[j]."+obJSON1.responses[m].parameter);
+                                }else{
+                                  
+                                  var str = "response[j]."+obJSON1.responses[m].parameter;
+                                  //IF ARRAY
+                                  if(str.includes("[i]")){
+                                    var i=0;
+                                    var splt =  str.split("[i]");
+                                    // start if undefined
+                                    if(eval(splt[0]).length==0){
+                                     objData[id]="";
+                                   }else{// start if NOT undefined
+                                   objData[id] = eval("response."+obJSON1.responses[m].parameter);
+                                   for(i=1; i<eval(splt[0]).length; ++i){
+                                     objData[id] += ", ";
+                                     objData[id] += eval("response."+obJSON1.responses[m].parameter);
+                                   }
+                                    }///test undefined
+                                   //IF OBJECT and not ARRAY
+                                  }else if(eval("response[j]."+obJSON1.responses[m].parameter) instanceof Object && !(eval("response[j]."+obJSON1.responses[m].parameter) instanceof Array)){
+                                    var objD = eval("response[j]."+obJSON1.responses[m].parameter);
+                                    var objKV = "";
+                                    var first = true;
+                                    for(var i in objD){
+                                     if(!first){
+                                       objKV+=", "
+                                     }else{
+                                       first = false;
+                                     }
+                                     objKV+=i+": "+objD[i];
+                                   }
+                                   objData[id]=objKV;
+           
+                                   for(var i in objD){
+                                    objData[i]=objD[i];
+                                  }
+                                  
+                                  //IF NEITHER
+                                  }else{
+                                    //console.log("enter here?")
+                                    objData[id] = str//eval("response[j]."+obJSON1.responses[m].parameter);
+                                  }
+                                } //if Video URL
+                              }//if not undefined
+                            else{
+                              defined=false;
+                            }
+                              }
                             }//checkbox loop
-              
+
                                if(defined){
                                  data.push(objData);
                                  obj.lists=[];
@@ -1850,7 +1972,9 @@ app.get("/api/:name", (req, res, next) => {
                               //console.log("create something else other than table!")
                             }
                           }
- 
+                        }else{
+                          console.log("done")
+                        }
                     });
                 });
                 
@@ -3545,25 +3669,29 @@ app.get("/XXX", (req, res, next) => {
 
 // var w2v = require('word2vec');
 // const {spawn} = require('child_process');
+const {PythonShell} =require('python-shell'); 
 
 
+app.get("/wv", (req, res, next) => {
 
-// app.get("/wv", (req, res, next) => {
+  //Here are the option object in which arguments can be passed for the python_test.js. 
+  let options = { 
+    mode: 'text', 
+    pythonOptions: ['-u'], // get print results in real-time 
+      scriptPath: '', //If you are having python_test.py script in same folder, then it's optional. 
+    args: ['shubhamk314'] //An argument which can be accessed in the script using sys.argv[1] 
+  }; 
 
-// // var dataToSend;
-// //  // spawn new child process to call the python script
-// //  const python = spawn('python', ['script1.py']);
-// //  // collect data from script
-// //  python.stdout.on('data', function (data) {
-// //   console.log('Pipe data from python script ...');
-// //   dataToSend = data.toString();
-// //  });
-// //  // in close event we are sure that stream from child process is closed
-// //  python.on('close', (code) => {
-// //  console.log(`child process close all stdio with code ${code}`);
-// //  // send data to browser
-// //  res.send(dataToSend)
-// //  });
+
+  PythonShell.run('treasures.py', options, function (err, result){ 
+      if (err) throw err; 
+      // result is an array consisting of messages collected  
+      //during execution of script. 
+      console.log('result: ', result.toString()); 
+      res.send(result.toString()) 
+  }); 
+
+
 
 
 // //   var largeDataSet = [];
@@ -3632,7 +3760,7 @@ app.get("/XXX", (req, res, next) => {
 //   // how to construct playlist automatically? when we search, a construct will automatically be created var playlist = new MusicPlaylist("46", "Tarfah"); these values are turned from the search 
 //   res.send(playlist.videos())
 
-// });
+});
 
 
 

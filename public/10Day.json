@@ -1,0 +1,114 @@
+{
+       "stats": [
+              {
+                     "updated_at": "2020-11-30T04:26:18.000Z",
+                     "date": "2020-11-30",
+                     "deaths": 1464283,
+                     "confirmed": 63020127,
+                     "recovered": 40368013,
+                     "new_confirmed": 502250,
+                     "new_recovered": 398218,
+                     "new_deaths": 8621,
+                     "active": 21187831
+              },
+              {
+                     "updated_at": "2020-11-29T04:26:13.000Z",
+                     "date": "2020-11-29",
+                     "deaths": 1455662,
+                     "confirmed": 62517877,
+                     "recovered": 39969795,
+                     "new_confirmed": 482715,
+                     "new_recovered": 323023,
+                     "new_deaths": 6847,
+                     "active": 21092420
+              },
+              {
+                     "updated_at": "2020-11-28T04:25:55.000Z",
+                     "date": "2020-11-28",
+                     "deaths": 1448815,
+                     "confirmed": 62035162,
+                     "recovered": 39646772,
+                     "new_confirmed": 595202,
+                     "new_recovered": 352362,
+                     "new_deaths": 9695,
+                     "active": 20939575
+              },
+              {
+                     "updated_at": "2020-11-27T04:25:50.000Z",
+                     "date": "2020-11-27",
+                     "deaths": 1439120,
+                     "confirmed": 61439960,
+                     "recovered": 39294410,
+                     "new_confirmed": 667757,
+                     "new_recovered": 380680,
+                     "new_deaths": 10577,
+                     "active": 20706430
+              },
+              {
+                     "updated_at": "2020-11-26T04:26:53.000Z",
+                     "date": "2020-11-26",
+                     "deaths": 1428543,
+                     "confirmed": 60772203,
+                     "recovered": 38920578,
+                     "new_confirmed": 577017,
+                     "new_recovered": 362522,
+                     "new_deaths": 10673,
+                     "active": 20423082
+              },
+              {
+                     "updated_at": "2020-11-25T04:27:44.000Z",
+                     "date": "2020-11-25",
+                     "deaths": 1417870,
+                     "confirmed": 60195186,
+                     "recovered": 38558056,
+                     "new_confirmed": 629191,
+                     "new_recovered": 433574,
+                     "new_deaths": 12012,
+                     "active": 20219260
+              },
+              {
+                     "updated_at": "2020-11-24T04:27:20.000Z",
+                     "date": "2020-11-24",
+                     "deaths": 1405858,
+                     "confirmed": 59565995,
+                     "recovered": 38124482,
+                     "new_confirmed": 584265,
+                     "new_recovered": 369528,
+                     "new_deaths": 12742,
+                     "active": 20035655
+              },
+              {
+                     "updated_at": "2020-11-23T04:27:31.000Z",
+                     "date": "2020-11-23",
+                     "deaths": 1393116,
+                     "confirmed": 58981730,
+                     "recovered": 37754954,
+                     "new_confirmed": 518267,
+                     "new_recovered": 408073,
+                     "new_deaths": 8268,
+                     "active": 19833660
+              },
+              {
+                     "updated_at": "2020-11-22T04:25:26.000Z",
+                     "date": "2020-11-22",
+                     "deaths": 1384848,
+                     "confirmed": 58463463,
+                     "recovered": 37346881,
+                     "new_confirmed": 480304,
+                     "new_recovered": 272906,
+                     "new_deaths": 7038,
+                     "active": 19731734
+              },
+              {
+                     "updated_at": "2020-11-21T04:25:45.000Z",
+                     "date": "2020-11-21",
+                     "deaths": 1377810,
+                     "confirmed": 57983159,
+                     "recovered": 37077162,
+                     "new_confirmed": 582673,
+                     "new_recovered": 336998,
+                     "new_deaths": 8725,
+                     "active": 19528187
+              }
+       ]
+}

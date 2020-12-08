@@ -3015,8 +3015,8 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
 
              if($("input[name='checkbox-w']").is(":checked")){
                  $("input[name='checkbox-w']:checked").each(function(){
+                  if(this.id.includes('[j]')){
                   var s = "response."+this.id.split('.')[0];
-                  //console.log("s: ",s);
                   if(eval(s)){
                    var id = this.value;
                    if(this.value=="Video URL"){
@@ -3074,6 +3074,69 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
                else{
                  defined=false;
                }
+
+              }//if [j]
+              else{
+                console.log("NO J HERE")
+                var s = "response[j]."+this.id;
+                  if(eval(s)){
+                   var id = this.value;
+                   if(this.value=="Video URL"){
+                     objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+                   }else{
+                     var str = (this.checked ? "response[j]."+this.id : 0);
+                     //IF ARRAY
+                     if(str.includes("[i]")){
+                       //console.log("Includes [i]: ",str);
+                       var i=0;
+                       var splt =  str.split("[i]");
+                       // start if undefined
+                       if(eval(splt[0]).length==0){
+                        objData[id]="";
+                      }else{// start if NOT undefined
+                      objData[id] = (this.checked ? eval("response[j]."+this.id) : 0);
+                      for(i=1; i<eval(splt[0]).length; ++i){
+                        objData[id] += ", ";
+                        objData[id] += eval("response[j]."+this.id);
+                      }
+                    }///test undefined
+                      //IF OBJECT and not ARRAY
+                     }else if(eval("response[j]."+this.id) instanceof Object && !(eval("response[j]."+this.id) instanceof Array)){
+                       //console.log("IT IS OBJECT");
+                       var objD = (this.checked ? eval("response[j]."+this.id) : 0);
+                       var objKV = "";
+                       var first = true;
+                       for(var i in objD){
+                        //console.log("Key: ", i);
+                        //console.log("Value: ", objD[i]);
+                        if(!first){
+                          objKV+=", "
+                        }else{
+                          first = false;
+                        }
+                        objKV+=i+": "+objD[i];
+                      }
+                      objData[id]=objKV;
+
+                      for(var i in objD){
+                       //console.log("Key: ", i);
+                       //console.log("Value: ", objD[i]);
+                       objData[i]=objD[i];
+                       //console.log("objData[id]: ", objData[i]);
+                     }
+                     //console.log("objData[id]: ", objData[id]);
+                     //IF NEITHER
+                     }else{
+                       //console.log("Does NOT Include [i]");
+                       objData[id] = (this.checked ? eval("response[j]."+this.id) : 0);
+                       //console.log("objData[id]: ", objData[id]);
+                     }
+                   }
+                 }//if not undefined
+               else{
+                 defined=false;
+               }
+              }
              });//checkbox
            }//chckbox loop
 
@@ -3085,7 +3148,7 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
           }//while loop
         }else{
         var j=0;
-        while(defined){
+        while(defined){ //MADE BIG CHANGES!!
         // for (var j=0; j<25 && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
            objData={};
            ++start;
@@ -3095,10 +3158,8 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
            if($("input[name='checkbox-w']").is(":checked")){
                $("input[name='checkbox-w']:checked").each(function(){
                  if(this.id.includes('[j]')){
-                  //console.log("this.id,,,,: ",this.id);
-
-                 var s = "response."+this.id.split('.')[0];
-                 var arrLength = "response."+this.id.split('[j]')[0];
+                    var s = "response."+this.id.split('.')[0];
+                    var arrLength = "response."+this.id.split('[j]')[0];
                                   if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
                                   var id = this.value;
                                   if(this.value=="Video URL"){
@@ -3156,12 +3217,14 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
                                 defined=false;
                               }
                  }else{ ///NORMAL ARRAY
+                  console.log("NO J!")
                   var arrLength = "response";
-                 if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
-                  // console.log("this.id: ",this.id);
+                if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
+                  console.log("NO J4!")
+                  console.log("this.id: ",eval("response[j]."+this.id));
                 var id = this.value;
                 if(this.value=="Video URL"){
-                  objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+                  objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response[j]."+this.id) : 0);
                 }else{
                   var str = (this.checked ? "response[j]."+this.id : 0);
                   //IF ARRAY
@@ -3172,10 +3235,10 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
                     if(eval(splt[0]).length==0){
                      objData[id]="";
                    }else{// start if NOT undefined
-                   objData[id] = (this.checked ? eval("response[j]."+this.id) : 0);
+                   objData[id] = (this.checked ? eval("response."+this.id) : 0);
                    for(i=1; i<eval(splt[0]).length; ++i){
                      objData[id] += ", ";
-                     objData[id] += eval("response[j]."+this.id);
+                     objData[id] += eval("response."+this.id);
                    }
                  }///test undefined
                    //IF OBJECT and not ARRAY
@@ -3202,19 +3265,20 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
                     objData[i]=objD[i];
                     //console.log("objData[id]: ", objData[i]);
                   }
-                  //console.log("objData[id]: ", objData[id]);
+                  console.log("objData[id]: ", objData[id]);
                   //IF NEITHER
                   }else{
                     //console.log("Does NOT Include [i]");
                     objData[id] = (this.checked ? eval("response[j]."+this.id) : 0);
-                    //console.log("objData[id]: ", objData[id]);
+                    console.log("objData[id]: ", objData[id]);
                   }
                 }
-              }//if not undefined
-            else{
-              defined=false;
-            }
-                 }
+                  }//if not undefined
+                 else{
+                    console.log("NO J3!")
+                    defined=false;
+                  }
+                }
   
            });//checkbox
          }//chckbox loop
@@ -3279,24 +3343,8 @@ else if(obJSON1.headers && obJSON1.headers[0].headerValue){ //if header
     // headers: headers_to_set,
     success: function (response) {
       console.log("TEST response: ", response);
-  //   }
-  //   });
 
-  // var headername= obJSON1.headers[0].headerKey;//$("#nameH").val();
-  // var headervar= obJSON1.headers[0].headerValue;//$("#valueH").val();
-  // var headers_to_set = {};
-  // headers_to_set[headername] = headervar;
- 
-  //   $.ajax({
-  //     url: "https://cors-anywhere.herokuapp.com/"+obJSON1.url,
-  //     data: listExist,//JSON.parse(listP),
-  //     method: method,
-  //     headers: headers_to_set,
-  //     // {
-  //     //   "Authorization" : obJSON1.headers[0].headerValue//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx"
-  //     // },
-  //     success: function (response) {
-  //     console.log("RES_Ret: ", response);
+
         if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
           for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
              objData={};

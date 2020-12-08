@@ -63,34 +63,30 @@ $(document).ready(function (e) {
                 //console.log(eval(value));
                 let type = key;
                 let val  = eval(value);
+          
             
-            window[site][type] = function(...args) { return self(type, val, "self", "none", ...args) };  
+            window[site][type] = function(...args) { return self(val, "self", "none", ...args) };  
 
-            function self (typekey, typeOb, caller, prop, ...args) { 
+            function self (typeOb, caller, prop, ...args) { 
                 // console.log("typeOb:", typeOb)
                 // console.log("caller:", caller)
-                console.log("callerTYPE:", typekey)
-                currentType = typekey;
-
-                console.log("prop:", prop)
+                // console.log("prop:", prop)
 
                 if(prop == "none"){
                     var endpoint = typeOb.construct[caller].endpoint;
                     var params = typeOb.construct[caller].input;
-                    // var typeId = typeOb.id
-                    // console.log("typeId1: ", typeId)
                 }else{
                     var arrEndpoints= typeOb.construct[caller];
                     console.log("arrEndpoints: ", arrEndpoints)
                     var elemIndex = arrEndpoints.findIndex(element => element.property == prop)
                     var endpoint = typeOb.construct[caller][elemIndex].endpoint;
                     var params = typeOb.construct[caller][elemIndex].input;
-                    // var typeId = typeOb.construct[caller][elemIndex].id;
-                    // console.log("typeId2: ", typeId)
                 }
 
+                //var identifier = typeOb.construct[caller].id;
+
                 var idValue = args[0];
-                var typeId = typeOb.id
+                let typeId = typeOb.id
                 var properties = typeOb.properties;
                 var getters = typeOb.getters;
                 var setters = typeOb.setters;
@@ -219,8 +215,7 @@ $(document).ready(function (e) {
                                         get: function() { 
                                             let promise = firebase.database().ref('/abstractions/'+site+'/objects/'+typeName).once('value').then(function(snapshot) {
                                                 console.log("typeOb4: ", snapshot.val())
-                                                // return self(snapshot.val(), type, propType, ob[typeId]);
-                                                return self(snapshot.key, snapshot.val(), currentType, propType, ob[typeId]);
+                                                return self(snapshot.val(), type, propType, ob[typeId]);
                                             });
                                             return promise;
                                         }
@@ -539,7 +534,8 @@ $(document).ready(function (e) {
                                     get: function() { 
                                         let promise = firebase.database().ref('/abstractions/'+site+'/objects/'+typeName).once('value').then(function(snapshot) {
                                             console.log("typeOb1: ", snapshot.val())
-                                            return self(snapshot.key, snapshot.val(), currentType, propType, o[typeId]);
+                                            return self(snapshot.val(), type, propType, o[typeId]);
+                                            // return self(snapshot.val(), callerType, propType, o[typeId]);
                                         });
                                         return promise;
                                     }
@@ -1036,9 +1032,7 @@ $(document).ready(function (e) {
                                             get: function() { 
                                                 let promise = firebase.database().ref('/abstractions/'+site+'/objects/'+typeName).once('value').then(function(snapshot) {
                                                     console.log("typeOb2: ", snapshot.val())
-                                                    // return self(snapshot.val(), type, propType, ob[typeId]);
-                                                    return self(snapshot.key, snapshot.val(), currentType, propType, ob[typeId]);
-
+                                                    return self(snapshot.val(), type, propType, ob[typeId]);
                                                 });
                                                 return promise;
                                             }
@@ -1357,8 +1351,7 @@ $(document).ready(function (e) {
                                         get: function() { 
                                             let promise = firebase.database().ref('/abstractions/'+site+'/objects/'+typeName).once('value').then(function(snapshot) {
                                                 console.log("typeOb3: ", snapshot.val())
-                                                // return self(snapshot.val(), type, propType, o[typeId]);
-                                                return self(snapshot.key, snapshot.val(), currentType, propType, o[typeId]);
+                                                return self(snapshot.val(), type, propType, o[typeId]);
                                             });
                                             return promise;
                                         }
@@ -1651,31 +1644,25 @@ $(document).ready(function (e) {
             }
          }//if functions
 
-
-
          if(siteKey == "functions2"){
             for (v in siteVal) {
                 console.log("v: ", v)
                 console.log("siteVal: ", siteVal)
-        
+
                let funcName = v//siteVal[v].name;
                //var mName = methods[m].name;
                var mEndpoint = siteVal[v].query;
                var mParams = siteVal[v].params;
                var mObject = siteVal[v].result;
                var mParamList="";
-        
-            //    console.log("mEndpoint: ", mEndpoint)
-            //    console.log("mParams: ", mParams)
-            //    console.log("siteVal: ", siteVal)
-        
+
                var properties=[], fields=[];
                firebase.database().ref('/abstractions/'+site+'/objects/'+mObject+'/properties').once('value').then(function(snapshot) {
                    snapshot.forEach(function(childSnapshot) { 
                        properties.push(childSnapshot.val())
                    })
                })
-        
+
                window[site][funcName] = function(...mArgs) { return siteFunction(...mArgs) }; 
                
                function siteFunction(...mArgs) { 
@@ -1699,13 +1686,13 @@ $(document).ready(function (e) {
                        mParamList+="="
                        mParamList+=ob[mParams[0]]
                    }
-        
+
                    for(f in properties){
                        if(properties[f].field != undefined){
                            fields.push(properties[f].property)
                        }
                    }
-        
+
                    console.log("mParamList: ", mParamList)
                    return firebase.database().ref('/apis/'+mEndpoint).once('value').then(function(snapshot) {
                    obJSON = snapshot.val();
@@ -1713,7 +1700,7 @@ $(document).ready(function (e) {
                
                    if(obJSON.oauth2){
                        console.log("oauth2")
-        
+
                        var tokenPromise;
                        var sTokens = JSON.parse(localStorage.getItem('tokens'));
                        console.log(sTokens)
@@ -1741,10 +1728,10 @@ $(document).ready(function (e) {
                                                    newArray[elementsIndex] = {...newArray[elementsIndex], token: tok}
                                                    newArray[elementsIndex] = {...newArray[elementsIndex], expires_in: expires_in}
                                                    // this.setState({newArray});
-        
+
                                                    localStorage.setItem('tokens', JSON.stringify(newArray));
                                                    console.log("NEW LOCAL STORGAE: ", localStorage.getItem('tokens'))
-        
+
                                                    resolve('http://localhost:5000/api/'+mEndpoint+'?tokenAPI='+tok+'&'+mParamList)
                                                },
                                                error: function(response, jqXHR, textStatus, errorThrown) {
@@ -1815,11 +1802,11 @@ $(document).ready(function (e) {
                                                    newArray[elementsIndex] = {...newArray[elementsIndex], token: tok}
                                                    newArray[elementsIndex] = {...newArray[elementsIndex], expires_in: expires_in}
                                                    // this.setState({newArray});
-        
+
                                                    localStorage.setItem('tokens', JSON.stringify(newArray));
                                                    console.log("NEW LOCAL STORGAE: ", localStorage.getItem('tokens'))
-        
-        
+
+
                                                    resolve('http://localhost:5000/api/'+mEndpoint+'?tokenAPI='+tok+'&'+mParamList)
                                                },
                                                error: function(response, jqXHR, textStatus, errorThrown) {
@@ -1831,20 +1818,20 @@ $(document).ready(function (e) {
                                }
            
                        return tokenPromise
-        
-        
+
+   
                    }else{ //no oauth
                        console.log("!!!oauth2")
                        result =  'http://localhost:5000/api/'+mEndpoint+'?'+mParamList
                        return result;
                    }
-        
+
                    })//firebase
                    .then(url => { console.log("url: ", url); return new Promise(function(resolve, reject) {resolve(fetch(url).then(response => response.json() )) })   })
                    .then(o => {
                        console.log("o: ", o)
                        console.log("properties!!! ", properties)
-        
+
                        //map response to class properties                
                        if(o.constructor === Array){
                            console.log("ARRAY");
@@ -1858,24 +1845,23 @@ $(document).ready(function (e) {
                                    }else{ //if the property is a type
                                        let propType = properties[p].property;
                                        let typeName = properties[p].type;
-        
+   
                                        Object.defineProperty(ob, propType, { 
                                            get: function() { 
                                                let promise = firebase.database().ref('/abstractions/'+site+'/objects/'+typeName).once('value').then(function(snapshot) {
                                                    console.log("typeOb2: ", snapshot.val())
-                                                //    return self(snapshot.val(), type, propType, ob[typeId]);
-                                                   return self(snapshot.key, snapshot.val(), currentType, propType, ob[typeId]);
+                                                   return self(snapshot.val(), type, propType, ob[typeId]);
                                                });
                                                return promise;
                                            }
                                        });//end of getter
-        
+      
                                    }
                                }
                           
                                //***************************** GETTERS *********************************/
-        
-        
+   
+   
                                //***************************** SETTERS *********************************/
                                // if(setters){
                                // for(s in setters){
@@ -1891,7 +1877,7 @@ $(document).ready(function (e) {
                                //             prop = properties[f].property;
                                //         }
                                //     }
-        
+   
                                //     Object.defineProperty(ob, prop, { 
                                //         set: function(newValue) { 
                                //             console.log("newValue: ", newValue)
@@ -1979,13 +1965,13 @@ $(document).ready(function (e) {
                                //         }
                                //     });
                                // }}
-        
+   
                                //***************************** METHODS *********************************/
                                for(m in methods){
                                    var mName = methods[m].name;
                                    var mEndpoint = methods[m].endpoint;
                                    var mParams = methods[m].params;
-        
+   
                                    // add the imageId
                                    Object.defineProperty(ob, mName.toString(), { value: function(...mArgs) { 
                                        if(mArgs.length>0){
@@ -2010,7 +1996,7 @@ $(document).ready(function (e) {
                                            mParamList+="="
                                            mParamList+=ob[mParams[0]]
                                        }
-        
+   
                                        console.log("mParamList: ", mParamList)
                                        return firebase.database().ref('/apis/'+mEndpoint).once('value').then(function(snapshot) {
                                        obJSON = snapshot.val();
@@ -2046,7 +2032,7 @@ $(document).ready(function (e) {
                                                                        newArray[elementsIndex] = {...newArray[elementsIndex], token: tok}
                                                                        newArray[elementsIndex] = {...newArray[elementsIndex], expires_in: expires_in}
                                                                        // this.setState({newArray});
-        
+   
                                                                        localStorage.setItem('tokens', JSON.stringify(newArray));
                                                                        console.log("NEW LOCAL STORGAE: ", localStorage.getItem('tokens'))
                    
@@ -2120,7 +2106,7 @@ $(document).ready(function (e) {
                                                                        newArray[elementsIndex] = {...newArray[elementsIndex], token: tok}
                                                                        newArray[elementsIndex] = {...newArray[elementsIndex], expires_in: expires_in}
                                                                        // this.setState({newArray});
-        
+   
                                                                        localStorage.setItem('tokens', JSON.stringify(newArray));
                                                                        console.log("NEW LOCAL STORGAE: ", localStorage.getItem('tokens'))
                    
@@ -2136,7 +2122,7 @@ $(document).ready(function (e) {
                                                    }
                                
                                            return tokenPromise
-        
+   
                        
                                        }else{ //no oauth
                                            console.log("!!!oauth2")
@@ -2149,12 +2135,12 @@ $(document).ready(function (e) {
                                    }
                                    });
                                //   });
-        
+   
                                }//loop to create methods
                                    
                            });//loop over array of objects
-        
-        
+   
+   
                            //remove the fields that are not in the class
                            var keys = Object.keys(o[0])
                            for(k in keys){
@@ -2164,7 +2150,7 @@ $(document).ready(function (e) {
                                    })
                                }
                            }
-        
+   
                        }else{
                            console.log("NOT ARRAY")
                            for(p in properties){
@@ -2176,25 +2162,24 @@ $(document).ready(function (e) {
                                }else{ //if the property is a type
                                    let propType = properties[p].property;
                                    let typeName = properties[p].type;
-        
+
                                    // creat a getter for property of type Type
                                    this.status = {};
                                    Object.defineProperty(o, propType, { 
                                        get: function() { 
                                            let promise = firebase.database().ref('/abstractions/'+site+'/objects/'+typeName).once('value').then(function(snapshot) {
                                                console.log("typeOb3: ", snapshot.val())
-                                            //    return self(snapshot.val(), type, propType, o[typeId]);
-                                               return self(snapshot.key, snapshot.val(), currentType, propType, o[typeId]);
+                                               return self(snapshot.val(), type, propType, o[typeId]);
                                            });
                                            return promise;
                                        }
                                    });
                                }
                            }//end of for loop properties
-        
+   
                            //***************************** GETTERS *********************************/
-        
-        
+   
+   
                            //***************************** SETTERS *********************************/
                            for(s in setters){
                                // console.log("setter: ", setters[s])   
@@ -2209,7 +2194,7 @@ $(document).ready(function (e) {
                                        prop = properties[f].property;
                                    }
                                }
-        
+   
                                Object.defineProperty(o, prop, { 
                                    set: function(newValue) { 
                                        console.log("newValue: ", newValue)
@@ -2297,14 +2282,14 @@ $(document).ready(function (e) {
                                    }
                                });
                            }
-        
+   
                            //***************************** METHODS *********************************/
                            for(m in methods){
-                            //    console.log("methods[m]: ", methods[m].name)
+                               console.log("methods[m]: ", methods[m].name)
                                var mName = methods[m].name;
                                var mEndpoint = methods[m].endpoint;
                                var mParams = methods[m].params;
-        
+       
                                Object.defineProperty(o, mName.toString(), { value: function(...mArgs) { 
                                    if(mParams){
                                        for(var p=0; p<mParams.length; ++p){
@@ -2353,7 +2338,7 @@ $(document).ready(function (e) {
                                                                    newArray[elementsIndex] = {...newArray[elementsIndex], token: tok}
                                                                    newArray[elementsIndex] = {...newArray[elementsIndex], expires_in: expires_in}
                                                                    // this.setState({newArray});
-        
+   
                                                                    localStorage.setItem('tokens', JSON.stringify(newArray));
                                                                    console.log("NEW LOCAL STORGAE: ", localStorage.getItem('tokens'))
                
@@ -2427,7 +2412,7 @@ $(document).ready(function (e) {
                                                                    newArray[elementsIndex] = {...newArray[elementsIndex], token: tok}
                                                                    newArray[elementsIndex] = {...newArray[elementsIndex], expires_in: expires_in}
                                                                    // this.setState({newArray});
-        
+   
                                                                    localStorage.setItem('tokens', JSON.stringify(newArray));
                                                                    console.log("NEW LOCAL STORGAE: ", localStorage.getItem('tokens'))
                
@@ -2443,22 +2428,22 @@ $(document).ready(function (e) {
                                                }
                               
                                        return tokenPromise
-        
+   
                    
                                    }else{ //no oauth
                                        console.log("!!!oauth2")
                                        result =  'http://localhost:5000/api/'+mEndpoint+'?'+mParamList
                                        return result;
                                    }
-        
+       
                                    })//firebase
                                    .then(url => { console.log("url: ", url); return new Promise(function(resolve, reject) {resolve(fetch(url).then(response => response.json() )) })   })
                                }
                                });
                            //   });
-        
+   
                            }//loop to create methods
-        
+   
                            //remove the fields that are not in the class
                            var keys = Object.keys(o)
                            for(k in keys){
@@ -2467,13 +2452,13 @@ $(document).ready(function (e) {
                                }
                            }
                        }//end of else of no array
-        
+   
                        return o;
                    })  
                
                }
-        
-        
+
+
            }
         }//if functions2
 
@@ -2492,15 +2477,15 @@ $(document).ready(function (e) {
             
             // var user = await etsy.Person("54550541")
             // console.log("etsy user: ", user)
-            // var userShops = await user.shops;
-            // console.log("etsy user's shops: ", userShops)
-            // console.log("etsy user's shops' listings: ", await userShops.listing)
+            // console.log("etsy user's shops: ", await user.shops)
 
-            var user = await unsplash.Person("fu_psi");
-            console.log("unsplash user: ", user)
-            // console.log("unsplash search: ", await unsplash.searchPhotos("Flowers","","","","",""))
-            console.log("unsplash user photos: ", await unsplash.SearchActions("flowers"))
-            console.log("unsplash user photos: ", await user.image)
+            // var userShops = await user.shops;
+            // console.log("etsy user's shops' listings: ", await userShops.product)
+
+            // var user = await unsplash.Person("fu_psi");
+            // console.log("unsplash user: ", unsplash.SearchActions("flowers"))
+            //console.log("unsplash search: ", await unsplash.searchPhotos("Flowers","","","","",""))
+            // console.log("unsplash user photos: ", await user.image)
 
 
             // var userImages = await user.image
@@ -2508,12 +2493,10 @@ $(document).ready(function (e) {
             // console.log("unsplash user liked photos: ", await user.likedImage)
             // console.log("unsplash user collections: ", await user.collection)
 
-            // var playlist = await MusicPlaylist("x6xvoa"); //method to get an exisiting playlist
-            // // var playlist2 = MusicPlaylist.create("Auto NEW Playlist"); //method to create a new playlist
-            // console.log("playlist: ", playlist)
+            var playlist = await dailymotion.MusicPlaylist("x6xvoa"); //method to get an exisiting playlist
+            console.log("playlist: ", playlist)
             // console.log("playlist name: ", playlist.name)
-            // var playlistVideos = await playlist.video
-            // console.log("playlist videos: ", playlistVideos)
+            console.log("playlist videos: ", await playlist.video)
             // console.log("playlist videos: ", playlistVideos[0].name)
 
             //********* getters
@@ -2579,7 +2562,7 @@ $(document).ready(function (e) {
         //     console.log("print the video outisde: ",v)
         // }
 
-    }, 4000);  
+    }, 3000);  
    
 
 

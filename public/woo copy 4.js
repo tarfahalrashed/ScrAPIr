@@ -219,8 +219,7 @@ $(document).ready(function (e) {
                                         get: function() { 
                                             let promise = firebase.database().ref('/abstractions/'+site+'/objects/'+typeName).once('value').then(function(snapshot) {
                                                 console.log("typeOb4: ", snapshot.val())
-                                                // return self(snapshot.val(), type, propType, ob[typeId]);
-                                                return self(snapshot.key, snapshot.val(), currentType, propType, ob[typeId]);
+                                                return self(snapshot.val(), type, propType, ob[typeId]);
                                             });
                                             return promise;
                                         }
@@ -538,7 +537,7 @@ $(document).ready(function (e) {
                                 Object.defineProperty(o, propType, { 
                                     get: function() { 
                                         let promise = firebase.database().ref('/abstractions/'+site+'/objects/'+typeName).once('value').then(function(snapshot) {
-                                            console.log("typeOb1: ", snapshot.val())
+                                            // console.log("typeOb1: ", snapshot.val().construct.currentType[0].id)//the id of the current type
                                             return self(snapshot.key, snapshot.val(), currentType, propType, o[typeId]);
                                         });
                                         return promise;
@@ -1036,9 +1035,7 @@ $(document).ready(function (e) {
                                             get: function() { 
                                                 let promise = firebase.database().ref('/abstractions/'+site+'/objects/'+typeName).once('value').then(function(snapshot) {
                                                     console.log("typeOb2: ", snapshot.val())
-                                                    // return self(snapshot.val(), type, propType, ob[typeId]);
-                                                    return self(snapshot.key, snapshot.val(), currentType, propType, ob[typeId]);
-
+                                                    return self(snapshot.val(), type, propType, ob[typeId]);
                                                 });
                                                 return promise;
                                             }
@@ -1357,8 +1354,7 @@ $(document).ready(function (e) {
                                         get: function() { 
                                             let promise = firebase.database().ref('/abstractions/'+site+'/objects/'+typeName).once('value').then(function(snapshot) {
                                                 console.log("typeOb3: ", snapshot.val())
-                                                // return self(snapshot.val(), type, propType, o[typeId]);
-                                                return self(snapshot.key, snapshot.val(), currentType, propType, o[typeId]);
+                                                return self(snapshot.val(), type, propType, o[typeId]);
                                             });
                                             return promise;
                                         }
@@ -1863,8 +1859,7 @@ $(document).ready(function (e) {
                                            get: function() { 
                                                let promise = firebase.database().ref('/abstractions/'+site+'/objects/'+typeName).once('value').then(function(snapshot) {
                                                    console.log("typeOb2: ", snapshot.val())
-                                                //    return self(snapshot.val(), type, propType, ob[typeId]);
-                                                   return self(snapshot.key, snapshot.val(), currentType, propType, ob[typeId]);
+                                                   return self(snapshot.val(), type, propType, ob[typeId]);
                                                });
                                                return promise;
                                            }
@@ -2183,8 +2178,7 @@ $(document).ready(function (e) {
                                        get: function() { 
                                            let promise = firebase.database().ref('/abstractions/'+site+'/objects/'+typeName).once('value').then(function(snapshot) {
                                                console.log("typeOb3: ", snapshot.val())
-                                            //    return self(snapshot.val(), type, propType, o[typeId]);
-                                               return self(snapshot.key, snapshot.val(), currentType, propType, o[typeId]);
+                                               return self(snapshot.val(), type, propType, o[typeId]);
                                            });
                                            return promise;
                                        }
@@ -2490,17 +2484,16 @@ $(document).ready(function (e) {
             // var product = await etsy.Product("679481230")
             // console.log("etsy product: ", product)
             
-            // var user = await etsy.Person("54550541")
+            var user = await etsy.Person("54550541")
             // console.log("etsy user: ", user)
-            // var userShops = await user.shops;
-            // console.log("etsy user's shops: ", userShops)
-            // console.log("etsy user's shops' listings: ", await userShops.listing)
+            var userShops = await user.shops;
+            console.log("etsy user's shops: ", userShops)
+            console.log("etsy user's shops' listings: ", await userShops.listing)
 
-            var user = await unsplash.Person("fu_psi");
-            console.log("unsplash user: ", user)
-            // console.log("unsplash search: ", await unsplash.searchPhotos("Flowers","","","","",""))
-            console.log("unsplash user photos: ", await unsplash.SearchActions("flowers"))
-            console.log("unsplash user photos: ", await user.image)
+            //var user = await unsplash.Person("fu_psi");
+            // console.log("unsplash user: ", user)
+            //console.log("unsplash search: ", await unsplash.searchPhotos("Flowers","","","","",""))
+            //console.log("unsplash user photos: ", await user.image)
 
 
             // var userImages = await user.image
@@ -2579,7 +2572,7 @@ $(document).ready(function (e) {
         //     console.log("print the video outisde: ",v)
         // }
 
-    }, 4000);  
+    }, 3000);  
    
 
 
