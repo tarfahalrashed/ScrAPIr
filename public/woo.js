@@ -2488,20 +2488,42 @@ $(document).ready(function (e) {
     });
    }//if not youtube
   })
+
+
 });
+
+
+function combine(...args){
+    var arr=[];
+    if(Array.isArray(args[0])){ // if arrays
+        console.log("Combine ARRAYS: ", [].concat.apply(...args));    
+    }else{ //if objects
+        for(var i=0; i<args.length; ++i){
+            console.log(args[i])
+            arr.push(args[i])
+        }
+        console.log("Combine OBJECTS: ", arr); 
+    }
+}
 
     setTimeout(() => { 
         
         (async function(){
-
             // var product = await etsy.Product("679481230")
             // console.log("etsy product: ", product)
             
-            // var user = await etsy.Person("54550541")
-            // console.log("etsy user: ", user)
+            var user = await etsy.Person("54550541")
+            console.log("etsy user: ", user)
             // var userShops = await user.shops;
             // console.log("etsy user's shops: ", userShops)
             // console.log("etsy user's shops' listings: ", await userShops.listing)
+
+            var user2 = await etsy.Person("ELARBOLDECEREZO")
+            console.log("etsy user2: ", user2)
+
+            var etsyUsers = combine(user, user2)
+
+            var etsyUsers2 = combine([1,2], [3,4,5])
 
             // var user = await unsplash.Person("fu_psi");
             // console.log("unsplash user: ", user)
@@ -2514,15 +2536,16 @@ $(document).ready(function (e) {
             // console.log("Roses photos: ", rImages)
 
             // var dailymotionVideos = await dailymotion.SearchActions("cats")
+            
+            // var dailymotionVideos = await dailymotion.VideoObject("x7xf8kc")
             // console.log("dailymotionVideos: ", dailymotionVideos)
 
-            var youtubeVideos  = await youtube.VideoObject("cats")
-            console.log("youtubeVideos: ", youtubeVideos)
+            // var youtubeVideos  = await youtube.VideoObject("bUUBdcUGgA8")
+            // console.log("youtubeVideos: ", youtubeVideos)
 
 
             // console.log("unsplash search: ", await unsplash.searchPhotos("Flowers","","","","",""))
 
-            // var allVideos = combine(youtubeVideos, dailymotionVideos)
 
             // console.log("unsplash search: ", await unsplash.searchPhotos("Flowers","","","","",""))
 
