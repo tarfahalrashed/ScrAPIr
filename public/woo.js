@@ -545,6 +545,13 @@ $(document).ready(function (e) {
                                     }
                                 });
 
+                                //***** if you want to remove the getter, replce iti with this
+                                // o[propType]= firebase.database().ref('/abstractions/'+site+'/objects/'+typeName).once('value').then(function(snapshot) {
+                                //     console.log("typeOb1: ", snapshot.val())
+                                //     return self(snapshot.key, snapshot.val(), currentType, propType, o[typeId]);
+                                // });
+                                // return o;
+
                                 
                             }
                         }//end of for loop properties
@@ -2176,14 +2183,14 @@ $(document).ready(function (e) {
                                }else{ //if the property is a type
                                    let propType = properties[p].property;
                                    let typeName = properties[p].type;
-        
+
                                    // creat a getter for property of type Type
                                    this.status = {};
                                    Object.defineProperty(o, propType, { 
                                        get: function() { 
                                            let promise = firebase.database().ref('/abstractions/'+site+'/objects/'+typeName).once('value').then(function(snapshot) {
                                                console.log("typeOb3: ", snapshot.val())
-                                            //    return self(snapshot.val(), type, propType, o[typeId]);
+                                               // return self(snapshot.val(), type, propType, o[typeId]);
                                                return self(snapshot.key, snapshot.val(), currentType, propType, o[typeId]);
                                            });
                                            return promise;
@@ -2496,12 +2503,28 @@ $(document).ready(function (e) {
             // console.log("etsy user's shops: ", userShops)
             // console.log("etsy user's shops' listings: ", await userShops.listing)
 
-            var user = await unsplash.Person("fu_psi");
-            console.log("unsplash user: ", user)
+            // var user = await unsplash.Person("fu_psi");
+            // console.log("unsplash user: ", user)
             // console.log("unsplash search: ", await unsplash.searchPhotos("Flowers","","","","",""))
-            console.log("unsplash user photos: ", await unsplash.SearchActions("flowers"))
-            console.log("unsplash user photos: ", await user.image)
 
+            //var fImages =  await unsplash.searchPhotos("Flowers","","","","","")
+            // var rImages =  await unsplash.searchPhotos("Roses","","","","","")
+
+            //console.log("Flowers photos: ", fImages)
+            // console.log("Roses photos: ", rImages)
+
+            // var dailymotionVideos = await dailymotion.SearchActions("cats")
+            // console.log("dailymotionVideos: ", dailymotionVideos)
+
+            var youtubeVideos  = await youtube.VideoObject("cats")
+            console.log("youtubeVideos: ", youtubeVideos)
+
+
+            // console.log("unsplash search: ", await unsplash.searchPhotos("Flowers","","","","",""))
+
+            // var allVideos = combine(youtubeVideos, dailymotionVideos)
+
+            // console.log("unsplash search: ", await unsplash.searchPhotos("Flowers","","","","",""))
 
             // var userImages = await user.image
             // userImages[0].likePhoto()
@@ -2579,7 +2602,7 @@ $(document).ready(function (e) {
         //     console.log("print the video outisde: ",v)
         // }
 
-    }, 4000);  
+    }, 8000);  
    
 
 

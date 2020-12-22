@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup as soup
 from urllib.request import urlopen as uReq
 from urllib.error import HTTPError
+import sys
 
 def find_synonym(string):
     """ Function to find synonyms for a string"""
@@ -8,7 +9,7 @@ def find_synonym(string):
         # Remove whitespace before and after word and use underscore between words
         stripped_string = string.strip()
         fixed_string = stripped_string.replace(" ", "_")
-        print(f"{fixed_string}:")
+        # print(f"{fixed_string}:")
 
         # Set the url using the amended string
         my_url = f'https://thesaurus.plus/thesaurus/{fixed_string}'
@@ -23,8 +24,16 @@ def find_synonym(string):
         results = word_boxes.find_all("div", "list_item")
 
         # Iterate over results and print
+        # print(results)
+        # print("|||")
+
+        arr = []
         for result in results:
-            print(result.text)
+            s = result.text
+            st = s.replace(" ", "")
+            arr.append(st)
+
+        print(arr)
 
     except HTTPError:
         if "_" in fixed_string:
@@ -35,4 +44,4 @@ def find_synonym(string):
 
 
 if __name__ == "__main__":
-    find_synonym("portfolio")
+    find_synonym(sys.argv[1])
