@@ -2514,16 +2514,15 @@ function combine(...args){
             
             var user = await etsy.Person("54550541")
             console.log("etsy user: ", user)
-            // var userShops = await user.shops;
-            // console.log("etsy user's shops: ", userShops)
-            // console.log("etsy user's shops' listings: ", await userShops.listing)
+             var userShops = await user.shops;
+             console.log("etsy user's shops: ", userShops)
+             console.log("etsy user's shops' listings: ", await userShops.listing)
 
-            var user2 = await etsy.Person("ELARBOLDECEREZO")
-            console.log("etsy user2: ", user2)
+            //var user2 = await etsy.Person("ELARBOLDECEREZO")
+            //console.log("etsy user2: ", user2)
 
-            var etsyUsers = combine(user, user2)
-
-            var etsyUsers2 = combine([1,2], [3,4,5])
+            // var etsyUsers = combine(user, user2)
+            // var etsyUsers2 = combine([1,2], [3,4,5])
 
             // var user = await unsplash.Person("fu_psi");
             // console.log("unsplash user: ", user)
@@ -2642,11 +2641,6 @@ function combine(...args){
 });
 
 
-
-
-
-
-  
 
 
 

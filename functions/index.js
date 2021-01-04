@@ -3760,6 +3760,18 @@ app.get("/synonyms/:name", (req, res, next) => {
 
 
 
+// const woo = require("./woo.js");
+
+// app.get("/wooo", (req, res, next) => {
+
+//   // var user = woo.etsy.Person("54550541")
+//   //console.log("etsy user: ", user)
+//   res.send(woo.combine([1,2], [3,4,5]))
+
+// });
+
+
+
 exports.app = functions.https.onRequest(app);
 
 
