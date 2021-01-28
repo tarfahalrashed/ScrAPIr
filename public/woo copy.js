@@ -545,16 +545,14 @@ $(document).ready(function (e) {
                                     }
                                 });
 
-                                //*** if you want to remove the getter, replce iti with this 
-                                // o[propType]= function(){return ""};                               
-                                // (async function(){
-                                //     o[propType] = await firebase.database().ref('/abstractions/'+site+'/objects/'+typeName).once('value').then(function(snapshot) {
-                                //         console.log("typeOb1: ", snapshot.val())
-                                //         return self(snapshot.key, snapshot.val(), currentType, propType, o[typeId]);
-                                //     });
-                                //     return o;
-                                // })()
- 
+                                //***** if you want to remove the getter, replce iti with this
+                                // o[propType]= firebase.database().ref('/abstractions/'+site+'/objects/'+typeName).once('value').then(function(snapshot) {
+                                //     console.log("typeOb1: ", snapshot.val())
+                                //     return self(snapshot.key, snapshot.val(), currentType, propType, o[typeId]);
+                                // });
+                                // return o;
+
+                                
                             }
                         }//end of for loop properties
 
@@ -2540,9 +2538,15 @@ function combine(...args){
             // var dailymotionVideos = await dailymotion.VideoObject("x7xf8kc")
             // console.log("dailymotionVideos: ", dailymotionVideos)
 
+            // x6ycwb
+
             // var youtubeVideos  = await youtube.VideoObject("bUUBdcUGgA8")
             // console.log("youtubeVideos: ", youtubeVideos)
+
+
             // console.log("unsplash search: ", await unsplash.Person("fu_psi"))
+
+
             // console.log("unsplash search: ", await unsplash.searchPhotos("Flowers","","","","",""))
 
             // var userImages = await user.image
@@ -2550,21 +2554,13 @@ function combine(...args){
             // console.log("unsplash user liked photos: ", await user.likedImage)
             // console.log("unsplash user collections: ", await user.collection)
 
-            // var playlist = await dailymotion.MusicPlaylist("x706zx"); //method to get an exisiting playlist
-            // console.log("playlist: ", playlist)
-            // console.log("playlist name: ", playlist.name)
-            // var playlistVideos = await playlist.video
-            // console.log("playlist videos: ", playlistVideos)
+            var playlist = await dailymotion.MusicPlaylist("x706zx"); //method to get an exisiting playlist
+            console.log("playlist: ", playlist)
+            console.log("playlist name: ", playlist.name)
+            var playlistVideos = await playlist.video
+            console.log("playlist videos: ", playlistVideos)
 
             // playlistVideos[0].addToWatchlater()
-
-            var video = await dailymotion.VideoObject("x7yvk4l"); //method to get an exisiting playlist
-            console.log("video: ", video)
-            // console.log("playlist name: ", video.name)
-            // var playlistVideos = await playlist.video
-            // console.log("playlist videos: ", playlistVideos)
-
-            // video.addToWatchlater()
 
             // console.log("playlist videos: ", playlistVideos[0].name)
             // // var playlist2 = MusicPlaylist.create("Auto NEW Playlist"); //method to create a new playlist

@@ -8041,7 +8041,7 @@ function callGitHub2(u){
       method: "GET",
       headers: {
         "Accept": "application/vnd.github.v3.text-match+json",
-        "Authorization": "token "
+        "Authorization": "token 7297e92888bc1509558a0285056e4b2e840a7a84"
       },
       success: function (response) {
         for(var n=0; n<response.items.length; ++n){
@@ -8202,7 +8202,7 @@ function callGitHub(u){
       method: "GET",
       headers: {
         "Accept": "application/vnd.github.v3.text-match+json",
-        "Authorization": "token "
+        "Authorization": "token 7297e92888bc1509558a0285056e4b2e840a7a84"
       },
 
       success: function (response) {
