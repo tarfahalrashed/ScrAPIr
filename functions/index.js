@@ -1814,7 +1814,7 @@ app.get("/api/:name", (req, res, next) => {
                                    var s = "response."+obJSON1.responses[m].parameter.split('.')[0];
                                    var arrLength = "response."+obJSON1.responses[m].parameter.split('[j]')[0];
                                    var ln = s.split('[')[0];
-                                console.log("arrLength: ", arrLength)
+                                // console.log("arrLength: ", arrLength)
                                    if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
                                    var id = obJSON1.responses[m].displayedName;//name;
                                    if(obJSON1.responses[m].displayedName=="videoId"){

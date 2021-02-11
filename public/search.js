@@ -7768,44 +7768,6 @@ function populateListOfAPIs(){
 
   firebase.database().ref('/config').set(config);
 
-  //add this back
-  // scrAPIr2("https://www.googleapis.com/youtube/v3/search", 200, 'rawJSON'); //format can be rawJSON, formatedJSON, formatedCSV
-
-
-  // scrAPIr(api, parameters, response, numResults, format)
-
-  // $.ajax({
-  //   url: "https://superapi-52bc2.firebaseio.com/apis/YouTube API.json",
-  //   method: "GET",
-  //   success: function (response) {
-  //     console.log("RES: ", response);
-  //   }
-  // });
-
-
-
-  //
-  // $.post("/writeFile",{FileContent: JSON.stringify(myObj), FileName: 'testingDUH'}, function(data){
-  //     console.log("data: ", data);
-  //     console.log("print: ", myObj);
-  // });
-
-  // firebase.database().ref('/apis/').once('value').then(function(snapshot) {
-  //   snapshot.forEach(function(childSnapshot) { //for each API
-  //     if(childSnapshot.val().title != undefined){
-  //       var str = childSnapshot.val().title;
-  //       var jsonStr = JSON.stringify(childSnapshot.val());
-  //       var api_title = str.split(' ').join('X');
-  //       if(str == "YouTube API"){
-  //           $.post("/writeFile",{FileContent: jsonStr, FileName: api_title}, function(data){
-  //             console.log("data: ", data);
-  //             console.log("print: ", jsonStr);
-  //           });
-  //       }
-  //     }
-  //   });
-  // });
-
 
 }// end populateListOfAPIs
 
@@ -8575,29 +8537,6 @@ function covid19APIs(){
     registration();
     
 }
-
-/*
-function requestAPI(url,listP){
-		//YOUTUBE
-		/*var listP = {
-		    "maxResults": "3",
-   			"part": "snippet",
-   		    "q": $('#queryw').val(),
-		   	"key": "AIzaSyBaJakjjAHw0wvBtELAtDLPmhq1piGWwqQ"
-	  	};
-
-	    $.ajax({
-	      url: url,//'https://www.googleapis.com/youtube/v3/search',
-	      data: JSON.parse(listP),
-	      dataType: 'jsonp',
-	      success: function (x) {
-	        console.log(JSON.stringify(x, '', 7));
-          return x;
-	      }
-	    });
-}
-*/
-
 
 
 function showIndex(){
