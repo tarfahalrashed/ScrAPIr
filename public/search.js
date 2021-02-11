@@ -5707,11 +5707,18 @@ function authorize() {
 
 
 
-
+// code=4/P7q7W91a-oMsCeLvIaQm6bTrgtp7&
+// client_id=your_client_id&
+// client_secret=your_client_secret&
+// redirect_uri=https%3A//oauth2.example.com/code&
+// grant_type=authorization_code
 
 function validateToken(token) {
           console.log("Token: ",token)
           console.log("Token URL: ",token_url)
+          console.log("grant_type: ",grant_type)
+          token = decodeURIComponent(token);
+          console.log("DECODED: ", decodeURIComponent(token));
 
           $.ajax({
         		url: token_url,

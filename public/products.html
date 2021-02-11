@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="SemiColonWeb" />
+
+	<!-- Stylesheets
+	============================================= -->
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Raleway:300,400,500,600,700|Crete+Round:400i" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	<link rel="stylesheet" href="css/dark.css" type="text/css" />
+	<link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+	<link rel="stylesheet" href="css/animate.css" type="text/css" />
+	<link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+
+	<link rel="stylesheet" href="css/responsive.css" type="text/css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- <link rel="stylesheet" href="css/treeview.min.css"/> -->
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
+
+	<!-- load the minimalist version of JSONEditor, which doesn't have Ace embedded -->
+	<link href="dist/jsoneditor.css" rel="stylesheet" type="text/css">
+	<link href="dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
+
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+
+
+	<script src="https://cdn.datatables.net/plug-ins/1.10.15/api/row().show().js"></script>
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+
+	<!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script> -->
+
+
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+
+	<!-- Document Title
+	============================================= -->
+	<title>Products</title>
+
+<style>.process-steps li { pointer-events: none; }</style>
+
+</head>
+
+<body class="stretched" onload="populatePublicSavedDataset()">
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		<!-- Header
+		============================================= -->
+		<header id="header" class="transparent-header ">
+
+			<div id="header-wrap">
+
+				<div class="container clearfix">
+
+					<!-- <div id="primary-menu-trigger"><i class="icon-reorder"></i></div> -->
+
+					<!-- Logo
+					============================================= -->
+					<!--<div id="logo">
+						<a href="index.html" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="images/logo.png" alt="Canvas Logo"></a>
+						<a href="index.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a>
+					</div>--><!-- #logo end -->
+
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu">
+
+						<ul>
+							<li class="mega-menu"><a href="index.html">Home</a>
+							</li>
+							<li class="mega-menu"><a href="index.html#about">About</a>
+							</li>
+
+							<li class="mega-menu"><a href="index.html#demos" >Demos</a>
+							</li>
+							<li class="mega-menu"><a href="index.html#APIs">Websites</a>
+							</li>
+							<!-- <li class="mega-menu"><a href="docs.html">Docs</a>
+							</li> -->
+							<li class="current"><a href="dataset.html" data-offset="100" >Datasets</a>
+							</i>
+
+							<li class="mega-menu"><a href="api-integration.html">Integrate</a>
+							</li>
+							<li class="mega-menu"><a href="covid-19.html" style="color:red">COVID-19</a>
+							</li>
+							<li class="mega-menu"><a href="index.html#contact">Contact</a>
+							</li>
+							<li><a id="SignupLogin" href="login-register.html"><div>Sign in</div></a>
+								<ul style="width:100px;">
+									<li><a href="account.html" id="acc" style="display:none"><div>Account</div></a></li>
+									<li><a href="" onclick="signOutFunction()" id="signout" style="display:none"><div>Sign out</div></a></li>
+								</ul>
+							</li>
+						</ul>
+
+						<!-- Top Search
+						============================================= -->
+						<!-- <div id="top-search">
+							<a id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+							<form action="search.html" method="get">
+								<input type="text" name="q" class="form-control" value="" placeholder="search for">
+							</form>
+						</div> -->
+						<!-- #top-search end -->
+
+					</nav><!-- #primary-menu end -->
+
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="container" >			
+				<h2>Amazon Products</h2>
+				<p>I am part of Amazon’s affiliate program and I am compensated for referrals.</p>
+				</br>
+
+				<div class="row">
+					<div class="col">
+						<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=tf_til&ad_type=product_link&tracking_id=scrapir08-20&marketplace=amazon&amp;region=US&placement=B00J074W94&asins=B00J074W94&linkId=361d2cb64395d759b7f71d025c1c34ba&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+						</iframe>
+					</div>
+
+					<div class="col">
+						<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=tf_til&ad_type=product_link&tracking_id=scrapir08-20&marketplace=amazon&amp;region=US&placement=B08CKQC66G&asins=B08CKQC66G&linkId=177fc8107a46aec08145ed47abd06bf0&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+						</iframe>
+					</div>
+
+					<div class="col">
+						<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=tf_til&ad_type=product_link&tracking_id=scrapir08-20&marketplace=amazon&amp;region=US&placement=B0834NWDF6&asins=B0834NWDF6&linkId=3e84a279c9ec011fe8e836b9afd4853b&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+						</iframe>
+					</div>
+
+					<div class="col">
+						
+					</div>
+				</div>
+
+			</div>
+
+		</section><!-- #content end -->
+
+		<!-- Footer
+		============================================= -->
+		<footer id="footer" class="dark">
+
+			<div class="container-fullwidth">
+
+				<!-- Footer Widgets
+				============================================= -->
+				<div class="footer-widgets-wrap clearfix">
+
+				</div><!-- .footer-widgets-wrap end -->
+
+			</div>
+
+			<!-- Copyrights
+			============================================= -->
+			<div id="copyrights">
+
+				<div class="container-fullwidth clearfix">
+
+				</div>
+
+			</div><!-- #copyrights end -->
+
+		</footer><!-- #footer end -->
+
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<!--<div id="gotoTop" class="icon-angle-up"></div>-->
+
+
+	<!-- External JavaScripts
+	============================================= -->
+	<!-- <script src="js/jquery.js"></script> -->
+
+	<script src="js/plugins.js"></script>
+
+	<!-- Slik Grid-->
+	<script src="lib/firebugx.js"></script>
+
+	<script src="lib/jquery-1.11.2.min.js"></script>
+	<script src="lib/jquery-ui-1.11.3.js"></script>
+	<script src="lib/jquery.event.drag-2.3.0.js"></script>
+	<script src="lib/jquery.tmpl.min.js"></script>
+	<script src="lib/jquery.jsonp-2.4.min.js"></script>
+	<script src="lib/jquery.event.drop-2.3.0.js"></script>
+
+	<script src="js/slick.remotemodel.js"></script>
+	<script src="js/slick.formatters.js"></script>
+	<script src="js/slick.editors.js"></script>
+	<script src="js/slick.compositeeditor.js"></script>
+	<script src="js/slick.grid.js"></script>
+	<script src="js/slick.core.js"></script>
+	<script src="js/slick.dataview.js"></script>
+	<script src="js/slick.groupitemmetadataprovider.js"></script>
+	<script src="js/slick.checkboxselectcolumn.js"></script>
+
+	<script src="js/slick.cellrangedecorator.js"></script>
+	<script src="js/slick.cellrangeselector.js"></script>
+	<script src="js/slick.cellselectionmodel.js"></script>
+	<script src="js/slick.rowselectionmodel.js"></script>
+	<script src="js/slick.rowmovemanager.js"></script>
+
+	<script src="js/slick.pager.js"></script>
+	<script src="js/slick.columnpicker.js"></script>
+	<script src="js/slick.gridmenu.js"></script>
+
+
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script src="js/functions.js"></script>
+
+	<!-- My
+	 JavaScripts
+	============================================= -->
+	<script src="search.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/renderjson.js"></script>
+
+	<!-- <script src="js/treeview.min.js" type="text/javascript"></script> -->
+
+
+	<!-- Date & Time Picker JS -->
+	<script src="js/components/moment.js"></script>
+	<!-- <script src="demos/travel/js/datepicker.js"></script> -->
+	<script src="js/components/timepicker.js"></script>
+
+	<!-- Include Date Range Picker -->
+	<script src="js/components/daterangepicker.js"></script>
+
+
+	<script src="dist/jsoneditor-minimalist.js"></script>
+	<script src="dist/jsoneditor-minimalist.min.js"></script>
+	<script src="dist/jsoneditor.js"></script>
+	<script src="dist/jsoneditor.min.js"></script>
+
+	<script src="js/underscore.js"></script>
+	<script src="js/underscore-min.js"></script>
+
+
+	<script>
+		$(function() {
+			$( "#processTabs" ).tabs({ show: { effect: "fade", duration: 400 } });
+			$( ".tab-linker" ).click(function() {
+				$( "#processTabs" ).tabs("option", "active", $(this).attr('rel') - 1);
+				return false;
+			});
+		});
+
+	</script>
+
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-database.js"></script>
+
+	<style>
+
+		.modal-body{
+			font-size:1.5em;
+		}
+		.nav-link{
+			font-size:1.5em;
+		}
+
+		.tab-content{
+			font-size:1.5em;
+		}
+		.form-control{
+			font-size:1.5em;
+		}
+
+		.table thead th{
+			font-size:1.5em;
+		}
+
+		.table thead tr input{
+			font-size:1.5em;
+		}
+
+
+			tfoot input {
+	        width: 100%;
+	        padding: 3px;
+	        box-sizing: border-box;
+	    }
+
+			html, body {
+			height: 100%;
+
+		}
+
+    #custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+    }
+
+    #custom-search-input input{
+        border: 0;
+        box-shadow: none;
+    }
+
+    #custom-search-input button{
+        margin: 2px 0 0 0;
+        background: none;
+        box-shadow: none;
+        border: 0;
+        color: #666666;
+        padding: 0 8px 0 10px;
+        border-left: solid 1px #ccc;
+    }
+
+    #custom-search-input button:hover{
+        border: 0;
+        box-shadow: none;
+        border-left: solid 1px #ccc;
+    }
+
+    #custom-search-input .glyphicon-search{
+        font-size: 23px;
+    }
+
+
+	</style>
+
+</body>
+</html>

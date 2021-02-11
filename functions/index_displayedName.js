@@ -1520,12 +1520,12 @@ app.get("/api/:name", (req, res, next) => {
                   parsLength = obJSON1.parameters.length;
                   for(var i=0; i<parsLength; ++i) {
                     console.log("passed!2");
-                    var value = getKeyByValue(apiParameters, obJSON1.parameters[i]['name']); 
+                    var value = getKeyByValue(apiParameters, obJSON1.parameters[i]['displayedName']); 
                     console.log("value: ", value)
                     //if(value || (obJSON1.parameters[i]['value'])){
-                      if(link.includes('{'+obJSON1.parameters[i]['name']+'}')){
+                      if(link.includes('{'+obJSON1.parameters[i]['displayedName']+'}')){
                         parsLength= parsLength-1;
-                        link=link.replace('{'+obJSON1.parameters[i]['name']+'}', value);
+                        link=link.replace('{'+obJSON1.parameters[i]['displayedName']+'}', value);
                       }else if(keyParam!="" && keyParam==obJSON1.parameters[i]['name']){ //API Key
                         value = req.query['API Key']; 
                         parsLength= parsLength-1;
