@@ -1396,7 +1396,6 @@ app.get("/api/:name", (req, res, next) => {
   tok = req.query.tokenAPI;
   console.log("req.query.tokenAPI: ", req.query.tokenAPI);
 
-
   dataObj = {};
   cors(req, res, () => {
 
@@ -1809,7 +1808,7 @@ app.get("/api/:name", (req, res, next) => {
                              
                              
                             for(var m=0; m < obJSON1.responses.length; ++m){
-                              console.log("CHECKKKKK: ", obJSON1.responses[m])
+                              // console.log("CHECKKKKK: ", obJSON1.responses[m])
                               if(obJSON1.responses[m].parameter.includes('[j]')){
                                    var s = "response."+obJSON1.responses[m].parameter.split('.')[0];
                                    var arrLength = "response."+obJSON1.responses[m].parameter.split('[j]')[0];
@@ -1869,7 +1868,7 @@ app.get("/api/:name", (req, res, next) => {
                                 var ln = s//.split('[')[0];
                                 //console.log("arrLength: ", arrLength)
                                 if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){
-                                  console.log(eval(arrLength))
+                                  // console.log(eval(arrLength))
                                 var id = obJSON1.responses[m].displayedName;//name;
                                 if(obJSON1.responses[m].displayedName=="videoId"){
                                 //if(obJSON1.responses[m].name=="Video URL"){

@@ -5429,7 +5429,9 @@ function authorizeSNAPI() {
 function validateTokenSNAPI(token) {
   console.log("Token: ",token)
   console.log("Token URL: ",token_url)
-
+  token = decodeURIComponent(token);
+  console.log("DECODED: ", decodeURIComponent(token));
+  
   $.ajax({
     url: token_url,
     method: "POST",
