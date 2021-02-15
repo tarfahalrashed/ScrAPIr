@@ -1,4 +1,3 @@
-
 // $(document).ready(function (e) {
 
 function shapir(){
@@ -31,9 +30,7 @@ function shapir(){
     // })
 
 
-    return firebase.database().ref('/abstractions')
-    .once('value')
-    .then(snapshot=> {
+    return firebase.database().ref('/abstractions').once('value').then(snapshot=> {
         snapshot.forEach( childSnapshot=> { 
             // console.log("key sites: ", childSnapshot.key)
 
@@ -2514,13 +2511,6 @@ function shapir(){
         return Promise.all(results);
 
     }) //end of then(snapshot
-    // .then(function(results){
-        // (async function(){
-        //     var playlist = await dailymotion.MusicPlaylist("x706zx"); //method to get an exisiting playlist
-        //     console.log("playlist: ", playlist)
-        // })()
-    // })
-    // .catch(console.error);
 
 
 
