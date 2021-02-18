@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "superapi-52bc2"
+  },
+  "targets": {
+    "superapi-52bc2": {
+      "hosting": {
+        "scrapir": [
+          "superapi-52bc2"
+        ]
+      }
+    }
   }
 }

@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "target":"scrapir",
     "public": "public",
     "rewrites": [{
       "source": "**",

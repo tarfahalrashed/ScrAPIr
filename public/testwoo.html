@@ -5,10 +5,27 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="author" content="SemiColonWeb" />
 
+	<!-- External JavaScripts
+	============================================= -->
+	<script src="js/jquery.js"></script>
+	<script src="js/plugins.js"></script>
+
+
+	<!-- Slik Grid-->
+	<script src="lib/firebugx.js"></script>
+
+	<script src="lib/jquery-1.11.2.min.js"></script>
+	<script src="lib/jquery-ui-1.11.3.js"></script>
+	<script src="lib/jquery.event.drag-2.3.0.js"></script>
+	<script src="lib/jquery.tmpl.min.js"></script>
+	<script src="lib/jquery.jsonp-2.4.min.js"></script>
+	<script src="lib/jquery.event.drop-2.3.0.js"></script>
+
+
 	<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-database.js"></script>
 
-	<script src="woo.js"></script>
+	<script src="shapir.js"></script>
 
 
 </head>
@@ -24,20 +41,28 @@
 
 	<script>
 
-	// (async function(){	
-	// 	await shapir()
-    //     var playlist = await dailymotion.MusicPlaylist("x706zx"); //method to get an exisiting playlist
-	// 	console.log("playlist: ", playlist)
-	// })()
+	(async function(){	
+		await shapir()
+        var playlist = await new dailymotion.MusicPlaylist("x70yld"); //method to get an exisiting playlist
+		console.log("playlist: ", playlist)
+		playlist.name="NEWEST DUH"
+
+		// await dailymotion.MusicPlaylist().create()
+		// await dailymotion.MusicPlaylist.add({"name":"Test X", "description":"Test playlist"});
+	})()
 
 		// OR
 
-		shapir().then(()=>{
+		// shapir().then(()=>{
 
-			var playlist = dailymotion.MusicPlaylist("x706zx").video; //method to get an exisiting playlist
-			console.log("playlist: ", playlist);
+		// 	var playlist =  dailymotion.MusicPlaylist("x6xvq3"); //method to get an exisiting playlist
+		// 	console.log("playlist: ", playlist);
+
+		// 	playlist.delete("x6xvq3");
+		// 	// dailymotion.MusicPlaylist.add("x6xvq3"); //method to get an exisiting playlist
+		// 	// console.log("playlist: ", playlist);
 		
-		})
+		// })
 
     
 

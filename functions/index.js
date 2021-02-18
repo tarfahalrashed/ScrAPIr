@@ -3453,97 +3453,97 @@ app.get("/class/:name", (req, res, next) => {
 
 
 
-var exists=false;
+// var exists=false;
 
-function getValue(fields, displayedName){
-  exists=false;
-  var id="";
-  for(var x=0; x<fields.length; ++x){
-    // console.log("FIELDS X: ",fields[x].field)
-    if(displayedName == fields[x].field){
-      exists = true;
-      id = fields[x].property;
-    }
-  }
+// function getValue(fields, displayedName){
+//   exists=false;
+//   var id="";
+//   for(var x=0; x<fields.length; ++x){
+//     // console.log("FIELDS X: ",fields[x].field)
+//     if(displayedName == fields[x].field){
+//       exists = true;
+//       id = fields[x].property;
+//     }
+//   }
 
-  if(!exists){
-    id = displayedName;
-  }
+//   if(!exists){
+//     id = displayedName;
+//   }
 
-  // console.log("ID: ", id)
-  return id;
-}
+//   // console.log("ID: ", id)
+//   return id;
+// }
 
 // getParamValue(params, obJSON1.parameters[i]['name'], obJSON1.parameters[i]['value']);
 
-function getParamValue(params, pars, name, defaultValue){
-  exists=false;
-  var value="";
-  var allParams = params.split('&');
-  //allParams is the parameters sent to /class
-  for(var x=0; x<allParams.length; ++x){
-    var p = allParams[x].split('=')[0];
-    var v = allParams[x].split('=')[1];
+// function getParamValue(params, pars, name, defaultValue){
+//   exists=false;
+//   var value="";
+//   var allParams = params.split('&');
+//   //allParams is the parameters sent to /class
+//   for(var x=0; x<allParams.length; ++x){
+//     var p = allParams[x].split('=')[0];
+//     var v = allParams[x].split('=')[1];
 
-    //pars is the parameters under the /functions schema
-    for(var i=0; i<pars.length; ++i){
-      if(p==pars[i].input){
-        if(pars[i].param == name){
-          exists = true;
-          value = v;
-          // console.log("PAR: ", p)
-          // console.log("VALUE: ", value)
-        }
-      }
-    }
-  }
+//     //pars is the parameters under the /functions schema
+//     for(var i=0; i<pars.length; ++i){
+//       if(p==pars[i].input){
+//         if(pars[i].param == name){
+//           exists = true;
+//           value = v;
+//           // console.log("PAR: ", p)
+//           // console.log("VALUE: ", value)
+//         }
+//       }
+//     }
+//   }
 
-  if(!exists){
-    value = defaultValue;
-  }
+//   if(!exists){
+//     value = defaultValue;
+//   }
 
-  return value;
-}
+//   return value;
+// }
 
 
 
 
 //get videos with their comments (delay http calls)
-app.get("/testX", (req, res, next) => {
+// app.get("/testX", (req, res, next) => {
 
-  let videos;
-  const delay = (ms = 1000) => new Promise((r) => setTimeout(r, ms));
-  const getTodosSeries = async function (objArray) {
-    let items = objArray.map(({ videoId }) => videoId)
+//   let videos;
+//   const delay = (ms = 1000) => new Promise((r) => setTimeout(r, ms));
+//   const getTodosSeries = async function (objArray) {
+//     let items = objArray.map(({ videoId }) => videoId)
 
-    let results = [];
-    for (let index = 0; index < items.length; index++) {
-      await delay();
-      const res = await axios.get(
-        `http://localhost:5000/api/YouTube Video?Video ID=${items[index]}`
-      );
-      // results.push(res.data);
-      obj = res.data
-      videos[index].description= obj['description']
-      results.push(videos[index])
-      // console.log(obj['description']);
-      //add descreption to the object where the videoId is the same
-    }
-    return results;
-  };
+//     let results = [];
+//     for (let index = 0; index < items.length; index++) {
+//       await delay();
+//       const res = await axios.get(
+//         `http://localhost:5000/api/YouTube Video?Video ID=${items[index]}`
+//       );
+//       // results.push(res.data);
+//       obj = res.data
+//       videos[index].description= obj['description']
+//       results.push(videos[index])
+//       // console.log(obj['description']);
+//       //add descreption to the object where the videoId is the same
+//     }
+//     return results;
+//   };
 
-  async function main() {
+  // async function main() {
 
-    let rawdata = fs.readFileSync('data.json');// imagine we've already retreived a list of youtube videos (e.g. YouTube API)
-    videos = JSON.parse(rawdata);
-    // console.log(videos);
-    // const strings = ['BPobdbmzY9o', '1jO2wSpAoxA'];
-    const results = await getTodosSeries(videos);//strings
-    // console.log(results);
-    // console.log(videos);
-    res.json(results)
-  }
-  main();
+  //   let rawdata = fs.readFileSync('data.json');// imagine we've already retreived a list of youtube videos (e.g. YouTube API)
+  //   videos = JSON.parse(rawdata);
+  //   // console.log(videos);
+  //   // const strings = ['BPobdbmzY9o', '1jO2wSpAoxA'];
+  //   const results = await getTodosSeries(videos);//strings
+  //   // console.log(results);
+  //   // console.log(videos);
+  //   res.json(results)
+  // }
+  // main();
 
 
 
@@ -3567,207 +3567,207 @@ app.get("/testX", (req, res, next) => {
 // console.log(doSomething())
 // res.json()
 
-});
+//});
 
 
-const scrapir = require('./scrapir');
-getAge = function () {  return 'getName'; };
+// const scrapir = require('./scrapir');
+// getAge = function () {  return 'getName'; };
 
-let scrObjects = function() {  return new Promise(function(resolve, reject) {resolve(fetch('https://superapi-52bc2.firebaseio.com/abstractions.json').then(response => response.json())) }) }
+// let scrObjects = function() {  return new Promise(function(resolve, reject) {resolve(fetch('https://superapi-52bc2.firebaseio.com/abstractions.json').then(response => response.json())) }) }
 
-// https://scrapir.org/multi?type=VideoObject&sites=youtube&params=keywords:cats
+// // https://scrapir.org/multi?type=VideoObject&sites=youtube&params=keywords:cats
 
 
-app.get("/Y", (req, res, next) => {
-  var x= scrObjects()
+// app.get("/Y", (req, res, next) => {
+//   var x= scrObjects()
 
-  setTimeout(function(){
+//   setTimeout(function(){
       
-    console.log("Data: ",x.VideoObject);
-  }, 4000);  
+//     console.log("Data: ",x.VideoObject);
+//   }, 4000);  
 
-});
+// });
 
-var callerId = require('caller-id');
+// var callerId = require('caller-id');
 
 
 
-app.get("/XXX", (req, res, next) => {
+// app.get("/XXX", (req, res, next) => {
 
-  var repsonse, type, method, schemaTypes, methods=[];
+//   var repsonse, type, method, schemaTypes, methods=[];
   
-  https.get('https://superapi-52bc2.firebaseio.com/schema.json', res => {
-    res.setEncoding("utf8");
-    res.on("data", data => {
-        schemaTypes += data;
-    });
-    res.on("end", () => {
-     // var response = JSON.parse(schemaTypes);
-      // // console.log("response: ", response)
+//   https.get('https://superapi-52bc2.firebaseio.com/schema.json', res => {
+//     res.setEncoding("utf8");
+//     res.on("data", data => {
+//         schemaTypes += data;
+//     });
+//     res.on("end", () => {
+//      // var response = JSON.parse(schemaTypes);
+//       // // console.log("response: ", response)
 
-      // methods=[]
-      // var response = JSON.parse(schemaTypes);
-      // // console.log("response: ", response)
-      // Object.entries(response).forEach(([type, val]) => {
-      //     // type = key
-      //   global[type] = {} //initilize 
-      //   // console.log(key); // the name of the current key.
-      //   if(val.properties){
-      //     methods=Object.keys(val.properties) //NEED to be changed to methods
-      //     // console.log(methods)
-      //     for(var i=0; i<methods.length; ++i){
-      //       method = methods[i]
-      //       // console.log(type) //VideoObject
-      //       // console.log(method) //getVideos
-      //       global[type][method] = function(...args) {return callAPI(...args)}
-      //       // global[type][method] = function(...args) {return callAPI2(method, ...args)}
-      //     }
-      //     // console.log(val.properties); // the value of the current key.
-      //   }else{
-      //     // console.log("NONE");
-      //   }
+//       // methods=[]
+//       // var response = JSON.parse(schemaTypes);
+//       // // console.log("response: ", response)
+//       // Object.entries(response).forEach(([type, val]) => {
+//       //     // type = key
+//       //   global[type] = {} //initilize 
+//       //   // console.log(key); // the name of the current key.
+//       //   if(val.properties){
+//       //     methods=Object.keys(val.properties) //NEED to be changed to methods
+//       //     // console.log(methods)
+//       //     for(var i=0; i<methods.length; ++i){
+//       //       method = methods[i]
+//       //       // console.log(type) //VideoObject
+//       //       // console.log(method) //getVideos
+//       //       global[type][method] = function(...args) {return callAPI(...args)}
+//       //       // global[type][method] = function(...args) {return callAPI2(method, ...args)}
+//       //     }
+//       //     // console.log(val.properties); // the value of the current key.
+//       //   }else{
+//       //     // console.log("NONE");
+//       //   }
       
-      //     callAPI2 = function (p) { 
-      //       //p = the parameters we're sending from VideoObject.caption("babies")
-      //       var caller = callerId.getData().methodName;
-      //       return caller 
-      //     };
+//       //     callAPI2 = function (p) { 
+//       //       //p = the parameters we're sending from VideoObject.caption("babies")
+//       //       var caller = callerId.getData().methodName;
+//       //       return caller 
+//       //     };
 
-      //     callAPI = function (sites) {  
-      //     var methodName = callerId.getData().methodName;
-      //     // return fetch('https://scrapir.org/multi?type=VideoObject&sites=dailymotion').then(res => res.json());
-      //     return new Promise(function(resolve, reject) {resolve(fetch('https://scrapir.org/multi?type=VideoObject&sites=dailymotion').then(response => response.json())) }) ;
+//       //     callAPI = function (sites) {  
+//       //     var methodName = callerId.getData().methodName;
+//       //     // return fetch('https://scrapir.org/multi?type=VideoObject&sites=dailymotion').then(res => res.json());
+//       //     return new Promise(function(resolve, reject) {resolve(fetch('https://scrapir.org/multi?type=VideoObject&sites=dailymotion').then(response => response.json())) }) ;
 
-      //     };
-      //  // }//response old loop
-      //  }); //response new loop
-      });
-    });
+//       //     };
+//       //  // }//response old loop
+//       //  }); //response new loop
+//       });
+//     });
 
-    setTimeout(function(){
-      var result = VideoObject("xQOO2xGQ1Pc")
-      console.log('Woo done!', result)
-    }, 1000);  
+//     setTimeout(function(){
+//       var result = VideoObject("xQOO2xGQ1Pc")
+//       console.log('Woo done!', result)
+//     }, 1000);  
   
-  //**************************************************************** */
+//   //**************************************************************** */
 
-  // let videoObject = new VideoObject();
-  // func();
+//   // let videoObject = new VideoObject();
+//   // func();
   
-  //call it, to test it
+//   //call it, to test it
 
-  // var VideoObject = {
-  //   getVideos: function(sites, params) {return  VideoObject.getVideos.name},//[{"name":"Sarah", "age": 15}, {"name":"Tarfah", "age": 15}]
-  //   at_21: function() { },
-  //   at_99: function() { }
-  // };
-  // console.log("VAL: ", VideoObject.getVideos())
-  // res.json(VideoObject.getVideos());
-  // res.json(VideoObject.getVideos(['youtube', 'dailymotion'], ['funny cats']));
-});
+//   // var VideoObject = {
+//   //   getVideos: function(sites, params) {return  VideoObject.getVideos.name},//[{"name":"Sarah", "age": 15}, {"name":"Tarfah", "age": 15}]
+//   //   at_21: function() { },
+//   //   at_99: function() { }
+//   // };
+//   // console.log("VAL: ", VideoObject.getVideos())
+//   // res.json(VideoObject.getVideos());
+//   // res.json(VideoObject.getVideos(['youtube', 'dailymotion'], ['funny cats']));
+// });
 
-// var w2v = require('word2vec');
-// const {spawn} = require('child_process');
-const {PythonShell} =require('python-shell'); 
-
-
-app.get("/synonyms/:name", (req, res, next) => {
-
-  console.log(req.params.name)
-  //Here are the option object in which arguments can be passed for the python_test.js. 
-  let options = { 
-    mode: 'text', 
-    pythonOptions: ['-u'], // get print results in real-time 
-      scriptPath: '', //If you are having python_test.py script in same folder, then it's optional. 
-    args: [req.params.name] //An argument which can be accessed in the script using sys.argv[1] 
-  }; 
-
-  PythonShell.run('treasures.py', options, function (err, result){ 
-      if (err) throw err; 
-      res.send(result.toString()) 
-  }); 
+// // var w2v = require('word2vec');
+// // const {spawn} = require('child_process');
+// const {PythonShell} =require('python-shell'); 
 
 
-// //   var largeDataSet = [];
-// //  // spawn new child process to call the python script
-// //  const python = spawn('python', ['script1.py']);
-// //  // collect data from script
-// //  python.stdout.on('data', function (data) {
-// //   console.log('Pipe data from python script ...');
-// //   largeDataSet.push(data);
-// //  });
-// //  // in close event we are sure that stream is from child process is closed
-// //  python.on('close', (code) => {
-// //  console.log(`child process close all stdio with code ${code}`);
-// //  // send data to browser
-// //  res.send(largeDataSet.join(""))
-// //  });
+// app.get("/synonyms/:name", (req, res, next) => {
 
-//   // var _ = require("lodash");
-//   // var utils = {};
-//   // utils.GOOGLE_BIN = "./freebase-vectors-skipgram1000.bin"
+//   console.log(req.params.name)
+//   //Here are the option object in which arguments can be passed for the python_test.js. 
+//   let options = { 
+//     mode: 'text', 
+//     pythonOptions: ['-u'], // get print results in real-time 
+//       scriptPath: '', //If you are having python_test.py script in same folder, then it's optional. 
+//     args: [req.params.name] //An argument which can be accessed in the script using sys.argv[1] 
+//   }; 
 
-//   // utils.sortObject = function (model) {
-//   //   return _.chain(model)
-//   //   .map((val, key) => {
-//   //     return { name: key, count: val }
-//   //   })
-//   //   .sortBy('count')
-//   //   .reverse()
-//   //   .keyBy('name')
-//   //   .mapValues('count')
-//   //   .value();
-//   // }
+//   PythonShell.run('treasures.py', options, function (err, result){ 
+//       if (err) throw err; 
+//       res.send(result.toString()) 
+//   }); 
 
 
-//   // binary = fs.createReadStream('./freebase-vectors-skipgram1000.bin');
-//   // process.stdout.write(binary.slice(0, 48));
+// // //   var largeDataSet = [];
+// // //  // spawn new child process to call the python script
+// // //  const python = spawn('python', ['script1.py']);
+// // //  // collect data from script
+// // //  python.stdout.on('data', function (data) {
+// // //   console.log('Pipe data from python script ...');
+// // //   largeDataSet.push(data);
+// // //  });
+// // //  // in close event we are sure that stream is from child process is closed
+// // //  python.on('close', (code) => {
+// // //  console.log(`child process close all stdio with code ${code}`);
+// // //  // send data to browser
+// // //  res.send(largeDataSet.join(""))
+// // //  });
 
-//   // console.time("read");
-// // w2v.load(utils.GOOGLE_BIN);
+// //   // var _ = require("lodash");
+// //   // var utils = {};
+// //   // utils.GOOGLE_BIN = "./freebase-vectors-skipgram1000.bin"
 
-//   w2v.loadModel('./glove.6B.50d.txt', function( error, model ) {
-//     console.log(model);
-//     console.log("W2V: ", model.similarity( 'name', 'title' ));
-//       res.json()
-//   });
-//   // console.timeEnd("read");
+// //   // utils.sortObject = function (model) {
+// //   //   return _.chain(model)
+// //   //   .map((val, key) => {
+// //   //     return { name: key, count: val }
+// //   //   })
+// //   //   .sortBy('count')
+// //   //   .reverse()
+// //   //   .keyBy('name')
+// //   //   .mapValues('count')
+// //   //   .value();
+// //   // }
 
+
+// //   // binary = fs.createReadStream('./freebase-vectors-skipgram1000.bin');
+// //   // process.stdout.write(binary.slice(0, 48));
+
+// //   // console.time("read");
+// // // w2v.load(utils.GOOGLE_BIN);
+
+// //   w2v.loadModel('./glove.6B.50d.txt', function( error, model ) {
+// //     console.log(model);
+// //     console.log("W2V: ", model.similarity( 'name', 'title' ));
+// //       res.json()
+// //   });
+// //   // console.timeEnd("read");
+
+
+// // });
+
+
+// // app.get("/wv2", (req, res, next) => {
+
+// //   var MusicPlaylist = MusicPlaylist|| {}; 
+
+// //   MusicPlaylist = function (playlistId, name) { 
+// //     this.playlistId = playlistId; 
+// //     this.name = name; 
+// //     // this.videos = this.getVideos();
+// //     this.videos = function(){return this.playlistId;}; //send a playlistId to VideoObject and return a collection of VideoObject (return videos and then map it to the VideoObject properties)
+// //   } 
+
+// //   var playlist = new MusicPlaylist("46", "Tarfah"); 
+
+// //   //res.send(playlist) //return playlist object {"playlistId":"46","name":"Tarfah"}
+// //   // how to construct playlist automatically? when we search, a construct will automatically be created var playlist = new MusicPlaylist("46", "Tarfah"); these values are turned from the search 
+// //   res.send(playlist.videos())
 
 // });
 
 
-// app.get("/wv2", (req, res, next) => {
-
-//   var MusicPlaylist = MusicPlaylist|| {}; 
-
-//   MusicPlaylist = function (playlistId, name) { 
-//     this.playlistId = playlistId; 
-//     this.name = name; 
-//     // this.videos = this.getVideos();
-//     this.videos = function(){return this.playlistId;}; //send a playlistId to VideoObject and return a collection of VideoObject (return videos and then map it to the VideoObject properties)
-//   } 
-
-//   var playlist = new MusicPlaylist("46", "Tarfah"); 
-
-//   //res.send(playlist) //return playlist object {"playlistId":"46","name":"Tarfah"}
-//   // how to construct playlist automatically? when we search, a construct will automatically be created var playlist = new MusicPlaylist("46", "Tarfah"); these values are turned from the search 
-//   res.send(playlist.videos())
-
-});
 
 
+// // const woo = require("./woo.js");
 
+// // app.get("/wooo", (req, res, next) => {
 
-// const woo = require("./woo.js");
+// //   // var user = woo.etsy.Person("54550541")
+// //   //console.log("etsy user: ", user)
+// //   res.send(woo.combine([1,2], [3,4,5]))
 
-// app.get("/wooo", (req, res, next) => {
-
-//   // var user = woo.etsy.Person("54550541")
-//   //console.log("etsy user: ", user)
-//   res.send(woo.combine([1,2], [3,4,5]))
-
-// });
+// // });
 
 
 

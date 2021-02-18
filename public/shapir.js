@@ -52,10 +52,15 @@ function shapir(){
                             let type = key;
                             let val  = eval(value);
                         
+                        // window[site][type]= function() { return createFunction(...args)}; 
+
+                            //***************************** ADD *********************************/
+                                                                                          
+
+                         
+
                         window[site][type] = function(...args) { return self(type, val, "self", "none", ...args) };  
-                        
-                        // results.push(window[site][type])
-                        
+                                                
                         function self (typekey, typeOb, caller, prop, ...args) { 
                             // console.log("typeOb:", typeOb)
                             // console.log("caller:", caller)
@@ -85,7 +90,8 @@ function shapir(){
                             var idValue = args[0];
                             var typeId = typeOb.id;
                             var properties = typeOb.properties;
-                            var getters = typeOb.getters;
+                            var add = typeOb.add;
+                            var remove = typeOb.delete;
                             var setters = typeOb.setters;
                             var methods = typeOb.methods;
                             var fields=[], paramList="", mParamList="";
@@ -222,7 +228,331 @@ function shapir(){
                                             }
                                         }
                                 
-                                        //***************************** GETTERS *********************************/
+                                        //***************************** ADD *********************************/
+                                        Object.defineProperty(ob, 'create', { value: function(args) { 
+                                            console.log("Add function")
+                                            let createEndpoint =  add.endpoint;
+                                            let aParamList="";
+                                            console.log("paramLen: ", paramLen)
+
+                                            for (const [key, value] of Object.entries(args)) {
+                                                --paramLen
+                                                console.log(`${key}: ${value}`);
+                                                aParamList+= key
+                                                aParamList+="="
+                                                aParamList+= value
+                                                if(paramLen>0){
+                                                    aParamList+="&" 
+                                                }
+                                            }
+
+                                            console.log("aParamList: ", aParamList)
+
+                                            return firebase.database().ref('/apis/'+createEndpoint).once('value').then(function(snapshot) {
+                                            obJSON = snapshot.val();
+                                            console.log("obJSON REMOVE: ", obJSON)
+
+                                            if(obJSON.oauth2){
+                                                console.log("oauth2")
+
+                                                var tokenPromise;
+                                                // var sTokens = JSON.parse(localStorage.getItem('tokens'));
+                                                // console.log(sTokens)
+                                                // const elementsIndex = sTokens.findIndex(element => element.site == site)
+                                                // console.log("sTokens[elementsIndex]: ", sTokens[elementsIndex].token)
+                                                // if(sTokens[elementsIndex].token!=""){
+                                                //             tokenPromise= new Promise((resolve, reject) => {resolve(sTokens[elementsIndex].token)})
+                                                //             .then(token=>{ 
+                                                //                 return new Promise((resolve, reject) => {
+                                                //                     console.log("Token: ",token)
+                                                //                     $.ajax({
+                                                //                         url: token_url,
+                                                //                         method: "POST",
+                                                //                         data: {client_id: client_id ,client_secret: client_secret ,redirect_uri: redirect_url ,code: token ,grant_type:grant_type},
+                                                //                         success: function(response) {
+                                                //                             console.log("response: ",response);
+                                                //                             tok = response.access_token;
+                                                //                             expires_in = response.expires_in;
+                                                //                             console.log("tok: ", tok)
+                                                //                             console.log("expires_in: ", expires_in)
+                                                //                             // localStorage.setItem('tokens', JSON.stringify(sitesToken));
+                                                //                             // console.log("tokens: ", localStorage.getItem('tokens'));
+                                                //                             //const elementsIndex = this.sTokens.findIndex(element => element.site == site)
+                                                //                             let newArray = [...sTokens]
+                                                //                             newArray[elementsIndex] = {...newArray[elementsIndex], token: tok}
+                                                //                             newArray[elementsIndex] = {...newArray[elementsIndex], expires_in: expires_in}
+                                                //                             // this.setState({newArray});
+
+                                                //                             localStorage.setItem('tokens', JSON.stringify(newArray));
+                                                //                             console.log("NEW LOCAL STORGAE: ", localStorage.getItem('tokens'))
+
+                                                //                             resolve('http://localhost:5000/api/'+removeEndpoint+'?tokenAPI='+tok+'&'+rParamList)
+                                                //                         },
+                                                //                         error: function(response, jqXHR, textStatus, errorThrown) {
+                                                //                             console.log("error: ",response);
+                                                //                         }
+                                                //                     })
+                                                //                 })
+                                                //             })
+                                                //         }else{
+                                                            tokenPromise= new Promise((resolve, reject) => {
+                                                                console.log("auth function");
+                                                                auth_url= obJSON.oauth2[0].authURL;
+                                                                token_url= obJSON.oauth2[0].tokenURL;
+                                                                redirect_url= obJSON.oauth2[0].callbackURL;
+                                                                client_id= obJSON.oauth2[0].clientId;
+                                                                client_secret= obJSON.oauth2[0].clientSec;
+                                                                response_type= obJSON.oauth2[0].resType;
+                                                                scope= obJSON.oauth2[0].scope;
+                                                                grant_type= obJSON.oauth2[0].grantType;
+                                                                client_auth= obJSON.oauth2[0].clientAuth;
+                                                                    
+                                                                var win = window.open(auth_url+"?response_type="+JSON.parse(JSON.stringify(response_type))+"&scope="+JSON.parse(JSON.stringify(scope))+"&client_id="+JSON.parse(JSON.stringify(client_id))+"&redirect_uri="+JSON.parse(JSON.stringify(redirect_url))+"", "windowname1", 'width=800, height=600');
+                                                                var pollTimer = window.setInterval(function() {
+                                                                    try {
+                                                                        console.log("url here: ", win.document.URL); //here url
+                                                                        if (win.document.URL.indexOf(redirect_url) != -1) {
+                                                                            window.clearInterval(pollTimer);
+                                                                            var url =   win.document.URL;
+                                                                            acToken =   gup(url, 'code');
+                                                                            resolve(acToken)
+                                                                            // tokenType = gup(url, 'token_type');
+                                                                            // expiresIn = gup(url, 'expires_in');
+                                                                            win.close();
+                                                                        }
+                                                                    } catch(e) {
+                                                                        console.log("error in oauth")
+                                                                    }
+                                                                }, 200);
+
+                                                                function gup(url, name) {
+                                                                    name = name.replace(/[[]/,"\[").replace(/[]]/,"\]");
+                                                                    var regexS = "[\?&]"+name+"=([^&#]*)";
+                                                                    var regex = new RegExp( regexS );
+                                                                    var results = regex.exec( url );
+                                                                    if( results == null )
+                                                                        return "";
+                                                                    else
+                                                                        return results[1];
+                                                                }//end of gup()
+                                                                    
+                                                            })
+                                                            .then(token=>{ 
+                                                                return new Promise((resolve, reject) => {
+                                                                    console.log("Token: ",token)
+                                                                    $.ajax({
+                                                                        url: token_url,
+                                                                        method: "POST",
+                                                                        data: {client_id: client_id ,client_secret: client_secret ,redirect_uri: redirect_url ,code: token ,grant_type:grant_type},
+                                                                        success: function(response) {
+                                                                            console.log("response: ",response);
+                                                                            tok = response.access_token;
+                                                                            expires_in = response.expires_in;
+                                                                            console.log("tok: ", tok)
+                                                                            console.log("expires_in: ", expires_in)
+                                                                            // localStorage.setItem('tokens', JSON.stringify(sitesToken));
+                                                                            // console.log("tokens: ", localStorage.getItem('tokens'));
+                                                                            // let newArray = [...sTokens]
+                                                                            // newArray[elementsIndex] = {...newArray[elementsIndex], token: tok}
+                                                                            // newArray[elementsIndex] = {...newArray[elementsIndex], expires_in: expires_in}
+                                                                            // this.setState({newArray});
+
+                                                                            // localStorage.setItem('tokens', JSON.stringify(newArray));
+                                                                            // console.log("NEW LOCAL STORGAE: ", localStorage.getItem('tokens'))
+
+
+                                                                            resolve('http://localhost:5000/api/'+createEndpoint+'?tokenAPI='+tok+'&'+aParamList)
+                                                                        },
+                                                                        error: function(response, jqXHR, textStatus, errorThrown) {
+                                                                            console.log("error: ",response);
+                                                                        }
+                                                                    })
+                                                                })
+                                                            })
+                                                        //}
+
+                                                return tokenPromise
+
+
+                                            }else{ //no oauth
+                                                console.log("!!!oauth2")
+                                                result =  'http://localhost:5000/api/'+createEndpoint+'?'+aParamList
+                                                return result;
+                                            }
+
+                                            })//firebase
+                                            .then(url => { console.log("url: ", url); return new Promise(function(resolve, reject) {resolve(fetch(url).then(response => response.json() )) })   })
+                                            
+                                        }});//end of add
+
+                                        
+                                        //***************************** REMOVE *********************************/
+                                        
+                                        var removeEndpoint =  remove.endpoint;
+                                        var removeId = remove.id;
+                                        Object.defineProperty(ob, 'delete', { value: function(rId) { 
+              
+                                            let rParamList="";
+
+                                            rParamList+=removeId
+                                            rParamList+="="
+                                            rParamList+=ob[typeId]
+
+                                            // if(mArgs.length>0){
+                                            //     if(mParams){
+                                            //         for(var p=0; p<mParams.length; ++p){
+                                            //             //Object.entries(mParams[p]).forEach(([key, value]) => {
+                                            //                 mParamList+=mParams[p]//`${key}`
+                                            //                 mParamList+="="
+                                            //                 mParamList+=mArgs[p]//THIS ASSUMES THAT id value will be sent
+                                            //             // });
+                                            //             if(p+1<mParams.length){
+                                            //                 mParamList+="&" 
+                                            //             }
+                                            //         }
+                                            //     }
+                                            // }else{
+                                            //     mParamList+=mParams[0]
+                                            //     mParamList+="="
+                                            //     mParamList+=ob[mParams[0]]
+                                            // }
+
+                                            //console.log("mParamList: ", mParamList)
+                                            return firebase.database().ref('/apis/'+removeEndpoint).once('value').then(function(snapshot) {
+                                            obJSON = snapshot.val();
+                                            console.log("obJSON REMOVE: ", obJSON)
+                                        
+                                            if(obJSON.oauth2){
+                                                console.log("oauth2")
+                
+                                                var tokenPromise;
+                                                var sTokens = JSON.parse(localStorage.getItem('tokens'));
+                                                console.log(sTokens)
+                                                const elementsIndex = sTokens.findIndex(element => element.site == site)
+                                                console.log("sTokens[elementsIndex]: ", sTokens[elementsIndex].token)
+                                                if(sTokens[elementsIndex].token!=""){
+                                                            tokenPromise= new Promise((resolve, reject) => {resolve(sTokens[elementsIndex].token)})
+                                                            .then(token=>{ 
+                                                                return new Promise((resolve, reject) => {
+                                                                    console.log("Token: ",token)
+                                                                    $.ajax({
+                                                                        url: token_url,
+                                                                        method: "POST",
+                                                                        data: {client_id: client_id ,client_secret: client_secret ,redirect_uri: redirect_url ,code: token ,grant_type:grant_type},
+                                                                        success: function(response) {
+                                                                            console.log("response: ",response);
+                                                                            tok = response.access_token;
+                                                                            expires_in = response.expires_in;
+                                                                            console.log("tok: ", tok)
+                                                                            console.log("expires_in: ", expires_in)
+                                                                            // localStorage.setItem('tokens', JSON.stringify(sitesToken));
+                                                                            // console.log("tokens: ", localStorage.getItem('tokens'));
+                                                                            //const elementsIndex = this.sTokens.findIndex(element => element.site == site)
+                                                                            let newArray = [...sTokens]
+                                                                            newArray[elementsIndex] = {...newArray[elementsIndex], token: tok}
+                                                                            newArray[elementsIndex] = {...newArray[elementsIndex], expires_in: expires_in}
+                                                                            // this.setState({newArray});
+
+                                                                            localStorage.setItem('tokens', JSON.stringify(newArray));
+                                                                            console.log("NEW LOCAL STORGAE: ", localStorage.getItem('tokens'))
+                        
+                                                                            resolve('http://localhost:5000/api/'+removeEndpoint+'?tokenAPI='+tok+'&'+rParamList)
+                                                                        },
+                                                                        error: function(response, jqXHR, textStatus, errorThrown) {
+                                                                            console.log("error: ",response);
+                                                                        }
+                                                                    })
+                                                                })
+                                                            })
+                                                        }else{
+                                                            tokenPromise= new Promise((resolve, reject) => {
+                                                                console.log("auth function");
+                                                                auth_url= obJSON.oauth2[0].authURL;
+                                                                token_url= obJSON.oauth2[0].tokenURL;
+                                                                redirect_url= obJSON.oauth2[0].callbackURL;
+                                                                client_id= obJSON.oauth2[0].clientId;
+                                                                client_secret= obJSON.oauth2[0].clientSec;
+                                                                response_type= obJSON.oauth2[0].resType;
+                                                                scope= obJSON.oauth2[0].scope;
+                                                                grant_type= obJSON.oauth2[0].grantType;
+                                                                client_auth= obJSON.oauth2[0].clientAuth;
+                                                                    
+                                                                var win = window.open(auth_url+"?response_type="+JSON.parse(JSON.stringify(response_type))+"&scope="+JSON.parse(JSON.stringify(scope))+"&client_id="+JSON.parse(JSON.stringify(client_id))+"&redirect_uri="+JSON.parse(JSON.stringify(redirect_url))+"", "windowname1", 'width=800, height=600');
+                                                                var pollTimer = window.setInterval(function() {
+                                                                    try {
+                                                                        console.log("url here: ", win.document.URL); //here url
+                                                                        if (win.document.URL.indexOf(redirect_url) != -1) {
+                                                                            window.clearInterval(pollTimer);
+                                                                            var url =   win.document.URL;
+                                                                            acToken =   gup(url, 'code');
+                                                                            resolve(acToken)
+                                                                            // tokenType = gup(url, 'token_type');
+                                                                            // expiresIn = gup(url, 'expires_in');
+                                                                            win.close();
+                                                                        }
+                                                                    } catch(e) {
+                                                                        console.log("error in oauth")
+                                                                    }
+                                                                }, 200);
+                                        
+                                                                function gup(url, name) {
+                                                                    name = name.replace(/[[]/,"\[").replace(/[]]/,"\]");
+                                                                    var regexS = "[\?&]"+name+"=([^&#]*)";
+                                                                    var regex = new RegExp( regexS );
+                                                                    var results = regex.exec( url );
+                                                                    if( results == null )
+                                                                        return "";
+                                                                    else
+                                                                        return results[1];
+                                                                }//end of gup()
+                                                                    
+                                                            })
+                                                            .then(token=>{ 
+                                                                return new Promise((resolve, reject) => {
+                                                                    console.log("Token: ",token)
+                                                                    $.ajax({
+                                                                        url: token_url,
+                                                                        method: "POST",
+                                                                        data: {client_id: client_id ,client_secret: client_secret ,redirect_uri: redirect_url ,code: token ,grant_type:grant_type},
+                                                                        success: function(response) {
+                                                                            console.log("response: ",response);
+                                                                            tok = response.access_token;
+                                                                            expires_in = response.expires_in;
+                                                                            console.log("tok: ", tok)
+                                                                            console.log("expires_in: ", expires_in)
+                                                                            // localStorage.setItem('tokens', JSON.stringify(sitesToken));
+                                                                            // console.log("tokens: ", localStorage.getItem('tokens'));
+                                                                            let newArray = [...sTokens]
+                                                                            newArray[elementsIndex] = {...newArray[elementsIndex], token: tok}
+                                                                            newArray[elementsIndex] = {...newArray[elementsIndex], expires_in: expires_in}
+                                                                            // this.setState({newArray});
+
+                                                                            localStorage.setItem('tokens', JSON.stringify(newArray));
+                                                                            console.log("NEW LOCAL STORGAE: ", localStorage.getItem('tokens'))
+                        
+                        
+                                                                            resolve('http://localhost:5000/api/'+removeEndpoint+'?tokenAPI='+tok+'&'+rParamList)
+                                                                        },
+                                                                        error: function(response, jqXHR, textStatus, errorThrown) {
+                                                                            console.log("error: ",response);
+                                                                        }
+                                                                    })
+                                                                })
+                                                            })
+                                                        }
+                                    
+                                                return tokenPromise
+
+                            
+                                            }else{ //no oauth
+                                                console.log("!!!oauth2")
+                                                result =  'http://localhost:5000/api/'+removeEndpoint+'?'+rParamList
+                                                return result;
+                                            }
+                
+                                            })//firebase
+                                            .then(url => { console.log("url: ", url); return new Promise(function(resolve, reject) {resolve(fetch(url).then(response => response.json() )) })   })
+                                        }});//HERE AND NOW
 
 
                                         //***************************** SETTERS *********************************/
@@ -505,7 +835,7 @@ function shapir(){
                                                 })//firebase
                                                 .then(url => { console.log("url: ", url); return new Promise(function(resolve, reject) {resolve(fetch(url).then(response => response.json() )) })   })
                                             }
-                                            });
+                                          });//HERE AND NOW
                                         //   });
 
                                         }//loop to create methods
@@ -563,12 +893,181 @@ function shapir(){
                                         }
                                     }//end of for loop properties
 
-                                    //***************************** GETTERS *********************************/
+                   
+                                    //***************************** REMOVE *********************************/
+                                        
+                                    var removeEndpoint =  remove.endpoint;
+                                    var removeId = remove.id;
+                                    Object.defineProperty(o, 'delete', { value: function(rId) { 
+              
+                                            console.log("Current ID: ",o[typeId]);
+
+                                            let rParamList="";
+
+                                            rParamList+=removeId
+                                            rParamList+="="
+                                            rParamList+=o[typeId]
+
+                                            // if(mArgs.length>0){
+                                            //     if(mParams){
+                                            //         for(var p=0; p<mParams.length; ++p){
+                                            //             //Object.entries(mParams[p]).forEach(([key, value]) => {
+                                            //                 mParamList+=mParams[p]//`${key}`
+                                            //                 mParamList+="="
+                                            //                 mParamList+=mArgs[p]//THIS ASSUMES THAT id value will be sent
+                                            //             // });
+                                            //             if(p+1<mParams.length){
+                                            //                 mParamList+="&" 
+                                            //             }
+                                            //         }
+                                            //     }
+                                            // }else{
+                                            //     mParamList+=mParams[0]
+                                            //     mParamList+="="
+                                            //     mParamList+=ob[mParams[0]]
+                                            // }
+
+                                            //console.log("mParamList: ", mParamList)
+                                            return firebase.database().ref('/apis/'+removeEndpoint).once('value').then(function(snapshot) {
+                                            obJSON = snapshot.val();
+                                            console.log("obJSON REMOVE: ", obJSON)
+                                        
+                                            if(obJSON.oauth2){
+                                                console.log("oauth2")
+                
+                                                var tokenPromise;
+                                                // var sTokens = JSON.parse(localStorage.getItem('tokens'));
+                                                // console.log(sTokens)
+                                                // const elementsIndex = sTokens.findIndex(element => element.site == site)
+                                                // console.log("sTokens[elementsIndex]: ", sTokens[elementsIndex].token)
+                                                // if(sTokens[elementsIndex].token!=""){
+                                                //             tokenPromise= new Promise((resolve, reject) => {resolve(sTokens[elementsIndex].token)})
+                                                //             .then(token=>{ 
+                                                //                 return new Promise((resolve, reject) => {
+                                                //                     console.log("Token: ",token)
+                                                //                     $.ajax({
+                                                //                         url: token_url,
+                                                //                         method: "POST",
+                                                //                         data: {client_id: client_id ,client_secret: client_secret ,redirect_uri: redirect_url ,code: token ,grant_type:grant_type},
+                                                //                         success: function(response) {
+                                                //                             console.log("response: ",response);
+                                                //                             tok = response.access_token;
+                                                //                             expires_in = response.expires_in;
+                                                //                             console.log("tok: ", tok)
+                                                //                             console.log("expires_in: ", expires_in)
+                                                //                             // localStorage.setItem('tokens', JSON.stringify(sitesToken));
+                                                //                             // console.log("tokens: ", localStorage.getItem('tokens'));
+                                                //                             //const elementsIndex = this.sTokens.findIndex(element => element.site == site)
+                                                //                             let newArray = [...sTokens]
+                                                //                             newArray[elementsIndex] = {...newArray[elementsIndex], token: tok}
+                                                //                             newArray[elementsIndex] = {...newArray[elementsIndex], expires_in: expires_in}
+                                                //                             // this.setState({newArray});
+
+                                                //                             localStorage.setItem('tokens', JSON.stringify(newArray));
+                                                //                             console.log("NEW LOCAL STORGAE: ", localStorage.getItem('tokens'))
+                        
+                                                //                             resolve('http://localhost:5000/api/'+removeEndpoint+'?tokenAPI='+tok+'&'+rParamList)
+                                                //                         },
+                                                //                         error: function(response, jqXHR, textStatus, errorThrown) {
+                                                //                             console.log("error: ",response);
+                                                //                         }
+                                                //                     })
+                                                //                 })
+                                                //             })
+                                                //         }else{
+                                                            tokenPromise= new Promise((resolve, reject) => {
+                                                                console.log("auth function");
+                                                                auth_url= obJSON.oauth2[0].authURL;
+                                                                token_url= obJSON.oauth2[0].tokenURL;
+                                                                redirect_url= obJSON.oauth2[0].callbackURL;
+                                                                client_id= obJSON.oauth2[0].clientId;
+                                                                client_secret= obJSON.oauth2[0].clientSec;
+                                                                response_type= obJSON.oauth2[0].resType;
+                                                                scope= obJSON.oauth2[0].scope;
+                                                                grant_type= obJSON.oauth2[0].grantType;
+                                                                client_auth= obJSON.oauth2[0].clientAuth;
+                                                                    
+                                                                var win = window.open(auth_url+"?response_type="+JSON.parse(JSON.stringify(response_type))+"&scope="+JSON.parse(JSON.stringify(scope))+"&client_id="+JSON.parse(JSON.stringify(client_id))+"&redirect_uri="+JSON.parse(JSON.stringify(redirect_url))+"", "windowname1", 'width=800, height=600');
+                                                                var pollTimer = window.setInterval(function() {
+                                                                    try {
+                                                                        console.log("url here: ", win.document.URL); //here url
+                                                                        if (win.document.URL.indexOf(redirect_url) != -1) {
+                                                                            window.clearInterval(pollTimer);
+                                                                            var url =   win.document.URL;
+                                                                            acToken =   gup(url, 'code');
+                                                                            resolve(acToken)
+                                                                            // tokenType = gup(url, 'token_type');
+                                                                            // expiresIn = gup(url, 'expires_in');
+                                                                            win.close();
+                                                                        }
+                                                                    } catch(e) {
+                                                                        console.log("error in oauth")
+                                                                    }
+                                                                }, 200);
+                                        
+                                                                function gup(url, name) {
+                                                                    name = name.replace(/[[]/,"\[").replace(/[]]/,"\]");
+                                                                    var regexS = "[\?&]"+name+"=([^&#]*)";
+                                                                    var regex = new RegExp( regexS );
+                                                                    var results = regex.exec( url );
+                                                                    if( results == null )
+                                                                        return "";
+                                                                    else
+                                                                        return results[1];
+                                                                }//end of gup()
+                                                                    
+                                                            })
+                                                            .then(token=>{ 
+                                                                return new Promise((resolve, reject) => {
+                                                                    console.log("Token: ",token)
+                                                                    $.ajax({
+                                                                        url: token_url,
+                                                                        method: "POST",
+                                                                        data: {client_id: client_id ,client_secret: client_secret ,redirect_uri: redirect_url ,code: token ,grant_type:grant_type},
+                                                                        success: function(response) {
+                                                                            console.log("response: ",response);
+                                                                            tok = response.access_token;
+                                                                            expires_in = response.expires_in;
+                                                                            console.log("tok: ", tok)
+                                                                            console.log("expires_in: ", expires_in)
+                                                                            // localStorage.setItem('tokens', JSON.stringify(sitesToken));
+                                                                            // console.log("tokens: ", localStorage.getItem('tokens'));
+                                                                            // let newArray = [...sTokens]
+                                                                            // newArray[elementsIndex] = {...newArray[elementsIndex], token: tok}
+                                                                            // newArray[elementsIndex] = {...newArray[elementsIndex], expires_in: expires_in}
+                                                                            // this.setState({newArray});
+
+                                                                            // localStorage.setItem('tokens', JSON.stringify(newArray));
+                                                                            // console.log("NEW LOCAL STORGAE: ", localStorage.getItem('tokens'))
+                        
+                        
+                                                                            resolve('http://localhost:5000/api/'+removeEndpoint+'?tokenAPI='+tok+'&'+rParamList)
+                                                                        },
+                                                                        error: function(response, jqXHR, textStatus, errorThrown) {
+                                                                            console.log("error: ",response);
+                                                                        }
+                                                                    })
+                                                                })
+                                                            })
+                                                        //}
+                                    
+                                                return tokenPromise
+
+                            
+                                            }else{ //no oauth
+                                                console.log("!!!oauth2")
+                                                result =  'http://localhost:5000/api/'+removeEndpoint+'?'+rParamList
+                                                return result;
+                                            }
+                
+                                            })//firebase
+                                            .then(url => { console.log("url: ", url); return new Promise(function(resolve, reject) {resolve(fetch(url).then(response => response.json() )) })   })
+                                    }});//HERE AND NOW
 
 
                                     //***************************** SETTERS *********************************/
                                     for(s in setters){
-                                        // console.log("setter: ", setters[s])   
+                                        console.log("setter: ", setters[s])   
                                         var field = setters[s].field; //API endpoint field to be set
                                         var prop;
                                         var setEndpoint =  setters[s].endpoint;
@@ -581,7 +1080,7 @@ function shapir(){
                                             }
                                         }
 
-                                        Object.defineProperty(o, prop, { 
+                                        Object.defineProperty(o, prop, { //issue with dailymotion setter change prob to 'name'
                                             set: function(newValue) { 
                                                 console.log("newValue: ", newValue)
                                                 this.pro = firebase.database().ref('/apis/'+setEndpoint).once('value').then(function(snapshot) {
@@ -657,7 +1156,7 @@ function shapir(){
                                 
                                                 }else{ //no oauth
                                                     console.log("!!!oauth2")
-                                                    result =  'http://localhost:5000/api/'+setEndpoint+'?'+paramList+'&'+pro+'='+newValue+'&id='+identifier
+                                                    result =  'http://localhost:5000/api/'+setEndpoint+'?'+paramList+'&'+pro+'='+newValue+'&id='+o[typeId]
                                                     //console.log("result: ",result);
                                                     return result;
                                                 }
@@ -1097,112 +1596,7 @@ function shapir(){
                                                 }
                                             }
                                     
-                                            //***************************** GETTERS *********************************/
-                
-                
-                                            //***************************** SETTERS *********************************/
-                                            // if(setters){
-                                            // for(s in setters){
-                                            //     // console.log("setter: ", setters[s])   
-                                            //     var field = setters[s].field; //API endpoint field to be set
-                                            //     var prop;
-                                            //     var setEndpoint =  setters[s].endpoint;
-                                            //     var setParams = setters[s].params;
-                                            //     var idd = setters[s].id;
-                                            //     //get the schema.org property mapped to this field
-                                            //     for(f in properties){
-                                            //         if(properties[f].field == field){
-                                            //             prop = properties[f].property;
-                                            //         }
-                                            //     }
-                
-                                            //     Object.defineProperty(ob, prop, { 
-                                            //         set: function(newValue) { 
-                                            //             console.log("newValue: ", newValue)
-                                            //             this.pro = firebase.database().ref('/apis/'+setEndpoint).once('value').then(function(snapshot) {
-                                            //             obJSON = snapshot.val();
-                                            //             console.log(obJSON)
-                                            //             if(obJSON.oauth2){
-                                            //                 console.log("oauth2")
-                                            //                 return new Promise((resolve, reject) => {
-                                            //                         console.log("auth function");
-                                            //                         auth_url= obJSON.oauth2[0].authURL;
-                                            //                         token_url= obJSON.oauth2[0].tokenURL;
-                                            //                         redirect_url= obJSON.oauth2[0].callbackURL;
-                                            //                         client_id= obJSON.oauth2[0].clientId;
-                                            //                         client_secret= obJSON.oauth2[0].clientSec;
-                                            //                         response_type= obJSON.oauth2[0].resType;
-                                            //                         scope= obJSON.oauth2[0].scope;
-                                            //                         grant_type= obJSON.oauth2[0].grantType;
-                                            //                         client_auth= obJSON.oauth2[0].clientAuth;
-                                                                        
-                                            //                         var win = window.open(auth_url+"?response_type="+JSON.parse(JSON.stringify(response_type))+"&scope="+JSON.parse(JSON.stringify(scope))+"&client_id="+JSON.parse(JSON.stringify(client_id))+"&redirect_uri="+JSON.parse(JSON.stringify(redirect_url))+"", "windowname1", 'width=800, height=600');
-                                            //                         var pollTimer = window.setInterval(function() {
-                                            //                             try {
-                                            //                                 console.log("url here: ", win.document.URL); //here url
-                                            //                                 if (win.document.URL.indexOf(redirect_url) != -1) {
-                                            //                                     window.clearInterval(pollTimer);
-                                            //                                     var url =   win.document.URL;
-                                            //                                     acToken =   gup(url, 'code');
-                                            //                                     resolve(acToken)
-                                            //                                     // tokenType = gup(url, 'token_type');
-                                            //                                     // expiresIn = gup(url, 'expires_in');
-                                            //                                     win.close();
-                                            //                                     // return validateToken(acToken)
-                                            //                                 }
-                                            //                             } catch(e) {
-                                            //                                 console.log("error in oauth")
-                                            //                             }
-                                            //                         }, 200);
-                                        
-                                            //                         function gup(url, name) {
-                                            //                             name = name.replace(/[[]/,"\[").replace(/[]]/,"\]");
-                                            //                             var regexS = "[\?&]"+name+"=([^&#]*)";
-                                            //                             var regex = new RegExp( regexS );
-                                            //                             var results = regex.exec( url );
-                                            //                             if( results == null )
-                                            //                                 return "";
-                                            //                             else
-                                            //                                 return results[1];
-                                            //                         }//end of gup()
-                                                                    
-                                            //                     })
-                                            //                     .then(token=>{ 
-                                            //                         return new Promise((resolve, reject) => {
-                                            //                         console.log("Token: ",token)
-                                            //                         console.log("Token URL: ",token_url)
-                                            //                         $.ajax({
-                                            //                             url: token_url,
-                                            //                             method: "POST",
-                                            //                             data: {client_id: client_id ,client_secret: client_secret ,redirect_uri: redirect_url ,code: token ,grant_type:grant_type},
-                                            //                             success: function(response) {
-                                            //                                 console.log("response: ",response);
-                                            //                                 //important to check access token and token type (e.g. bearer)
-                                            //                                 tok = response.access_token;
-                                            //                                 console.log("tok: ", tok)
-                                            //                                 resolve('http://localhost:5000/api/'+setEndpoint+'?tokenAPI='+tok+'&'+field+'='+newValue+'&'+idd+'='+idValue)
-                                            //                             },
-                                            //                             error: function(response, jqXHR, textStatus, errorThrown) {
-                                            //                                 console.log("error: ",response);
-                                            //                             }
-                                            //                         })
-                                            //                     })
-                                            //                     // return something
-                                            //                     })
-                                        
-                                            //             }else{ //no oauth
-                                            //                 console.log("!!!oauth2")
-                                            //                 result =  'http://localhost:5000/api/'+setEndpoint+'?'+paramList+'&'+pro+'='+newValue+'&id='+identifier
-                                            //                 //console.log("result: ",result);
-                                            //                 return result;
-                                            //             }
-                            
-                                            //         })//firebase
-                                            //         .then(url => { console.log("url: ", url); return new Promise(function(resolve, reject) {resolve(fetch(url)) })   })
-                                                        
-                                            //         }
-                                            //     });
-                                            // }}
+          
                 
                                             //***************************** METHODS *********************************/
                                             for(m in methods){
