@@ -1332,7 +1332,7 @@ function checkButtonClicked(){
             }
             listP1+= "}";
           }//end of if(obJSON1.parameters)
-         
+
 
             //console.log("listP1 SETITEM: ",listP1);
 
@@ -1441,7 +1441,7 @@ function checkButtonClicked(){
             }
           }else{
             // console.log("NO Param");
-           
+
           }
 
             //if auth url and descreption exist
@@ -2345,7 +2345,7 @@ else{
             populateListAndTree(data)
             populateTable(data);
           }else{
-            arrData2=[];     
+            arrData2=[];
             console.log("data: ", response);
             for(var r=0; r<obJSON1.responses.length; ++r){
               var str = "response."+obJSON1.responses[r].parameter;
@@ -2898,14 +2898,20 @@ if(obJSON1.parameters){
         var paramLength= obJSON1.parameters.length;
       listP=  "{";
       for(var i=0; i<paramLength; ++i) {
+        // console.log(obJSON1.parameters[i]['name'])
         if($("#"+obJSON1.parameters[i]['name']).val() || obJSON1.parameters[i]['value']){
 
           if(link.includes('{'+JSON.parse(JSON.stringify(obJSON1.parameters[i]['name']))+'}')){
+            // console.log("name: ",obJSON1.parameters[i]['name'])
             paramLength= paramLength-1;
             if(obJSON1.parameters[i]['displayedName']){ //displayedName
               link=link.replace('{'+JSON.parse(JSON.stringify(obJSON1.parameters[i]['name']))+'}', JSON.parse(JSON.stringify($("#"+obJSON1.parameters[i]['name']).val())));
+              var sentParam = JSON.parse(JSON.stringify(obJSON1.parameters[i]['name']))
+              var sentVal = JSON.parse(JSON.stringify($("#"+obJSON1.parameters[i]['name']).val()));
+              // console.log("new link1: ", link)
             }else{
               link=link.replace('{'+JSON.parse(JSON.stringify(obJSON1.parameters[i]['name']))+'}', JSON.parse(JSON.stringify(obJSON1.parameters[i]['value'])));
+              // console.log("new link2: ", link)
             }
           }else{
           listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
@@ -2917,7 +2923,7 @@ if(obJSON1.parameters){
           }
         }//new if
       }
-      console.log("paramLength: ",paramLength);
+      // console.log("paramLength: ",paramLength);
 
       if(i+1<paramLength){
         if($("#"+obJSON1.parameters[i+1]['name']).val() || obJSON1.parameters[i+1]['value']) {
@@ -2990,16 +2996,22 @@ if(obJSON1.parameters){
       }
       listP+= "}";
     }
+    listP = listP.replace(',,', ',')
+    if(listP.includes(',}')){
+      listP = listP.replace(',}', '}')
+    }
 
   console.log("listPYEAH: ",listP);
+
+
   if(listP){
     listExist=JSON.parse(listP);
   }else{
     listExist=""
   }
 
-if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oauth2) || obJSON1.oauth2[0].authURL=="")){ //no header //no CORS
-  // console.log("no header / no oauth");
+if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oauth2) || obJSON1.oauth2[0].authURL=="") && ((!obJSON1.oauthFlow) || obJSON1.oauthFlow[0].authURL=="")){ //no header //no CORS
+  console.log("no header / no oauth");
     $.ajax({
       url: link,
       data: listExist,
@@ -3009,7 +3021,7 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
         //console.log("RES_Ret: ", response);
         if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
           for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
-            console.log("INSIDE"); 
+            console.log("INSIDE");
             objData={};
              objData["id"]= start;
 
@@ -3153,7 +3165,7 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
            objData={};
            ++start;
            objData["id"]= start;
-           console.log("J: ",j);
+          //  console.log("J: ",j);
 
            if($("input[name='checkbox-w']").is(":checked")){
                $("input[name='checkbox-w']:checked").each(function(){
@@ -3197,7 +3209,7 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
                                        objKV+=i+": "+objD[i];
                                      }
                                      objData[id]=objKV;
-                 
+
                                      for(var i in objD){
                                       //console.log("Key: ", i);
                                       //console.log("Value: ", objD[i]);
@@ -3279,7 +3291,7 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
                     defined=false;
                   }
                 }
-  
+
            });//checkbox
          }//chckbox loop
 
@@ -3337,12 +3349,12 @@ else if(obJSON1.headers && obJSON1.headers[0].headerValue){ //if header
   // console.log("if headers")
 
   $.ajax({
-    url: "/apiClean/"+obJSON1.title,
+    url: "/apiClean/"+obJSON1.title+"?"+sentParam+"="+sentVal,
     // data: listExist,//JSON.parse(listP),
     method: method,
     // headers: headers_to_set,
     success: function (response) {
-      console.log("TEST response: ", response);
+      // console.log("TEST response: ", response);
 
 
         if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
@@ -3541,17 +3553,14 @@ else if(obJSON1.headers && obJSON1.headers[0].headerValue){ //if header
       }//response
   //  );//new AJAX
    });//AJAX
- }//else CORS
- else{ //if oauth
+ }else if(obJSON1.oauth2){ //if oauth
    console.log("if oauth")
    authorizeSNAPI();
+}else{//if oauth flow
+  authorizeFlowSNAPI();
+}
 
-///THERE
-
-
- }//else
-
-  }//end of getTheNextPage function
+}//end of getTheNextPage function
 
   arrData2 = data;
 
@@ -4789,6 +4798,8 @@ $("#method").on('change', function() {
         method = 'INSERT';
     }else if ($(this).val() == 'DELETE'){
         method = 'DELETE';
+    }else if ($(this).val() == 'PATCH'){
+      method = 'PATCH';
     }else{
         method="GET";
     }
@@ -4909,13 +4920,14 @@ if($("#url").val()){
     //   success: function (response) {
     //     console.log("TEST response: ", response);
 
-    // var headername= $("#nameH").val();
-    // var headervar= $("#valueH").val();
-    // var headers_to_set = {};
-    // headers_to_set[headername] = headervar;
+    var headername= $("#nameH").val();
+    var headervar= $("#valueH").val();
+    var headers_to_set = {};
+    headers_to_set[headername] = headervar;
 
+    // console.log("THIS!!!")
     $.ajax({
-      url: "https://cors-anywhere.herokuapp.com/"+link,
+      url: link,//"https://cors-anywhere.herokuapp.com/"+link,
       data: JSON.parse(listData),
       method: method,
       headers: headers_to_set,
@@ -5058,13 +5070,20 @@ if($("#url").val()){
     console.log("method = ", method);
     console.log("data = ",JSON.parse(listData));
 
+    var objData={};
+
     $.ajax({
       url: link,
       data: JSON.parse(listData),
       method: method,
+      dataType: 'json',
+      crossDomain: true,
+      processData: false,
+      // contentType: 'application/merge-patch+json',
       headers: {
         "Authorization" : "Bearer " +tok, //this will depend on the API
-        "Content-Type"  : "application/json"
+        "Content-Type"  : "application/merge-patch+json",
+        "Access-Control-Allow-Methods": "PATCH, GET, POST, PUT, DELETE, OPTIONS"
       },
       success: function (response) {
         console.log("oauth response: ",response)
@@ -5213,6 +5232,186 @@ if($("#url").val()){
 
     });
 
+
+  }if(document.getElementById('selectid').value == "flow"){
+
+    console.log("enter oauth section, flow token = ", flow_tok);
+    // console.log("method = ", method);
+    // console.log("data = ",JSON.parse(listData));
+    let len = Object.entries(JSON.parse(listData)).length;
+    // console.log("entries = ", len);
+
+    let pars ="";
+    for (const [key, value] of Object.entries(JSON.parse(listData))) {
+      --len;
+      // console.log(`${key}: ${value}`);
+      pars+=`${key}=${value}`;
+      if(len > 0){
+        pars+="&"
+      }
+    }
+
+    var objData={};
+
+    $.ajax({
+      url: link+"?"+pars,
+      // data: listData,
+      method: method,
+      dataType: 'json',
+      crossDomain: true,
+      processData: false,
+      // contentType: 'application/merge-patch+json',
+      headers: {
+        "Authorization" : "Bearer " + flow_tok, //this will depend on the API
+        // "Content-Type"  : "application/merge-patch+json",
+        // "Access-Control-Allow-Methods": "PATCH, GET, POST, PUT, DELETE, OPTIONS"
+      },
+      success: function (response) {
+        console.log("oauth response: ",response)
+        status = "success";
+        jsResponse = JSON.stringify(response, null, 2);
+
+        showResponseSchema(listData);
+        $("#toggRes").show();
+        errorMessageJson = "Success! Click on result fields below";
+        //You successfully accessed the API!";
+        //$("#pDiv").show(); //unhighlight
+        $("#correct").show();
+        $("#notcorrect").hide();
+        document.getElementById("pValidatetext").innerHTML=errorMessageJson;
+        document.getElementById('pValidatetext').style.color="green";
+        document.getElementById('pDiv').style.borderColor="green";
+        document.getElementById('pDiv').style.backgroundColor="#f2f9ee";
+
+        responseMessage(response, status);
+      },
+      error: function(response, jqXHR, textStatus, errorThrown) {
+        console.log(JSON.stringify("oauth error: ", textStatus));
+        status = "error";
+
+        if(response.hasOwnProperty('responseText')){
+          jsResponse = response.responseText;
+        }else{
+          jsResponse = response;
+        }
+
+        showResponseSchema(listData);
+        $("#toggRes").hide();
+
+        var authSubstrings = ['api key','API key', 'key', 'oauth', 'authentication','auth', 'validation'];
+        var reqSubstrings = ['parameter', 'parameters', 'required parameter'];
+        var lengthA = authSubstrings.length;
+        var lengthR = reqSubstrings.length;
+
+        while(lengthA--) {
+           if (JSON.stringify(response).indexOf(authSubstrings[lengthA])!=-1) {
+             isAuth=true;
+           }
+         }
+         while(lengthR--) {
+           if (JSON.stringify(response).indexOf(reqSubstrings[lengthR])!=-1) {
+             isReq=true;
+           }
+        }
+
+        if(isAuth){
+          errorMessageJson = "Error: Possibly missing authentication";
+        }else if(isReq){
+          errorMessageJson = "Error: Possibly missing required parameter(s)";
+        }else{
+          errorMessageJson = "Error: Possibly missing parameter(s) and/or authentication";
+        }
+
+        if(response.hasOwnProperty('responseJSON')){
+          //get the longest text there and show it as the message
+          var responseJSONChildren = flatten(response.responseJSON);
+
+          function flatten(obj) {
+          var flattenedObj = {};
+          Object.keys(obj).forEach(function(key){
+              if (typeof obj[key] === 'object') {
+                  $.extend(flattenedObj, flatten(obj[key]));
+              } else {
+                  flattenedObj[key] = obj[key];
+              }
+          });
+          return flattenedObj;
+          }
+
+          var arrayOfValues = [];
+          var x=0;
+          var urlJson;
+
+          for (let [key, value] of Object.entries(responseJSONChildren)) {
+            // console.log(`${key}: ${value}`);
+            if(ValidURL(`${value}`)){
+              urlJson = `${value}`;
+            }else{
+              arrayOfValues[x]=`${value}`;
+              ++x;
+            }
+          }
+
+          var elm;
+
+          function ValidURL(u){
+            if(!elm){
+              elm = document.createElement('input');
+              elm.setAttribute('type', 'url');
+            }
+            elm.value = u;
+            return elm.validity.valid;
+          }
+
+
+          var longest = arrayOfValues.reduce(function (a, b) { return a.length > b.length ? a : b; });
+
+          if(ContainsValidURL(longest)){
+            errorMessageJson ="Error: "+ longest;
+          }else{
+            errorMessageJson ="Error: "+ longest+' '+urlJson;
+          }
+          //Does the longest string contains links?
+          function ContainsValidURL(str) {
+            var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+            if(!regex.test(str)) {
+              return false;
+            } else {
+              return true;
+            }
+          }
+
+        }else{//custom message (most likely response.responseText)
+          // Show a custom message
+          // console.log("custom")
+        }
+
+        //$("#pDiv").show(); //unhighlight
+        $("#notcorrect").show();
+        $("#correct").hide();
+        document.getElementById("pValidatetext").innerHTML=createTextLinks_(errorMessageJson);
+        document.getElementById('pValidatetext').style.color="red";
+        document.getElementById('pDiv').style.borderColor="red";
+        document.getElementById('pDiv').style.backgroundColor="#fceff1";
+
+        function createTextLinks_(text) {
+          return (text || "").replace(
+            /([^\S]|^)(((https?\:\/\/)|(www\.))(\S+))/gi,
+            function(match, space, url){
+              var hyperlink = url;
+              if (!hyperlink.match('^https?:\/\/')) {
+                hyperlink = 'http://' + hyperlink;
+              }
+              return space + '<a target="_blank" href="' + hyperlink + '">' + url + '</a>';
+            }
+          );
+
+        };
+        // console.log(JSON.stringify(response));
+        responseMessage(response, status);
+      }
+
+    });
 
   }else{//does not have header nor oauth
     // console.log("HERE")
@@ -5390,8 +5589,39 @@ if($("#url").val()){
 
 
 var auth_url,token_url, redirect_url, client_id, client_secret, response_type, scope, grant_type, client_auth, tok;
+var flow_client_id, flow_client_secret, flow_token_url, flow_grant_type, flow_tok;
 
 var redirect_url_ = ['http://127.0.0.1:8080/api-integration.html', 'http://127.0.0.1:8080/data-management.html?api=Unsplash_My_Collections', 'https://scrapir.org/data-management.html?api=Unsplash_My_Collections']
+
+function authorizeFlowSNAPI(){
+
+  flow_client_id= obJSON1.oauthFlow[0].clientId;
+  flow_client_secret= obJSON1.oauthFlow[0].clientSec;
+  flow_token_url= obJSON1.oauthFlow[0].tokenURL;
+  flow_grant_type= obJSON1.oauthFlow[0].grantType;
+  // flow_tok
+
+  var client_id= flow_client_id;
+  var client_secret = flow_client_secret;
+  var client = client_id+":"+client_secret;
+
+  var encodedString = btoa(client);
+  console.log(encodedString);
+
+  $.ajax({
+      url : flow_token_url,
+      type: 'POST',
+      headers: {"Authorization":"Basic "+encodedString},
+      data: {grant_type: "client_credentials"},
+      success: function (response) {
+          console.log("access_token: ", response.access_token);
+          flow_tok= response.access_token;
+          // urlBlur();
+          getITFlow();
+      }
+  });
+
+}
 
 function authorizeSNAPI() {
 
@@ -5409,7 +5639,7 @@ function authorizeSNAPI() {
 
       var pollTimer = window.setInterval(function() {
         try {
-          console.log("win.document.URL", win.document.URL); 
+          console.log("win.document.URL", win.document.URL);
           if (win.document.URL.indexOf(redirect_url) != -1) {
             window.clearInterval(pollTimer);
             var url= win.document.URL;
@@ -5431,7 +5661,7 @@ function validateTokenSNAPI(token) {
   console.log("Token URL: ",token_url)
   token = decodeURIComponent(token);
   console.log("DECODED: ", decodeURIComponent(token));
-  
+
   $.ajax({
     url: token_url,
     method: "POST",
@@ -5440,6 +5670,7 @@ function validateTokenSNAPI(token) {
       console.log("response: ",response);
       //important to check access token and token type (e.g. bearer)
       tok = response.access_token;
+      // tok = decodeURIComponent(tok);
       console.log("tok: ", tok)
       getIT();
       //removed
@@ -5456,7 +5687,6 @@ function validateTokenSNAPI(token) {
 }
 
 
-
 function getIT(){
   console.log("getIT called")
   $.ajax({
@@ -5465,7 +5695,8 @@ function getIT(){
     method: method,
     headers: {
       "Authorization" : "Bearer " +tok, //this will depend on the API
-      "Content-Type"  : "application/json"
+      "Content-Type"  : "application/json",
+      "Accept"  : "application/json"
     },
     success: function (response) {
       console.log("oauth response: ",response);
@@ -5565,7 +5796,7 @@ function getIT(){
           var arrLength = "response."+this.id.split('[j]')[0];
           var ln = s.split('[')[0];
 
-          console.log("response here: ",response);
+          // console.log("response here: ",response);
 
           if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
           var id = this.value;
@@ -5668,7 +5899,726 @@ function getIT(){
  });//AJAX
 }
 
+
+
+function getITFlow(){
+  console.log("getIT called")
+  $.ajax({
+    url: obJSON1.url,
+    data: listExist,//JSON.parse(listData),//JSON.stringify(eventC),//
+    method: method,
+    headers: {
+      "Authorization" : "Bearer " +flow_tok, //this will depend on the API
+      "Content-Type"  : "application/json",
+      "Accept"  : "application/json"
+    },
+    success: function (response) {
+      console.log("oauth response: ",response);
+      if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
+        console.log()
+
+        for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
+           objData={};
+
+           objData["id"]= start;
+
+           if($("input[name='checkbox-w']").is(":checked")){
+               $("input[name='checkbox-w']:checked").each(function(){
+                var s = "response."+this.id.split('.')[0];
+                 //console.log("s: ",s);
+                if(eval(s)){
+                 var id = this.value;
+                 if(this.value=="Video URL"){
+                   objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+                 }else{
+                   var str = (this.checked ? "response."+this.id : 0);
+                   //IF ARRAY
+                   if(str.includes("[i]")){
+                     //console.log("Includes [i]: ",str);
+                     var i=0;
+                     var splt =  str.split("[i]");
+                     // start if undefined
+                     if(eval(splt[0]).length==0){
+                      objData[id]="";
+                    }else{// start if NOT undefined
+                    objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                    for(i=1; i<eval(splt[0]).length; ++i){
+                      objData[id] += ", ";
+                      objData[id] += eval("response."+this.id);
+                    }
+                  }///test undefined
+                    //IF OBJECT and not ARRAY
+                   }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
+                     //console.log("IT IS OBJECT");
+                     var objD = (this.checked ? eval("response."+this.id) : 0);
+                     var objKV = "";
+                     var first = true;
+                     for(var i in objD){
+                      //console.log("Key: ", i);
+                      //console.log("Value: ", objD[i]);
+                      if(!first){
+                        objKV+=", "
+                      }else{
+                        first = false;
+                      }
+                      objKV+=i+": "+objD[i];
+                    }
+                    objData[id]=objKV;
+
+                    for(var i in objD){
+                     //console.log("Key: ", i);
+                     //console.log("Value: ", objD[i]);
+                     objData[i]=objD[i];
+                     //console.log("objData[id]: ", objData[i]);
+                   }
+                   //console.log("objData[id]: ", objData[id]);
+                   //IF NEITHER
+                   }else{
+                     //console.log("Does NOT Include [i]");
+                     objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                     //console.log("objData[id]: ", objData[id]);
+                   }
+
+                 }
+               }//if not undefined
+             else{
+               defined=false;
+             }
+           });//checkbox
+         }//chckbox loop
+
+             if(defined){
+               data.push(objData);
+               obj.lists=[];
+               obj.lists.push(objData);
+            }
+
+            //++j;
+            //++start;
+
+        }//while loop
+      }else{
+      var j=0;
+      while(defined){
+    //for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
+    objData={};
+    ++start;
+    objData["id"]= start;
+    // console.log("J: ",j);
+
+    if($("input[name='checkbox-w']").is(":checked")){
+        $("input[name='checkbox-w']:checked").each(function(){
+          var s = "response."+this.id.split('.')[0];
+          var arrLength = "response."+this.id.split('[j]')[0];
+          var ln = s.split('[')[0];
+
+          // console.log("response here: ",response);
+
+          if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+          var id = this.value;
+          if(this.value=="Video URL"){
+            objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+          }else{
+            var str = (this.checked ? "response."+this.id : 0);
+            //IF ARRAY
+            if(str.includes("[i]")){
+              //console.log("Includes [i]: ",str);
+              var i=0;
+              var splt =  str.split("[i]");
+              // start if undefined
+              if(eval(splt[0]).length==0){
+               objData[id]="";
+             }else{// start if NOT undefined
+             objData[id] = (this.checked ? eval("response."+this.id) : 0);
+             for(i=1; i<eval(splt[0]).length; ++i){
+               objData[id] += ", ";
+               objData[id] += eval("response."+this.id);
+             }
+           }///test undefined
+             //IF OBJECT and not ARRAY
+            }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
+              //console.log("IT IS OBJECT");
+              var objD = (this.checked ? eval("response."+this.id) : 0);
+              var objKV = "";
+              var first = true;
+              for(var i in objD){
+               //console.log("Key: ", i);
+               //console.log("Value: ", objD[i]);
+               if(!first){
+                 objKV+=", "
+               }else{
+                 first = false;
+               }
+               objKV+=i+": "+objD[i];
+             }
+             objData[id]=objKV;
+
+             for(var i in objD){
+              //console.log("Key: ", i);
+              //console.log("Value: ", objD[i]);
+              objData[i]=objD[i];
+              //console.log("objData[id]: ", objData[i]);
+            }
+            //console.log("objData[id]: ", objData[id]);
+            //IF NEITHER
+            }else{
+              //console.log("Does NOT Include [i]");
+              objData[id] = (this.checked ? eval("response."+this.id) : 0);
+              //console.log("objData[id]: ", objData[id]);
+            }
+
+          }
+        }//if not undefined
+      else{
+        defined=false;
+      }
+    });//checkbox
+  }//chckbox loop
+
+      if(defined){
+        data.push(objData);
+        obj.lists=[];
+        obj.lists.push(objData);
+     }
+
+     ++j;
+     //++start;
+
+    }//while loop
+  }//else
+
+      if(p<pages){
+        //console.log("Data: ", data);
+        if(obJSON1.currPageParam){ //nex\prev page
+            ++p;
+            getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
+        }else if(obJSON1.offsetPage){//offset page
+          ++p;
+          getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
+        }else{//index page
+          ++p;
+          getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
+        }
+      }else{
+        if(data.length>0){
+          console.log("data: ", data);
+          populateListAndTree(arrData2);
+          populateTable(data);
+        }else{
+          populateListAndTree(response);
+          console.log("create something else other than table!")
+        }
+      }
+
+      function getTheNextPage(p, pages, nextPage){
+        //console.log("getTheNextPage");
+       if(obJSON1.parameters){
+        listP=  "{";
+        for(var i=0; i<obJSON1.parameters.length; ++i) {
+          if($("#"+obJSON1.parameters[i]['name']).val() || obJSON1.parameters[i]['value']){
+            listP+= JSON.stringify(obJSON1.parameters[i]['name']); //check conditions before adding names
+            listP+= ":"
+            if(obJSON1.parameters[i]['displayedName']){ //displayedName
+              listP+= JSON.stringify($("#"+obJSON1.parameters[i]['name']).val());
+            }else{
+              listP+= JSON.stringify(obJSON1.parameters[i]['value']);
+            }
+          }
+
+          if(i+1<obJSON1.parameters.length){
+          if($("#"+obJSON1.parameters[i+1]['name']).val() || obJSON1.parameters[i+1]['value']) {
+            listP+= ",";
+          }
+         }
+        }
+
+
+      if(obJSON1.resPerPageParam){
+        listP+= ","
+        listP+= JSON.stringify(obJSON1.resPerPageParam);
+        listP+= ":";
+        listP+= JSON.stringify(obJSON1.maxResPerPage);
+      }
+      if(obJSON1.indexPage){
+        listP+= ","
+        listP+= JSON.stringify(obJSON1.indexPage);
+        listP+= ":";
+        listP+= p;
+      }else if(obJSON1.offsetPage){
+        listP+= ","
+        listP+= JSON.stringify(obJSON1.offsetPage);
+        listP+= ":";
+        listP+= (p-1)*(eval(obJSON1.maxResPerPage));
+      }else if(obJSON1.currPageParam){
+        listP+= ","
+        listP+= JSON.stringify(obJSON1.currPageParam);
+        listP+= ":";
+        listP+= JSON.stringify(nextPage);
+      }
+      if(obJSON1.apiKeyValue){
+        listP+= ","
+        listP+= JSON.stringify(obJSON1.apiKeyName);
+        listP+=":";
+        listP+= JSON.stringify(obJSON1.apiKeyValue);
+      }
+      listP+= "}";
+    }else{
+      if(obJSON1.apiKeyValue){
+        if(obJSON1.parameters){
+          listP+= ","
+        }else{
+          listP+= "{"
+        }
+        listP+= JSON.stringify(obJSON1.apiKeyName);
+        listP+=":";
+        listP+= JSON.stringify(obJSON1.apiKeyValue);
+        listP+= "}";
+      }
+    }
+
+
+  if((!obJSON1.headers) || obJSON1.headers[0].headerValue==""){ //no header //no CORS
+      $.ajax({
+        url: obJSON1.url,
+        data: JSON.parse(listP),
+        //dataType: jp,
+        method: 'GET',
+        success: function (response) {
+          // console.log("RES_Ret: ", response);
+
+          if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
+            for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
+               objData={};
+
+               objData["id"]= start;
+
+               if($("input[name='checkbox-w']").is(":checked")){
+                   $("input[name='checkbox-w']:checked").each(function(){
+                    var s = "response."+this.id.split('.')[0];
+                     //console.log("s: ",s);
+                    if(eval(s)){
+                     var id = this.value;
+                     if(this.value=="Video URL"){
+                       objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+                     }else{
+                       var str = (this.checked ? "response."+this.id : 0);
+                       //IF ARRAY
+                       if(str.includes("[i]")){
+                         //console.log("Includes [i]: ",str);
+                         var i=0;
+                         var splt =  str.split("[i]");
+                         // start if undefined
+                         if(eval(splt[0]).length==0){
+                          objData[id]="";
+                        }else{// start if NOT undefined
+                        objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                        for(i=1; i<eval(splt[0]).length; ++i){
+                          objData[id] += ", ";
+                          objData[id] += eval("response."+this.id);
+                        }
+                      }///test undefined
+                        //IF OBJECT and not ARRAY
+                       }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
+                         //console.log("IT IS OBJECT");
+                         var objD = (this.checked ? eval("response."+this.id) : 0);
+                         var objKV = "";
+                         var first = true;
+                         for(var i in objD){
+                          //console.log("Key: ", i);
+                          //console.log("Value: ", objD[i]);
+                          if(!first){
+                            objKV+=", "
+                          }else{
+                            first = false;
+                          }
+                          objKV+=i+": "+objD[i];
+                        }
+                        objData[id]=objKV;
+
+                        for(var i in objD){
+                         //console.log("Key: ", i);
+                         //console.log("Value: ", objD[i]);
+                         objData[i]=objD[i];
+                         //console.log("objData[id]: ", objData[i]);
+                       }
+                       //console.log("objData[id]: ", objData[id]);
+                       //IF NEITHER
+                       }else{
+                         //console.log("Does NOT Include [i]");
+                         objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                         //console.log("objData[id]: ", objData[id]);
+                       }
+
+                     }
+                   }//if not undefined
+                 else{
+                   defined=false;
+                 }
+               });//checkbox
+             }//chckbox loop
+
+                 if(defined){
+                   data.push(objData);
+                   obj.lists=[];
+                   obj.lists.push(objData);
+                }
+
+                //++j;
+                //++start;
+
+            }//while loop
+          }else{
+          var j=0;
+          while(defined){
+             objData={};
+             ++start;
+             objData["id"]= start;
+              // console.log("J: ",j);
+
+             if($("input[name='checkbox-w']").is(":checked")){
+                 $("input[name='checkbox-w']:checked").each(function(){
+
+                  var s = "response."+this.id.split('.')[0];
+                  var arrLength = "response."+this.id.split('[j]')[0];
+                  var ln = s.split('[')[0];
+
+                  if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+                   var id = this.value;
+                   if(this.value=="Video URL"){
+                     objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+                   }else{
+                     var str = (this.checked ? "response."+this.id : 0);
+                     //IF ARRAY
+                     // console.log("check: ", eval("response."+this.id));
+                     if(str.includes("[i]")){
+                       // console.log("Includes [i]: ",str);
+                       var i=0;
+                       var splt =  str.split("[i]");
+                       // start if undefined
+                       if(eval(splt[0]).length==0){
+                        objData[id]="";
+                      }else{// start if NOT undefined
+                      objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                      for(i=1; i<eval(splt[0]).length; ++i){
+                        objData[id] += ", ";
+                        objData[id] += eval("response."+this.id);
+                      }
+                    }///test undefined
+                      //IF OBJECT and not ARRAY
+                     }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
+                       //console.log("IT IS OBJECT");
+                       var objD = (this.checked ? eval("response."+this.id) : 0);
+                       var objKV = "";
+                       var first = true;
+                       for(var i in objD){
+                        //console.log("Key: ", i);
+                        //console.log("Value: ", objD[i]);
+                        if(!first){
+                          objKV+=", "
+                        }else{
+                          first = false;
+                        }
+                        objKV+=i+": "+objD[i];
+                      }
+                      objData[id]=objKV;
+
+                      for(var i in objD){
+                       //console.log("Key: ", i);
+                       //console.log("Value: ", objD[i]);
+                       objData[i]=objD[i];
+                       //console.log("objData[id]: ", objData[i]);
+                     }
+                     //console.log("objData[id]: ", objData[id]);
+                     //IF NEITHER
+                     }else{
+                       //console.log("Does NOT Include [i]");
+                       objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                       //console.log("objData[id]: ", objData[id]);
+                     }
+
+                   }
+                 }else{
+                 defined=false;
+               }
+             });//checkbox
+           }//chckbox if
+
+               if(defined){
+                 data.push(objData);
+                 obj.lists=[];
+                 obj.lists.push(objData);
+              }
+
+              ++j;
+
+          }//while loop
+        }//else
+
+          if(p<pages){
+            // console.log("Data: ", data);
+            if(obJSON1.currPageParam){ //nex\prev page
+                ++p;
+                // console.log("Next: ", eval("response."+obJSON1.nextPageParam));
+                getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
+            }else if(obJSON1.offsetPage){//offset page
+              // console.log("offset");
+              ++p;
+              getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
+            }else{//index page
+                // console.log("index");
+              ++p;
+              getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
+            }
+          }else{
+            if(data.length>0){
+              console.log("data: ", data);
+              populateListAndTree(data)
+              populateTable(data);
+            }else{
+              populateListAndTree(data)
+              console.log("create something else other than table!")
+            }
+          }
+
+        }//response
+    //  );//new AJAX
+     });//AJAX
+   }//if header
+  else{
+    var headername= obJSON1.headers[0].headerKey;//$("#nameH").val();
+    var headervar= obJSON1.headers[0].headerValue;//$("#valueH").val();
+    var headers_to_set = {};
+    headers_to_set[headername] = headervar;
+
+      $.ajax({
+        url: "https://cors-anywhere.herokuapp.com/"+obJSON1.url,
+        data: JSON.parse(listP),
+        method: 'GET',
+        headers: headers_to_set,
+        // {
+        //   "Authorization" : obJSON1.headers[0].headerValue//"Bearer lFvvnoRne1-Od__tDTS_kC4w_ifGdXq7XeYGXhxj67FlTAWnZuwiD46hWe15i3ZQEz9c4zTsAES_MdSgzcHnDM2b1QvvaKzOB7KbBFJOrk5cCNdAxjfSB4R6VRFeXHYx"
+        // },
+        success: function (response) {
+          //console.log("RES_Ret: ", response);
+          if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
+            for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
+               objData={};
+
+               objData["id"]= start;
+
+               if($("input[name='checkbox-w']").is(":checked")){
+                   $("input[name='checkbox-w']:checked").each(function(){
+                    var s = "response."+this.id.split('.')[0];
+                     //console.log("s: ",s);
+                    if(eval(s)){
+                     var id = this.value;
+                     if(this.value=="Video URL"){
+                       objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+                     }else{
+                       var str = (this.checked ? "response."+this.id : 0);
+                       //IF ARRAY
+                       if(str.includes("[i]")){
+                         //console.log("Includes [i]: ",str);
+                         var i=0;
+                         var splt =  str.split("[i]");
+                         // start if undefined
+                         if(eval(splt[0]).length==0){
+                          objData[id]="";
+                        }else{// start if NOT undefined
+                        objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                        for(i=1; i<eval(splt[0]).length; ++i){
+                          objData[id] += ", ";
+                          objData[id] += eval("response."+this.id);
+                        }
+                      }///test undefined
+                        //IF OBJECT and not ARRAY
+                       }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
+                         //console.log("IT IS OBJECT");
+                         var objD = (this.checked ? eval("response."+this.id) : 0);
+                         var objKV = "";
+                         var first = true;
+                         for(var i in objD){
+                          //console.log("Key: ", i);
+                          //console.log("Value: ", objD[i]);
+                          if(!first){
+                            objKV+=", "
+                          }else{
+                            first = false;
+                          }
+                          objKV+=i+": "+objD[i];
+                        }
+                        objData[id]=objKV;
+
+                        for(var i in objD){
+                         //console.log("Key: ", i);
+                         //console.log("Value: ", objD[i]);
+                         objData[i]=objD[i];
+                         //console.log("objData[id]: ", objData[i]);
+                       }
+                       //console.log("objData[id]: ", objData[id]);
+                       //IF NEITHER
+                       }else{
+                         //console.log("Does NOT Include [i]");
+                         objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                         //console.log("objData[id]: ", objData[id]);
+                       }
+
+                     }
+                   }//if not undefined
+                 else{
+                   defined=false;
+                 }
+               });//checkbox
+             }//chckbox loop
+
+                 if(defined){
+                   data.push(objData);
+                   obj.lists=[];
+                   obj.lists.push(objData);
+                }
+
+                //++j;
+                //++start;
+
+            }//while loop
+          }else{
+          var j=0;
+          while(defined){
+            //for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
+            objData={};
+            ++start;
+            objData["id"]= start;
+            // console.log("J: ",j);
+
+            if($("input[name='checkbox-w']").is(":checked")){
+                $("input[name='checkbox-w']:checked").each(function(){
+                  var s = "response."+this.id.split('.')[0];
+                  var arrLength = "response."+this.id.split('[j]')[0];
+                  var ln = s.split('[')[0];
+
+                  if(j<eval(arrLength).length && Array.isArray(eval(arrLength))){// || typeof eval(s) === 'undefined' || j==eval(ln).length){
+                  var id = this.value;
+                  if(this.value=="Video URL"){
+                    objData[id] = "https://www.youtube.com/watch?v="+(this.checked ? eval("response."+this.id) : 0);
+                  }else{
+                    var str = (this.checked ? "response."+this.id : 0);
+                    //IF ARRAY
+                    if(str.includes("[i]")){
+                      //console.log("Includes [i]: ",str);
+                      var i=0;
+                      var splt =  str.split("[i]");
+                      // start if undefined
+                      if(eval(splt[0]).length==0){
+                       objData[id]="";
+                     }else{// start if NOT undefined
+                     objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                     for(i=1; i<eval(splt[0]).length; ++i){
+                       objData[id] += ", ";
+                       objData[id] += eval("response."+this.id);
+                     }
+                   }///test undefined
+                     //IF OBJECT and not ARRAY
+                    }else if(eval("response."+this.id) instanceof Object && !(eval("response."+this.id) instanceof Array)){
+                      //console.log("IT IS OBJECT");
+                      var objD = (this.checked ? eval("response."+this.id) : 0);
+                      var objKV = "";
+                      var first = true;
+                      for(var i in objD){
+                       //console.log("Key: ", i);
+                       //console.log("Value: ", objD[i]);
+                       if(!first){
+                         objKV+=", "
+                       }else{
+                         first = false;
+                       }
+                       objKV+=i+": "+objD[i];
+                     }
+                     objData[id]=objKV;
+
+                     for(var i in objD){
+                      //console.log("Key: ", i);
+                      //console.log("Value: ", objD[i]);
+                      objData[i]=objD[i];
+                      //console.log("objData[id]: ", objData[i]);
+                    }
+                    //console.log("objData[id]: ", objData[id]);
+                    //IF NEITHER
+                    }else{
+                      //console.log("Does NOT Include [i]");
+                      objData[id] = (this.checked ? eval("response."+this.id) : 0);
+                      //console.log("objData[id]: ", objData[id]);
+                    }
+
+                  }
+                }//if not undefined
+              else{
+                defined=false;
+              }
+            });//checkbox
+          }//chckbox loop
+
+              if(defined){
+                data.push(objData);
+                obj.lists=[];
+                obj.lists.push(objData);
+             }
+
+             ++j;
+             //++start;
+
+            }//while loop
+        }//else
+
+          if(p<pages){
+            //console.log("Data: ", data);
+            if(obJSON1.currPageParam){ //nex\prev page
+                ++p;
+                getTheNextPage(p, pages, eval("response."+obJSON1.nextPageParam));
+            }else if(obJSON1.offsetPage){//offset page
+              ++p;
+              getTheNextPage(p, pages, eval("response."+obJSON1.offsetPage));
+            }else{//index page
+              ++p;
+              getTheNextPage(p, pages, eval("response."+obJSON1.indexPage));
+            }
+          }else{
+            if(data.length>0){
+              console.log("data: ", data);
+              populateListAndTree(data)
+              populateTable(data);
+            }else{
+              arrData2=[];
+              console.log("data: ", response);
+              for(var r=0; r<obJSON1.responses.length; ++r){
+                var str = "response."+obJSON1.responses[r].parameter;
+                if(str.includes("[j]")){
+                  str = str.replace('j', '0');
+                }
+                console.log(eval(str));
+                arrData2.push(eval(str));
+              }
+
+              populateListAndTree(data)
+              console.log("create something else other than table!")
+            }
+          }
+
+        }//response
+    //  );//new AJAX
+     });//AJAX
+   }//else CORS
+
+    }//end of getTheNextPage function
+
+    }//response
+//  );//new AJAX
+ });//AJAX
+}
+
+
 var auth_url,token_url, redirect_url, client_id, client_secret, response_type, scope, grant_type, client_auth, tok;
+var flow_client_id, flow_client_secret, flow_token_url, flow_grant_type, flow_tok;
+
 
 function authorize() {
 
@@ -5706,6 +6656,32 @@ function authorize() {
             }, 200);
 }
 
+function authorizeFlow(){
+
+  flow_client_id= $("#flow_clientId").val();
+  flow_client_secret= $("#flow_clientSec").val();
+  flow_token_url= $("#flow_tokenURL").val();
+  flow_grant_type= $("#flow_grantTypeL").val();
+
+  var client_id= flow_client_id;
+  var client_secret = flow_client_secret;
+  var client = client_id+":"+client_secret;
+
+  var encodedString = btoa(client);
+  // console.log(encodedString);
+
+  $.ajax({
+      url : flow_token_url,
+      type: 'POST',
+      headers: {"Authorization":"Basic "+encodedString},
+      data: {grant_type: "client_credentials"},
+      success: function (response) {
+          // console.log("access_token: ", response.access_token);
+          flow_tok= response.access_token;
+          urlBlur();
+      }
+  });
+}
 
 
 
@@ -5857,7 +6833,7 @@ function responseMessage(response, status){
       function hasNumbers(t){
         var regex = /\d/g;
         return regex.test(t);
-      } 
+      }
 
       function prettyPrintPath(path) {
         // console.log("Path: ",path);
@@ -5874,7 +6850,7 @@ function responseMessage(response, status){
                       //  console.log(str)
                      }else {
                       //  console.log("str: ",str);
-                       
+
                        if (str.length > 0){
                          if(hasNumbers(element)){
                           str += '['+element+']';
@@ -5885,7 +6861,7 @@ function responseMessage(response, status){
                        }else{
                         str += element;
                        }
-                       
+
 
                       //  if (str.length > 0)str += '.';
                       //  str += element;
@@ -6104,26 +7080,26 @@ if(document.getElementById('selectid').value == "oauth2"){
 
   var parameters = [];
 
-        $('#requestTabel tbody tr').each(function(i, n){
-          var $row = $(n);
-          if($row.find('#displayed:eq(0)').is(":checked")){
-            if($row.find('#displayedName:eq(0)').val()==""){
-              var displayedN = $row.find('#name:eq(0)').val();
-            }else{
-              var displayedN = $row.find('#displayedName:eq(0)').val();
-            }
-          }
-            parameters.push({
-                name:          $row.find('#name:eq(0)').val(),
-                value:         $row.find('#value:eq(0)').val(),
-                listOfValues:  $row.find('#listOfValues:eq(0)').val(),
-                displayedName: displayedN,
-                description:   $row.find('#desc:eq(0)').val(),
-                type:          $row.find('#type:eq(0)').val(),
-                displayed:     $row.find('#displayed:eq(0)').is(":checked"),
-                required:      $row.find('#required:eq(0)').is(":checked")
-            });
-        });
+  $('#requestTabel tbody tr').each(function(i, n){
+    var $row = $(n);
+    if($row.find('#displayed:eq(0)').is(":checked")){
+      if($row.find('#displayedName:eq(0)').val()==""){
+        var displayedN = $row.find('#name:eq(0)').val();
+      }else{
+        var displayedN = $row.find('#displayedName:eq(0)').val();
+      }
+    }
+      parameters.push({
+          name:          $row.find('#name:eq(0)').val(),
+          value:         $row.find('#value:eq(0)').val(),
+          listOfValues:  $row.find('#listOfValues:eq(0)').val(),
+          displayedName: displayedN,
+          description:   $row.find('#desc:eq(0)').val(),
+          type:          $row.find('#type:eq(0)').val(),
+          displayed:     $row.find('#displayed:eq(0)').is(":checked"),
+          required:      $row.find('#required:eq(0)').is(":checked")
+      });
+  });
    //(2) request parameters
         myObj.parameters = parameters;
         var paths = [];
@@ -6150,7 +7126,7 @@ if(document.getElementById('selectid').value == "oauth2"){
           "data": JSON.parse(listData),
           "method": method,
           headers: {
-            "Authorization" : "Bearer " +tok 
+            "Authorization" : "Bearer " +tok
           }
          }
         }else{
@@ -6597,6 +7573,7 @@ function authSelected(){
       $("#messageH").hide();
       $("#apiKeyFieldTable").hide();
       $("#oauthTable").hide();
+      $("#flowTable").hide();
 
   }else if(document.getElementById('selectid').value == "queryAuth"){
     $("#headerTabel tbody").empty();
@@ -6606,6 +7583,7 @@ function authSelected(){
     $("#messageB").hide();
     $("#apiKeyFieldTable").show();
     $("#oauthTable").hide();
+    $("#flowTable").hide();
     document.getElementById("nameH").value = "";
     document.getElementById("valueH").value = "";
 
@@ -6618,6 +7596,7 @@ function authSelected(){
     document.getElementById("valueH").value = "";
     $("#apiKeyFieldTable").hide();
     $("#oauthTable").hide();
+    $("#flowTable").hide();
 
   }else if(document.getElementById('selectid').value == "noAuth"){
     $("#apiKeyFieldTable").hide();
@@ -6629,10 +7608,14 @@ function authSelected(){
     // $("#messageB").hide();
     document.getElementById("nameH").value = "";
     document.getElementById("valueH").value = "";
+    $("#flowTable").hide();
 
   }else if(document.getElementById('selectid').value == "oauth2"){
     $("#apiKeyFieldTable").hide();
     $("#oauthTable").show();
+  }else if(document.getElementById('selectid').value == "flow"){
+    $("#apiKeyFieldTable").hide();
+    $("#flowTable").show();
   }else{
     addHeaderRowAuth();
     document.getElementById("nameH").value = "";
@@ -6642,6 +7625,7 @@ function authSelected(){
     // $("#messageB").hide();
     $("#apiKeyFieldTable").hide();
     $("#oauthTable").hide();
+    $("#flowTable").hide();
   }
 
   urlBlurNoCall();
@@ -7192,22 +8176,35 @@ function reviewAPIIntegration(){ //Review? show all information in 3 squares to 
 
   var oauth2 = [];
 
+  if(document.getElementById('selectid').value == "oauth2"){
+    oauth2.push({
+      authURL:   $("#authURL").val(),
+      tokenURL: $("#tokenURL").val(),
+      callbackURL: $("#callbackURL").val(),
+      clientId: $("#clientId").val(),
+      clientSec: $("#clientSec").val(),
+      resType: $("#resType").val(),
+      scope: $("#scope").val(),
+      grantType: $("#grantType").val(),
+      clientAuth: $("#clientAuth").val()
+    });
+  }
 
-if(document.getElementById('selectid').value == "oauth2"){
-  oauth2.push({
-    authURL:   $("#authURL").val(),
-    tokenURL: $("#tokenURL").val(),
-    callbackURL: $("#callbackURL").val(),
-    clientId: $("#clientId").val(),
-    clientSec: $("#clientSec").val(),
-    resType: $("#resType").val(),
-    scope: $("#scope").val(),
-    grantType: $("#grantType").val(),
-    clientAuth: $("#clientAuth").val()
-  });
-}
+  myObj.oauth2 = oauth2;
 
-myObj.oauth2 = oauth2;
+
+  var oauthFlow = [];
+
+  if(document.getElementById('selectid').value == "flow"){
+    oauthFlow.push({
+      tokenURL: $("#flow_tokenURL").val(),
+      clientId: $("#flow_clientId").val(),
+      clientSec: $("#flow_clientSec").val(),
+      grantType: $("#flow_grantType").val(),
+    });
+    myObj.oauthFlow = oauthFlow;
+  }
+
 
   //Authentication description
   myObj.authDesc = $("#authDesc").val();
@@ -7410,7 +8407,7 @@ function saveScrAPIrOpenAPI(){
       if((childSnapshot.val().method=='GET' || !childSnapshot.val().method) &&  !childSnapshot.val().title.includes('-')){
       parameters = [], keyName="", keyValue="", keyIn="";
 
-      
+
       if(childSnapshot.val().parameters){
 
       for(var i=0 ; i<childSnapshot.val().parameters.length ; ++i){
@@ -7521,8 +8518,8 @@ function testAddingAuth(){
           }else{
             ///
           }
-        }      
-          
+        }
+
       }else{
         //
       }
@@ -7558,7 +8555,7 @@ function testAddingAuth(){
     });
   });
 
-}, 2000); 
+}, 2000);
 
 }
 
@@ -7581,7 +8578,7 @@ function showAPIDescription(){
         if(childSnapshot.val().parameters){
           // $("#res").show();
           // $("#par").show();
-      
+
           for(var i=0; i<childSnapshot.val().parameters.length; ++i){
             $("#params tbody").append('<tr><td><code>'+childSnapshot.val().parameters[i].name+'</code></td><td>'+childSnapshot.val().parameters[i].description+'</td></tr>');
             $("#funcParMulti").append('<option><code>'+childSnapshot.val().parameters[i].name+'</code></option>');
@@ -7595,7 +8592,7 @@ function showAPIDescription(){
 
       }
     });
-  });   
+  });
 }
 
 
@@ -7625,7 +8622,7 @@ function createFunction(){
         resObj= response;
         var parValues = $('#funcParMulti').val();
         var resValues = $('#funcResMulti').val();
-        
+
         //Change the API original parameters to the chosen ones
         if(resObj.parameters){
           for(var j=0; j<resObj.parameters.length; ++j){
@@ -7736,6 +8733,7 @@ function populateListOfAPIs(){
         var str = childSnapshot.val().title;
         var api_title = str.split(' ').join('_');
         $("#apis_list").append("<option id="+api_title+">"+childSnapshot.val().title+"</option>");
+
       }
     });
   });
@@ -8537,7 +9535,7 @@ function populatePublicSavedDataset(){
 
 function covid19APIs(){
     registration();
-    
+
 }
 
 

@@ -350,6 +350,7 @@
 										 			<option value="GET">GET</option>
 										 			<option value="POST">POST</option>
 													<option value="PUT">PUT</option>
+													<option value="PATCH">PATCH</option>
 													<option value="INSERT">INSERT</option>
 													<option value="DELETE">DELETE</option>
 									 			</select>
@@ -610,6 +611,7 @@
 											<option value="bearerToken">Bearer Token</option>
 											<option value="basicAuth">Basic Auth</option>
 											<option value="oauth2">OAuth 2.0</option>
+											<option value="flow">Client Credentials Flow</option>
 											<!-- <option value="oAuth1">OAuth 1.0</option>
 											<option value="oAuth2">OAuth 2.0</option> -->
 										</select>
@@ -754,7 +756,64 @@
 
 
 												</tbody>
-									</table>
+								</table>
+
+
+
+
+								<table id="flowTable" style="display:none" class="table" width="200px">
+									<!-- //During API integration, ask users for these things:
+										// Token url
+										// client_id
+										// client_secret
+										// grant_type
+									-->
+
+									<tbody>
+										<tr>
+											<td>
+												<label >Token URL</label>
+											</td>
+											<td>
+												<input class="form-control" type="text" id="flow_tokenURL" placeholder="" >
+											</td>
+										</tr>
+
+										<tr>
+											<td>
+												<label >Client ID</label>
+											</td>
+											<td>
+												<input class="form-control" type="text" id="flow_clientId" placeholder="" >
+											</td>
+										</tr>
+
+										<tr>
+											<td>
+												<label >Client Secret</label>
+											</td>
+											<td>
+												<input class="form-control" type="text" id="flow_clientSec" placeholder="" >
+											</td>
+										</tr>
+
+										<tr>
+											<td>
+												<label >Grant Type</label>
+											</td>
+											<td>
+												<input class="form-control" type="text" id="flow_grantType" placeholder="" >
+											</td>
+										</tr>
+
+										<tr>
+											<td>
+												<button style="display: inline-block; height:31px" class="button button-3d button-small button-rounded button-teal" onclick="authorizeFlow()">Authorize</button>
+											</td>
+										</tr>
+
+									</tbody>
+								</table>
 
 
 						<hr>
@@ -1080,14 +1139,14 @@
 								</div>
 
 								<div id="nextDiv" class="" style="display:none;">
-									<div class="form-group" style=" display=none;">
+									<div class="form-group" style=" display:none;">
 										<label>Current Page [parameter name]*</label>
 										<input type="text" class="form-control" list="pageList" id="cur_page_param" placeholder="(e.g. pageToken)" style="width:334px"  onchange="urlBlurNoCall()">
 										<datalist id="pageList">
 										<!-- <option value="HTML"/> -->
 										</datalist>
 									</div>
-									<div class="form-group" style=" display=none;">
+									<div class="form-group" style=" display:none;">
 										<label>Next Page [parameter name]*</label>
 										<input type="text" class="form-control"  list="pageList" id="next_page_param" placeholder="(e.g. nextPageToken)"  onchange="urlBlurNoCall()">
 										<datalist id="pageList">
@@ -1554,7 +1613,7 @@
 
 	#aa p {
 		display: inline-block;
-		background: blue;*/
+		background: blue;
 		color: black;
 		/*padding: 0.4em 0.6em;*/
 		font-size: 1.5em;
