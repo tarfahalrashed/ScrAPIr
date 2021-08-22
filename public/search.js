@@ -3001,7 +3001,7 @@ if(obJSON1.parameters){
       listP = listP.replace(',}', '}')
     }
 
-  console.log("listPYEAH: ",listP);
+  // console.log("listPYEAH: ",listP);
 
 
   if(listP){
@@ -3011,7 +3011,7 @@ if(obJSON1.parameters){
   }
 
 if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oauth2) || obJSON1.oauth2[0].authURL=="") && ((!obJSON1.oauthFlow) || obJSON1.oauthFlow[0].authURL=="")){ //no header //no CORS
-  console.log("no header / no oauth");
+  // console.log("no header / no oauth");
     $.ajax({
       url: link,
       data: listExist,
@@ -3021,7 +3021,7 @@ if(( (!obJSON1.headers) || obJSON1.headers[0].headerValue=="") && ((!obJSON1.oau
         //console.log("RES_Ret: ", response);
         if(obJSON1.indexPage || obJSON1.currPageParam || obJSON1.offsetPage){
           for (var j=0; start<totalRes && j<numResults && defined ; ++j, ++start){// && start<2000LIMIT THE RESULT TO 100 LINES
-            console.log("INSIDE");
+            // console.log("INSIDE");
             objData={};
              objData["id"]= start;
 
