@@ -65,7 +65,7 @@
     "websocket-extensions": "^0.1.4",
     "word2vec": "^1.1.4",
     "word2vec-stream": "^1.0.1",
-    "yargs-parser": "^4.2.1"
+    "yargs-parser": "^5.0.1"
   },
   "engines": {
     "node": "14"
