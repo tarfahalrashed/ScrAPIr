@@ -58,14 +58,14 @@
     "path": "^0.12.7",
     "path-parse": "^1.0.7",
     "python-shell": "^2.0.3",
-    "remote": "^0.2.6",
+    "remote": "^0.0.5",
     "request": "^2.88.0",
     "tar": "^6.1.10",
     "url": "^0.11.0",
     "websocket-extensions": "^0.1.4",
     "word2vec": "^1.1.4",
     "word2vec-stream": "^1.0.1",
-    "yargs-parser": "^4.2.1"
+    "yargs-parser": "^20.2.9"
   },
   "engines": {
     "node": "14"
@@ -76,6 +76,6 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "webpack-cli": "^4.1.0",
-    "webpack-dev-server": "^1.16.5"
+    "webpack-dev-server": "^4.0.0"
   }
 }
