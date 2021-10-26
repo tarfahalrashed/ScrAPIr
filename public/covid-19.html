@@ -1,100 +1,87 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
+
 <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Covid-19 Data Resources</title>
 
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<meta name="author" content="SemiColonWeb" />
-
-	<!-- Stylesheets
-	============================================= -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Raleway:300,400,500,600,700|Crete+Round:400i" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
-	<link rel="stylesheet" href="css/style.css" type="text/css" />
-	<link rel="stylesheet" href="css/dark.css" type="text/css" />
-	<link rel="stylesheet" href="css/font-icons.css" type="text/css" />
-	<link rel="stylesheet" href="css/animate.css" type="text/css" />
-	<link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
-
-	<link rel="stylesheet" href="css/responsive.css" type="text/css" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- <link rel="stylesheet" href="css/treeview.min.css" type="text/css" /> -->
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
-
-	<!-- load the minimalist version of JSONEditor, which doesn't have Ace embedded -->
-	<link href="dist/jsoneditor.css" rel="stylesheet" type="text/css">
-	<link href="dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
-
-	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
-
-	<script src="https://cdn.datatables.net/plug-ins/1.10.15/api/row().show().js"></script>
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Raleway:300,400,500,600,700|Crete+Round:400i"
+        rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link rel="stylesheet" href="css/dark.css" type="text/css" />
+    <link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+    <link rel="stylesheet" href="css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+    <link rel="stylesheet" href="css/responsive.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
+    <link href="dist/jsoneditor.css" rel="stylesheet" type="text/css">
+    <link href="dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.15/api/row().show().js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
-	<!-- Document Title
-============================================= -->
-	<title>Covid-19 Data Resources</title>
-
     <style>
-
-        .process-steps li { 
-            pointer-events: none; 
-        }
-        
-        .modal-body{
-			font-size:1.5em;
-		}
-		.nav-link{
-			font-size:1.5em;
-		}
-
-		.tab-content{
-			font-size:1.5em;
-		}
-		.form-control{
-			font-size:1.5em;
-		}
-
-		.table thead th{
-			font-size:1.5em;
-		}
-
-		.table thead tr input{
-			font-size:1.5em;
-		}
-
-		tfoot input {
-	        width: 100%;
-	        padding: 3px;
-	        box-sizing: border-box;
-	    }
-
-			html, body {
-			height: 100%;
-
-		}
-
-        #custom-search-input{
-        padding: 3px;
-        border: solid 1px #E4E4E4;
-        border-radius: 6px;
-        background-color: #fff;
+        .process-steps li {
+            pointer-events: none;
         }
 
-        #custom-search-input input{
+        .modal-body {
+            font-size: 1.5em;
+        }
+
+        .nav-link {
+            font-size: 1.5em;
+        }
+
+        .tab-content {
+            font-size: 1.5em;
+        }
+
+        .form-control {
+            font-size: 1.5em;
+        }
+
+        .table thead th {
+            font-size: 1.5em;
+        }
+
+        .table thead tr input {
+            font-size: 1.5em;
+        }
+
+        tfoot input {
+            width: 100%;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+
+        }
+
+        #custom-search-input {
+            padding: 3px;
+            border: solid 1px #E4E4E4;
+            border-radius: 6px;
+            background-color: #fff;
+        }
+
+        #custom-search-input input {
             border: 0;
             box-shadow: none;
         }
 
-        #custom-search-input button{
+        #custom-search-input button {
             margin: 2px 0 0 0;
             background: none;
             box-shadow: none;
@@ -104,943 +91,867 @@
             border-left: solid 1px #ccc;
         }
 
-        #custom-search-input button:hover{
+        #custom-search-input button:hover {
             border: 0;
             box-shadow: none;
             border-left: solid 1px #ccc;
         }
 
-        #custom-search-input .glyphicon-search{
+        #custom-search-input .glyphicon-search {
             font-size: 23px;
         }
 
-        
-
-        /* Style all font awesome icons */
         .fa {
-        padding-top: 5px;
-        font-size: 20px;
-        width: 30px;
-        height: 30px;
-        text-align: center;
-        /*text-decoration: none; */
-        border-radius: 50%;
+            padding-top: 5px;
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            border-radius: 50%;
         }
 
-        /* Add a hover effect if you want */
-        /* .fa:hover {
-        opacity: 0.7;
-        } */
-
-        /* Set a specific color for each brand */
-
-        /* Facebook */
         .fa-github {
-        background: #000000;
-        color: white;
+            background: #000000;
+            color: white;
         }
 
-        /* Twitter */
         .fa-twitter {
-        background: #55ACEE;
-        color: white;
+            background: #55ACEE;
+            color: white;
         }
 
-           /* Twitter */
         .fa-youtube {
-        background: #ff0000;
-        color: white;
+            background: #ff0000;
+            color: white;
         }
 
         .fa-globe {
-        background: #ff0000;
-        color: white;
+            background: #ff0000;
+            color: white;
         }
-        /* 
-        .website {
-        padding-top: 5px;
-        font-size: 20px;
-        text-align: center;
-        border-radius: 50%;
-        background: #ff0000;
-        color: white;
-        } */
 
         .website:hover {
-        opacity: 0.7;
+            opacity: 0.7;
         }
 
-
         .card {
-            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);        
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
 
         .card:hover {
-            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);        
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
 
-        a{
+        a {
             line-height: 25px;
             font-size: 1.2em;
 
         }
 
-        #dataSource-card{
-            padding-bottom:20px
+        #dataSource-card {
+            padding-bottom: 20px
         }
 
         #listAPI {
-        list-style: none;
-        margin-left: 0;
-        padding-left: 1em;
-        text-indent: -0.7em;
+            list-style: none;
+            margin-left: 0;
+            padding-left: 1em;
+            text-indent: -0.7em;
         }
 
         #listAPI li:before {
-        content: "- ";
+            content: "- ";
         }
-
     </style>
 
 </head>
 
 <body class="stretched">
 
-	<!-- Document Wrapper
+    <!-- Document Wrapper
 	============================================= -->
-	<div id="wrapper" class="clearfix">
-		
-		<div id="about">
-		<!-- Header
+    <div id="wrapper" class="clearfix">
+
+        <div id="about">
+            <!-- Header
 		============================================= -->
-		<header id="header" class="about" >
+            <header id="header" class="about">
 
-			<div id="header-wrap">
+                <div id="header-wrap">
 
-				<div class="container clearfix" >
+                    <div class="container clearfix">
 
-					<!-- Primary Navigation
+                        <!-- Primary Navigation
 					============================================= -->
-                    <nav id="primary-menu">
+                        <nav id="primary-menu">
 
-						<ul>
-							<li class="mega-menu"><a href="index">Home</a>
-							</li>
-							<li class="mega-menu"><a href="index.html#about">About</a>
-							</li>
+                            <ul>
+                                <li class="mega-menu"><a href="index">Home</a>
+                                </li>
+                                <li class="mega-menu"><a href="index.html#about">About</a>
+                                </li>
 
-							<li class="mega-menu"><a href="index.html#demos" >Demos</a>
-							</li>
-							<li class="mega-menu"><a href="index.html#APIs">Websites</a>
-							</li>
-							<!-- <li class="mega-menu"><a href="docs.html">Docs</a>
-							</li> -->
-							<li class="mega-menu"><a href="dataset.html" data-offset="100" >Datasets</a>
-							</i>
+                                <li class="mega-menu"><a href="index.html#demos">Demos</a>
+                                </li>
+                                <li class="mega-menu"><a href="index.html#APIs">Websites</a>
+                                </li>
 
-							<li class="mega-menu"><a href="api-integration.html">Integrate</a>
-                            </li>
-                            <li class="current"><a href="covid-19.html" style="color:red">COVID-19</a>
-							</li>
-							<li class="mega-menu"><a href="index#contact">Contact</a>
-							</li>
-							<li><a id="SignupLogin" href="login-register.html"><div>Sign in</div></a>
-								<ul style="width:100px;">
-									<li><a href="account.html" id="acc" style="display:none"><div>Account</div></a></li>
-									<li><a href="" onclick="signOutFunction()" id="signout" style="display:none"><div>Sign out</div></a></li>
-								</ul>
-							</li>
-						</ul>
+                                <li class="mega-menu"><a href="dataset.html" data-offset="100">Datasets</a>
+                                    </i>
 
-					</nav><!-- #primary-menu end -->
+                                <li class="mega-menu"><a href="api-integration.html">Integrate</a>
+                                </li>
+                                <li class="current"><a href="covid-19.html">COVID-19</a>
+                                </li>
+                                <li class="mega-menu"><a href="index#contact">Contact</a>
+                                </li>
+                                <li><a id="SignupLogin" href="login-register.html">
+                                        <div>Sign in</div>
+                                    </a>
+                                    <ul style="width:100px;">
+                                        <li><a href="account.html" id="acc" style="display:none">
+                                                <div>Account</div>
+                                            </a></li>
+                                        <li><a href="" onclick="signOutFunction()" id="signout" style="display:none">
+                                                <div>Sign out</div>
+                                            </a></li>
+                                    </ul>
+                                </li>
+                            </ul>
 
-				</div>
+                        </nav><!-- #primary-menu end -->
 
-			</div>
+                    </div>
 
-		</header>
-		<!-- #header end -->
+                </div>
 
-		<!-- Page Title
+            </header>
+            <!-- #header end -->
+
+            <!-- Content
 		============================================= -->
-	
+            <section id="content">
 
-		<!-- Content
-		============================================= -->
-		<section id="content">
-
-			<div class="container clearfix">                
-                <h2 style="text-align: center; align-content: center;">Explore COVID-19 Data Sources</h2>
-                </br>
-                <div class="row">
-                    <div class="col"></div>
-                    <div class="col">
-                        <div class="" id="custom-search-input" style="width:600px;">
-                            <div class="input-group">
-                                <input id="myInput" type="search" class="form-control input-lg"  onkeyup="myFunction()" placeholder="Search for data source..">
-                                <span class="input-group-btn">
-                                <button class="btn btn-info btn-lg" type="button">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                                </span>
+                <div class="container clearfix">
+                    <h2 style="text-align: center; align-content: center;">Explore COVID-19 Data Sources</h2>
+                    </br>
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col">
+                            <div class="" id="custom-search-input" style="width:600px;">
+                                <div class="input-group">
+                                    <input id="myInput" type="search" class="form-control input-lg"
+                                        onkeyup="myFunction()" placeholder="Search for data source..">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info btn-lg" type="button">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
+                        <div class="col"></div>
                     </div>
-                    <div class="col"></div>
+
+                    </br> </br> </br>
+
+                    <div class="row">
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>Novel COVID API</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=John_Hopkins_CSSE_Data"
+                                                target="_blank">Data from the John Hopkins CSSE Data Repository</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=Novel_COVID_API_Countries"
+                                                target="_blank">Countries that has COVID-19</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=Novel_COVID_API_States"
+                                                target="_blank">USA States that has COVID-19</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted" style="height: auto;">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://corona.lmao.ninja/" target="_blank"
+                                            class="btn btn-primary btn-sm">Site</a>
+                                        <a role="button" href="https://corona.lmao.ninja/docs/" target="_blank"
+                                            class="btn btn-success btn-sm">API</a>
+                                        <a role="button" href="https://www.worldometers.info/coronavirus/"
+                                            target="_blank" class="btn btn-secondary btn-sm">Dashboard</a>
+                                    </div>
+                                    <div style="float: right;">
+                                        <a href="https://twitter.com/covidapi" target="_blank"
+                                            class="fa fa-twitter"></a>
+                                        <a href="https://github.com/NovelCOVID/API" target="_blank"
+                                            class="fa fa-github"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>Centers for Disease Control and Prevention (CDC)</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=CDC" target="_blank">CDC online
+                                                newsroom</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=CDC_Coronavirus_Disease"
+                                                target="_blank">COVID-19 situation update</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=YouTube_API/#CDC_streaming_Health"
+                                                target="_blank">YouTube CDC sreaming health</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://www.cdc.gov/about/default.htm" target="_blank"
+                                            class="btn btn-primary btn-sm">Site</a>
+                                        <a role="button" href="https://open.cdc.gov/apis.html" target="_blank"
+                                            class="btn btn-success btn-sm">API</a>
+                                    </div>
+                                    <div style="float: right;">
+                                        <a href="https://twitter.com/CDCgov" target="_blank" class="fa fa-twitter"></a>
+                                        <a href="https://www.youtube.com/user/CDCStreamingHealth" target="_blank"
+                                            class="fa fa-youtube"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>Elsevier Datasearch</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=Elsevier_Datasearch"
+                                                target="_blank">This API gives you access to an ever growing corpus of
+                                                datasets from thousands of sources</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://datasearch.elsevier.com" target="_blank"
+                                            class="btn btn-primary btn-sm">Site</a>
+                                        <a role="button"
+                                            href="https://datasearch.elsevier.com/api/docs#/search/search_1"
+                                            target="_blank" class="btn btn-success btn-sm">API</a>
+                                    </div>
+                                    <div style="float: right;">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>Finnhub COVID-19</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=Finnhub_COVID-19_States"
+                                                target="_blank">Get updates on the number of COVID-19 cases in the US
+                                                (CDC data source)</a>
+                                        </li>
+
+                                        <li>
+                                            <a id="" href="data-management.html?api=Finnhub_COVID-19_Economic_Calendar"
+                                                target="_blank">Get recent and coming economic releases</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://covidtracking.com" target="_blank"
+                                            class="btn btn-primary btn-sm">Site</a>
+                                        <a role="button" href="https://covidtracking.com/api" target="_blank"
+                                            class="btn btn-success btn-sm">API</a>
+                                    </div>
+                                    <div style="float: right;">
+                                        <a href="https://twitter.com/covid19tracking" target="_blank"
+                                            class="fa fa-twitter"></a>
+                                        <a href="https://github.com/COVID19Tracking" target="_blank"
+                                            class="fa fa-github"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>The COVID Tracking Project</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID_Tracking_Daily_By_State"
+                                                target="_blank">States Historical Data</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID_Tracking_States_Current"
+                                                target="_blank">States Current Values</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID_Tracking_States_Information"
+                                                target="_blank">States Information</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID_Tracking_US_Current_Values"
+                                                target="_blank">US Current Values</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID_Tracking_Tracker_URLs"
+                                                target="_blank">States Tracker URLs</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID_Tracking_In_the_Press"
+                                                target="_blank">In the Press</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID_Tracking_CDC_Reported_Tests"
+                                                target="_blank">CDC Reported Tests</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID_Tracking_In_the_Press"
+                                                target="_blank">In the Press</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://covidtracking.com" target="_blank"
+                                            class="btn btn-primary btn-sm">Site</a>
+                                        <a role="button" href="https://covidtracking.com/api" target="_blank"
+                                            class="btn btn-success btn-sm">API</a>
+                                    </div>
+                                    <div style="float: right;">
+                                        <a href="https://twitter.com/covid19tracking" target="_blank"
+                                            class="fa fa-twitter"></a>
+                                        <a href="https://github.com/COVID19Tracking" target="_blank"
+                                            class="fa fa-github"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>COVID-19 Japan API</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID_Japan_Prefectures"
+                                                target="_blank">COVID-19 information of each prefecture in Japan</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID-19_Japan_Positives"
+                                                target="_blank">COVID-19 information of positive cases in Japan</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID_Japan_Total_Prediction"
+                                                target="_blank">Predict the number of positives and deaths for the next
+                                                30 days</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID_Japan_Total_History"
+                                                target="_blank">COVID-19 total history</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://github.com/ryo-ma/covid19-japan-web-api"
+                                            target="_blank" class="btn btn-success btn-sm">API</a>
+                                    </div>
+                                    <div style="float: right;">
+                                        <a href="https://github.com/ryo-ma/covid19-japan-web-api" target="_blank"
+                                            class="fa fa-github"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>COVID-19 Report API</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID-19_Report_API_Latest"
+                                                target="_blank">COVID-19 global timeline data (Johns Hopkins University
+                                                CSSE)</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://alaeddinemessadi.github.io/COVID-19-REPORT-API/"
+                                            target="_blank" class="btn btn-success btn-sm">API</a>
+                                    </div>
+                                    <div style="float: right;">
+                                        <a href="https://github.com/AlaeddineMessadi/COVID-19-REPORT-API"
+                                            target="_blank" class="fa fa-github"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>Coronavirus Tracker</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id=""
+                                                href="data-management.html?api=Coronavirus_Tracker_Country_Statistics"
+                                                target="_blank">Country Statistics API</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=Coronavirus_Tracker_Full_Timeline"
+                                                target="_blank">Full Timeline API</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://thevirustracker.com/" target="_blank"
+                                            class="btn btn-primary btn-sm">Site</a>
+                                        <a role="button" href="https://thevirustracker.com/api" target="_blank"
+                                            class="btn btn-success btn-sm">API</a>
+                                    </div>
+                                    <div style="float: right;">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>CoronaTab</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=CoronaTab_Places"
+                                                target="_blank">Latest available data for all countries in the world</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=CoronaTab_USA_Stats"
+                                                target="_blank">US Corona virus daily stats</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=CoronaTab_China_Stats"
+                                                target="_blank">China Corona virus daily stats</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://coronatab.app/en" target="_blank"
+                                            class="btn btn-primary btn-sm">Site</a>
+                                        <a role="button"
+                                            href="https://github.com/PotentialWeb/CoronaTab/wiki/RESTful-API-documentation"
+                                            target="_blank" class="btn btn-success btn-sm">API</a>
+                                        <a role="button" href="https://coronatab.app/en/dashboard" target="_blank"
+                                            class="btn btn-secondary btn-sm">Dashboard</a>
+                                    </div>
+                                    <div style="float: right;">
+                                        <a href="https://github.com/PotentialWeb/CoronaTab" target="_blank"
+                                            class="fa fa-github"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>European Centre for Disease Prevention and Control (ECDC)</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=YouTube_API/#ECDC_Channel"
+                                                target="_blank">ECDC YouTube Channel</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://www.ecdc.europa.eu/en" target="_blank"
+                                            class="btn btn-primary btn-sm">Site</a>
+                                    </div>
+                                    <div style="float: right;">
+                                        <a href="https://twitter.com/ecdc_eu" target="_blank" class="fa fa-twitter"></a>
+                                        <a href="https://www.youtube.com/channel/UClTKA4g2BdD2THYNJp1DMqA"
+                                            target="_blank" class="fa fa-youtube"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>Bing COVID-19 Data</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID_Tracking_Daily_By_State"
+                                                target="_blank">Bing COVID-19 Tracker Data</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://bing.com/covid" target="_blank"
+                                            class="btn btn-primary btn-sm">Site</a>
+                                    </div>
+                                    <div style="float: right;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>Coronavirus COVID19 API</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=Coronavirus_COVID19_API_Summary"
+                                                target="_blank">States Historical Data</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://covid19api.com/" target="_blank"
+                                            class="btn btn-primary btn-sm">Site</a>
+                                        <a role="button"
+                                            href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest"
+                                            target="_blank" class="btn btn-success btn-sm">API</a>
+                                    </div>
+                                    <div style="float: right;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>Mathdroid COVID-19</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=Mathdroid_COVID-19_Confirmed_Cases"
+                                                target="_blank">Global cases per region sorted by confirmed cases</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=Mathdroid_COVID-19_Daily_Update"
+                                                target="_blank">Global cases per day</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://github.com/mathdroid/covid-19-api"
+                                            target="_blank" class="btn btn-success btn-sm">API</a>
+                                    </div>
+                                    <div style="float: right;">
+                                        <a href="https://github.com/mathdroid/covid-19-api" target="_blank"
+                                            class="fa fa-github"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>Health Promotion Bureau COVID-19</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=Health_Promotion_Bureau_COVID-19"
+                                                target="_blank">The current real time situation of the COVID-19 patients
+                                                reported in Sri Lanka</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://hpb.health.gov.lk/en" target="_blank"
+                                            class="btn btn-primary btn-sm">Site</a>
+                                        <a role="button" href="https://hpb.health.gov.lk/en/api-documentation"
+                                            target="_blank" class="btn btn-success btn-sm">API</a>
+                                        <a role="button" href="https://hpb.health.gov.lk/covid19-dashboard/"
+                                            target="_blank" class="btn btn-secondary btn-sm">Dashboard</a>
+                                    </div>
+                                    <div style="float: right;">
+                                        <a href="https://twitter.com/hpbsrilanka" target="_blank"
+                                            class="fa fa-twitter"></a>
+                                        <a href="https://www.youtube.com/channel/UC6XsnLgVVzNkjTCpRVJ6u3w"
+                                            target="_blank" class="fa fa-youtube"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>Covid Health Hotline Finder</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=Covid_Health_Hotline_Finder"
+                                                target="_blank">Access The New York Times' COVID-19 case/death data</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="http://covid19.georgesaieed.com" target="_blank"
+                                            class="btn btn-primary btn-sm">Site</a>
+                                        <a role="button" href="http://covid19.georgesaieed.com/#" target="_blank"
+                                            class="btn btn-success btn-sm">API</a>
+                                    </div>
+                                    <div style="float: right;">
+                                        <a href="https://github.com/saieedgeorge0/covid-hotline-bling" target="_blank"
+                                            class="fa fa-github"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>About Corona</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=About_Corona_Global_Timeline"
+                                                target="_blank">COVID-19 global timeline data</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=About_Corona_All_Countries"
+                                                target="_blank">COVID-19 all countries data</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://about-corona.net" target="_blank"
+                                            class="btn btn-primary btn-sm">Site</a>
+                                        <a role="button" href="https://about-corona.net/documentation" target="_blank"
+                                            class="btn btn-success btn-sm">API</a>
+                                        <a role="button" href="https://about-corona.net/dashboard" target="_blank"
+                                            class="btn btn-secondary btn-sm">Dashboard</a>
+                                    </div>
+                                    <div style="float: right;">
+                                        <a href="https://twitter.com/NetCorona" target="_blank"
+                                            class="fa fa-twitter"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>COVID19-India API</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID19-India_Stats"
+                                                target="_blank">National time series, statewise stats and test
+                                                counts</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID19-India_Travel_History"
+                                                target="_blank">Travel history</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID19-India_Deaths_and_Recoveries"
+                                                target="_blank">Deaths and Recoveries</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://www.covid19india.org/" target="_blank"
+                                            class="btn btn-primary btn-sm">Site</a>
+                                        <a role="button" href="https://github.com/covid19india/api" target="_blank"
+                                            class="btn btn-success btn-sm">API</a>
+                                        <a role="button" href="https://www.covid19india.org/" target="_blank"
+                                            class="btn btn-secondary btn-sm">Dashboard</a>
+                                    </div>
+                                    <div style="float: right;">
+                                        <a href="https://twitter.com/covid19indiaorg" target="_blank"
+                                            class="fa fa-twitter"></a>
+                                        <a href="https://github.com/covid19india" target="_blank"
+                                            class="fa fa-github"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col" id="dataSource-card" data-role="dataSource">
+                            <div class="card text-center" style="width: 32rem; height: auto;">
+                                <div class="card-header">
+                                    <h4>Coronavirus COVID19 API</h4>
+                                </div>
+                                <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
+                                    <h5 class="card-title"></h5>
+                                    <ul id="listAPI" style="list-style-position: inside;">
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID-19_All_Reports"
+                                                target="_blank">Global confirmed cases/deaths data provided by the
+                                                worldometers website</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID-19_All_Cases_In_America"
+                                                target="_blank">The Americas COVID-19 cases</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID-19_All_Cases_in_Europe"
+                                                target="_blank">EU and UK COVID-19 cases</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=COVID-19_Australia_Cases"
+                                                target="_blank">Austrailia COVID-19 cases</a>
+                                        </li>
+                                        <li>
+                                            <a id="" href="data-management.html?api=WHO_COVID-19_Situation_Report"
+                                                target="_blank">Data by WHO from national authorities</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div style="float: left;">
+                                        <a role="button" href="https://covid19pr.chrismichael.now.sh" target="_blank"
+                                            class="btn btn-primary btn-sm">Site</a>
+                                        <a role="button" href="https://covid19-docs.chrismichael.now.sh" target="_blank"
+                                            class="btn btn-success btn-sm">API</a>
+                                    </div>
+                                    <div style="float: right;">
+                                        <a href="https://github.com/ChrisMichaelPerezSantiago/covid19" target="_blank"
+                                            class="fa fa-github"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> <!-- row4 -->
+
+                    <div class="center">
+                        <h3>Intersted in other COVID-19 APIs?
+                            <a href="api-integration.html" class="button button-circle">
+                                <div>Add an API</div>
+                            </a></h3>
+                    </div>
+
+                    </br></br></br></br></br>
                 </div>
-         
-                </br> </br> </br>
-
-                <div class="row">
-
-                    <div class="col" id="dataSource-card" data-role="dataSource">
-                        <div class="card text-center" style="width: 32rem; height: auto;" >
-                            <div class="card-header">
-                                <h4>Novel COVID API</h4>
-                            </div>
-                            <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                                <h5 class="card-title"></h5>
-                                <ul id="listAPI" style="list-style-position: inside;">
-                                    <li>
-                                        <a id="" href="data-management.html?api=John_Hopkins_CSSE_Data" target="_blank">Data from the John Hopkins CSSE Data Repository</a>
-                                    </li>
-                                    <li>
-                                        <a id="" href="data-management.html?api=Novel_COVID_API_Countries" target="_blank">Countries that has COVID-19</a>
-                                    </li>
-                                    <li>
-                                        <a id="" href="data-management.html?api=Novel_COVID_API_States" target="_blank">USA States that has COVID-19</a>
-                                    </li>     
-                                </ul>
-                            </div>
-                            <div class="card-footer text-muted" style="height: auto;">
-                                <div style="float: left;">
-                                    <a role="button" href="https://corona.lmao.ninja/" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                    <a role="button" href="https://corona.lmao.ninja/docs/" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                    <a role="button" href="https://www.worldometers.info/coronavirus/" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a>
-                                </div>
-                                <div style="float: right;">
-                                     <a href="https://twitter.com/covidapi" target="_blank" class="fa fa-twitter"></a>
-                                    <a href="https://github.com/NovelCOVID/API" target="_blank" class="fa fa-github"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-          
-                    <div class="col" id="dataSource-card" data-role="dataSource">
-                        <div class="card text-center" style="width: 32rem; height: auto;" >
-                            <div class="card-header">
-                                <h4>Centers for Disease Control and Prevention (CDC)</h4>
-                            </div>
-                            <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                                <h5 class="card-title"></h5>
-                                <ul id="listAPI" style="list-style-position: inside;">
-                                    <li>
-                                        <a id="" href="data-management.html?api=CDC" target="_blank">CDC online newsroom</a>
-                                    </li> 
-                                    <li>
-                                        <a id="" href="data-management.html?api=CDC_Coronavirus_Disease" target="_blank">COVID-19 situation update</a>
-                                    </li> 
-                                    <!-- <li>
-                                        <a id="" href="data-management.html?api=CDC_2019_Novel_Coronavirus" target="_blank">2019 Novel Coronavirus</a>
-                                    </li>  -->
-                                    <li>
-                                        <a id="" href="data-management.html?api=YouTube_API/#CDC_streaming_Health" target="_blank">YouTube CDC sreaming health</a>
-                                    </li>  
-                                </ul>
-                            </div>
-                            <div class="card-footer text-muted">
-                                <div style="float: left;">
-                                    <a role="button" href="https://www.cdc.gov/about/default.htm" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                    <a role="button" href="https://open.cdc.gov/apis.html" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                </div>
-                                <div style="float: right;">
-                                    <a href="https://twitter.com/CDCgov"target="_blank" class="fa fa-twitter"></a>
-                                    <!-- <a href="#" class="fa fa-github"></a> -->
-                                    <a href="https://www.youtube.com/user/CDCStreamingHealth" target="_blank" class="fa fa-youtube"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col" id="dataSource-card" data-role="dataSource">
-                        <div class="card text-center" style="width: 32rem; height: auto;" >
-                            <div class="card-header">
-                                <h4>Elsevier Datasearch</h4>
-                            </div>
-                            <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                                <h5 class="card-title"></h5>
-                                <ul id="listAPI" style="list-style-position: inside;">
-                                    <li>
-                                        <a id="" href="data-management.html?api=Elsevier_Datasearch" target="_blank">This API gives you access to an ever growing corpus of datasets from thousands of sources</a>
-                                    </li> 
-                                </ul>
-                            </div>
-                            <div class="card-footer text-muted">
-                                <div style="float: left;">
-                                    <a role="button" href="https://datasearch.elsevier.com" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                    <a role="button" href="https://datasearch.elsevier.com/api/docs#/search/search_1" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                    <!-- <a role="button" href="https://www.covid19india.org/" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a> -->
-                                </div>
-                                <div style="float: right;">
-                                    <!-- <a href="https://twitter.com/covid19indiaorg" target="_blank" class="fa fa-twitter"></a>
-                                    <a href="https://github.com/covid19india" target="_blank" class="fa fa-github"></a> -->
-                                    <!-- <a href="https://www.youtube.com/user/CDCStreamingHealth" target="_blank" class="fa fa-youtube"></a> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-               
-                    <div class="col" id="dataSource-card" data-role="dataSource">
-                        <div class="card text-center" style="width: 32rem; height: auto;" >
-                            <div class="card-header">
-                                <h4>Finnhub COVID-19</h4>
-                            </div>
-                            <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                            <h5 class="card-title"></h5>
-                            <ul id="listAPI" style="list-style-position: inside;">
-                                <li>
-                                    <a id="" href="data-management.html?api=Finnhub_COVID-19_States" target="_blank">Get updates on the number of COVID-19 cases in the US (CDC data source)</a>
-                                </li>
-                                <!-- <li>
-                                    <a id="" href="data-management.html?api=Finnhub_COVID-19_Economic_Code" target="_blank">List codes of supported economic data</a>
-                                </li> -->
-                                <li>
-                                    <a id="" href="data-management.html?api=Finnhub_COVID-19_Economic_Calendar" target="_blank">Get recent and coming economic releases</a>
-                                </li>
-                            </ul>
-                            </div>
-                            <div class="card-footer text-muted">
-                                <div style="float: left;">
-                                    <a role="button" href="https://covidtracking.com" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                    <a role="button" href="https://covidtracking.com/api" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                </div>
-                                <div style="float: right;">
-                                    <a href="https://twitter.com/covid19tracking" target="_blank" class="fa fa-twitter"></a>
-                                    <a href="https://github.com/COVID19Tracking" target="_blank" class="fa fa-github"></a>
-                                    <!-- <a href="https://www.youtube.com/user/CDCStreamingHealth" target="_blank" class="fa fa-youtube"></a> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
 
-                    <div class="col" id="dataSource-card" data-role="dataSource">
-                        <div class="card text-center" style="width: 32rem; height: auto;" >
-                            <div class="card-header">
-                                <h4>The COVID Tracking Project</h4>
-                            </div>
-                            <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                                <h5 class="card-title"></h5>
-                                <ul id="listAPI" style="list-style-position: inside;">
-                                    <li>
-                                        <a id="" href="data-management.html?api=COVID_Tracking_Daily_By_State" target="_blank">States Historical Data</a>
-                                    </li>
-                                    <li>
-                                        <a id="" href="data-management.html?api=COVID_Tracking_States_Current" target="_blank">States Current Values</a>
-                                    </li>
-                                    <li>
-                                        <a id="" href="data-management.html?api=COVID_Tracking_States_Information" target="_blank">States Information</a>
-                                    </li>
-                                    <li>
-                                        <a id="" href="data-management.html?api=COVID_Tracking_US_Current_Values" target="_blank">US Current Values</a>
-                                    </li>
-                                    <li>
-                                    <a id="" href="data-management.html?api=COVID_Tracking_Tracker_URLs" target="_blank">States Tracker URLs</a>
-                                    </li>
-                                    <li>
-                                        <a id="" href="data-management.html?api=COVID_Tracking_In_the_Press" target="_blank">In the Press</a>
-                                    </li>
-                                    <li>
-                                        <a id="" href="data-management.html?api=COVID_Tracking_CDC_Reported_Tests" target="_blank">CDC Reported Tests</a>
-                                    </li>
-                                    <li>
-                                        <a id="" href="data-management.html?api=COVID_Tracking_In_the_Press" target="_blank">In the Press</a>
-                                    </li>
-                                </ul>   
-                            </div>
-                            <div class="card-footer text-muted">
-                                <div style="float: left;">
-                                    <a role="button" href="https://covidtracking.com" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                    <a role="button" href="https://covidtracking.com/api" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                </div>
-                                <div style="float: right;">
-                                    <a href="https://twitter.com/covid19tracking" target="_blank" class="fa fa-twitter"></a>
-                                    <a href="https://github.com/COVID19Tracking" target="_blank" class="fa fa-github"></a>
-                                    <!-- <a href="https://www.youtube.com/user/CDCStreamingHealth" target="_blank" class="fa fa-youtube"></a> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                <div class="col" id="dataSource-card" data-role="dataSource">
-                    <div class="card text-center" style="width: 32rem; height: auto;" >
-                        <div class="card-header">
-                            <h4>COVID-19 Japan API</h4>
-                        </div>
-                        <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                            <h5 class="card-title"></h5>
-                            <ul id="listAPI" style="list-style-position: inside;">
-                                <li>
-                                    <a id="" href="data-management.html?api=COVID_Japan_Prefectures" target="_blank">COVID-19 information of each prefecture in Japan</a>
-                                </li>     
-                                <li>
-                                    <a id="" href="data-management.html?api=COVID-19_Japan_Positives" target="_blank">COVID-19 information of positive cases in Japan</a>
-                                </li>   
-                                <li>
-                                    <a id="" href="data-management.html?api=COVID_Japan_Total_Prediction" target="_blank">Predict the number of positives and deaths for the next 30 days</a>
-                                </li>   
-                                <li>
-                                    <a id="" href="data-management.html?api=COVID_Japan_Total_History" target="_blank">COVID-19 total history</a>
-                                </li>   
-                            </ul>
-                        </div>
-                        <div class="card-footer text-muted">
-                            <div style="float: left;">
-                                <!-- <a role="button" href="https://www.ecdc.europa.eu/en" target="_blank" class="btn btn-primary btn-sm" >Site</a> -->
-                                <a role="button" href="https://github.com/ryo-ma/covid19-japan-web-api" target="_blank" class="btn btn-success btn-sm" >API</a> 
-                                <!-- <a role="button" href="https://www.worldometers.info/coronavirus/" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a> -->
-                            </div>
-                            <div style="float: right;">
-                                <!-- <a href="https://twitter.com/ecdc_eu" target="_blank" class="fa fa-twitter"></a>  -->
-                                <a href="https://github.com/ryo-ma/covid19-japan-web-api" target="_blank" class="fa fa-github"></a>
-                                <!-- <a href="https://www.youtube.com/channel/UClTKA4g2BdD2THYNJp1DMqA" target="_blank" class="fa fa-youtube"></a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <!-- </div> 
-            </br> </br> </br> </br>
-                <div class="row"> -->
-          
-
-                <div class="col" id="dataSource-card" data-role="dataSource">
-                    <div class="card text-center" style="width: 32rem; height: auto;" >
-                        <div class="card-header">
-                            <h4>COVID-19 Report API</h4>
-                        </div>
-                        <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                            <h5 class="card-title"></h5>
-                            <ul id="listAPI" style="list-style-position: inside;">
-                                <li>
-                                    <a id="" href="data-management.html?api=COVID-19_Report_API_Latest" target="_blank">COVID-19 global timeline data (Johns Hopkins University CSSE)</a>
-                                </li>
-                                <!-- <li>
-                                    <a id="" href="data-management.html?api=COVID-19_Report_API_Timeseries" target="_blank">COVID-19 all countries data</a>
-                                </li> -->
-                            </ul>
-                        </div>
-                        <div class="card-footer text-muted">
-                            <div style="float: left;">
-                                <!-- <a role="button" href="https://about-corona.net" target="_blank" class="btn btn-primary btn-sm" >Site</a> -->
-                                <a role="button" href="https://alaeddinemessadi.github.io/COVID-19-REPORT-API/" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                <!-- <a role="button" href="https://about-corona.net/dashboard" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a> -->
-                            </div>
-                            <div style="float: right;">
-                                <!-- <a href="https://twitter.com/NetCorona" target="_blank" class="fa fa-twitter"></a> -->
-                                <a href="https://github.com/AlaeddineMessadi/COVID-19-REPORT-API" target="_blank" class="fa fa-github"></a>
-                                <!-- <a href="https://www.youtube.com/channel/UC6XsnLgVVzNkjTCpRVJ6u3w" target="_blank" class="fa fa-youtube"></a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                    
-
-
-                    <div class="col" id="dataSource-card" data-role="dataSource">
-                        <div class="card text-center" style="width: 32rem; height: auto;" >
-                            <div class="card-header">
-                                <h4>Coronavirus Tracker</h4>
-                            </div>
-                            <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                                <h5 class="card-title"></h5>
-                                <ul id="listAPI" style="list-style-position: inside;">
-                                    <li>
-                                        <a id="" href="data-management.html?api=Coronavirus_Tracker_Country_Statistics" target="_blank">Country Statistics API</a>
-                                    </li>
-                                    <li>
-                                        <a id="" href="data-management.html?api=Coronavirus_Tracker_Full_Timeline" target="_blank">Full Timeline API</a>
-                                    </li>     
-                                </ul>
-                            </div>
-                            <div class="card-footer text-muted">
-                                <div style="float: left;">
-                                    <a role="button" href="https://thevirustracker.com/" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                    <a role="button" href="https://thevirustracker.com/api" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                    <!-- <a role="button" href="https://www.worldometers.info/coronavirus/" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a> -->
-                                </div>
-                                <div style="float: right;">
-                                    <!-- <a href="https://twitter.com/covid19indiaorg" target="_blank" class="fa fa-twitter"></a>
-                                    <a href="https://github.com/covid19india" target="_blank" class="fa fa-github"></a> -->
-                                    <!-- <a href="https://www.youtube.com/user/CDCStreamingHealth" target="_blank" class="fa fa-youtube"></a> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                <!-- </div> 
-
-            </br> </br>  </br> </br>
-
-                <div class="row"> -->
-          
-                    <div class="col" id="dataSource-card" data-role="dataSource">
-                        <div class="card text-center" style="width: 32rem; height: auto;" >
-                            <div class="card-header">
-                                <h4>CoronaTab</h4>
-                            </div>
-                            <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                                <h5 class="card-title"></h5>
-                                <ul id="listAPI" style="list-style-position: inside;">
-                                    <li>
-                                        <a id="" href="data-management.html?api=CoronaTab_Places" target="_blank">Latest available data for all countries in the world</a>
-                                    </li> 
-                                    <li>
-                                        <a id="" href="data-management.html?api=CoronaTab_USA_Stats" target="_blank">US Corona virus daily stats</a>
-                                    </li> 
-                                    <li>
-                                        <a id="" href="data-management.html?api=CoronaTab_China_Stats" target="_blank">China Corona virus daily stats</a>
-                                    </li> 
-                                </ul>
-                            </div>
-                            <div class="card-footer text-muted">
-                                <div style="float: left;">
-                                    <a role="button" href="https://coronatab.app/en" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                    <a role="button" href="https://github.com/PotentialWeb/CoronaTab/wiki/RESTful-API-documentation" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                    <a role="button" href="https://coronatab.app/en/dashboard" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a>
-                                </div>
-                                <div style="float: right;">
-                                    <!-- <a href="https://twitter.com/covid19indiaorg" target="_blank" class="fa fa-twitter"></a>-->
-                                    <a href="https://github.com/PotentialWeb/CoronaTab" target="_blank" class="fa fa-github"></a>
-                                    <!-- <a href="https://www.youtube.com/user/CDCStreamingHealth" target="_blank" class="fa fa-youtube"></a> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-    
-                        
-
-
-                    <div class="col" id="dataSource-card" data-role="dataSource">
-                        <div class="card text-center" style="width: 32rem; height: auto;" >
-                            <div class="card-header">
-                                <h4>European Centre for Disease Prevention and Control (ECDC)</h4>
-                            </div>
-                            <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                                <h5 class="card-title"></h5>
-                                <ul id="listAPI" style="list-style-position: inside;">
-                                    <li>
-                                        <a id="" href="data-management.html?api=YouTube_API/#ECDC_Channel" target="_blank">ECDC YouTube Channel</a>
-                                    </li>     
-                                </ul>
-                            </div>
-                            <div class="card-footer text-muted">
-                                <div style="float: left;">
-                                    <a role="button" href="https://www.ecdc.europa.eu/en" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                    <!-- <a role="button" href="https://corona.lmao.ninja/docs/" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                    <a role="button" href="https://www.worldometers.info/coronavirus/" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a> -->
-                                </div>
-                                <div style="float: right;">
-                                    <a href="https://twitter.com/ecdc_eu" target="_blank" class="fa fa-twitter"></a> 
-                                    <!-- <a href="https://github.com/covid19india" target="_blank" class="fa fa-github"></a> -->
-                                    <a href="https://www.youtube.com/channel/UClTKA4g2BdD2THYNJp1DMqA" target="_blank" class="fa fa-youtube"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col" id="dataSource-card" data-role="dataSource">
-                        <div class="card text-center" style="width: 32rem; height: auto;" >
-                            <div class="card-header">
-                                <h4>Bing COVID-19 Data</h4>
-                            </div>
-                            <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                                <h5 class="card-title"></h5>
-                                <ul id="listAPI" style="list-style-position: inside;">
-                                    <li>
-                                        <a id="" href="data-management.html?api=COVID_Tracking_Daily_By_State" target="_blank">Bing COVID-19 Tracker Data</a>
-                                    </li>    
-                                </ul>
-                            </div>
-                            <div class="card-footer text-muted">
-                                <div style="float: left;">
-                                    <a role="button" href="https://bing.com/covid" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                    <!-- <a role="button" href="https://thevirustracker.com/api" target="_blank" class="btn btn-success btn-sm" >API</a> -->
-                                    <!-- <a role="button" href="https://www.worldometers.info/coronavirus/" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a> -->
-                                </div>
-                                <div style="float: right;">
-                                    <!-- <a href="https://twitter.com/covid19indiaorg" target="_blank" class="fa fa-twitter"></a>
-                                    <a href="https://github.com/covid19india" target="_blank" class="fa fa-github"></a> -->
-                                    <!-- <a href="https://www.youtube.com/user/CDCStreamingHealth" target="_blank" class="fa fa-youtube"></a> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-      
-                <div class="col" id="dataSource-card" data-role="dataSource">
-                    <div class="card text-center" style="width: 32rem; height: auto;" >
-                        <div class="card-header">
-                            <h4>Coronavirus COVID19 API</h4>
-                        </div>
-                        <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                            <h5 class="card-title"></h5>
-                            <ul id="listAPI" style="list-style-position: inside;">
-                                <li>
-                                    <a id="" href="data-management.html?api=Coronavirus_COVID19_API_Summary" target="_blank">States Historical Data</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-footer text-muted">
-                            <div style="float: left;">
-                                <a role="button" href="https://covid19api.com/" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                <a role="button" href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                <!-- <a role="button" href="https://www.covid19india.org/" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a> -->
-                            </div>
-                            <div style="float: right;">
-                                <!-- <a href="https://twitter.com/covid19indiaorg" target="_blank" class="fa fa-twitter"></a>
-                                <a href="https://github.com/covid19india" target="_blank" class="fa fa-github"></a> -->
-                                <!-- <a href="https://www.youtube.com/user/CDCStreamingHealth" target="_blank" class="fa fa-youtube"></a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col" id="dataSource-card" data-role="dataSource">
-                    <div class="card text-center" style="width: 32rem; height: auto;" >
-                        <div class="card-header">
-                            <h4>Mathdroid COVID-19</h4>
-                        </div>
-                        <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                            <h5 class="card-title"></h5>
-                            <ul id="listAPI" style="list-style-position: inside;">
-                                <li>
-                                    <a id="" href="data-management.html?api=Mathdroid_COVID-19_Confirmed_Cases" target="_blank">Global cases per region sorted by confirmed cases</a>
-                                </li>
-                                <li>
-                                    <a id="" href="data-management.html?api=Mathdroid_COVID-19_Daily_Update" target="_blank">Global cases per day</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-footer text-muted">
-                            <div style="float: left;">
-                                <!-- <a role="button" href="https://about-corona.net" target="_blank" class="btn btn-primary btn-sm" >Site</a> -->
-                                <a role="button" href="https://github.com/mathdroid/covid-19-api" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                <!-- <a role="button" href="https://about-corona.net/dashboard" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a> -->
-                            </div>
-                            <div style="float: right;">
-                                <!-- <a href="https://twitter.com/NetCorona" target="_blank" class="fa fa-twitter"></a> -->
-                                <a href="https://github.com/mathdroid/covid-19-api" target="_blank" class="fa fa-github"></a>
-                                <!-- <a href="https://www.youtube.com/channel/UC6XsnLgVVzNkjTCpRVJ6u3w" target="_blank" class="fa fa-youtube"></a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                
-
-
-                <div class="col" id="dataSource-card" data-role="dataSource">
-                    <div class="card text-center" style="width: 32rem; height: auto;" >
-                        <div class="card-header">
-                            <h4>Health Promotion Bureau COVID-19</h4>
-                        </div>
-                        <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                            <h5 class="card-title"></h5>
-                            <ul id="listAPI" style="list-style-position: inside;">
-                                <li>
-                                    <a id="" href="data-management.html?api=Health_Promotion_Bureau_COVID-19" target="_blank">The current real time situation of the COVID-19 patients reported in Sri Lanka</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-footer text-muted">
-                            <div style="float: left;">
-                                <a role="button" href="https://hpb.health.gov.lk/en" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                <a role="button" href="https://hpb.health.gov.lk/en/api-documentation" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                <a role="button" href="https://hpb.health.gov.lk/covid19-dashboard/" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a>
-                            </div>
-                            <div style="float: right;">
-                                <a href="https://twitter.com/hpbsrilanka" target="_blank" class="fa fa-twitter"></a>
-                                <!-- <a href="https://github.com/ChrisMichaelPerezSantiago/covid19" target="_blank" class="fa fa-github"></a> -->
-                                <a href="https://www.youtube.com/channel/UC6XsnLgVVzNkjTCpRVJ6u3w" target="_blank" class="fa fa-youtube"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="col" id="dataSource-card" data-role="dataSource">
-                    <div class="card text-center" style="width: 32rem; height: auto;" >
-                        <div class="card-header">
-                            <h4>Covid Health Hotline Finder</h4>
-                        </div>
-                        <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                            <h5 class="card-title"></h5>
-                            <ul id="listAPI" style="list-style-position: inside;">
-                                <li>
-                                    <a id="" href="data-management.html?api=Covid_Health_Hotline_Finder" target="_blank">Access The New York Times' COVID-19 case/death data</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-footer text-muted">
-                            <div style="float: left;">
-                                <a role="button" href="http://covid19.georgesaieed.com" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                <a role="button" href="http://covid19.georgesaieed.com/#" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                <!-- <a role="button" href="https://hpb.health.gov.lk/covid19-dashboard/" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a> -->
-                            </div>
-                            <div style="float: right;">
-                                <!-- <a href="https://twitter.com/hpbsrilanka" target="_blank" class="fa fa-twitter"></a> -->
-                                <a href="https://github.com/saieedgeorge0/covid-hotline-bling" target="_blank" class="fa fa-github"></a>
-                                <!-- <a href="https://www.youtube.com/channel/UC6XsnLgVVzNkjTCpRVJ6u3w" target="_blank" class="fa fa-youtube"></a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col" id="dataSource-card" data-role="dataSource">
-                    <div class="card text-center" style="width: 32rem; height: auto;" >
-                        <div class="card-header">
-                            <h4>About Corona</h4>
-                        </div>
-                        <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                            <h5 class="card-title"></h5>
-                            <ul id="listAPI" style="list-style-position: inside;">
-                                <li>
-                                    <a id="" href="data-management.html?api=About_Corona_Global_Timeline" target="_blank">COVID-19 global timeline data</a>
-                                </li>
-                                <li>
-                                    <a id="" href="data-management.html?api=About_Corona_All_Countries" target="_blank">COVID-19 all countries data</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-footer text-muted">
-                            <div style="float: left;">
-                                <a role="button" href="https://about-corona.net" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                <a role="button" href="https://about-corona.net/documentation" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                <a role="button" href="https://about-corona.net/dashboard" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a>
-                            </div>
-                            <div style="float: right;">
-                                <a href="https://twitter.com/NetCorona" target="_blank" class="fa fa-twitter"></a>
-                                <!-- <a href="https://github.com/saieedgeorge0/covid-hotline-bling" target="_blank" class="fa fa-github"></a> -->
-                                <!-- <a href="https://www.youtube.com/channel/UC6XsnLgVVzNkjTCpRVJ6u3w" target="_blank" class="fa fa-youtube"></a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col" id="dataSource-card" data-role="dataSource">
-                    <div class="card text-center" style="width: 32rem; height: auto;" >
-                        <div class="card-header">
-                            <h4>COVID19-India API</h4>
-                        </div>
-                        <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                            <h5 class="card-title"></h5>
-                            <ul id="listAPI" style="list-style-position: inside;">
-                                <li>
-                                    <a id="" href="data-management.html?api=COVID19-India_Stats" target="_blank">National time series, statewise stats and test counts</a>
-                                </li> 
-                                <li>
-                                    <a id="" href="data-management.html?api=COVID19-India_Travel_History" target="_blank">Travel history</a>
-                                </li> 
-                                <li>
-                                    <a id="" href="data-management.html?api=COVID19-India_Deaths_and_Recoveries" target="_blank">Deaths and Recoveries</a>
-                                </li> 
-
-                            </ul>
-                        </div>
-                        <div class="card-footer text-muted">
-                            <div style="float: left;">
-                                <a role="button" href="https://www.covid19india.org/" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                <a role="button" href="https://github.com/covid19india/api" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                <a role="button" href="https://www.covid19india.org/" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a>
-                            </div>
-                            <div style="float: right;">
-                                <a href="https://twitter.com/covid19indiaorg" target="_blank" class="fa fa-twitter"></a>
-                                <a href="https://github.com/covid19india" target="_blank" class="fa fa-github"></a>
-                                <!-- <a href="https://www.youtube.com/user/CDCStreamingHealth" target="_blank" class="fa fa-youtube"></a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col" id="dataSource-card" data-role="dataSource">
-                    <div class="card text-center" style="width: 32rem; height: auto;" >
-                        <div class="card-header">
-                            <h4>Coronavirus COVID19 API</h4>
-                        </div>
-                        <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                            <h5 class="card-title"></h5>
-                            <ul id="listAPI" style="list-style-position: inside;">
-                                <li>
-                                    <a id="" href="data-management.html?api=COVID-19_All_Reports" target="_blank">Global confirmed cases/deaths data provided by the worldometers website</a>
-                                </li>
-                                <li>
-                                    <a id="" href="data-management.html?api=COVID-19_All_Cases_In_America" target="_blank">The Americas COVID-19 cases</a>
-                                </li>
-                                <li>
-                                    <a id="" href="data-management.html?api=COVID-19_All_Cases_in_Europe" target="_blank">EU and UK COVID-19 cases</a>
-                                </li>
-                                <li>
-                                    <a id="" href="data-management.html?api=COVID-19_Australia_Cases" target="_blank">Austrailia COVID-19 cases</a>
-                                </li>
-                                <!-- <li>
-                                    <a id="" href="data-management.html?api=COVID-19_Brazil_Cases" target="_blank">Brazil Coronavirus (COVID-2019) cases by region</a>
-                                </li>
-                                <li>
-                                    <a id="" href="data-management.html?api=COVID-19_Canada_Cases" target="_blank">Canada Coronavirus (COVID-2019) cases by Provinces And Health Region</a>
-                                </li> -->
-                                <li>
-                                    <a id="" href="data-management.html?api=WHO_COVID-19_Situation_Report" target="_blank">Data by WHO from national authorities</a>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                        <div class="card-footer text-muted">
-                            <div style="float: left;">
-                                <a role="button" href="https://covid19pr.chrismichael.now.sh" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                <a role="button" href="https://covid19-docs.chrismichael.now.sh" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                <!-- <a role="button" href="https://www.covid19india.org/" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a> -->
-                            </div>
-                            <div style="float: right;">
-                                <!--<a href="https://twitter.com/covid19indiaorg" target="_blank" class="fa fa-twitter"></a>-->
-                                <a href="https://github.com/ChrisMichaelPerezSantiago/covid19" target="_blank" class="fa fa-github"></a>
-                                <!-- <a href="https://www.youtube.com/user/CDCStreamingHealth" target="_blank" class="fa fa-youtube"></a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-            <!-- 
-                <div class="col" id="dataSource-card" data-role="dataSource">
-                    <div class="card text-center" style="width: 32rem; height: auto;" >
-                        <div class="card-header">
-                            <h4>Switzerlands BAG COVID-19 Data</h4>
-                        </div>
-                        <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                            <h5 class="card-title"></h5>
-                            <ul id="listAPI" style="list-style-position: inside;">
-                                <li>
-                                    <a id="" href="data-management.html?api=Covid_Health_Hotline_Finder" target="_blank">Access The New York Times' COVID-19 case/death data</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-footer text-muted">
-                            <div style="float: left;">
-                                <a role="button" href="https://github.com/lackrobin/bag-covid-api" target="_blank" class="btn btn-success btn-sm" >API</a>
-                                <a role="button" href="http://bag-covid-visuals.surge.sh" target="_blank" class="btn btn-secondary btn-sm" >Dashboard</a>
-                            </div>
-                            <div style="float: right;">
-                                <a href="https://twitter.com/BAG_OFSP_UFSP" target="_blank" class="fa fa-twitter"></a>
-                                <a href="https://github.com/lackrobin/bag-covid-api" target="_blank" class="fa fa-github"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- <div class="col" id="dataSource-card" data-role="dataSource">
-                    <div class="card text-center" style="width: 32rem; height: auto;" >
-                        <div class="card-header">
-                            <h4>Quarantine Country</h4>
-                        </div>
-                        <div class="card-body text-left" style="padding-left:30px; padding-right:30px">
-                            <h5 class="card-title"></h5>
-                            <ul id="listAPI" style="list-style-position: inside;">
-                                <li>
-                                    <a id="" href="data-management.html?api=Health_Promotion_Bureau_COVID-19" target="_blank">Get latest report about world coronavirus situation</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-footer text-muted">
-                            <div style="float: left;">
-                                <a role="button" href="https://quarantine.country/coronavirus/" target="_blank" class="btn btn-primary btn-sm" >Site</a>
-                                <a role="button" href="https://documenter.getpostman.com/view/1294665/SzYdSGX6?version=latest" target="_blank" class="btn btn-success btn-sm" >API</a>
-                            </div>
-                            <div style="float: right;">
-                                <a href="https://twitter.com/hpbsrilanka" target="_blank" class="fa fa-twitter"></a>
-                                <a href="https://www.youtube.com/channel/UC6XsnLgVVzNkjTCpRVJ6u3w" target="_blank" class="fa fa-youtube"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-
-            </div> <!-- row4 -->
-
-            <div class="center">
-                <h3>Intersted in other COVID-19 APIs? 
-                <a href="api-integration.html" class="button button-circle">
-                <div>Add an API</div>
-                </a></h3>
-            </div> 
-
-        </br></br></br></br></br>
-            </div>
-
-
-            <script>
-                $(document).ready(function() {
-                    $("#myInput").on("keyup", function() {
-                        var value = $(this).val().toLowerCase();
-                        $('div[data-role="dataSource"]').filter(function() {
-                            $(this).toggle($(this).find('h5').text().toLowerCase().indexOf(value) > -1)
-                            $(this).toggle($(this).find('p').text().toLowerCase().indexOf(value) > -1)
-                            $(this).toggle($(this).find('div').text().toLowerCase().indexOf(value) > -1)
+                <script>
+                    $(document).ready(function () {
+                        $("#myInput").on("keyup", function () {
+                            var value = $(this).val().toLowerCase();
+                            $('div[data-role="dataSource"]').filter(function () {
+                                $(this).toggle($(this).find('h5').text().toLowerCase().indexOf(value) > -1)
+                                $(this).toggle($(this).find('p').text().toLowerCase().indexOf(value) > -1)
+                                $(this).toggle($(this).find('div').text().toLowerCase().indexOf(value) > -1)
+                            });
                         });
                     });
-                });
-            </script>
+                </script>
 
-		</section><!-- #content end -->
-
-		<!-- Footer
-		============================================= -->
-		<!-- <footer id="footer" class="dark" style="">
-
-			<div class="container">
-
-				<div class="footer-widgets-wrap clearfix">
-
-					<img src="img/mit.svg" alt="" width="100px" />
-
-					<img src="img/csail.svg" alt="" width="100px" />
+            </section><!-- #content end -->
 
 
+        </div> <!-- about -->
+    </div><!-- #wrapper end -->
 
-				</div><
-
-			</div>
-
-
-		</footer> -->
-		<!-- #footer end -->
-	</div> <!-- about -->
-	</div><!-- #wrapper end -->
-
-	<!-- Go To Top
-	============================================= -->
-	<!-- <div id="gotoTop" class="icon-angle-up"></div> -->
-
-	<!-- External JavaScripts
-	============================================= -->
-	<script src="js/jquery.js"></script>
-	<script src="js/plugins.js"></script>
-
-	<!-- Footer Scripts
-	============================================= -->
+    <script src="js/jquery.js"></script>
+    <script src="js/plugins.js"></script>
     <script src="js/functions.js"></script>
-    
 
 </body>
+
 </html>

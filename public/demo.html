@@ -4,25 +4,13 @@
 <head>
 	<title>Home</title>
 	<meta charset="utf-8">
-
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<!-- jQuery & jQuery UI are required -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-	<!-- Flowchart CSS and JS -->
 	<link rel="stylesheet" href="css/jquery.flowchart.css">
 	<script src="js/jquery.flowchart.js"></script>
-
-
-	<!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services https://firebase.google.com/docs/web/setup#add-sdks-initialize -->
 	<script defer src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
 	<script defer src="https://www.gstatic.com/firebasejs/7.2.1/firebase-database.js"></script>
-
-	<!-- Include scrapir.js -->
-	<!-- <script src="https://scrapir.com/scrapir.js"></script> -->
-
 	<style>
 		.flowchart-example-container {
 			width: 800px;
@@ -36,7 +24,8 @@
 
 <body>
 	<h1>Semi-minimalist usage sample</h1>
-	<h4>Sample created with basis on some from Sebastien Drouyer, original author's <a href="https://sebastien.drouyer.com/jquery.flowchart-demo/">website</a>.</h4>
+	<h4>Sample created with basis on some from Sebastien Drouyer, original author's <a
+			href="https://sebastien.drouyer.com/jquery.flowchart-demo/">website</a>.</h4>
 	<h4>Flowchart</h4>
 	<div id="chart_container">
 		<div class="flowchart-example-container" id="flowchartworkspace"></div>
@@ -74,58 +63,58 @@
 
 		// Call the function
 		var apiURL, parameters, responses, numberResults, resultFormat, apiTitle, apiResp;
-		var inputObj="";
+		var inputObj = "";
 		var arr = [];
 		//[REQUIRED]
 		apiURL = "https://www.googleapis.com/books/v1/volumes";
 		//[OPTIONAL]
-		parameters = {q:"Human History", orderBy:"newest"};
+		parameters = { q: "Human History", orderBy: "newest" };
 		numberResults = 10;
 		resultFormat = 'rawJSON';
 
 		apis = availableAPIsInScrAPIr();
 
-		setTimeout(function(){
-				console.log("APIs: ", apis);
-				getAPIData("https://www.googleapis.com/books/v1/volumes", 10);
+		setTimeout(function () {
+			console.log("APIs: ", apis);
+			getAPIData("https://www.googleapis.com/books/v1/volumes", 10);
 
-				//[1] Choose a website (an API)
-				// for(i=0;i<apis.length;i++){
-				// 	$("#apis").append('<option value="'+apis[i].url+'">'+apis[i].name+'</option>');
-				// }
+			//[1] Choose a website (an API)
+			// for(i=0;i<apis.length;i++){
+			// 	$("#apis").append('<option value="'+apis[i].url+'">'+apis[i].name+'</option>');
+			// }
 		}, 6000);
 
 
-		function getAPIData(apiURL, numResults){
+		function getAPIData(apiURL, numResults) {
 
-			for(var i=0; i<apis.length ;++i){
-				if(apis[i].url == apiURL){
+			for (var i = 0; i < apis.length; ++i) {
+				if (apis[i].url == apiURL) {
 					apiTitle = apis[i].name;
 					console.log("API Name: ", apiTitle);
 				}
 			}
 
 			data = []
-			console.log("apis value: ",apiURL);
-			console.log("apis value: ",numResults);
+			console.log("apis value: ", apiURL);
+			console.log("apis value: ", numResults);
 			data = scrAPIr(apiURL, parameters, responses, numResults);
-			inputObj+="{"
-			setTimeout(function(){
+			inputObj += "{"
+			setTimeout(function () {
 				console.log("datadatadata: ", data);
-				console.log("Keys: ",Object.keys(data[0]));
+				console.log("Keys: ", Object.keys(data[0]));
 				apiResp = Object.keys(data[0]);
 
-				for(var x=1; x<Object.keys(data[0]).length; ++x){
-			  	// $("#responseFields").append('<li><a href="#" data-attr="Last hour" id="'+Object.keys(data[0])[x]+'">'+Object.keys(data[0])[x]+'</a></li>');
+				for (var x = 1; x < Object.keys(data[0]).length; ++x) {
+					// $("#responseFields").append('<li><a href="#" data-attr="Last hour" id="'+Object.keys(data[0])[x]+'">'+Object.keys(data[0])[x]+'</a></li>');
 					// arr.push(Object.keys(data[0])[x]);
-					inputObj+= "{input_" + x+": {label:"+Object.keys(data[0])[x]+"}"
-					if(x+1 < Object.keys(data[0]).length){
-						inputObj+=",";
+					inputObj += "{input_" + x + ": {label:" + Object.keys(data[0])[x] + "}"
+					if (x + 1 < Object.keys(data[0]).length) {
+						inputObj += ",";
 					}
 
 				}
 
-				inputObj+="}"
+				inputObj += "}"
 				// console.log("input object: ", JSON.parse(JSON.stringify(inputObj)));
 
 
@@ -169,15 +158,15 @@
 		}
 
 		/* global $ */
-		$(document).ready(function() {
+		$(document).ready(function () {
 			var $flowchart = $('#flowchartworkspace');
 			var $container = $flowchart.parent();
 
 			// Apply the plugin on a standard, empty div...
-	    // $('#example_3_vertical').flowchart({
-	    //   verticalConnection: true,
-	    //   data: defaultFlowchartData
-	    // });
+			// $('#example_3_vertical').flowchart({
+			//   verticalConnection: true,
+			//   data: defaultFlowchartData
+			// });
 
 			// Apply the plugin on a standard, empty div...
 			$flowchart.flowchart({
@@ -229,34 +218,34 @@
 			var $linkColor = $('#link_color');
 
 			$flowchart.flowchart({
-				onOperatorSelect: function(operatorId) {
+				onOperatorSelect: function (operatorId) {
 					$operatorProperties.show();
 					$operatorTitle.val($flowchart.flowchart('getOperatorTitle', operatorId));
 					return true;
 				},
-				onOperatorUnselect: function() {
+				onOperatorUnselect: function () {
 					$operatorProperties.hide();
 					return true;
 				},
-				onLinkSelect: function(linkId) {
+				onLinkSelect: function (linkId) {
 					$linkProperties.show();
 					$linkColor.val($flowchart.flowchart('getLinkMainColor', linkId));
 					return true;
 				},
-				onLinkUnselect: function() {
+				onLinkUnselect: function () {
 					$linkProperties.hide();
 					return true;
 				}
 			});
 
-			$operatorTitle.keyup(function() {
+			$operatorTitle.keyup(function () {
 				var selectedOperatorId = $flowchart.flowchart('getSelectedOperatorId');
 				if (selectedOperatorId != null) {
 					$flowchart.flowchart('setOperatorTitle', selectedOperatorId, $operatorTitle.val());
 				}
 			});
 
-			$linkColor.change(function() {
+			$linkColor.change(function () {
 				var selectedLinkId = $flowchart.flowchart('getSelectedLinkId');
 				if (selectedLinkId != null) {
 					$flowchart.flowchart('setLinkMainColor', selectedLinkId, $linkColor.val());
@@ -269,7 +258,7 @@
 			//-----------------------------------------
 			//--- delete operator / link button
 			//--- start
-			$flowchart.parent().siblings('.delete_selected_button').click(function() {
+			$flowchart.parent().siblings('.delete_selected_button').click(function () {
 				$flowchart.flowchart('deleteSelected');
 			});
 			//--- end
@@ -282,7 +271,7 @@
 			//--- create operator button
 			//--- start
 			var operatorI = 0;
-			$flowchart.parent().siblings('.create_operator').click(function() {
+			$flowchart.parent().siblings('.create_operator').click(function () {
 				var operatorId = 'created_operator_' + operatorI;
 				var operatorData = {
 					top: ($flowchart.height() / 2) - 30,
@@ -330,12 +319,12 @@
 				appendTo: 'body',
 				zIndex: 1000,
 
-				helper: function(e) {
+				helper: function (e) {
 					var $this = $(this);
 					var data = getOperatorData($this);
 					return $flowchart.flowchart('getOperatorElement', data);
 				},
-				stop: function(e, ui) {
+				stop: function (e, ui) {
 					var $this = $(this);
 					var elOffset = ui.offset;
 					var containerOffset = $container.offset();

@@ -1,59 +1,42 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
-<head>
 
-	<!-- Global site tag (gtag.js) - Google Analytics -->
+<head>
+	<title>API Integration Steps</title>
+
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-142005021-1"></script>
 	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
 
-	  gtag('config', 'UA-142005021-1');
+		gtag('config', 'UA-142005021-1');
 	</script>
-
-
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="author" content="SemiColonWeb" />
-	<!-- Slik Grid ---------------------------->
- <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
- <link rel="shortcut icon" type="images/ico" href="favicon.ico" />
-  <link rel="stylesheet" href="css/slick.grid.css" type="text/css"/>
-  <link rel="stylesheet" href="css/smoothness/jquery-ui-1.11.3.custom.css" type="text/css"/>
- <link rel="stylesheet" href="controls/slick.pager.css" type="text/css"/>
-  <link rel="stylesheet" href="css/examples.css" type="text/css"/>
- <link rel="stylesheet" href="controls/slick.columnpicker.css" type="text/css"/>
-
-  	<link href="dist/jsoneditor.css" rel="stylesheet" type="text/css">
-    <script src="dist/jsoneditor.js"></script>
-
-	<!-- Stylesheets
-	============================================= -->
-
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link rel="shortcut icon" type="images/ico" href="favicon.ico" />
+	<link rel="stylesheet" href="css/slick.grid.css" type="text/css" />
+	<link rel="stylesheet" href="css/smoothness/jquery-ui-1.11.3.custom.css" type="text/css" />
+	<link rel="stylesheet" href="controls/slick.pager.css" type="text/css" />
+	<link rel="stylesheet" href="css/examples.css" type="text/css" />
+	<link rel="stylesheet" href="controls/slick.columnpicker.css" type="text/css" />
+	<link href="dist/jsoneditor.css" rel="stylesheet" type="text/css">
+	<script src="dist/jsoneditor.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Raleway:300,400,500,600,700|Crete+Round:400i" rel="stylesheet" type="text/css" />
+	<link
+		href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Raleway:300,400,500,600,700|Crete+Round:400i"
+		rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
 	<link rel="stylesheet" href="css/style.css" type="text/css" />
 	<link rel="stylesheet" href="css/dark.css" type="text/css" />
 	<link rel="stylesheet" href="css/font-icons.css" type="text/css" />
 	<link rel="stylesheet" href="css/animate.css" type="text/css" />
 	<link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
-
 	<link rel="stylesheet" href="css/responsive.css" type="text/css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-	<!-- <link rel="stylesheet" href="css/treeview.min.css"/> -->
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
-
-
-
-<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-	<!-- Document Title
-	============================================= -->
-	<title>API Integration Steps</title>
-
+	<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 
 </head>
 
@@ -71,56 +54,43 @@
 
 				<div class="container clearfix">
 
-					<!-- <div id="primary-menu-trigger"><i class="icon-reorder"></i></div> -->
-
-					<!-- Logo
-					============================================= -->
-					<!--<div id="logo">
-						<a href="index.html" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="images/logo.png" alt="Canvas Logo"></a>
-						<a href="index.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a>
-					</div>--><!-- #logo end -->
-
 					<!-- Primary Navigation
 					============================================= -->
 					<nav id="primary-menu">
 
 						<ul>
-							<li class="mega-menu"><a href="index.html" >Home</a>
+							<li class="mega-menu"><a href="index.html">Home</a>
 							</li>
-							<li class="mega-menu"><a href="index.html#about" >About</a>
+							<li class="mega-menu"><a href="index.html#about">About</a>
 							</li>
 
-							<li class="mega-menu"><a href="index.html#demos" >Demos</a>
+							<li class="mega-menu"><a href="index.html#demos">Demos</a>
 							</li>
-							<li class="mega-menu"><a href="index.html#APIs" >Websites</a>
+							<li class="mega-menu"><a href="index.html#APIs">Websites</a>
 							</li>
 							<!-- <li class="mega-menu"><a href="docs.html">Docs</a>
 							</li> -->
-							<li class="mega-menu"><a href="dataset.html"  data-offset="100" >Datasets</a>
-							</i>
-							<li class="mega-menu"><a href="api-integration.html" >Integrate</a>
+							<li class="mega-menu"><a href="dataset.html" data-offset="100">Datasets</a>
+								</i>
+							<li class="mega-menu"><a href="api-integration.html">Integrate</a>
 							</li>
-							<li class="mega-menu"><a href="covid-19.html" style="color:red">COVID-19</a>
+							<li class="mega-menu"><a href="covid-19.html" >COVID-19</a>
 							</li>
 							<li class="mega-menu"><a href="index.html#contact">Contact</a>
 							</li>
-							<li><a id="SignupLogin" href="login-register.html" ><div>Sign in</div></a>
+							<li><a id="SignupLogin" href="login-register.html">
+									<div>Sign in</div>
+								</a>
 								<ul style="width:100px;">
-									<li><a href="account.html"  id="acc" style="display:none"><div>Account</div></a></li>
-									<li><a href=""  onclick="signOutFunction()" id="signout" style="display:none"><div>Sign out</div></a></li>
+									<li><a href="account.html" id="acc" style="display:none">
+											<div>Account</div>
+										</a></li>
+									<li><a href="" onclick="signOutFunction()" id="signout" style="display:none">
+											<div>Sign out</div>
+										</a></li>
 								</ul>
 							</li>
 						</ul>
-
-						<!-- Top Search
-						============================================= -->
-						<!-- <div id="top-search">
-							<a id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
-							<form action="search.html" method="get">
-								<input type="text" name="q" class="form-control" value="" placeholder="search for">
-							</form>
-						</div> -->
-						<!-- #top-search end -->
 
 					</nav><!-- #primary-menu end -->
 
@@ -136,394 +106,426 @@
 
 			<div class="content-wrap">
 
-				<!-- <div class="container clearfix"> -->
 				<div id="containerALL" onclick='' class="" style="padding-left:100px; padding-right:100px">
 
 					<div class="row">
 						<div class="col-9">
 
-							<div id="consentIntModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display:none; padding-left: 0px;">
+							<div id="consentIntModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+								aria-labelledby="myLargeModalLabel" style="display:none; padding-left: 0px;">
 								<div class="modal-dialog modal-lg">
 									<div class="modal-body">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h4 style=" padding-left:30px; padding-right:30px; padding-top:5px" class="modal-title" id="myModalLabel">Logging Consent</h4>
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+												<h4 style=" padding-left:30px; padding-right:30px; padding-top:5px"
+													class="modal-title" id="myModalLabel">Logging Consent</h4>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-hidden="true">×</button>
 											</div>
 											<div class="modal-body">
-												<p style="font-size: 0.9em; padding-left:30px; padding-right:30px">To support our research, we want to better understand how people use Scrapir. To do that, we would like to log the queries people perform and the flow people go through to integrate a web API. So, if you accept, we will log the sites you query, the queries you make, the returned results, and the different steps you take to integrate any additional APIs. We will not log or save any other information about your identity.</p>
-												<p style="font-size: 0.9em; padding-left:30px; padding-right:30px">This research is being carried out by the <a href="http://haystack.csail.mit.edu" target="_blank">MIT Haystack Group</a>, under a protocol that has been approved by MIT's Committee on the Use of Humans as Experimental Subjects (<a href="https://couhes.mit.edu" target="_blank">COUHES</a>).	</p>
+												<p style="font-size: 0.9em; padding-left:30px; padding-right:30px">To
+													support our research, we want to better understand how people use
+													Scrapir. To do that, we would like to log the queries people perform
+													and the flow people go through to integrate a web API. So, if you
+													accept, we will log the sites you query, the queries you make, the
+													returned results, and the different steps you take to integrate any
+													additional APIs. We will not log or save any other information about
+													your identity.</p>
+												<p style="font-size: 0.9em; padding-left:30px; padding-right:30px">This
+													research is being carried out by the <a
+														href="http://haystack.csail.mit.edu" target="_blank">MIT
+														Haystack Group</a>, under a protocol that has been approved by
+													MIT's Committee on the Use of Humans as Experimental Subjects (<a
+														href="https://couhes.mit.edu" target="_blank">COUHES</a>). </p>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 
-						<button id="butDDInt" style="display:none" class="open-button" onclick="openForm()">Open Form</button>
+							<button id="butDDInt" style="display:none" class="open-button" onclick="openForm()">Open
+								Form</button>
 
 
-						<div class="form-popup" id="myForm">
-							<!-- <form action="" class="form-container"> -->
-								<!-- <h1>Consent</h1> -->
-								<p style="font-size: 1.8em; padding:5px; margin:5px">To support our research, may we log the sites you query and the queries you make?  We will not report your identity or store any other information about you.
-								<a data-target="#consentIntModal" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#consentIntModal">More details.</a>
+							<div class="form-popup" id="myForm">
+								<p style="font-size: 1.8em; padding:5px; margin:5px">To support our research, may we log
+									the sites you query and the queries you make? We will not report your identity or
+									store any other information about you.
+									<a data-target="#consentIntModal" data-toggle="modal" class="MainNavText"
+										id="MainNavHelp" href="#consentIntModal">More details.</a>
 								</p>
 
 								<button type="submit" class="btn" onclick="canIntLog('accept')">Accept</button>
 								<button type="button" class="btn cancel" onclick="canIntLog('decline')">Decline</button>
-							<!-- </form> -->
-						</div>
+							</div>
 
+							<div class="modal" id="loginModal">
 
+								<div class="modal-body" style="width: 100%; height: 100%; margin: 0; padding: 0;">
 
+									</br></br></br></br></br></br></br></br>
 
-						<div class="modal" id="loginModal">
-						  <!-- <div class="modal-header">
-						    <a class="close" data-dismiss="modal">×</a>
-						    <h3>Signup/Login</h3>
-						  </div> -->
-						  <div class="modal-body" style="width: 100%; height: 100%; margin: 0; padding: 0;">
+									<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register"
+										style="max-width: 600px;">
 
-							</br></br></br></br></br></br></br></br>
+										<ul class="tab-nav tab-nav2 center clearfix">
+											<li class="inline-block"><a href="#tab-login">Sign in</a></li>
+											<li class="inline-block"><a href="#tab-register">Sign up</a></li>
+										</ul>
 
-							<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 600px;">
+										<div class="tab-container">
 
-								<ul class="tab-nav tab-nav2 center clearfix">
-									<li class="inline-block"><a href="#tab-login">Sign in</a></li>
-									<li class="inline-block"><a href="#tab-register">Sign up</a></li>
-								</ul>
+											<div class="tab-content clearfix" id="tab-login">
+												<div class="card nobottommargin">
+													<div class="card-body" style="padding: 40px;">
 
-								<div class="tab-container">
+														<form id="login-form" name="login-form" class="nobottommargin"
+															action="#" method="post">
 
-									<div class="tab-content clearfix" id="tab-login">
-										<div class="card nobottommargin">
-											<div class="card-body" style="padding: 40px;">
+															<div class="col_full">
+																<label for="login-form-username">Email:</label>
+																<input type="text" id="email" name="email" value=""
+																	class="form-control" />
+															</div>
 
-										<form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
-											<!-- <div class="col_full">
-												<label for="login-form-username">Username:</label>
-												<input type="text" id="displayName" name="displayName" value="" class="form-control" />
-											</div> -->
+															<div class="col_full">
+																<label for="login-form-password">Password:</label>
+																<input type="password" id="password" name="password"
+																	value="" class="form-control" />
+																<input type="checkbox" onclick="myFunction()">&nbsp;Show
+																Password
 
-											<div class="col_full">
-												<label for="login-form-username">Email:</label>
-												<input type="text" id="email" name="email" value="" class="form-control" />
-						          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/> -->
+																<script>
+																	function myFunction() {
+																		var x = document.getElementById("password");
+																		if (x.type === "password") {
+																			x.type = "text";
+																		} else {
+																			x.type = "password";
+																		}
+																	}
+																</script>
+															</div>
+														</form>
+
+														<button
+															class="button button-3d button-mini button-rounded button-black nomargin"
+															id="quickstart-sign-in" name="signin">Sign In</button>
+														&nbsp;&nbsp;&nbsp;
+													</div>
+												</div>
 											</div>
 
-											<div class="col_full">
-												<label for="login-form-password">Password:</label>
-												<input type="password" id="password" name="password" value="" class="form-control" />
-												<input type="checkbox" onclick="myFunction()">&nbsp;Show Password
+											<!-- Register -->
+											<div class="tab-content clearfix" id="tab-register">
+												<div class="card nobottommargin">
+													<div class="card-body" style="padding: 40px;">
 
-												<script>
-													function myFunction() {
-													  var x = document.getElementById("password");
-													  if (x.type === "password") {
-													    x.type = "text";
-													  } else {
-													    x.type = "password";
-													  }
-													}
-												</script>
-						          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/> -->
+														<form id="login-form" name="login-form" class="nobottommargin"
+															action="#" method="post">
+															<div class="col_full">
+																<label for="login-form-username">Username:</label>
+																<input type="text" id="displayName1" name="displayName1"
+																	value="" class="form-control" />
+															</div>
+
+															<div class="col_full">
+																<label for="login-form-username">Email:</label>
+																<input type="text" id="email1" name="email1" value=""
+																	class="form-control" />
+															</div>
+
+															<div class="col_full">
+																<label for="login-form-password">Password:</label>
+																<input type="password" id="password1" name="password1"
+																	value="" class="form-control" />
+
+																<input type="checkbox" onclick="myFunction()">&nbsp;Show
+																Password
+
+																<script>
+																	function myFunction() {
+																		var x = document.getElementById("password1");
+																		if (x.type === "password") {
+																			x.type = "text";
+																		} else {
+																			x.type = "password";
+																		}
+																	}
+																</script>
+
+															</div>
+														</form>
+
+														<button
+															class="button button-3d button-mini button-rounded button-black nomargin"
+															id="quickstart-sign-up" name="signup">Sign Up</button>
+													</div>
+												</div>
+
 											</div>
-									</form>
 
-										<!-- <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button> -->
+										</div> <!-- container -->
+									</div> <!-- TAB-->
 
-					          <button class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-in" name="signin">Sign In</button>
-					          &nbsp;&nbsp;&nbsp;
-						  </div>
-						 </div>
-					  </div>
-
-									<!-- Register -->
-
-									<div class="tab-content clearfix" id="tab-register">
-										<div class="card nobottommargin">
-											<div class="card-body" style="padding: 40px;">
-
-										<form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
-											<div class="col_full">
-												<label for="login-form-username">Username:</label>
-												<input type="text" id="displayName1" name="displayName1" value="" class="form-control" />
-						          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/> -->
-											</div>
-
-											<div class="col_full">
-												<label for="login-form-username">Email:</label>
-												<input type="text" id="email1" name="email1" value="" class="form-control" />
-						          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/> -->
-											</div>
-
-											<div class="col_full">
-												<label for="login-form-password">Password:</label>
-												<input type="password" id="password1" name="password1" value="" class="form-control" />
-
-												<input type="checkbox" onclick="myFunction()">&nbsp;Show Password
-
-												<script>
-													function myFunction() {
-													  var x = document.getElementById("password1");
-													  if (x.type === "password") {
-													    x.type = "text";
-													  } else {
-													    x.type = "password";
-													  }
-													}
-												</script>
-
-						          	<!-- <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/> -->
-											</div>
-									</form>
-
-										<!-- <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button> -->
-
-					          <!-- <button disabled class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-in" name="signin">Sign In</button>
-					          &nbsp;&nbsp;&nbsp; -->
-					          <button class="button button-3d button-mini button-rounded button-black nomargin" id="quickstart-sign-up" name="signup" >Sign Up</button>
-					          <!-- &nbsp;&nbsp;&nbsp;
-					          <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>
-					          &nbsp;&nbsp;&nbsp;
-					          <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button> -->
-						</div>
-						</div>
-
-					        </div>
-
-					      </div> <!-- container -->
-		  </div> <!-- TAB-->
-
-
-
-
-
-					</div>
-					<!-- <div class="modal-footer"> -->
-						<!-- <a href="#" class="btn">Close</a> -->
-						<!-- <a href="#" class="btn btn-primary">Save changes</a> -->
-					<!-- </div> -->
-					</div>
-
-
-					<!-- <div id="ptab1"> -->
-							<!-- <div class="tabs divcenter nobottommargin clearfix" style="max-width:500px;"> -->
-							<h3 style="margin:0px; padding:10px">Follow these steps to add your API to ScrAPIr</h3>
-							<div id ="reqExp" style="display:inline">
-							<p style="font-size:1.7em; margin:0px; padding:0px; text-indent:0.9em; display:inline-block">Informaiton required for each step can be found in the API documentation web page. <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods" target="_blank">Only Supports GET Request.</a></p> 	<a style="width:auto; display:inline-block; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalDemo" onclick="">Step by step demo</a>
-						  </br>
-						</div>
-						</br></br></br>
-							<!-- <p style="font-size:1.7em; margin:0px; padding:0px">This process wizard will guide through the steps you need to access\add APIs to scrAPI. Every step will ask you to provide specific information about the API you want to add: The API URL, the pagination information (to get more results), the parametrs to refine your search, and the response to choose the exact fields of the result you are interested in. All these information can be found in the API documentation page (e.g. <a target="_blank" href="https://developers.google.com/youtube/v3/docs/search/list">YouTube search API page</a>).</p> -->
-						  <!-- </br></br> -->
-
-							<!-- <div  class="form-group" id="googleSearch">
-								<p style="font-size:2em; margin:0px; padding:0px"><B><span style="color:red">1.</span> What is the website you are intersted in?</B><label></label></p>
-								<div style="display:inline">
-									<input style="width:400px; display: inline-block" type="text" class="form-control" id="google"  onchange="" onkeyup="" placeholder="e.g. 'YouTube search API'" required>
-									<button  id="googleBut" style="display: inline-block"class="button button-3d button-small button-rounded button-teal" onclick="googleIt(document.getElementById('google').value)">Search</button>
 								</div>
-							</div> -->
 
-							<script>
-								// var input = document.getElementById("googleSearch");
-								// input.addEventListener("keyup", function(event) {
-								// 	if (event.keyCode === 13) {
-								// 	 event.preventDefault();
-								// 	 document.getElementById("googleBut").click();
-								// 	}
-								// });
-							</script>
+							</div>
 
-						</br>
+							<h3 style="margin:0px; padding:10px">Follow these steps to add your API to ScrAPIr</h3>
+							<div id="reqExp" style="display:inline">
+								<p
+									style="font-size:1.7em; margin:0px; padding:0px; text-indent:0.9em; display:inline-block">
+									Informaiton required for each step can be found in the API documentation web page.
+									<a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods"
+										target="_blank">Only Supports GET Request.</a></p> <a
+									style="width:auto; display:inline-block; text-align:center"
+									class="button button-mini button-circle button-border button-pink"
+									data-toggle="modal" data-target="#modalDemo" onclick="">Step by step demo</a>
+								</br>
+							</div>
+							</br></br></br></br>
 
-							<div  class="form-group">
+							<div class="form-group">
 								<div class="row" id="reqDIV">
 									<div class="col">
-									<p style="font-size:2em; margin:0px; padding:0px"><B><span style="color:red">1.</span> API URL*</B><label><a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="Every web API has a URL that you can use to access its data (e.g. the URL for YouTube search API is 'https://www.googleapis.com/youtube/v3/search')"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label></p>
+										<p style="font-size:2em; margin:0px; padding:0px"><B><span
+													style="color:red">1.</span> API URL*</B><label><a id="tooltip"
+													type='' class='' data-toggle='tooltip' data-placement='right'
+													title="Every web API has a URL that you can use to access its data (e.g. the URL for YouTube search API is 'https://www.googleapis.com/youtube/v3/search')"><span
+														class="glyphicon glyphicon-info-sign"
+														aria-hidden="true"></span></a></label></p>
 
-									<div style="display:inline">
-										<div class="input-group divcenter">
-											<div class="input-group-prepend">
-											  <select class="form-control" id="method" style="height:34px" onchange="">
-										 			<option value="GET">GET</option>
-										 			<option value="POST">POST</option>
-													<option value="PUT">PUT</option>
-													<option value="PATCH">PATCH</option>
-													<option value="INSERT">INSERT</option>
-													<option value="DELETE">DELETE</option>
-									 			</select>
+										<div style="display:inline">
+											<div class="input-group divcenter">
+												<div class="input-group-prepend">
+													<select class="form-control" id="method" style="height:34px"
+														onchange="">
+														<option value="GET">GET</option>
+														<option value="POST">POST</option>
+														<option value="PUT">PUT</option>
+														<option value="PATCH">PATCH</option>
+														<option value="INSERT">INSERT</option>
+														<option value="DELETE">DELETE</option>
+													</select>
+												</div>
+												<input style="width:350px; display: inline-block" type="text"
+													class="form-control" id="url" onchange="urlBlur(); urlChanged();"
+													placeholder="e.g. 'https://www.googleapis.com/youtube/v3/search'"
+													required>
 											</div>
-											<input style="width:350px; display: inline-block" type="text" class="form-control" id="url" onchange="urlBlur(); urlChanged();" placeholder="e.g. 'https://www.googleapis.com/youtube/v3/search'" required>
-										</div>
-									</div>
-
-									<!-- Modal -->
-									<div class="modal fade bs-example-modal-lg" id="modalDemo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-									  <div class="modal-dialog modal-lg" >
-									    <div class="modal-content">
-									      <div class="modal-header">
-									        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-									        <h4 class="modal-title" id="myModalLabel">API Integration Steps</h4>
-									      </div>
-									      <div class="modal-body">
-													<p style="font-size:1.4em; margin:0px; padding:0px;">This demonstrates how to access and publish APIs. As an example, we are showing how to publish <a target="_blank" href="https://developers.google.com/youtube/v3/docs/search/list">YouTube Search API</a> to ScrAPIr.</p></br>
-									        <video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
-									          <source src="images/docs/demos/videos/Intgration_Demo.mp4" type="video/mp4">
-									          Your browser doesn't support HTML5 video tag.
-									        </video>
-									      </div>
-									      <!-- <div class="modal-footer">
-									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									      </div> -->
-									    </div>
-									  </div>
-									</div>
-
-								</div>
-
-								<div class="col">
-									<p style="font-size:2em; margin:0px; padding:0px"><B>API Name</B> <span id="takenName" style="color:red; font-size:0.8em; display:none">This name is taken, please change it!</span>
-										<!-- <label><a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="Every web API has a URL that you can use to access its data (e.g. the URL for YouTube search API is 'https://www.googleapis.com/youtube/v3/search')"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label> -->
-									</p>
-									<input style="width:400px;" type="text" class="form-control" id="title" onchange="urlBlurNoCall()" placeholder="add a name to the API" required>
-									</br></br>
-								</div>
-							</div>
-							</div>
-
-
-							<div  class="toggle toggle-bg">
-								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">2.</span> Request Parameters <span style="font-style: italic; font-size:0.9em">(please add at least the required parameter(s))</span></div>
-								<div id="toggReq" class="togglec" tabindex="0">
-									<div id ="reqExp" style="display:inline">
-										<h3 style="margin:0px; padding:0px; display: inline-block">Request Parameters</h3>
-										<a style="width:100px; text-align:center; display: inline-block" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalDemoReq" onclick="">Demo</a>
-										<a style="width:100px; text-align:center; display: inline-block" class="button button-mini button-circle button-border button-blue" data-toggle="modal" data-target="#modalExampleReq" onclick="">Details</a>
-									</div>
-									<!-- <div style="display:inline"> -->
-									<!-- hide buttons -->
-								</br>
-										<div id ="r" style="display:inline">
-											<p style="font-size:1.7em; margin:0px; padding:0px;display:inline-block">Enter the request parameters in the table below, or upload the <a style="color:#1ABC9C; text-decoration:underline; cursor:pointer;" class="" data-toggle="modal" data-target="#modalSwagger" onclick="">OpenAPI</a> specification if you have it.
-												<!-- populate the table by choosing one of the following: -->
-										  <!-- <a id="gitButton" style="color:#1ABC9C; text-decoration:underline; cursor:pointer;" class="" onclick="callGitHub2(document.getElementById('url').value)">GitHub</a>,
-											<a style="color:#1ABC9C; text-decoration:underline; cursor:pointer;" class="" data-toggle="modal" data-target="#modalSwagger" onclick="">OpenAPI</a>, or
-											<a style="color:#1ABC9C; text-decoration:underline; cursor:pointer;" class="" data-toggle="modal" data-target="#modalPaste" onclick="">Table</a>. -->
-											<!-- Click on the details button above for more details. -->
-											<a id="gitButton" style="color:#1ABC9C; text-decoration:underline; cursor:pointer; display:none" class="" onclick="callGitHub2(document.getElementById('url').value)">GitHub</a>
-											<!-- <input type="button" id="butShowReq" class="button button-small button-circle button-border button-amber" onclick="showHideDiv(this)" value="Show Explanation"/> -->
-											</p>
-
-											<!-- <div id="optionalDiv" style="display:inline-block"> -->
-												<!-- <div id="optionalB"></div> -->
-
-											<!-- border-radius: 10px; border-style: solid; border-width: thin; border-color: gray; padding:5px; -->
-											<!-- </div> -->
-
 										</div>
 
+										<!-- Modal -->
+										<div class="modal fade bs-example-modal-lg" id="modalDemo" tabindex="-1"
+											role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+											<div class="modal-dialog modal-lg">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h4 class="modal-title" id="myModalLabel">API Integration Steps
+														</h4>
+													</div>
+													<div class="modal-body">
+														<p style="font-size:1.4em; margin:0px; padding:0px;">This
+															demonstrates how to access and publish APIs. As an example,
+															we are showing how to publish <a target="_blank"
+																href="https://developers.google.com/youtube/v3/docs/search/list">YouTube
+																Search API</a> to ScrAPIr.</p></br>
+														<video controls id="video1"
+															style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+															<source src="images/docs/demos/videos/Intgration_Demo.mp4"
+																type="video/mp4">
+															Your browser doesn't support HTML5 video tag.
+														</video>
+													</div>
+
+												</div>
+											</div>
+										</div>
+
+									</div>
+
+									<div class="col">
+										<p style="font-size:2em; margin:0px; padding:0px"><B>API Name</B> <span
+												id="takenName" style="color:red; font-size:0.8em; display:none">This
+												name is taken, please change it!</span>
+										</p>
+										<input style="width:400px;" type="text" class="form-control" id="title"
+											onchange="urlBlurNoCall()" placeholder="add a name to the API" required>
 										</br></br>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="toggle toggle-bg">
+								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i
+										class="toggle-open icon-remove-circle"></i><span style="color:red">2.</span>
+									Request Parameters <span style="font-style: italic; font-size:0.9em">(please add at
+										least the required parameter(s))</span></div>
+								<div id="toggReq" class="togglec" tabindex="0">
+									<div id="reqExp" style="display:inline">
+										<h3 style="margin:0px; padding:0px; display: inline-block">Request Parameters
+										</h3>
+										<a style="width:100px; text-align:center; display: inline-block"
+											class="button button-mini button-circle button-border button-pink"
+											data-toggle="modal" data-target="#modalDemoReq" onclick="">Demo</a>
+										<a style="width:100px; text-align:center; display: inline-block"
+											class="button button-mini button-circle button-border button-blue"
+											data-toggle="modal" data-target="#modalExampleReq" onclick="">Details</a>
+									</div>
+
+									</br>
+									<div id="r" style="display:inline">
+										<p style="font-size:1.7em; margin:0px; padding:0px;display:inline-block">Enter
+											the request parameters in the table below, or upload the <a
+												style="color:#1ABC9C; text-decoration:underline; cursor:pointer;"
+												class="" data-toggle="modal" data-target="#modalSwagger"
+												onclick="">OpenAPI</a> specification if you have it.
+											<a id="gitButton"
+												style="color:#1ABC9C; text-decoration:underline; cursor:pointer; display:none"
+												class=""
+												onclick="callGitHub2(document.getElementById('url').value)">GitHub</a>
+										</p>
+
+									</div>
+
+									</br></br>
 
 
 									<!-- Modal -->
-									<div class="modal fade bs-example-modal-lg" id="modalDemoReq" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-									  <div class="modal-dialog modal-lg" >
-									    <div class="modal-content">
-									      <div class="modal-header">
-									        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-									        <h4 class="modal-title" id="myModalLabel">Request Parameters Demo</h4>
-									      </div>
-									      <div class="modal-body">
-													<p style="font-size:1.4em; margin:0px; padding:0px;">This demonstrates how to add API's request parameters. As an example, we are showing how to add the parameters from <a target="_blank" href="https://developers.google.com/youtube/v3/docs/search/list">YouTube Search API</a>.</p></br>
-									        <video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
-									          <source src="images/docs/demos/videos/Req_Demo.mp4" type="video/mp4">
-									          Your browser doesn't support HTML5 video tag.
-									        </video>
-									      </div>
-									      <!-- <div class="modal-footer">
-									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									      </div> -->
-									    </div>
-									  </div>
+									<div class="modal fade bs-example-modal-lg" id="modalDemoReq" tabindex="-1"
+										role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">Request Parameters Demo
+													</h4>
+												</div>
+												<div class="modal-body">
+													<p style="font-size:1.4em; margin:0px; padding:0px;">This
+														demonstrates how to add API's request parameters. As an example,
+														we are showing how to add the parameters from <a target="_blank"
+															href="https://developers.google.com/youtube/v3/docs/search/list">YouTube
+															Search API</a>.</p></br>
+													<video controls id="video1"
+														style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+														<source src="images/docs/demos/videos/Req_Demo.mp4"
+															type="video/mp4">
+														Your browser doesn't support HTML5 video tag.
+													</video>
+												</div>
+
+											</div>
+										</div>
 									</div>
 
 									<!-- Modal -->
-									<div class="modal fade bs-example-modal-lg" id="modalExampleReq" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-									  <div class="modal-dialog modal-lg" >
-									    <div class="modal-content">
-									      <div class="modal-header">
-									        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-									        <h4 class="modal-title" id="myModalLabel">Request Parameters Explanation</h4>
-									      </div>
-									      <div class="modal-body">
-													<p style="font-size:1.1em; margin:0px; padding:0px;display:inline-block"><B>This example is using <a target="_blank" href="https://www.yelp.com/developers/documentation/v3/business_search">Yelp Business Search API</a>: </B></p></br></br>
-													<p style="font-size:1.1em; margin:0px; padding:0px;display:inline-block">
-													- <B>Name</B>: The name of the parameter as sepcified in the API documentation. (e.g. term)</br>
-													- <B>Value</B>: A value that you can assign to the parameter (e.g. Burgers)</br>
-													- <B>Allowed Values [optional]</B>: Some parameters can be assigned one of several values (e.g. 'sort_by')</br>
-													- <B>Displayed Name [optional]</B>: You can assign this parameter a name, and this name will be displayed to users (e.g. Search).</br>
-													- <B>Descreption [optional]</B>: You can describe this parameter here</br>
-													- <B>Type [optional]</B>: The type fo the parameter</br>
-													- <B>Required [optional]:</B>: Check if this parameter is a required one.</br>
-													- <B>Displayed [optional]:</B>: Check if you want this parameter to be displayed in the page.</br>
+									<div class="modal fade bs-example-modal-lg" id="modalExampleReq" tabindex="-1"
+										role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">Request Parameters
+														Explanation</h4>
+												</div>
+												<div class="modal-body">
+													<p
+														style="font-size:1.1em; margin:0px; padding:0px;display:inline-block">
+														<B>This example is using <a target="_blank"
+																href="https://www.yelp.com/developers/documentation/v3/business_search">Yelp
+																Business Search API</a>: </B></p></br></br>
+													<p
+														style="font-size:1.1em; margin:0px; padding:0px;display:inline-block">
+														- <B>Name</B>: The name of the parameter as sepcified in the API
+														documentation. (e.g. term)</br>
+														- <B>Value</B>: A value that you can assign to the parameter
+														(e.g. Burgers)</br>
+														- <B>Allowed Values [optional]</B>: Some parameters can be
+														assigned one of several values (e.g. 'sort_by')</br>
+														- <B>Displayed Name [optional]</B>: You can assign this
+														parameter a name, and this name will be displayed to users (e.g.
+														Search).</br>
+														- <B>Descreption [optional]</B>: You can describe this parameter
+														here</br>
+														- <B>Type [optional]</B>: The type fo the parameter</br>
+														- <B>Required [optional]:</B>: Check if this parameter is a
+														required one.</br>
+														- <B>Displayed [optional]:</B>: Check if you want this parameter
+														to be displayed in the page.</br>
 													</p>
 													</br></br>
-													<img src="images/docs/demos/Req_Details.png" width="width: 100%; height: auto; margin:0 auto;">
-									      </div>
-									      <!-- <div class="modal-footer">
-									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									      </div> -->
-									    </div>
-									  </div>
-									</div>
+													<img src="images/docs/demos/Req_Details.png"
+														width="width: 100%; height: auto; margin:0 auto;">
+												</div>
 
-
-							<!-- Modal -->
-							<div id="modalPaste" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-								<div class="modal-dialog modal-lg">
-									<div class="modal-body">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h4 class="modal-title" id="myModalLabel">Request Parameters</h4>
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-											</div>
-											<div class="modal-body" style="padding:30px">
-												<p style="font-size:0.8em; margin:0px; padding:0px;"><B>You can copy the table form the API documentation page and paste it here:</B></p>
-												<p style="font-size:0.8em; margin:0px; padding:0px;">When you click Populate Table button, the pasted parameters will be populated into the table. Make sure to set values for these parameters (specially the required ones).</p></br>
-												<!-- <p style="font-size:1em"></p> -->
-												<textarea name="excel_data" style="width:700px;height:300px; background-color:#f1f1f1; font-size:0.7em;"></textarea></br></br>
-												<a class="button" data-dismiss="modal" onclick="generateTable()"></i>Populate Table</a>
-												<!-- <input type="button" onclick="generateTable()" value="Genereate Table"/> -->
 											</div>
 										</div>
 									</div>
-								</div>
-							</div>
 
 
-							<!-- Modal -->
-							<div id="modalSwagger" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-								<div class="modal-dialog modal-lg">
-									<div class="modal-body">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h4 class="modal-title" id="myModalLabel">Request Parameters</h4>
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-											</div>
-											<div class="modal-body" style="padding:30px">
-												<p style="font-size:0.8em; margin:0px; padding:0px;"><B>You can copy the <a href="https://apis.guru/browse-apis/" target="_blank">Open API JSON schema</a> for the API and paste it here:</B></p>
-												<p style="font-size:0.8em; margin:0px; padding:0px;">When you click Populate Table button, the pasted parameters will be populated into the table. Make sure to set values for these parameters (specially the required ones).</p></br>
-												<!-- <p style="font-size:1em"></p> -->
-												<textarea name="swagger_schema" style="width:700px;height:300px; background-color:#f1f1f1; font-size:0.7em;"></textarea></br></br>
-												<a class="button" data-dismiss="modal" onclick="generateTableFromSwagger(document.getElementById('url').value)"></i>Populate Table</a>
-												<!-- <input type="button" onclick="generateTable()" value="Genereate Table"/> -->
+									<!-- Modal -->
+									<div id="modalPaste" class="modal fade bs-example-modal-lg" tabindex="-1"
+										role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-body">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h4 class="modal-title" id="myModalLabel">Request Parameters
+														</h4>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-hidden="true">&times;</button>
+													</div>
+													<div class="modal-body" style="padding:30px">
+														<p style="font-size:0.8em; margin:0px; padding:0px;"><B>You can
+																copy the table form the API documentation page and paste
+																it here:</B></p>
+														<p style="font-size:0.8em; margin:0px; padding:0px;">When you
+															click Populate Table button, the pasted parameters will be
+															populated into the table. Make sure to set values for these
+															parameters (specially the required ones).</p></br>
+														<textarea name="excel_data"
+															style="width:700px;height:300px; background-color:#f1f1f1; font-size:0.7em;"></textarea></br></br>
+														<a class="button" data-dismiss="modal"
+															onclick="generateTable()"></i>Populate Table</a>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							</div>
+
+
+									<!-- Modal -->
+									<div id="modalSwagger" class="modal fade bs-example-modal-lg" tabindex="-1"
+										role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-body">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h4 class="modal-title" id="myModalLabel">Request Parameters
+														</h4>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-hidden="true">&times;</button>
+													</div>
+													<div class="modal-body" style="padding:30px">
+														<p style="font-size:0.8em; margin:0px; padding:0px;"><B>You can
+																copy the <a href="https://apis.guru/browse-apis/"
+																	target="_blank">Open API JSON schema</a> for the API
+																and paste it here:</B></p>
+														<p style="font-size:0.8em; margin:0px; padding:0px;">When you
+															click Populate Table button, the pasted parameters will be
+															populated into the table. Make sure to set values for these
+															parameters (specially the required ones).</p></br>
+														<textarea name="swagger_schema"
+															style="width:700px;height:300px; background-color:#f1f1f1; font-size:0.7em;"></textarea></br></br>
+														<a class="button" data-dismiss="modal"
+															onclick="generateTableFromSwagger(document.getElementById('url').value)"></i>Populate
+															Table</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 
 									<table id="requestTabel" class="table table-bordered table-striped">
 										<thead style="font-size:1.5em">
@@ -540,860 +542,838 @@
 											</tr>
 										</thead>
 										<tbody style="text-align:center">
-										<tr id="firstTR">
-											<td>
-												<input class="form-control" type="text" id="name" name="nameParam" placeholder="" onkeyup="email_check()" onchange="urlBlur()" style="width:85px" >
-											</td>
-											<td>
-												<input class="form-control" type="text" id="value" placeholder="" onchange="urlBlur()" style="width:85px">
-											</td>
-											<td>
-												<textarea class="form-control" type="text" id="listOfValues" placeholder="" height="2px" rows="1" onchange="urlBlurNoCall()"></textarea>
-											</td>
-											<td>
-												<div>
-													<input id="displayedName" class="form-control" type="text" placeholder="" onchange="urlBlurNoCall()">
-												</div>
-											</td>
-											<td>
-												<textarea class="form-control" type="text" id="desc" placeholder="" rows="1" onchange="urlBlurNoCall()"></textarea>
-											</td>
-											<td>
-												<select class="form-control" id="type" style="height:30px" onchange="urlBlurNoCall()">
-													<option value="string">String</option>
-													<option value="int">Integer</option>
-													<option value="date-time">Boolean</option>
-													<option value="date">Date</option>
-													<option value="date-time">DateTime</option>
-												</select>
-											</td>
-											<td>
-												<input id='required'  value='' class='checkbox-style' name='' type='checkbox'  onchange="urlBlurNoCall()" autocomplete='off' checked/>
-											</td>
-											<td >
-												<input id='displayed'  value='' class='checkbox-style' name='' type='checkbox'  onchange="urlBlurNoCall()" autocomplete='off' checked/>
-											</td>
-											<td>
-												<input type="image" src="images/del.png" style="width:18px" onclick="deleteRow(this)" onchange="urlBlurNoCall()"/>
-											</td>
-										</tr>
+											<tr id="firstTR">
+												<td>
+													<input class="form-control" type="text" id="name" name="nameParam"
+														placeholder="" onkeyup="email_check()" onchange="urlBlur()"
+														style="width:85px">
+												</td>
+												<td>
+													<input class="form-control" type="text" id="value" placeholder=""
+														onchange="urlBlur()" style="width:85px">
+												</td>
+												<td>
+													<textarea class="form-control" type="text" id="listOfValues"
+														placeholder="" height="2px" rows="1"
+														onchange="urlBlurNoCall()"></textarea>
+												</td>
+												<td>
+													<div>
+														<input id="displayedName" class="form-control" type="text"
+															placeholder="" onchange="urlBlurNoCall()">
+													</div>
+												</td>
+												<td>
+													<textarea class="form-control" type="text" id="desc" placeholder=""
+														rows="1" onchange="urlBlurNoCall()"></textarea>
+												</td>
+												<td>
+													<select class="form-control" id="type" style="height:30px"
+														onchange="urlBlurNoCall()">
+														<option value="string">String</option>
+														<option value="int">Integer</option>
+														<option value="date-time">Boolean</option>
+														<option value="date">Date</option>
+														<option value="date-time">DateTime</option>
+													</select>
+												</td>
+												<td>
+													<input id='required' value='' class='checkbox-style' name=''
+														type='checkbox' onchange="urlBlurNoCall()" autocomplete='off'
+														checked />
+												</td>
+												<td>
+													<input id='displayed' value='' class='checkbox-style' name=''
+														type='checkbox' onchange="urlBlurNoCall()" autocomplete='off'
+														checked />
+												</td>
+												<td>
+													<input type="image" src="images/del.png" style="width:18px"
+														onclick="deleteRow(this)" onchange="urlBlurNoCall()" />
+												</td>
+											</tr>
 										</tbody>
 									</table>
 
 									<div id="optionalP" style="display:inline-block;"></div>
 
 
-								</br></br></br>
-									<a class="button button-mini button-circle button-teal"onclick="addRow()" style="width:210px; text-align:center; color:white" ><i class="glyphicon glyphicon-plus"></i>Add a New Parameter</a>
-									<a style="color:white; width:210px; text-align:center" class="button button-mini button-circle button-red" onclick="clearTable()" ><i class="glyphicon glyphicon-trash"></i>Clear Table</a>
+									</br></br></br>
+									<a class="button button-mini button-circle button-teal" onclick="addRow()"
+										style="width:210px; text-align:center; color:white"><i
+											class="glyphicon glyphicon-plus"></i>Add a New Parameter</a>
+									<a style="color:white; width:210px; text-align:center"
+										class="button button-mini button-circle button-red" onclick="clearTable()"><i
+											class="glyphicon glyphicon-trash"></i>Clear Table</a>
 
 								</div>
 							</div>
 
 
-						<div class="toggle toggle-bg">
-							<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">3.</span> Authentication and Header <span style="font-style: italic; font-size:0.9em">(some APIs require authentication and\or header)</span></div>
-							<div id="toggAuth" class="togglec">
-								<div style="display:inline" id="authSection">
-									<h3 style="margin:0px; padding:0px; display: inline-block">Authentication Type: <span id="messageQ" style="font-size:0.6em; display:none;  color:red">(Add your key as one of the request parameters above)</span> <span id="messageH" style="font-size:0.6em; display:none; color:red">(Add your key as one of the header parameters below)</span><span id="messageB" style="font-size:0.6em; display:none; color:red">(Add your token\key in the header section below)</span></h3>
-									<a style="width:100px; display:inline-block; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalDemoAuth" onclick="">Demo</a>
-									<a style="width:100px; text-align:center; display: inline-block" class="button button-mini button-circle button-border button-blue" data-toggle="modal" data-target="#modalExampleAuth" onclick="">Details</a>
-								</div>
-								<p style="font-size:1.7em; margin-bottom:5px;">Supported authentication methods are: HTTP authentication (Basic, Bearer, etc), API key as a header or query parameter.</p>
+							<div class="toggle toggle-bg">
+								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i
+										class="toggle-open icon-remove-circle"></i><span style="color:red">3.</span>
+									Authentication and Header <span style="font-style: italic; font-size:0.9em">(some
+										APIs require authentication and\or header)</span></div>
+								<div id="toggAuth" class="togglec">
+									<div style="display:inline" id="authSection">
+										<h3 style="margin:0px; padding:0px; display: inline-block">Authentication Type:
+											<span id="messageQ" style="font-size:0.6em; display:none;  color:red">(Add
+												your key as one of the request parameters above)</span> <span
+												id="messageH" style="font-size:0.6em; display:none; color:red">(Add your
+												key as one of the header parameters below)</span><span id="messageB"
+												style="font-size:0.6em; display:none; color:red">(Add your token\key in
+												the header section below)</span></h3>
+										<a style="width:100px; display:inline-block; text-align:center"
+											class="button button-mini button-circle button-border button-pink"
+											data-toggle="modal" data-target="#modalDemoAuth" onclick="">Demo</a>
+										<a style="width:100px; text-align:center; display: inline-block"
+											class="button button-mini button-circle button-border button-blue"
+											data-toggle="modal" data-target="#modalExampleAuth" onclick="">Details</a>
+									</div>
+									<p style="font-size:1.7em; margin-bottom:5px;">Supported authentication methods are:
+										HTTP authentication (Basic, Bearer, etc), API key as a header or query
+										parameter.</p>
 
-								<table id="authTabel"> <!-- class="table table-bordered table-striped" -->
-									<tbody style="text-align:center">
-									<tr>
-										<select class="form-control" id="selectid" style="height:30px; width:300px" onchange="authSelected()">
-											<option value="noAuth">No Auth</option>
-											<option value="queryAuth">API key as a Query Parameter</option>
-											<option value="headerAuth">API key as a Header</option>
-											<option value="bearerToken">Bearer Token</option>
-											<option value="basicAuth">Basic Auth</option>
-											<option value="oauth2">OAuth 2.0</option>
-											<option value="flow">Client Credentials Flow</option>
-											<!-- <option value="oAuth1">OAuth 1.0</option>
-											<option value="oAuth2">OAuth 2.0</option> -->
-										</select>
+									<table id="authTabel">
+										<tbody style="text-align:center">
+											<tr>
+												<select class="form-control" id="selectid"
+													style="height:30px; width:300px" onchange="authSelected()">
+													<option value="noAuth">No Auth</option>
+													<option value="queryAuth">API key as a Query Parameter</option>
+													<option value="headerAuth">API key as a Header</option>
+													<option value="bearerToken">Bearer Token</option>
+													<option value="basicAuth">Basic Auth</option>
+													<option value="oauth2">OAuth 2.0</option>
+													<option value="flow">Client Credentials Flow</option>
+												</select>
 
-									</tr>
-								</tbody>
-							</table>
+											</tr>
+										</tbody>
+									</table>
 
-						</br></br>
+									</br></br>
 
-							<table id="apiKeyFieldTable" style="display:none">
-									<thead style="font-size:1.5em">
-										<tr>
-											<th>API Key</th>
-											<th>&nbsp;</th>
-											<th style="width:500px">Value</th>
-											<th>&nbsp;</th>
-											<th>&nbsp;</th>
-											<!-- <th>Make Public?</th> -->
-										</tr>
+									<table id="apiKeyFieldTable" style="display:none">
+										<thead style="font-size:1.5em">
+											<tr>
+												<th>API Key</th>
+												<th>&nbsp;</th>
+												<th style="width:500px">Value</th>
+												<th>&nbsp;</th>
+												<th>&nbsp;</th>
+											</tr>
 										</thead>
-											<tbody>
-												<tr>
-													<td>
-														<input list="paramList" class="form-control" type="text" id="nameKey" placeholder="" onchange="urlBlur()" >
-														<datalist id="paramList"></datalist>
-													</td>
-													<td></td>
-													<td>
-														<input class="form-control" type="text" id="valueKey" placeholder="" onchange="urlBlur()" >
-													</td>
-													<td></td>
-													<td></td>
-													<!-- <td><input id='isPublic'  value='' class='checkbox-style' name='' type='checkbox' onchange="urlBlurNoCall()" autocomplete='off' checked/></td> -->
-												</tr>
-										  </tbody>
-								</table>
+										<tbody>
+											<tr>
+												<td>
+													<input list="paramList" class="form-control" type="text"
+														id="nameKey" placeholder="" onchange="urlBlur()">
+													<datalist id="paramList"></datalist>
+												</td>
+												<td></td>
+												<td>
+													<input class="form-control" type="text" id="valueKey" placeholder=""
+														onchange="urlBlur()">
+												</td>
+												<td></td>
+												<td></td>
+											</tr>
+										</tbody>
+									</table>
 
 
-								<table id="oauthTable" style="display:none" class="table" width="200px">
-									<!-- //During API integration, ask users for these things:
-										// Authorization url
-										// Token url
-										// client_id
-										// client_secret
-										// redirect_uri
-										// response_type
-										// scope
-										// grant_type
-										// client authentication (bearer header OR client credentials in body) -->
+									<table id="oauthTable" style="display:none" class="table" width="200px">
 
-												<tbody>
-													<tr>
-														<td>
-															<label >Authorization URL</label>
-														</td>
-														<td>
-															<input class="form-control" type="text" id="authURL" placeholder="" >
-														</td>
-													</tr>
+										<tbody>
+											<tr>
+												<td>
+													<label>Authorization URL</label>
+												</td>
+												<td>
+													<input class="form-control" type="text" id="authURL" placeholder="">
+												</td>
+											</tr>
 
-													<tr>
-														<td>
-															<label >Access Token URL</label>
-														</td>
-														<td>
-															<input class="form-control" type="text" id="tokenURL" placeholder="" >
-														</td>
-													</tr>
+											<tr>
+												<td>
+													<label>Access Token URL</label>
+												</td>
+												<td>
+													<input class="form-control" type="text" id="tokenURL"
+														placeholder="">
+												</td>
+											</tr>
 
-													<tr>
-														<td>
-															<label >Callback URL</label>
-														</td>
-														<td>
-															<input class="form-control" type="text" id="callbackURL" placeholder="" >
-														</td>
-													</tr>
+											<tr>
+												<td>
+													<label>Callback URL</label>
+												</td>
+												<td>
+													<input class="form-control" type="text" id="callbackURL"
+														placeholder="">
+												</td>
+											</tr>
 
-													<tr>
-														<td>
-															<label >Client ID</label>
-														</td>
-														<td>
-															<input class="form-control" type="text" id="clientId" placeholder="" >
-														</td>
-													</tr>
+											<tr>
+												<td>
+													<label>Client ID</label>
+												</td>
+												<td>
+													<input class="form-control" type="text" id="clientId"
+														placeholder="">
+												</td>
+											</tr>
 
-													<tr>
-														<td>
-															<label >Client Secret</label>
-														</td>
-														<td>
-															<input class="form-control" type="text" id="clientSec" placeholder="" >
-														</td>
-													</tr>
+											<tr>
+												<td>
+													<label>Client Secret</label>
+												</td>
+												<td>
+													<input class="form-control" type="text" id="clientSec"
+														placeholder="">
+												</td>
+											</tr>
 
-													<tr>
-														<td>
-															<label >Response Type</label>
-														</td>
-														<td>
-															<input class="form-control" type="text" id="resType" placeholder="" >
-														</td>
-													</tr>
+											<tr>
+												<td>
+													<label>Response Type</label>
+												</td>
+												<td>
+													<input class="form-control" type="text" id="resType" placeholder="">
+												</td>
+											</tr>
 
-													<tr>
-														<td>
-															<label >Scope</label>
-														</td>
-														<td>
-															<input class="form-control" type="text" id="scope" placeholder="" >
-														</td>
-													</tr>
+											<tr>
+												<td>
+													<label>Scope</label>
+												</td>
+												<td>
+													<input class="form-control" type="text" id="scope" placeholder="">
+												</td>
+											</tr>
 
-													<tr>
-														<td>
-															<label >Grant Type</label>
-														</td>
-														<td>
-															<input class="form-control" type="text" id="grantType" placeholder="" >
-														</td>
-													</tr>
+											<tr>
+												<td>
+													<label>Grant Type</label>
+												</td>
+												<td>
+													<input class="form-control" type="text" id="grantType"
+														placeholder="">
+												</td>
+											</tr>
 
-													<tr>
-														<td>
-															<label >Client Authentication</label>
-														</td>
-														<td>
-															<select class="form-control" id="clientAuth" style="width:300px;" >
-																<option id="clientAuthHeader">Send as Basic Auth header</option>
-																<option id="clientAuthBody">Send client credentials in body</option>
-															</select>
-														</td>
-													</tr>
+											<tr>
+												<td>
+													<label>Client Authentication</label>
+												</td>
+												<td>
+													<select class="form-control" id="clientAuth" style="width:300px;">
+														<option id="clientAuthHeader">Send as Basic Auth header</option>
+														<option id="clientAuthBody">Send client credentials in body
+														</option>
+													</select>
+												</td>
+											</tr>
 
-													<tr>
-														<td>
-															<button style="display: inline-block; height:31px" class="button button-3d button-small button-rounded button-teal" onclick="authorize()">Authorize</button>
-														</td>
-													</tr>
-
-
-												</tbody>
-								</table>
+											<tr>
+												<td>
+													<button style="display: inline-block; height:31px"
+														class="button button-3d button-small button-rounded button-teal"
+														onclick="authorize()">Authorize</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
 
 
+									<table id="flowTable" style="display:none" class="table" width="200px">
+
+										<tbody>
+											<tr>
+												<td>
+													<label>Token URL</label>
+												</td>
+												<td>
+													<input class="form-control" type="text" id="flow_tokenURL"
+														placeholder="">
+												</td>
+											</tr>
+
+											<tr>
+												<td>
+													<label>Client ID</label>
+												</td>
+												<td>
+													<input class="form-control" type="text" id="flow_clientId"
+														placeholder="">
+												</td>
+											</tr>
+
+											<tr>
+												<td>
+													<label>Client Secret</label>
+												</td>
+												<td>
+													<input class="form-control" type="text" id="flow_clientSec"
+														placeholder="">
+												</td>
+											</tr>
+
+											<tr>
+												<td>
+													<label>Grant Type</label>
+												</td>
+												<td>
+													<input class="form-control" type="text" id="flow_grantType"
+														placeholder="">
+												</td>
+											</tr>
+
+											<tr>
+												<td>
+													<button style="display: inline-block; height:31px"
+														class="button button-3d button-small button-rounded button-teal"
+														onclick="authorizeFlow()">Authorize</button>
+												</td>
+											</tr>
+
+										</tbody>
+									</table>
 
 
-								<table id="flowTable" style="display:none" class="table" width="200px">
-									<!-- //During API integration, ask users for these things:
-										// Token url
-										// client_id
-										// client_secret
-										// grant_type
-									-->
+									<hr>
 
-									<tbody>
-										<tr>
-											<td>
-												<label >Token URL</label>
-											</td>
-											<td>
-												<input class="form-control" type="text" id="flow_tokenURL" placeholder="" >
-											</td>
-										</tr>
+									<div id="ifAuthDiv" style="display:none">
+										<h3 style="margin:0px; padding:0px;">Authentication process:</h3>
+										<p style="font-size:1.7em; margin-bottom:5px;">Some APIs apply rate limits by
+											token, this single token will rapidly be exhausted by multiple users.</p>
 
-										<tr>
-											<td>
-												<label >Client ID</label>
-											</td>
-											<td>
-												<input class="form-control" type="text" id="flow_clientId" placeholder="" >
-											</td>
-										</tr>
+										</br>
 
-										<tr>
-											<td>
-												<label >Client Secret</label>
-											</td>
-											<td>
-												<input class="form-control" type="text" id="flow_clientSec" placeholder="" >
-											</td>
-										</tr>
+										<div>
+											<div style="width:500px; display:inline">
+												<label id="askPublic">Would you like other people to use your API
+													key/token?</label>
+												<select class="form-control" id="isPublic" style="width:100px;">
+													<option id="no">No</option>
+													<option id="yes">Yes</option>
+												</select>
+											</div>
+											</br></br></br>
+											<p style="font-size:1.7em; margin-bottom:5px;">Please describe how did you
+												get the authentication for this API by answering the next couple of
+												questions:</p>
 
-										<tr>
-											<td>
-												<label >Grant Type</label>
-											</td>
-											<td>
-												<input class="form-control" type="text" id="flow_grantType" placeholder="" >
-											</td>
-										</tr>
+											<div class="" style="width:500px">
+												<label>What is the authentication page URL?</label>
+												<input style="width:500px" type="text" class="form-control" id="authURL"
+													placeholder="" oninput='' onchange="">
+											</div>
+											</br></br>
 
-										<tr>
-											<td>
-												<button style="display: inline-block; height:31px" class="button button-3d button-small button-rounded button-teal" onclick="authorizeFlow()">Authorize</button>
-											</td>
-										</tr>
+											<div class="" style="width:1000px">
+												<label>If signing up is neccessary to be authenticated, What is the URL
+													for signup/login page?</label>
+												<input style="width:500px" type="text" class="form-control" id="authURL"
+													placeholder="" oninput='' onchange="">
+											</div>
+											</br></br>
 
-									</tbody>
-								</table>
+											<div class="" style="width:1000px">
+												<label>Can you please describe the steps you took to get the
+													authentication?</label>
+											</div>
+										</div>
+										</br></br>
 
+										<table id="stepsTabel" class="" style="display:none">
+											<tbody></tbody>
+										</table>
 
-						<hr>
-
-						<div id="ifAuthDiv" style="display:none">
-							<h3 style="margin:0px; padding:0px;">Authentication process:</h3>
-							<p style="font-size:1.7em; margin-bottom:5px;">Some APIs apply rate limits by token, this single token will rapidly be exhausted by multiple users.</p>
-
-						  </br>
-
-							<div >
-								<div class="" style="width:500px; display:inline">
-									<label id="askPublic" >Would you like other people to use your API key/token?</label>
-									<select class="form-control" id="isPublic" style="width:100px;" ><option id="no">No</option><option id="yes">Yes</option></select>
-									<!-- <input id='isPublic'  value='' class='checkbox-style' name='' type='checkbox' onchange="urlBlurNoCall()" autocomplete='off' checked/></td> -->
-								</div>
-							</br></br></br>
-							<p style="font-size:1.7em; margin-bottom:5px;">Please describe how did you get the authentication for this API by answering the next couple of questions:</p>
-
-									<div class="" style="width:500px">
-										<label>What is the authentication page URL?</label>
-										<input  style="width:500px" type="text" class="form-control" id="authURL" placeholder="" oninput='' onchange="">
+										<a class="button button-mini button-circle button-teal" onclick="addStepRow()"
+											style="width:180px; text-align:center; color:white"><i
+												class="glyphicon glyphicon-plus"></i>Add a Step</a>
+										<hr>
 									</div>
-								</br></br>
 
-								<div class="" style="width:1000px">
-										<label>If signing up is neccessary to be authenticated, What is the URL for signup/login page?</label>
-										<input  style="width:500px" type="text" class="form-control" id="authURL" placeholder="" oninput='' onchange="">
-									</div>
-								</br></br>
+									<h3 style="margin:0px; padding:0px;">Header parameters:</h3>
+									</br>
 
-									<div class="" style="width:1000px">
-										<label>Can you please describe the steps you took to get the authentication?</label>
-										<!-- <textarea class="form-control" type="text" id="authDesc" rows="2" cols="120"></textarea> -->
-									</div>
-							</div>
-
-						</br></br>
-
-						<table id="stepsTabel" class="" style="display:none">
-							<tbody></tbody>
-						</table>
-
-						<a class="button button-mini button-circle button-teal"onclick="addStepRow()" style="width:180px; text-align:center; color:white"><i class="glyphicon glyphicon-plus"></i>Add a Step</a>
-
-						<hr>
-
-						</div>
-
-
-
-							<h3 style="margin:0px; padding:0px;">Header parameters:</h3>
-							</br>
-							<!-- <p style="font-size:1.7em; margin-bottom:5px;">Some APIs might ask you to add header to acces their data (e.g. In <a href="https://developer.github.com/v3/search/#text-match-metadata" target="_blank">GitHub search code API</a>, you can get the code snippets in search results by adding 'Accept' header as the name and assign it a value of 'application/vnd.github.v3.text-match+json').</p> -->
-								<!-- <input style="display: inline-block; width:300px" class="form-control" type="text" id="nameH" placeholder="header" onchange="urlBlur()" >
-								<input style="display: inline-block; width:300px" class="form-control" type="text" id="valueH" placeholder="value" onchange="urlBlur()" > -->
-
-							<table id="headerTabel" class="" style="display:none">
-								<thead style="font-size:1.5em">
-									<tr>
-										<th>Key</th>
-										<th>&nbsp;</th>
-										<th style="width:500px">Value</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<!-- <th>Make Public?</th> -->
-										<th></th>
-										<!--
-										<th style="width:500px">Name</th>
-										<th>Value</th>
-										<th></th> -->
-									</tr>
-								</thead>
-								<tbody>
-								<!-- <tr>
-									<td>
-										<input class="form-control" type="text" id="nameH" placeholder="" onchange="urlBlur()" >
-									</td>
-									<td>
-										<input class="form-control" type="text" id="valueH" placeholder="" onchange="urlBlur()" >
-									</td>
-									<td style="width:30px">
-										<input type="image" src="images/del.png" style="width:18px"onclick="deleteHeaderRow(this)"/>
-									</td>
-								</tr> -->
-							</tbody>
-						</table>
-
-					</br>
-
-
-
-						<a class="button button-mini button-circle button-teal"onclick="addHeaderRow()" style="width:180px; text-align:center; color:white"><i class="glyphicon glyphicon-plus"></i>Add a Header</a>
-
-						<!-- Modal -->
-						<div class="modal fade bs-example-modal-lg" id="modalDemoAuth" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-							<div class="modal-dialog modal-lg" >
-								<div class="modal-content">
-									<div class="modal-header">
-										<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-										<h4 class="modal-title" id="myModalLabel">Authentication & Headers Demo</h4>
-									</div>
-									<div class="modal-body">
-										<p style="font-size:1.4em; margin:0px; padding:0px;">This demonstrates how to add API's authentication. As an example, we are showing how to add <a target="_blank" href="https://www.yelp.com/developers/documentation/v3/business_search">Yelp Business Search API's</a> authentication. Not all APIs require authentication or headers.</p></br>
-										<video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
-											<source src="images/docs/demos/videos/Auth_Demo.mp4" type="video/mp4">
-											Your browser doesn't support HTML5 video tag.
-										</video>
-									</div>
-									<!-- <div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									</div> -->
-								</div>
-							</div>
-						</div>
-
-						<!-- Modal -->
-						<div class="modal fade bs-example-modal-lg" id="modalExampleAuth" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-							<div class="modal-dialog modal-lg" >
-								<div class="modal-content">
-									<div class="modal-header">
-										<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-										<h4 class="modal-title" id="myModalLabel">Authentication & Headers Explanation</h4>
-									</div>
-									<div class="modal-body">
-										<img src="images/docs/demos/Auth_Details.png" width="width: 100%; height: auto; margin:0 auto;">
-										<!-- <video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
-											<source src="images/docs/Intgration_Demo.mp4" type="video/mp4">
-											Your browser doesn't support HTML5 video tag.
-										</video> -->
-									</div>
-									<!-- <div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									</div> -->
-								</div>
-							</div>
-						</div>
-
-						</div>
-						</div>
-
-
-				<div class="toggle toggle-bg">
-					<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">4.</span> Response Fields <span style="font-style: italic; font-size:0.9em">(choose the response fields you are interested in)</span></div>
-						<div id="toggRes" class="togglec">
-							<div style="display:inline">
-								<h3 style="margin:0px; padding:0px; display: inline-block">Response Fields</h3>
-								<a style="width:100px; display:inline-block; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalDemoRes" onclick="">Demo</a>
-								<a style="width:100px; text-align:center; display: inline-block" class="button button-mini button-circle button-border button-blue" data-toggle="modal" data-target="#modalExampleRes" onclick="">Details</a>
-							</div>
-						</br></br>
-							<div class="row">
-								<!-- <div class="col"  > -->
-								<!-- <h4 style=" margin:0px; padding:0px">Selected Fields</h4> -->
-								<p style=" margin:0px; padding:0px; font-size:1.7em">Please click on the fields you're interested in adding from the right pane
-									<img src="images/finger_red.png" width="30px" heigth="30px">
-									<!-- <a data-toggle='tooltip' data-placement='right' title="This is a sample of the response data. You can browse through the tree view of the response and\or search for specific fields. Click on the fields that you are interested in adding."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a> -->
-								</p>
-									<!-- <div id="jsoneditor"></div>
-								</div> -->
-
-								<!-- <div class="col">
-									<h4 style=" margin:0px; padding:0px">Selected Fields</h4>
-									<p style=" margin:0px; padding:0px; font-size:1.7em">You can edit the displayed names and add descriptions.</p> -->
-									<table id="fields"class="table table-bordered table-striped" style="font-size:1.3em; width:100%">
-										<thead>
-	    								<tr>
-												<th>Field</th>
-												<th>Displayed Name</th>
-												<th>Description</th>
-										 </tr>
-										<thead>
+									<table id="headerTabel" class="" style="display:none">
+										<thead style="font-size:1.5em">
+											<tr>
+												<th>Key</th>
+												<th>&nbsp;</th>
+												<th style="width:500px">Value</th>
+												<th>&nbsp;</th>
+												<th>&nbsp;</th>
+												<th></th>
+											</tr>
+										</thead>
 										<tbody>
 										</tbody>
 									</table>
-								<!-- </div> -->
-							</div><!-- row -->
 
-							<!-- <h5 style="color:red">[If you want to get more results than what you're seeing in this response sample, you need to fill in the 'PAGINATION' section]</h5> -->
+									</br>
 
+									<a class="button button-mini button-circle button-teal" onclick="addHeaderRow()"
+										style="width:180px; text-align:center; color:white"><i
+											class="glyphicon glyphicon-plus"></i>Add a Header</a>
 
-													<!-- Modal -->
-													<div class="modal fade bs-example-modal-lg" id="modalDemoRes" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-														<div class="modal-dialog modal-lg" >
-															<div class="modal-content">
-																<div class="modal-header">
-																	<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-																	<h4 class="modal-title" id="myModalLabel">Response Fields Demo</h4>
-																</div>
-																<div class="modal-body">
-																	<p style="font-size:1.4em; margin:0px; padding:0px;">This demonstrates how to chooese response fields. As an example, we are showing how to do that with <a target="_blank" href="https://developers.google.com/youtube/v3/docs/search/list">YouTube Search API's</a>.</p></br>
-																	<video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
-																		<source src="images/docs/demos/videos/Res_Demo.mp4" type="video/mp4">
-																		Your browser doesn't support HTML5 video tag.
-																	</video>
-																</div>
-																<!-- <div class="modal-footer">
-																	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-																</div> -->
-															</div>
-														</div>
-													</div>
+									<!-- Modal -->
+									<div class="modal fade bs-example-modal-lg" id="modalDemoAuth" tabindex="-1"
+										role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">Authentication & Headers
+														Demo</h4>
+												</div>
+												<div class="modal-body">
+													<p style="font-size:1.4em; margin:0px; padding:0px;">This
+														demonstrates how to add API's authentication. As an example, we
+														are showing how to add <a target="_blank"
+															href="https://www.yelp.com/developers/documentation/v3/business_search">Yelp
+															Business Search API's</a> authentication. Not all APIs
+														require authentication or headers.</p></br>
+													<video controls id="video1"
+														style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+														<source src="images/docs/demos/videos/Auth_Demo.mp4"
+															type="video/mp4">
+														Your browser doesn't support HTML5 video tag.
+													</video>
+												</div>
 
-													<!-- Modal -->
-													<div class="modal fade bs-example-modal-lg" id="modalExampleRes" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-														<div class="modal-dialog modal-lg" >
-															<div class="modal-content">
-																<div class="modal-header">
-																	<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-																	<h4 class="modal-title" id="myModalLabel">Response Fields Explanation</h4>
-																</div>
-																<div class="modal-body">
-																	<img src="images/docs/demos/Res_Details.png" width="width: 100%; height: auto; margin:0 auto;">
-																	<!-- <video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
-																		<source src="images/docs/Intgration_Demo.mp4" type="video/mp4">
-																		Your browser doesn't support HTML5 video tag.
-																	</video> -->
-																</div>
-																<!-- <div class="modal-footer">
-																	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-																</div> -->
-															</div>
-														</div>
-													</div>
+											</div>
+										</div>
+									</div>
 
+									<!-- Modal -->
+									<div class="modal fade bs-example-modal-lg" id="modalExampleAuth" tabindex="-1"
+										role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">Authentication & Headers
+														Explanation</h4>
+												</div>
+												<div class="modal-body">
+													<img src="images/docs/demos/Auth_Details.png"
+														width="width: 100%; height: auto; margin:0 auto;">
+												</div>
 
+											</div>
+										</div>
+									</div>
 
+								</div>
 							</div>
-							</div>
-							<!-- </div> -->
+
 
 							<div class="toggle toggle-bg">
-								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">5.</span> Pagination</div>
-									<div class="togglec">
-										<!-- <h3>Pagination Information</h3> -->
-										<div style="display:inline">
-											<h3 style="margin:0px; padding:0px; display: inline-block">Pagination Information</h3>
-											<a style="width:90px; display:inline-block; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalDemoPage" onclick="">Demo</a>
-											<a style="width:90px; text-align:center; display: inline-block" class="button button-mini button-circle button-border button-blue" data-toggle="modal" data-target="#modalExamplePage" onclick="">Details</a>
-										</div>
-
-							<p style="font-size:1.7em;">On some sites, a user query might match millions of records. Thus, APIs paginate the results to make sure responses are easier to handle. Some APIs posit a fixed or specifyable number of items per page, here you need to provide max number of results per page.</p>
-
-								<!-- On some sites, a user query might match millions of records. It is expensive to return them all, and wasteful if the user only wants 10. Thus, most APIs use some form of pagination.  Abstractly, there is an ordered sequence of results to a query, and pagination is used to specify a small subsequence of this ordered sequence to return in the query results. Some APIs posit a fixed or specifyable number of items per page "MAX NUMBER OF RESULTS PER PAGE"</p> -->
-								<!-- <a style="width:140px; color:white; text-align:center" class="button button-mini button-circle button-red" data-toggle="modal" data-target="#modalExample" onclick="">Check Example</a> -->
-								<!-- <input type="button" id="butShowReq" class="button button-small button-circle button-border button-amber" onclick="showHideDivPag(this)" value="Show Explanation"/></p> -->
-
-								<!-- <div id="pagExp" style="display:none;">
-									<p style="font-size:1.7em;">If you want to get more results than the max number of results per page allowed by the API, there are two different ways to loop through pages: (1) Some APIs use index or offset to go through multiple pages(e.g. In Wikipedia search API, they use ‘offset’ as the page parameter. offset=0 is the first page, offset=1 is the second page, etc). (2) Other APIs will provide parameters that will indicate the current page, in which you can assign it to the next page parameter to get more results (e.g. in YouTube search API, the current page parameter is ‘pageToken’ and to go to the next page we assign ‘pageToken’ to the ‘nextPageToken’).</p>
-								</div> -->
-
-								<!-- <div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 500px;"> -->
-								<form  autocomplete="on">
-									<div>
-										<div class="" style="display: inline-block;">
-											<label>Results per page "parameter" [if exist] <a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="The parameter used to set the maximum number of results to (e.g. the parameter that you set the number of results to in YouTube is 'maxResults'). Not all APIs provide this parameter."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label>
-											<!-- <p style="font-size:1.5em; margin:0px; padding:0px">The parameter used to set the maximum number of results to (e.g. YouTube search API is maxResults). Not all APIs provide this parameter</p> -->
-											<input list="paramList"  type="text" class="form-control" id="result_param" placeholder="(e.g. maxResults)" oninput='onInputMaxParam()' onchange="urlBlurNoCall()">
-
-											<!-- <input type="text" id="txtAutoComplete" />-->
-											<!--your input textbox-->
-
-											<datalist id="paramList">
-											<!-- <option value="HTML"/> -->
-											</datalist>
-										</div>
-
-									<div class="" style="display: inline-block;margin-left:100px;"> <!-- -->
-										<label>Max Number of results per page* <a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="The maximum number of results per page as allowed by the API (e.g.the default number of results in YouTube search API is 5, but the maximum number fo results is 50 and that's what you need to provide here). Do not provide the number of results you want here."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label>
-										<!-- <p style="font-size:1.5em; margin:0px; padding:0px">The maximum number of results per page as allowed by the API (e.g.the maximum number of results in YouTube search API is 50)</p> -->
-										<input type="text" class="form-control"  id="result_max" placeholder="(e.g. 50)" onchange="urlBlurNoCall()">
+								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i
+										class="toggle-open icon-remove-circle"></i><span style="color:red">4.</span>
+									Response Fields <span style="font-style: italic; font-size:0.9em">(choose the
+										response fields you are interested in)</span></div>
+								<div id="toggRes" class="togglec">
+									<div style="display:inline">
+										<h3 style="margin:0px; padding:0px; display: inline-block">Response Fields</h3>
+										<a style="width:100px; display:inline-block; text-align:center"
+											class="button button-mini button-circle button-border button-pink"
+											data-toggle="modal" data-target="#modalDemoRes" onclick="">Demo</a>
+										<a style="width:100px; text-align:center; display: inline-block"
+											class="button button-mini button-circle button-border button-blue"
+											data-toggle="modal" data-target="#modalExampleRes" onclick="">Details</a>
 									</div>
-								</div>
+									</br></br>
+									<div class="row">
+										<p style=" margin:0px; padding:0px; font-size:1.7em">Please click on the fields
+											you're interested in adding from the right pane
+											<img src="images/finger_red.png" width="30px" heigth="30px">
+										</p>
 
+										<table id="fields" class="table table-bordered table-striped"
+											style="font-size:1.3em; width:100%">
+											<thead>
+												<tr>
+													<th>Field</th>
+													<th>Displayed Name</th>
+													<th>Description</th>
+												</tr>
+												<thead>
+												<tbody>
+												</tbody>
+										</table>
+									</div><!-- row -->
 
-							<h4 style="margin-top: 30px; margin-bottom:5px">Please choose the pagination style for this API:
-								<!-- <label><a id="tooltip" type='' class='' data-toggle='tooltip' data-placement='right' title="If you want to get more results than the max number of results per page allowed by the API, you should loop through the other pages and get more results. There are two different ways to loop through pages: (1) Some APIs use index or offset to go through multiple pages (e.g. In Wikipedia search API, they use ‘offset’ as the page parameter. offset=0 is the first page, offset=1 is the second page, etc). (2) Other APIs will provide parameters that will indicate the current page, in which you can assign it to the next page parameter to get more results (e.g. in YouTube search API, the current page parameter is ‘pageToken’ and to go to the next page we assign ‘pageToken’ to the ‘nextPageToken’)."><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></label> -->
-							</h4>
-							<p style="font-size:1.7em;">Pagination in websites generally offer "next" and "previous" page links, and sometimes a box for jumping to a specific page number. Similarly, some APIs use an "index" parameter to specify the page number or an "offset" into the entire result list. Others provide "next" and "prev" that can be used to assign the "current" page parameter to request the adjacent subsequence of items.</p>
-							<!-- along with Max Num of Results Per Page to return from that offset -->
+									<!-- Modal -->
+									<div class="modal fade bs-example-modal-lg" id="modalDemoRes" tabindex="-1"
+										role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">Response Fields Demo</h4>
+												</div>
+												<div class="modal-body">
+													<p style="font-size:1.4em; margin:0px; padding:0px;">This
+														demonstrates how to chooese response fields. As an example, we
+														are showing how to do that with <a target="_blank"
+															href="https://developers.google.com/youtube/v3/docs/search/list">YouTube
+															Search API's</a>.</p></br>
+													<video controls id="video1"
+														style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+														<source src="images/docs/demos/videos/Res_Demo.mp4"
+															type="video/mp4">
+														Your browser doesn't support HTML5 video tag.
+													</video>
+												</div>
 
-							<!-- <a target="_blank" href="docs.html#page">[Check Documentation]</a> -->
-
-
-							<!-- <div class="radio">
-								<label><input type="radio" name="radioPage" id="indexR" onchange="showIndex()"><p style="font-size:1.2em; margin:0px; padding:0px">Index</p></label>
-							</div>
-							<div class="radio">
-								<label><input type="radio" name="radioPage" id="indexR" onchange="showOffset()"><p style="font-size:1.2em; margin:0px; padding:0px">Offset</p></label>
-							</div>
-							<div class="radio">
-								<label><input type="radio" name="radioPage" id="nextR" onchange="showNext()"><p style="font-size:1.2em; margin:0px; padding:0px">Next\Prev</p></label>
-							</div> -->
-
-
-
-							<div class="">
-								<div id="pageTypeDIV" class="" style="display: inline-block;">
-									<label>Type of pagination</label>
-									<select class="form-control" id="selectPage" style="height:30px; width:300px" onchange="pageSelected()">
-										<option value="offset">Offset Pagination</option>
-										<option value="index">Index Pagination</option>
-										<option value="nextPrev">Next\Prev Pagination</option>
-									</select>
-									<div id="space" style="display:none"></br></br></br></br></br></br></div>
-							</div>
-
-							<div class="" style="display: inline-block; margin-left: 83px;">
-								<div id="indexDiv" class="" style="display:none; ">
-												<label>Index [parameter name]*</label>
-												<input type="text"  class="form-control"  list="pageList" id="index_param" placeholder="(e.g. page)" style="width:335px"  onchange="urlBlurNoCall()">
-												<datalist id="pageList">
-												<!-- <option value="HTML"/> -->
-												</datalist>
-								</div>
-
-								<div id="offsetDiv" class="" >
-												<label>Offset [parameter name]*</label>
-												<input type="text"  class="form-control"  list="pageList" id="offset_param" placeholder="(e.g. offset)" style="width:335px"  onchange="urlBlurNoCall()">
-												<datalist id="pageList">
-												<!-- <option value="HTML"/> -->
-												</datalist>
-								</div>
-
-								<div id="nextDiv" class="" style="display:none;">
-									<div class="form-group" style=" display:none;">
-										<label>Current Page [parameter name]*</label>
-										<input type="text" class="form-control" list="pageList" id="cur_page_param" placeholder="(e.g. pageToken)" style="width:334px"  onchange="urlBlurNoCall()">
-										<datalist id="pageList">
-										<!-- <option value="HTML"/> -->
-										</datalist>
-									</div>
-									<div class="form-group" style=" display:none;">
-										<label>Next Page [parameter name]*</label>
-										<input type="text" class="form-control"  list="pageList" id="next_page_param" placeholder="(e.g. nextPageToken)"  onchange="urlBlurNoCall()">
-										<datalist id="pageList">
-										<!-- <option value="HTML"/> -->
-										</datalist>
-									</div>
-								</div>
-
-							</div>
-						</div>
-
-
-
-								</form>
-
-								<!-- <div>
-									<a class="button button-3d nomargin tab-linker" rel="2"><i class="glyphicon glyphicon-chevron-left"></i></a>
-									<a class="button button-3d nomargin fright tab-linker" rel="4" onclick="showResponseSchema()"><i class="glyphicon glyphicon-chevron-right"></i></a>
-								</div> -->
-
-								<!-- Modal -->
-								<div class="modal fade bs-example-modal-lg" id="modalDemoPage" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-lg" >
-										<div class="modal-content">
-											<div class="modal-header">
-												<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-												<h4 class="modal-title" id="myModalLabel">Pagination Demo</h4>
 											</div>
-											<div class="modal-body">
-												<p style="font-size:1.4em; margin:0px; padding:0px;">This demonstrates how to add the pagination information. As an example, we are showing how to do that with <a target="_blank" href="https://developers.google.com/youtube/v3/docs/search/list">YouTube Search API's</a>.</p></br>
-												<video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
-													<source src="images/docs/demos/videos/Page_Demo.mp4" type="video/mp4">
-													Your browser doesn't support HTML5 video tag.
-												</video>
-											</div>
-											<!-- <div class="modal-footer">
-												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-											</div> -->
 										</div>
 									</div>
-								</div>
 
-								<!-- Modal -->
-								<div class="modal fade bs-example-modal-lg" id="modalExamplePage" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-lg" >
-										<div class="modal-content">
-											<div class="modal-header">
-												<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-												<h4 class="modal-title" id="myModalLabel">Pagination Explanation</h4>
+									<!-- Modal -->
+									<div class="modal fade bs-example-modal-lg" id="modalExampleRes" tabindex="-1"
+										role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">Response Fields
+														Explanation</h4>
+												</div>
+												<div class="modal-body">
+													<img src="images/docs/demos/Res_Details.png"
+														width="width: 100%; height: auto; margin:0 auto;">
+												</div>
+
 											</div>
-											<div class="modal-body">
-												<!-- <p style="font-size:1.1em; margin:0px; padding:0px;display:inline-block"><B>This example is using <a target="_blank" href="https://www.yelp.com/developers/documentation/v3/business_search">Yelp Business Search API</a>: </B></p></br></br> -->
-												<p style="font-size:1.2em; margin:0px; padding:0px;display:inline-block">This example is using <a target="_blank" href="https://www.yelp.com/developers/documentation/v3/business_search">Yelp Business Search API</a>: In Yelp business search API, the number of business results to return per page is between 1 and 50 (max number of results per page is <B style="color:red">50</B>). The parameter used for number of results per page is <B style="color:red">limit</B> (limit = 50). The way that Yelp search API goes over the pages is using offset, and the name of the parameter it uses is <B style="color:red">offset</B>.</p></br></br>
-												<img src="images/docs/demos/Page_Details.png" width="width: 100%; height: auto; margin:0 auto;">
-											</div>
-											<!-- <div class="modal-footer">
-												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-											</div> -->
 										</div>
 									</div>
+
 								</div>
-
-
 							</div>
 
-						</div>
-
-
-						  <!-- <div id="ptab3"> -->
 							<div class="toggle toggle-bg">
-								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i class="toggle-open icon-remove-circle"></i><span style="color:red">6.</span> Review and Publish API</div>
-									<div class="togglec">
-
-											<div style="display:inline">
-												<h3 style="margin:0px; padding:0px; display: inline-block">Review your API Integration</h3>
-												<a style="width:90px; display:inline-block; text-align:center" class="button button-mini button-circle button-border button-pink" data-toggle="modal" data-target="#modalDemoReview" onclick="">Demo</a>
-												<a style="width:90px; text-align:center; display: inline-block" class="button button-mini button-circle button-border button-blue" data-toggle="modal" data-target="#modalExampleReview" onclick="">Details</a>
-											</div>
-
-										  </br></br>
-
-											<div style="display:inline">
-												<p style="font-size:1.7em; display: inline-block"> To review and publish your API integration, please click on </p>
-												<!-- <button style="color:black; width:80px; text-align:center; display: inline-block; text:white" class="button button-3d button-small button-rounded button-teal" onclick="reviewAPIIntegration()">Review</button></h3> -->
-												<button  style="display: inline-block; height:31px"class="button button-3d button-small button-rounded button-teal" onclick="reviewAPIIntegration()">Review</button>
-												<!-- <p style="font-size:1.7em; display: inline-block"> Everytime you make changes you need to click on the Review button</p> -->
-												<!-- <p style="font-size:1.7em; display: inline-block">clikc on review to refresh the view whenever you make changes</p> -->
-											</div>
-
-							<div class="row">
-								<div class="col-lg">
-									<div class="" id="previewAPIIntegration"></div>
-
-									<!-- START HERE -->
-
-							<!-- END HERE -->
-
-								</div>
-							</div>
-
-							<!-- Modal -->
-							<div class="modal fade bs-example-modal-lg" id="modalDemoReview" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-								<div class="modal-dialog modal-lg" >
-									<div class="modal-content">
-										<div class="modal-header">
-											<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-											<h4 class="modal-title" id="myModalLabel">Review and Publish API Demo</h4>
-										</div>
-										<div class="modal-body">
-											<video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
-												<source src="images/docs/demos/videos/Review_Demo.mp4" type="video/mp4">
-												Your browser doesn't support HTML5 video tag.
-											</video>
-										</div>
-										<!-- <div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-										</div> -->
+								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i
+										class="toggle-open icon-remove-circle"></i><span style="color:red">5.</span>
+									Pagination</div>
+								<div class="togglec">
+									<div style="display:inline">
+										<h3 style="margin:0px; padding:0px; display: inline-block">Pagination
+											Information</h3>
+										<a style="width:90px; display:inline-block; text-align:center"
+											class="button button-mini button-circle button-border button-pink"
+											data-toggle="modal" data-target="#modalDemoPage" onclick="">Demo</a>
+										<a style="width:90px; text-align:center; display: inline-block"
+											class="button button-mini button-circle button-border button-blue"
+											data-toggle="modal" data-target="#modalExamplePage" onclick="">Details</a>
 									</div>
+
+									<p style="font-size:1.7em;">On some sites, a user query might match millions of
+										records. Thus, APIs paginate the results to make sure responses are easier to
+										handle. Some APIs posit a fixed or specifyable number of items per page, here
+										you need to provide max number of results per page.</p>
+
+									<form autocomplete="on">
+										<div>
+											<div class="" style="display: inline-block;">
+												<label>Results per page "parameter" [if exist] <a id="tooltip" type=''
+														class='' data-toggle='tooltip' data-placement='right'
+														title="The parameter used to set the maximum number of results to (e.g. the parameter that you set the number of results to in YouTube is 'maxResults'). Not all APIs provide this parameter."><span
+															class="glyphicon glyphicon-info-sign"
+															aria-hidden="true"></span></a></label>
+												<input list="paramList" type="text" class="form-control"
+													id="result_param" placeholder="(e.g. maxResults)"
+													oninput='onInputMaxParam()' onchange="urlBlurNoCall()">
+												<datalist id="paramList">
+												</datalist>
+											</div>
+
+											<div class="" style="display: inline-block;margin-left:100px;">
+												<label>Max Number of results per page* <a id="tooltip" type='' class=''
+														data-toggle='tooltip' data-placement='right'
+														title="The maximum number of results per page as allowed by the API (e.g.the default number of results in YouTube search API is 5, but the maximum number fo results is 50 and that's what you need to provide here). Do not provide the number of results you want here."><span
+															class="glyphicon glyphicon-info-sign"
+															aria-hidden="true"></span></a></label>
+												<input type="text" class="form-control" id="result_max"
+													placeholder="(e.g. 50)" onchange="urlBlurNoCall()">
+											</div>
+										</div>
+
+
+										<h4 style="margin-top: 30px; margin-bottom:5px">Please choose the pagination
+											style for this API:
+										</h4>
+										<p style="font-size:1.7em;">Pagination in websites generally offer "next" and
+											"previous" page links, and sometimes a box for jumping to a specific page
+											number. Similarly, some APIs use an "index" parameter to specify the page
+											number or an "offset" into the entire result list. Others provide "next" and
+											"prev" that can be used to assign the "current" page parameter to request
+											the adjacent subsequence of items.</p>
+
+										<div class="">
+											<div id="pageTypeDIV" class="" style="display: inline-block;">
+												<label>Type of pagination</label>
+												<select class="form-control" id="selectPage"
+													style="height:30px; width:300px" onchange="pageSelected()">
+													<option value="offset">Offset Pagination</option>
+													<option value="index">Index Pagination</option>
+													<option value="nextPrev">Next\Prev Pagination</option>
+												</select>
+												<div id="space" style="display:none"></br></br></br></br></br></br>
+												</div>
+											</div>
+
+											<div class="" style="display: inline-block; margin-left: 83px;">
+												<div id="indexDiv" class="" style="display:none; ">
+													<label>Index [parameter name]*</label>
+													<input type="text" class="form-control" list="pageList"
+														id="index_param" placeholder="(e.g. page)" style="width:335px"
+														onchange="urlBlurNoCall()">
+													<datalist id="pageList">
+													</datalist>
+												</div>
+
+												<div id="offsetDiv" class="">
+													<label>Offset [parameter name]*</label>
+													<input type="text" class="form-control" list="pageList"
+														id="offset_param" placeholder="(e.g. offset)"
+														style="width:335px" onchange="urlBlurNoCall()">
+													<datalist id="pageList">
+													</datalist>
+												</div>
+
+												<div id="nextDiv" class="" style="display:none;">
+													<div class="form-group" style=" display:none;">
+														<label>Current Page [parameter name]*</label>
+														<input type="text" class="form-control" list="pageList"
+															id="cur_page_param" placeholder="(e.g. pageToken)"
+															style="width:334px" onchange="urlBlurNoCall()">
+														<datalist id="pageList">
+														</datalist>
+													</div>
+													<div class="form-group" style=" display:none;">
+														<label>Next Page [parameter name]*</label>
+														<input type="text" class="form-control" list="pageList"
+															id="next_page_param" placeholder="(e.g. nextPageToken)"
+															onchange="urlBlurNoCall()">
+														<datalist id="pageList">
+														</datalist>
+													</div>
+												</div>
+
+											</div>
+										</div>
+
+									</form>
+
+									<!-- Modal -->
+									<div class="modal fade bs-example-modal-lg" id="modalDemoPage" tabindex="-1"
+										role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">Pagination Demo</h4>
+												</div>
+												<div class="modal-body">
+													<p style="font-size:1.4em; margin:0px; padding:0px;">This
+														demonstrates how to add the pagination information. As an
+														example, we are showing how to do that with <a target="_blank"
+															href="https://developers.google.com/youtube/v3/docs/search/list">YouTube
+															Search API's</a>.</p></br>
+													<video controls id="video1"
+														style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+														<source src="images/docs/demos/videos/Page_Demo.mp4"
+															type="video/mp4">
+														Your browser doesn't support HTML5 video tag.
+													</video>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+									<!-- Modal -->
+									<div class="modal fade bs-example-modal-lg" id="modalExamplePage" tabindex="-1"
+										role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">Pagination Explanation
+													</h4>
+												</div>
+												<div class="modal-body">
+													<p
+														style="font-size:1.2em; margin:0px; padding:0px;display:inline-block">
+														This example is using <a target="_blank"
+															href="https://www.yelp.com/developers/documentation/v3/business_search">Yelp
+															Business Search API</a>: In Yelp business search API, the
+														number of business results to return per page is between 1 and
+														50 (max number of results per page is <B
+															style="color:red">50</B>). The parameter used for number of
+														results per page is <B style="color:red">limit</B> (limit = 50).
+														The way that Yelp search API goes over the pages is using
+														offset, and the name of the parameter it uses is <B
+															style="color:red">offset</B>.</p></br></br>
+													<img src="images/docs/demos/Page_Details.png"
+														width="width: 100%; height: auto; margin:0 auto;">
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+
+							</div>
+
+							<div class="toggle toggle-bg">
+								<div class="togglet"><i class="toggle-closed icon-ok-circle"></i><i
+										class="toggle-open icon-remove-circle"></i><span style="color:red">6.</span>
+									Review and Publish API</div>
+								<div class="togglec">
+
+									<div style="display:inline">
+										<h3 style="margin:0px; padding:0px; display: inline-block">Review your API
+											Integration</h3>
+										<a style="width:90px; display:inline-block; text-align:center"
+											class="button button-mini button-circle button-border button-pink"
+											data-toggle="modal" data-target="#modalDemoReview" onclick="">Demo</a>
+										<a style="width:90px; text-align:center; display: inline-block"
+											class="button button-mini button-circle button-border button-blue"
+											data-toggle="modal" data-target="#modalExampleReview" onclick="">Details</a>
+									</div>
+
+									</br></br>
+
+									<div style="display:inline">
+										<p style="font-size:1.7em; display: inline-block"> To review and publish your
+											API integration, please click on </p>
+										<button style="display: inline-block; height:31px"
+											class="button button-3d button-small button-rounded button-teal"
+											onclick="reviewAPIIntegration()">Review</button>
+									</div>
+
+									<div class="row">
+										<div class="col-lg">
+											<div class="" id="previewAPIIntegration"></div>
+										</div>
+									</div>
+
+									<!-- Modal -->
+									<div class="modal fade bs-example-modal-lg" id="modalDemoReview" tabindex="-1"
+										role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">Review and Publish API
+														Demo</h4>
+												</div>
+												<div class="modal-body">
+													<video controls id="video1"
+														style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+														<source src="images/docs/demos/videos/Review_Demo.mp4"
+															type="video/mp4">
+														Your browser doesn't support HTML5 video tag.
+													</video>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+									<!-- Modal -->
+									<div class="modal fade bs-example-modal-lg" id="modalExampleReview" tabindex="-1"
+										role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">Review and publish your
+														API Explanation</h4>
+												</div>
+												<div class="modal-body">
+													<p style="font-size:1.2em; padding-left:15px; padding-right:15px">
+														Click on "Review" button to:
+														</br>&nbsp; - Review and publish your API
+														</br>&nbsp; - Refresh the preview, whenever you go back to
+														previous steps and make changes
+													</p>
+													<img src="images/docs/demos/Review_Details.png"
+														width="width: 100%; height: auto; margin:0 auto;">
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+
+
+									<div class="modal fade bs-example-modal-lg" id="modalPublish" tabindex="-1"
+										role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">The API has been
+														Published!</h4>
+												</div>
+												<div class="modal-body">
+													<p style="font-size:1.4em; margin:15px; padding:15px;">
+														Your API will be listed under <a href="index.html#APIs"
+															target="_blank">websites</a>, where others can access it as
+														well!</p></br>
+
+												</div>
+
+											</div>
+										</div>
+									</div>
+
 								</div>
 							</div>
 
 
-																<!-- Modal -->
-																<div class="modal fade bs-example-modal-lg" id="modalExampleReview" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-																	<div class="modal-dialog modal-lg" >
-																		<div class="modal-content">
-																			<div class="modal-header">
-																				<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-																				<h4 class="modal-title" id="myModalLabel">Review and publish your API Explanation</h4>
-																			</div>
-																			<div class="modal-body">
-																				<p style="font-size:1.2em; padding-left:15px; padding-right:15px">Click on "Review" button to:
-																					</br>&nbsp; - Review and publish your API
-																					</br>&nbsp; - Refresh the preview, whenever you go back to previous steps and make changes
-																				</p>
-																				<img src="images/docs/demos/Review_Details.png" width="width: 100%; height: auto; margin:0 auto;">
-																			</div>
-																			<!-- <div class="modal-footer">
-																				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-																			</div> -->
-																		</div>
-																	</div>
-																</div>
+						</div>
+						<div id="jsonResponse2" class="col-3" style="padding-top:60px">
+							<div id="errorImage">
 
-
-
-																<div class="modal fade bs-example-modal-lg" id="modalPublish" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-																	<div class="modal-dialog modal-lg" >
-																		<div class="modal-content">
-																			<div class="modal-header">
-																				<h4 class="modal-title" id="myModalLabel">The API has been Published!</h4>
-																			</div>
-																			<div class="modal-body">
-																				<p style="font-size:1.4em; margin:15px; padding:15px;">
-																					<!-- The API has been saved. If you want to edit/remove the API, go to your <a href="account.html" target="_blank">account</a>.</br></br> -->
-																				Your API will be listed under <a href="index.html#APIs" target="_blank">websites</a>, where others can access it as well!</p></br>
-
-																			</div>
-
-																		</div>
-																	</div>
-																</div>
-
+								<p id="pDiv"
+									style="overflow-wrap: break-word; word-wrap: break-word; display:none; font-size:1.8em; font-weight: normal; margin:0px; padding:8px; border-radius: 10px; border-style: solid; border-width: thin; width: 380px;">
+									<img id="correct" src="images/correct.png" alt="" height="20" width="20"
+										style="display:none;">
+									<img id="notcorrect" src="images/notcorrect.png" alt="" height="20" width="20"
+										style="display:none">
+									<span id="pValidatetext"></span>
+								</p>
 							</div>
+							</br></br></br>
+
+							<div id="jsoneditor2" class="jsoneditor22" style="display:none;"></div>
+
+							<a id="jumper" href="#toggRes" style="display:none;">Pliip</a>
+
+						</div>
+
 					</div>
 
-
 				</div>
-				<div id="jsonResponse2" class="col-3" style="padding-top:60px">
-					<div id="errorImage" >
-
-						<p id="pDiv" style="overflow-wrap: break-word; word-wrap: break-word; display:none; font-size:1.8em; font-weight: normal; margin:0px; padding:8px; border-radius: 10px; border-style: solid; border-width: thin; width: 380px;" >
-							<img id="correct" src="images/correct.png" alt="" height="20" width="20" style="display:none;">
-							<img id="notcorrect" src="images/notcorrect.png" alt="" height="20" width="20" style="display:none">
-							<span id="pValidatetext"></span>
-						</p>
-				</div>
-				</br></br></br>
-
-					<div id="jsoneditor2" class="jsoneditor22" style="display:none;"></div>
-					<!-- <pre id="jsonResponse" style="background-color:#ffecef; height:363px; width:380px; font-size:1.5em"></pre> -->
-
-
-					<a id="jumper" href="#toggRes" style="display:none;">Pliip</a>
-					<!-- <a class="jumper" href="#ploop" style="display:none;">Ploop</a> -->
-
-				</div>
-
-				<!-- </div> -->
-						<!-- </div> -->
-					<!-- </div> -->
-
-				</div>
-
-			</div>
-
-
-
 
 		</section><!-- #content end -->
 
-		<!-- Footer
-		============================================= -->
-		<!-- <footer id="footer" class="dark">
-
-			<div class="container-fullwidth">
-
-				<div class="footer-widgets-wrap clearfix">
-
-				</div>
-
-			</div>
-
-
-			<div id="copyrights">
-
-				<div class="container-fullwidth clearfix">
-
-				</div>
-
-			</div>
-
-		</footer> -->
-
 	</div><!-- #wrapper end -->
 
-	<!-- Go To Top
-	============================================= -->
-	<!--<div id="gotoTop" class="icon-angle-up"></div>-->
-
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-	<!-- External JavaScripts
-	============================================= -->
 	<script src="js/jquery.js"></script>
 	<script src="js/plugins.js"></script>
-
-	<!-- Slik Grid-->
 	<script src="lib/firebugx.js"></script>
-
 	<script src="lib/jquery-1.11.2.min.js"></script>
 	<script src="lib/jquery-ui-1.11.3.js"></script>
 	<script src="lib/jquery.event.drag-2.3.0.js"></script>
 	<script src="lib/jquery.tmpl.min.js"></script>
 	<script src="lib/jquery.jsonp-2.4.min.js"></script>
 	<script src="lib/jquery.event.drop-2.3.0.js"></script>
-
 	<script src="js/slick.remotemodel.js"></script>
 	<script src="js/slick.formatters.js"></script>
 	<script src="js/slick.editors.js"></script>
@@ -1403,469 +1383,445 @@
 	<script src="js/slick.dataview.js"></script>
 	<script src="js/slick.groupitemmetadataprovider.js"></script>
 	<script src="js/slick.checkboxselectcolumn.js"></script>
-
 	<script src="js/slick.cellrangedecorator.js"></script>
 	<script src="js/slick.cellrangeselector.js"></script>
 	<script src="js/slick.cellselectionmodel.js"></script>
 	<script src="js/slick.rowselectionmodel.js"></script>
 	<script src="js/slick.rowmovemanager.js"></script>
-
 	<script src="js/slick.pager.js"></script>
 	<script src="js/slick.columnpicker.js"></script>
 	<script src="js/slick.gridmenu.js"></script>
-
-
-
-	<!-- Footer Scripts
-	============================================= -->
 	<script src="js/functions.js"></script>
-
-	<!-- My
-	 JavaScripts
-	============================================= -->
 	<script src="search.js" type="text/javascript" charset="UTF-8"></script>
-
 	<script src="node_modules⁩/cors-anywhere⁩/search.js" type="text/javascript" charset="UTF-8"></script>
-
 	<script type="text/javascript" src="js/renderjson.js"></script>
-
-	<!-- <script src="js/treeview.min.js" type="text/javascript"></script> -->
-
-
-	<!-- Date & Time Picker JS -->
 	<script src="js/components/moment.js"></script>
 	<script src="js/components/timepicker.js"></script>
-
-	<!-- Include Date Range Picker -->
 	<script src="js/components/daterangepicker.js"></script>
-
 	<script src="js/underscore.js"></script>
 	<script src="js/underscore-min.js"></script>
 
-
 	<script>
-		$(function() {
-			$( "#processTabs" ).tabs({ show: { effect: "fade", duration: 400 } });
-			$( ".tab-linker" ).click(function() {
-				$( "#processTabs" ).tabs("option", "active", $(this).attr('rel') - 1);
+		$(function () {
+			$("#processTabs").tabs({ show: { effect: "fade", duration: 400 } });
+			$(".tab-linker").click(function () {
+				$("#processTabs").tabs("option", "active", $(this).attr('rel') - 1);
 				return false;
 			});
 		});
 
 	</script>
 
-	<!-- <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script> -->
 	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-database.js"></script>
 
 
 	<style>
+		.process-steps li {
+			pointer-events: none;
+		}
 
-	.process-steps li { pointer-events: none; }
+		.button.button-mini.button-circle.button-red {
+			font-size: 11px;
+			font-weight: 7px;
+		}
 
-/* .button.button-mini */
-.button.button-mini.button-circle.button-red{
-	font-size: 11px;
-	font-weight: 7px;
-}
-	/**
- * Tooltip Styles
- */
+		[data-tooltip] {
+			position: relative;
+			z-index: 2;
+			cursor: pointer;
+			white-space: pre-wrap;
 
-/* Add this attribute to the element that needs a tooltip */
-[data-tooltip] {
-	position: relative;
-	z-index: 2;
-	cursor: pointer;
-	white-space: pre-wrap;
+		}
 
-}
+		[data-tooltip]:before,
+		[data-tooltip]:after {
+			visibility: hidden;
+			-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+			filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+			opacity: 0;
+			pointer-events: none;
+		}
 
-/* Hide the tooltip content by default */
-[data-tooltip]:before,
-[data-tooltip]:after {
-	visibility: hidden;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-	filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
-	opacity: 0;
-	pointer-events: none;
-}
+		[data-tooltip]:before {
+			position: absolute;
+			bottom: 100%;
+			left: 50%;
+			margin-bottom: 5px;
+			margin-left: -80px;
+			padding: 7px;
+			-webkit-border-radius: 3px;
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+			background-color: #000;
+			background-color: hsla(0, 0%, 20%, 0.9);
+			color: #fff;
+			content: attr(data-tooltip);
+			text-align: center;
+			font-size: 12px;
+			line-height: 1;
+			width: 400px;
+		}
 
-/* Position tooltip above the element */
-[data-tooltip]:before {
-	position: absolute;
-	bottom: 100%;
-	left: 50%;
-	margin-bottom: 5px;
-	margin-left: -80px;
-	padding: 7px;
-	/* width: 160px; */
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	background-color: #000;
-	background-color: hsla(0, 0%, 20%, 0.9);
-	color: #fff;
-	content: attr(data-tooltip);
-	text-align: center;
-	font-size: 12px;
-	line-height: 1;
-	width:400px;
-}
+		[data-tooltip]:after {
+			position: absolute;
+			bottom: 100%;
+			left: 50%;
+			margin-left: -5px;
+			width: 0;
+			border-top: 5px solid #000;
+			border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+			border-right: 5px solid transparent;
+			border-left: 5px solid transparent;
+			content: " ";
+			font-size: 0;
+			line-height: 0;
+		}
 
-/* Triangle hack to make tooltip look like a speech bubble */
-[data-tooltip]:after {
-	position: absolute;
-	bottom: 100%;
-	left: 50%;
-	margin-left: -5px;
-	width: 0;
-	border-top: 5px solid #000;
-	border-top: 5px solid hsla(0, 0%, 20%, 0.9);
-	border-right: 5px solid transparent;
-	border-left: 5px solid transparent;
-	content: " ";
-	font-size: 0;
-	line-height: 0;
-}
+		[data-tooltip]:hover:before,
+		[data-tooltip]:hover:after {
+			visibility: visible;
+			-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+			filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+			opacity: 1;
+		}
 
-/* Show tooltip content on hover */
-[data-tooltip]:hover:before,
-[data-tooltip]:hover:after {
-	visibility: visible;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-	filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
-	opacity: 1;
-}
+		.open-button {
+			background-color: #555;
+			color: white;
+			padding: 16px 20px;
+			border: none;
+			cursor: pointer;
+			opacity: 0.8;
+			position: fixed;
+		}
 
+		.form-popup {
+			border-radius: 15px;
+			display: none;
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+			border: 1px solid #9b9b9b;
+			z-index: 9;
+			background-color: #c1c1c1;
+			padding: 20px;
+			width: 30%;
+			height: 30%;
+		}
 
-	.open-button {
-		background-color: #555;
-		color: white;
-		padding: 16px 20px;
-		border: none;
-		cursor: pointer;
-		opacity: 0.8;
-		position: fixed;
-		/* bottom: 23px; */
-		/* right: 28px; */
-		/* width: 280px; */
-	}
+		.form-popup .btn {
+			background-color: #428bca;
+			color: white;
+			padding: 11px 15px;
+			border: none;
+			cursor: pointer;
+			width: 90px;
+			opacity: 0.8;
+			font-size: 1.7em;
+		}
 
-	/* The popup form - hidden by default */
-	.form-popup {
-		border-radius: 15px;
-		display: none;
-		position: fixed;
-		bottom: 20px;
-		right: 20px;
-		border: 1px solid #9b9b9b;
-		z-index: 9;
-		background-color: #c1c1c1;
-		padding: 20px;
-		width:30%;
-		height:30%;
-		/* color:white; */
-	}
+		.form-popup .cancel {
+			background-color: #d9534f;
+			margin-left: 10px;
+		}
 
-	/* Add styles to the form container */
-	/* .form-container {
-		padding: 10px;
-		background-color: #c1c1c1;
-		color:white;
-	} */
-
-	/* Set a style for the submit/login button */
-	.form-popup .btn {
-		background-color: #428bca;
-		color: white;
-		padding: 11px 15px;
-		border: none;
-		cursor: pointer;
-		width: 90px;
-		/* margin-bottom:10px; */
-		opacity: 0.8;
-		font-size: 1.7em;
-	}
-
-	/* Add a red background color to the cancel button */
-	.form-popup .cancel {
-		background-color: #d9534f;
-		margin-left:10px;
-		/* font-weight: bold; */
-	}
-
-	/* Add some hover effects to buttons */
-	.form-popup .btn:hover, .open-button:hover {
-		opacity: 1;
-	}
-
-
-
-
-
-
+		.form-popup .btn:hover,
+		.open-button:hover {
+			opacity: 1;
+		}
 
 		#aa {
-		position: relative;
-	}
-
-	#aa p {
-		display: inline-block;
-		background: blue;
-		color: black;
-		/*padding: 0.4em 0.6em;*/
-		font-size: 1.5em;
-		/*border-radius: 1em;*/
-	}
-
-	#aa figure {
-		display: none;
-		position: absolute;
-		top: 2em;
-		left: 1em;
-		padding: 0;
-		margin: 0;
-		border: 5px solid #fd0;
-		background: #fd0;
-		border-radius: 1em;
-	}
-
-	#aa img {
-		display: block;
-		border-radius: 0.8em;
-		max-width: 100%;
-		height: auto;
-	}
-
-	#aa:focus figure,
-	#aa:hover figure {
-		display: block;
-	}
-	#aa:focus p,
-	#aa:hover p {
-		background: red;
-	}
-
-
-	.tooltip .tooltip-inner{
-		max-width:400px;
-		padding:3px 8px;
-		color:#000;
-		font-size: 1.5em;
-		text-align: left;
-		font-weight: bold;
-		background-color:#ffdae0;
-		-webkit-border-radius:5px;
-		-moz-border-radius:5px;
-		border-radius:5px
-	}
-
-	#jsonResponse2 {
-		position: fixed;
-		left:72%;
-		/* height:100%; */
-		/*right: 0;
-		top: 50%;
-
-		margin-top: -2.5em;*/
-	}
-
-
-		.modal-body{
-			font-size:1.5em;
-		}
-		.nav-link{
-			font-size:1.5em;
+			position: relative;
 		}
 
-		.tab-content{
-			font-size:1em;
-		}
-		.form-control{
-			font-size:1.5em;
-		}
-
-		.table thead th{
-			/*font-size:1.5em;*/
+		#aa p {
+			display: inline-block;
+			background: blue;
+			color: black;
+			font-size: 1.5em;
 		}
 
-		.table thead tr input{
-			/*font-size:1.5em;*/
+		#aa figure {
+			display: none;
+			position: absolute;
+			top: 2em;
+			left: 1em;
+			padding: 0;
+			margin: 0;
+			border: 5px solid #fd0;
+			background: #fd0;
+			border-radius: 1em;
 		}
 
-			.req{
-				background-color: red;
-			}
+		#aa img {
+			display: block;
+			border-radius: 0.8em;
+			max-width: 100%;
+			height: auto;
+		}
 
-			.dis{
-				background-color: blue;
-			}
+		#aa:focus figure,
+		#aa:hover figure {
+			display: block;
+		}
 
-			.checkbox-style-3-label{
-				font-size: 0.9em;
-			}
-
-			.renderjson a              { text-decoration: none; }
-			.renderjson .disclosure    { color: #ae5a41; font-size:1.5em; font-weight:bold; font-family: Arial, Helvetica, sans-serif;}
-			.renderjson .syntax        { color: #474446; font-size:1.5em ; font-family: Arial, Helvetica, sans-serif;}
-			.renderjson .string        { color: #474446; font-size:1.5em; }
-			.renderjson .number        { color: #474446; font-size:1.5em; font-family: Arial, Helvetica, sans-serif;}
-			.renderjson .boolean       { color: #c3cb71; font-size:1.5em; font-family: Arial, Helvetica, sans-serif;}
-			.renderjson .key           { color: #116e9b; font-size:1.5em; font-weight:bold; font-family: Arial, Helvetica, sans-serif;}
-			.renderjson .keyword       { color: #c3cb71; font-size:1.5em; font-family: Arial, Helvetica, sans-serif;}
-			.renderjson .object.syntax { color: #559e83; font-size:1.5em; font-family: Arial, Helvetica, sans-serif;}
-			.renderjson .array.syntax  { color: orange; font-family: Arial, Helvetica, sans-serif;}
-
-			.cell-title {
-				font-weight: bold;
-			}
-			.cell-effort-driven {
-				text-align: center;
-			}
-			.slick-group-title[level='0'] {
-				font-weight: bold;
-			}
-			.slick-group-title[level='1'] {
-				text-decoration: underline;
-			}
-			.slick-group-title[level='2'] {
-				font-style: italic;
-			}
-
-			.cell-selection {
-				border-right-color: silver;
-				border-right-style: solid;
-				background: #f5f5f5;
-				color: gray;
-				text-align: right;
-				font-size: 10px;
-			}
-
-			.slick-row.selected .cell-selection {
-				background-color: transparent;
-			}
-
-			.item-details-form {
-				z-index: 10000;
-				display: inline-block;
-				border: 1px solid black;
-				margin: 8px;
-				padding: 10px;
-				background: #efefef;
-				-moz-box-shadow: 0px 0px 15px black;
-				-webkit-box-shadow: 0px 0px 15px black;
-				box-shadow: 0px 0px 15px black;
-				position: absolute;
-				top: 10px;
-				left: 150px;
-			}
-			.item-details-form-buttons {
-				float: right;
-			}
-			.item-details-label {
-				margin-left: 10px;
-				margin-top: 20px;
-				display: block;
-				font-weight: bold;
-			}
-			.item-details-editor-container {
-				width: 200px;
-				height: 20px;
-				border: 1px solid silver;
-				background: white;
-				display: block;
-				margin: 10px;
-				margin-top: 4px;
-				padding: 0;
-				padding-left: 4px;
-				padding-right: 4px;
-			}
-
-			.cell-reorder {
-				cursor: move;
-				background: url("../images/drag-handle.png") no-repeat center center;
-				background-color: #f5f5f5;
-			}
-
-			.recycle-bin {
-				width: 120px;
-				border: 1px solid gray;
-				background: beige;
-				padding: 4px;
-				font-size: 12pt;
-				font-weight: bold;
-				color: black;
-				text-align: center;
-				-moz-border-radius: 10px;
-			}
-			.red {
-				background: red;
-			}
-			.bold {
-				font-weight: bold;
-			}
+		#aa:focus p,
+		#aa:hover p {
+			background: red;
+		}
 
 
-			html, body {
+		.tooltip .tooltip-inner {
+			max-width: 400px;
+			padding: 3px 8px;
+			color: #000;
+			font-size: 1.5em;
+			text-align: left;
+			font-weight: bold;
+			background-color: #ffdae0;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px
+		}
+
+		#jsonResponse2 {
+			position: fixed;
+			left: 72%;
+		}
+
+
+		.modal-body {
+			font-size: 1.5em;
+		}
+
+		.nav-link {
+			font-size: 1.5em;
+		}
+
+		.tab-content {
+			font-size: 1em;
+		}
+
+		.form-control {
+			font-size: 1.5em;
+		}
+
+		.req {
+			background-color: red;
+		}
+
+		.dis {
+			background-color: blue;
+		}
+
+		.checkbox-style-3-label {
+			font-size: 0.9em;
+		}
+
+		.renderjson a {
+			text-decoration: none;
+		}
+
+		.renderjson .disclosure {
+			color: #ae5a41;
+			font-size: 1.5em;
+			font-weight: bold;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.renderjson .syntax {
+			color: #474446;
+			font-size: 1.5em;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.renderjson .string {
+			color: #474446;
+			font-size: 1.5em;
+		}
+
+		.renderjson .number {
+			color: #474446;
+			font-size: 1.5em;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.renderjson .boolean {
+			color: #c3cb71;
+			font-size: 1.5em;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.renderjson .key {
+			color: #116e9b;
+			font-size: 1.5em;
+			font-weight: bold;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.renderjson .keyword {
+			color: #c3cb71;
+			font-size: 1.5em;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.renderjson .object.syntax {
+			color: #559e83;
+			font-size: 1.5em;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.renderjson .array.syntax {
+			color: orange;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.cell-title {
+			font-weight: bold;
+		}
+
+		.cell-effort-driven {
+			text-align: center;
+		}
+
+		.slick-group-title[level='0'] {
+			font-weight: bold;
+		}
+
+		.slick-group-title[level='1'] {
+			text-decoration: underline;
+		}
+
+		.slick-group-title[level='2'] {
+			font-style: italic;
+		}
+
+		.cell-selection {
+			border-right-color: silver;
+			border-right-style: solid;
+			background: #f5f5f5;
+			color: gray;
+			text-align: right;
+			font-size: 10px;
+		}
+
+		.slick-row.selected .cell-selection {
+			background-color: transparent;
+		}
+
+		.item-details-form {
+			z-index: 10000;
+			display: inline-block;
+			border: 1px solid black;
+			margin: 8px;
+			padding: 10px;
+			background: #efefef;
+			-moz-box-shadow: 0px 0px 15px black;
+			-webkit-box-shadow: 0px 0px 15px black;
+			box-shadow: 0px 0px 15px black;
+			position: absolute;
+			top: 10px;
+			left: 150px;
+		}
+
+		.item-details-form-buttons {
+			float: right;
+		}
+
+		.item-details-label {
+			margin-left: 10px;
+			margin-top: 20px;
+			display: block;
+			font-weight: bold;
+		}
+
+		.item-details-editor-container {
+			width: 200px;
+			height: 20px;
+			border: 1px solid silver;
+			background: white;
+			display: block;
+			margin: 10px;
+			margin-top: 4px;
+			padding: 0;
+			padding-left: 4px;
+			padding-right: 4px;
+		}
+
+		.cell-reorder {
+			cursor: move;
+			background: url("../images/drag-handle.png") no-repeat center center;
+			background-color: #f5f5f5;
+		}
+
+		.recycle-bin {
+			width: 120px;
+			border: 1px solid gray;
+			background: beige;
+			padding: 4px;
+			font-size: 12pt;
+			font-weight: bold;
+			color: black;
+			text-align: center;
+			-moz-border-radius: 10px;
+		}
+
+		.red {
+			background: red;
+		}
+
+		.bold {
+			font-weight: bold;
+		}
+
+
+		html,
+		body {
 			height: 100%;
-
 		}
 
-						code {
-      background-color: #f5f5f5;
-    }
+		code {
+			background-color: #f5f5f5;
+		}
 
-    code.multiline {
-      display: block;
-      white-space: pre-wrap
-    }
+		code.multiline {
+			display: block;
+			white-space: pre-wrap
+		}
 
 		#jsoneditor {
-      width: 450px;
-      height: 400px;
-			/* max-height: 200px; */
-			/* 800px; */
-    }
+			width: 450px;
+			height: 400px;
+		}
 
 		#jsoneditor2 {
 			width: 380px;
 			height: 400px;
-			/* max-height: 200px; */
-			/* 800px; */
 		}
-
-
-
 	</style>
 
 	<script>
-		//window.localStorage.setItem('link', document.getElementById('url').value);
-			window.onbeforeunload = function() {
-					localStorage.setItem("link", $('#url').val());
-					//console.log($('#url').val());
-					localStorage.setItem("apiname", $('#title').val());
-					localStorage.setItem("max", $('#result_max').val());
-					localStorage.setItem("result", $('#result_param').val());
-					localStorage.setItem("index", $('#index_param').val());
-					localStorage.setItem("offset", $('#offset_param').val());
+		window.onbeforeunload = function () {
+			localStorage.setItem("link", $('#url').val());
+			localStorage.setItem("apiname", $('#title').val());
+			localStorage.setItem("max", $('#result_max').val());
+			localStorage.setItem("result", $('#result_param').val());
+			localStorage.setItem("index", $('#index_param').val());
+			localStorage.setItem("offset", $('#offset_param').val());
+			localStorage.setItem("cur", $('#cur_page_param').val());
+			localStorage.setItem("next", $('#next_page_param').val());
+			localStorage.setItem("nameR", $('#name').val());
+			localStorage.setItem("valueR", $('#value').val());
+			localStorage.setItem("listR", $('#listOfValues').val());
+			localStorage.setItem("descR", $('#desc').val());
+			localStorage.setItem("nH", $('#nameH').val());
+			localStorage.setItem("vH", $('#valueH').val());
 
-
-					localStorage.setItem("cur", $('#cur_page_param').val());
-					localStorage.setItem("next", $('#next_page_param').val());
-
-					localStorage.setItem("nameR", $('#name').val());
-					localStorage.setItem("valueR", $('#value').val());
-					localStorage.setItem("listR", $('#listOfValues').val());
-					localStorage.setItem("descR", $('#desc').val());
-					//localStorage.setItem("dis", $('#displayed').is(":checked"));
-					//localStorage.setItem("dis", $('#displayed').val());
-					localStorage.setItem("nH", $('#nameH').val());
-					localStorage.setItem("vH", $('#valueH').val());
-
-			}
+		}
 	</script>
 
 </body>
+
 </html>
